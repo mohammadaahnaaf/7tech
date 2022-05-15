@@ -16,7 +16,7 @@ export default function Home() {
           Welcome to <a href="https://nextjs.org">7-Tech!</a>
         </h1>
 
-        <p className={styles.description}>
+        {/* <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
@@ -49,7 +49,7 @@ export default function Home() {
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
-        </div>
+        </div> */}
       </main>
 
       <footer className={styles.footer}>
