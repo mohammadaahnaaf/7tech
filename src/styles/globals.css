@@ -1,16 +1,41 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply font-openSans;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-roboto;
+  }
+
+  h4,
+  h5,
+  h6 {
+    @apply font-openSans;
+  }
+
+  a,
+  button {
+    @apply font-roboto;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
+@layer components {
+  button,
+  a {
+    @apply focus:outline-none;
+  }
 }
