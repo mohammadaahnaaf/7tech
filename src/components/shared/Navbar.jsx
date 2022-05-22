@@ -20,9 +20,9 @@ const user = {
 
 
 const navigation = [
+    { name: 'Home', href: '/home'},
     { name: 'Shop', href: '/shop' },
-    { name: 'Products', href: '/products' },
-    // { name: 'Projects', href: '#', current: false },
+    { name: 'Categories', href: '/products' },
     // { name: 'Calendar', href: '#', current: false },
     { name: 'Cart', href: '/cart' },
 ]
@@ -45,7 +45,7 @@ function Navbar({ headerTitle }) {
 
     return (
         <div className="min-h-full">
-            <Disclosure as="nav" className="bg-yellow-500">
+            <Disclosure as="nav" className="bg-yellow-400">
                 {({ open }) => (
                     <>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -200,11 +200,11 @@ function Navbar({ headerTitle }) {
                 )}
             </Disclosure>
 
-            <header className="bg-white shadow">
+            {/* <header className="bg-white shadow">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <h1 className="text-3xl font-bold text-gray-900">{headerTitle}</h1>
                 </div>
-            </header>
+            </header> */}
 
         </div>
     )
