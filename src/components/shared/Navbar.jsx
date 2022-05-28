@@ -20,7 +20,7 @@ const user = {
 
 
 const navigation = [
-    { name: 'Home', href: '/home'},
+    { name: 'Home', href: '/home' },
     { name: 'Shop', href: '/shop' },
     { name: 'Categories', href: '/products' },
     // { name: 'Calendar', href: '#', current: false },
@@ -38,7 +38,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Navbar({ headerTitle }) {
+function Navbar() {
     const { pathname } = useRouter();
     console.log(pathname);
 
@@ -88,8 +88,9 @@ function Navbar({ headerTitle }) {
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
                                         <button
+                                            // onClick={setOpen(true)}
                                             type="button"
-                                            className="bg-white p-1 rounded-full text-red-500 hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-gray-100"
+                                            className="bg-white p-1 rounded-full text-black hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-gray-100"
                                         >
                                             <span className="sr-only">View Cart</span>
                                             <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
@@ -98,7 +99,7 @@ function Navbar({ headerTitle }) {
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="ml-3 relative">
                                             <div>
-                                                <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-white">
                                                     <span className="sr-only">Open user menu</span>
                                                     <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
                                                 </Menu.Button>
