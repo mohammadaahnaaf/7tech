@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
+
+
 const nextConfig = {
   images: {
-    domains: ['assets.example.com'],
+    hostname: ['tailwindui.com'],
+    domains: ['tailwindui.com'],
   },
   reactStrictMode: true,
 }

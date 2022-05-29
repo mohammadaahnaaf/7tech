@@ -4,6 +4,7 @@ import {
     TrashIcon,
     // XIcon
 } from '@heroicons/react/outline'
+import Layout from './layout/Layout'
 
 import Footer from './shared/Footer'
 import Navbar from './shared/Navbar'
@@ -162,13 +163,11 @@ const products = [
 //     )
 // }
 
-function Cart() {
+function Carts() {
     return (
-        <>
-            <Navbar />
             <main>
                 <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                    {/* <SideCart /> */}
+                    {/* container begains from here */}
                     <div className="flex h-full flex-col bg-white shadow-xl">
                         <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                             <div className="flex items-start justify-between">
@@ -258,9 +257,13 @@ function Cart() {
                     </div>
                 </div>
             </main>
-            <Footer />
-        </>
     )
 }
 
-export default Cart
+export default function Cart() {
+    return(
+        <Layout>
+            <Carts />
+        </Layout>
+    )
+}

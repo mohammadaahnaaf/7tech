@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Home from '../components/Home'
 import Footer from '../components/shared/Footer'
-import Shop from '../components/Shop'
+import { Shop } from '../components/Shop'
 
 // import Navbar from '../components/shared/Navbar'
 // import Products from '../components/Products'

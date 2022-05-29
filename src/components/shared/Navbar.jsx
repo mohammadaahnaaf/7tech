@@ -22,7 +22,7 @@ const user = {
 const navigation = [
     { name: 'Home', href: '/home' },
     { name: 'Shop', href: '/shop' },
-    { name: 'Categories', href: '/products' },
+    { name: 'Categories', href: '/category' },
     // { name: 'Calendar', href: '#', current: false },
     { name: 'Cart', href: '/cart' },
 ]
@@ -68,8 +68,8 @@ function Navbar() {
                                                     <a
                                                         className={classNames(
                                                             pathname === item.href
-                                                                ? 'bg-white text-blue-500'
-                                                                : 'text-white hover:bg-white hover:text-blue-500',
+                                                                ? 'bg-white text-gray-800'
+                                                                : 'text-white hover:bg-white hover:text-green-500',
                                                             'px-3 py-2 rounded-md text-sm font-medium'
 
                                                             // item.current
@@ -156,7 +156,7 @@ function Navbar() {
                                         as="a"
                                         href={item.href}
                                         className={classNames(
-                                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                            pathname === item.href ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                             'block px-3 py-2 rounded-md text-base font-medium'
                                         )}
                                         aria-current={item.current ? 'page' : undefined}
