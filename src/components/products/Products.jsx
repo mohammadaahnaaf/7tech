@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from '../layout/Layout'
+import Modal from './Details'
 
 const products = [
   {
@@ -110,10 +111,10 @@ export function Product({ handleClick }) {
                   <div className="mt-0 rounded-b-md bg-yellow-100 p-2 flex justify-between">
                     <div>
                       <h3 className="text-sm text-gray-700">
-                        <a onClick={handleClick} href={product.href}>
+                        <button type='button' onClick={handleClick} href={product.href}>
                           <span aria-hidden="true" className="absolute inset-0" />
                           {product.name}
-                        </a>
+                        </button>
                       </h3>
                       <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                     </div>
@@ -133,6 +134,7 @@ export default function Products() {
   return (
     <Layout>
       <Product />
+      <Modal />
     </Layout>
   )
 }

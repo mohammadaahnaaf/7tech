@@ -4,6 +4,7 @@ import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { StarIcon } from '@heroicons/react/solid'
 import { Product } from './Products'
+import Layout from '../layout/Layout'
 
 const product = {
     name: 'Basic Tee',
@@ -19,14 +20,14 @@ const product = {
         { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
     ],
     sizes: [
-        { name: 'XXS', inStock: true },
-        { name: 'XS', inStock: true },
+        // { name: 'XXS', inStock: true },
+        // { name: 'XS', inStock: true },
         { name: 'S', inStock: true },
         { name: 'M', inStock: true },
         { name: 'L', inStock: true },
         { name: 'XL', inStock: true },
-        { name: 'XXL', inStock: true },
-        { name: 'XXXL', inStock: false },
+        // { name: 'XXL', inStock: false },
+        // { name: 'XXXL', inStock: false },
     ],
 }
 
@@ -86,7 +87,7 @@ export default function Modal() {
                                             className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
                                             onClick={() => setIsOpen(false)}
                                         >
-                                            <span className="sr-only">Close</span>
+                                            <span className="sr-only">Closes</span>
                                             <XIcon className="h-6 w-6" aria-hidden="true" />
                                         </button>
 
@@ -233,7 +234,7 @@ export default function Modal() {
                                                         </div>
 
                                                         <button
-                                                            type="submit"
+                                                            type="button"
                                                             className="mt-6 w-full bg-yellow-400 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-gray-800 hover:text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300"
                                                         >
                                                             Add To Cart
@@ -244,7 +245,7 @@ export default function Modal() {
                                         </div>
                                     </div>
 
-                                    <div className="mt-4">
+                                    {/* <div className="mt-4">
                                         <button
                                             type="button"
                                             className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -252,7 +253,7 @@ export default function Modal() {
                                         >
                                             Close
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
@@ -466,5 +467,13 @@ export function Details() {
                 </div>
             </Dialog>
         </Transition.Root>
+    )
+}
+
+export function Shops() {
+    return(
+        <Layout>
+            <Modal />
+        </Layout>
     )
 }

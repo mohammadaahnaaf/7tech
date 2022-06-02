@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure, Menu, Popover, Transition } from '@headlessui/react'
 import { MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-
 
 const user = {
     name: 'Ahnaf',
@@ -18,7 +17,186 @@ const user = {
 // console.log(nowIn);
 
 
-
+const data = {
+    categories: [
+        {
+            id: 'women',
+            name: 'Women',
+            featured: [
+                {
+                    name: 'New Arrivals',
+                    href: '#',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+                    imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
+                },
+                {
+                    name: 'Basic Tees',
+                    href: '#',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
+                },
+            ],
+            sections: [
+                {
+                    id: 'clothing',
+                    name: 'Clothing',
+                    items: [
+                        { name: 'Tops', href: '#' },
+                        { name: 'Dresses', href: '#' },
+                        { name: 'Pants', href: '#' },
+                        { name: 'Denim', href: '#' },
+                        { name: 'Sweaters', href: '#' },
+                        { name: 'T-Shirts', href: '#' },
+                        { name: 'Jackets', href: '#' },
+                        { name: 'Activewear', href: '#' },
+                        { name: 'Browse All', href: '#' },
+                    ],
+                },
+                {
+                    id: 'accessories',
+                    name: 'Accessories',
+                    items: [
+                        { name: 'Watches', href: '#' },
+                        { name: 'Wallets', href: '#' },
+                        { name: 'Bags', href: '#' },
+                        { name: 'Sunglasses', href: '#' },
+                        { name: 'Hats', href: '#' },
+                        { name: 'Belts', href: '#' },
+                    ],
+                },
+                {
+                    id: 'brands',
+                    name: 'Brands',
+                    items: [
+                        { name: 'Full Nelson', href: '#' },
+                        { name: 'My Way', href: '#' },
+                        { name: 'Re-Arranged', href: '#' },
+                        { name: 'Counterfeit', href: '#' },
+                        { name: 'Significant Other', href: '#' },
+                    ],
+                },
+            ],
+        },
+        {
+            id: 'men',
+            name: 'Men',
+            featured: [
+                {
+                    name: 'New Arrivals',
+                    href: '#',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+                },
+                {
+                    name: 'Artwork Tees',
+                    href: '#',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt:
+                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                },
+            ],
+            sections: [
+                {
+                    id: 'clothing',
+                    name: 'Clothing',
+                    items: [
+                        { name: 'Tops', href: '#' },
+                        { name: 'Pants', href: '#' },
+                        { name: 'Sweaters', href: '#' },
+                        { name: 'T-Shirts', href: '#' },
+                        { name: 'Jackets', href: '#' },
+                        { name: 'Activewear', href: '#' },
+                        { name: 'Browse All', href: '#' },
+                    ],
+                },
+                {
+                    id: 'accessories',
+                    name: 'Accessories',
+                    items: [
+                        { name: 'Watches', href: '#' },
+                        { name: 'Wallets', href: '#' },
+                        { name: 'Bags', href: '#' },
+                        { name: 'Sunglasses', href: '#' },
+                        { name: 'Hats', href: '#' },
+                        { name: 'Belts', href: '#' },
+                    ],
+                },
+                {
+                    id: 'brands',
+                    name: 'Brands',
+                    items: [
+                        { name: 'Re-Arranged', href: '#' },
+                        { name: 'Counterfeit', href: '#' },
+                        { name: 'Full Nelson', href: '#' },
+                        { name: 'My Way', href: '#' },
+                    ],
+                },
+            ],
+        },
+        {
+            id: 'kids',
+            name: 'Kids',
+            featured: [
+                {
+                    name: 'New Arrivals',
+                    href: '#',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+                },
+                {
+                    name: 'Artwork Tees',
+                    href: '#',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt:
+                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                },
+            ],
+            sections: [
+                {
+                    id: 'clothing',
+                    name: 'Clothing',
+                    items: [
+                        { name: 'Tops', href: '#' },
+                        { name: 'Pants', href: '#' },
+                        { name: 'Sweaters', href: '#' },
+                        { name: 'T-Shirts', href: '#' },
+                        { name: 'Jackets', href: '#' },
+                        { name: 'Activewear', href: '#' },
+                        { name: 'Browse All', href: '#' },
+                    ],
+                },
+                {
+                    id: 'accessories',
+                    name: 'Accessories',
+                    items: [
+                        { name: 'Watches', href: '#' },
+                        { name: 'Wallets', href: '#' },
+                        { name: 'Bags', href: '#' },
+                        { name: 'Sunglasses', href: '#' },
+                        { name: 'Hats', href: '#' },
+                        { name: 'Belts', href: '#' },
+                    ],
+                },
+                {
+                    id: 'brands',
+                    name: 'Brands',
+                    items: [
+                        { name: 'Re-Arranged', href: '#' },
+                        { name: 'Counterfeit', href: '#' },
+                        { name: 'Full Nelson', href: '#' },
+                        { name: 'My Way', href: '#' },
+                    ],
+                },
+            ],
+        },
+    ]
+    // pages: [
+    //     { name: 'Company', href: '#' },
+    //     { name: 'Stores', href: '#' },
+    // ],
+}
 const navigation = [
     { name: 'Home', href: '/home' },
     { name: 'Shop', href: '/shop' },
@@ -27,6 +205,7 @@ const navigation = [
     { name: 'Cart', href: '/cart' },
 ]
 const userNavigation = [
+    { name: 'Your Cart', href: '/cart' },
     { name: 'Your Profile', href: '/profile' },
     { name: 'Settings', href: '/settings' },
     { name: 'Sign out', href: '/login' },
@@ -39,14 +218,14 @@ function classNames(...classes) {
 }
 
 function Navbar() {
-    const { pathname } = useRouter();
-    console.log(pathname);
 
+    const { pathname } = useRouter();
+    // console.log(pathname);
 
     return (
         <div className="min-h-full">
-            <Disclosure as="nav" className="bg-yellow-400">
-                {({ open }) => (
+            <Disclosure as="nav" className="bg-black">
+            {({ open }) => (
                     <>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
@@ -136,7 +315,7 @@ function Navbar() {
                                 </div>
                                 <div className="-mr-2 flex md:hidden">
                                     {/* Mobile menu button */}
-                                    <Disclosure.Button className="bg-white inline-flex items-center justify-center p-2 rounded-md text-blue-500 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                    <Disclosure.Button className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200">
                                         <span className="sr-only">Open main menu</span>
                                         {open ? (
                                             <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -148,7 +327,7 @@ function Navbar() {
                             </div>
                         </div>
 
-                        <Disclosure.Panel className="md:hidden">
+                        <Disclosure.Panel className="md:hidden bg-yellow-100">
                             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                                 {navigation.map((item) => (
                                     <Disclosure.Button
@@ -156,7 +335,7 @@ function Navbar() {
                                         as="a"
                                         href={item.href}
                                         className={classNames(
-                                            pathname === item.href ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                            pathname === item.href ? 'bg-white text-gray-800' : '',
                                             'block px-3 py-2 rounded-md text-base font-medium'
                                         )}
                                         aria-current={item.current ? 'page' : undefined}
@@ -165,8 +344,8 @@ function Navbar() {
                                     </Disclosure.Button>
                                 ))}
                             </div>
-                            <div className="pt-4 pb-3 border-t border-gray-700">
-                                <div className="flex items-center px-5">
+                            <div className="pt-2 pb-3 border-t border-gray-300">
+                                {/* <div className="flex items-center px-5">
                                     <div className="flex-shrink-0">
                                         <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
                                     </div>
@@ -176,20 +355,20 @@ function Navbar() {
                                     </div>
                                     <button
                                         type="button"
-                                        className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                                        className="ml-auto bg-white flex-shrink-0 p-1 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-white"
                                     >
                                         <span className="sr-only">View notifications</span>
-                                        {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
+                                        <BellIcon className="h-6 w-6" aria-hidden="true" />
                                         <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                                     </button>
-                                </div>
+                                </div> */}
                                 <div className="mt-3 px-2 space-y-1">
                                     {userNavigation.map((item) => (
                                         <Disclosure.Button
                                             key={item.name}
                                             as="a"
                                             href={item.href}
-                                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-800"
                                         >
                                             {item.name}
                                         </Disclosure.Button>
@@ -205,6 +384,117 @@ function Navbar() {
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <h1 className="text-3xl font-bold text-gray-900">{headerTitle}</h1>
                 </div>
+            </header> */}
+
+            {/* <header className="relative bg-yellow-100">
+              
+                <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
+                    <div className="border-b border-gray-200">
+                        <div className="h-16 flex items-center">
+                            <button
+                                type="button"
+                                className="bg-white p-2 rounded-md text-gray-400 lg:hidden"
+                                onClick={() => setOpen(true)}
+                            >
+                                <span className="sr-only">Open menu</span>
+                                <MenuIcon className="h-6 w-6" aria-hidden="true" />
+                            </button>
+
+                            <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
+                                <div className="h-full flex space-x-8">
+                                    {data.categories.map((category) => (
+                                        <Popover key={category.name} className="flex">
+                                            {({ open }) => (
+                                                <>
+                                                    <div className="relative flex">
+                                                        <Popover.Button
+                                                            className={classNames(
+                                                                open
+                                                                    ? 'border-green-500 text-green-500'
+                                                                    : 'border-transparent text-gray-700 hover:text-gray-800',
+                                                                'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px'
+                                                            )}
+                                                        >
+                                                            {category.name}
+                                                        </Popover.Button>
+                                                    </div>
+
+                                                    <Transition
+                                                        as={Fragment}
+                                                        enter="transition ease-out duration-200"
+                                                        enterFrom="opacity-0"
+                                                        enterTo="opacity-100"
+                                                        leave="transition ease-in duration-150"
+                                                        leaveFrom="opacity-100"
+                                                        leaveTo="opacity-0"
+                                                    >
+                                                        <Popover.Panel className="absolute top-full inset-x-0 text-sm text-gray-500">
+                                                        
+                                                            <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
+
+                                                            <div className="relative bg-white">
+                                                                <div className="max-w-7xl mx-auto px-8">
+                                                                    <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
+                                                                        <div className="col-start-2 grid grid-cols-2 gap-x-8">
+                                                                            {category.featured.map((item) => (
+                                                                                <div key={item.name} className="group relative text-base sm:text-sm">
+                                                                                    <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
+                                                                                        <img
+                                                                                            src={item.imageSrc}
+                                                                                            alt={item.imageAlt}
+                                                                                            className="object-center object-cover"
+                                                                                        />
+                                                                                    </div>
+                                                                                    <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                                                                        <span className="absolute z-10 inset-0" aria-hidden="true" />
+                                                                                        {item.name}
+                                                                                    </a>
+                                                                                    <p aria-hidden="true" className="mt-1">
+                                                                                        Shop now
+                                                                                    </p>
+                                                                                </div>
+                                                                            ))}
+                                                                        </div>
+                                                                        <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
+                                                                            {category.sections.map((section) => (
+                                                                                <div key={section.name}>
+                                                                                    <p id={`${section.name}-heading`} className="font-medium text-gray-900">
+                                                                                        {section.name}
+                                                                                    </p>
+                                                                                    <ul
+                                                                                        role="list"
+                                                                                        aria-labelledby={`${section.name}-heading`}
+                                                                                        className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                                                                    >
+                                                                                        {section.items.map((item) => (
+                                                                                            <li key={item.name} className="flex">
+                                                                                                <a href={item.href} className="hover:text-gray-800">
+                                                                                                    {item.name}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        ))}
+                                                                                    </ul>
+                                                                                </div>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </Popover.Panel>
+                                                    </Transition>
+                                                </>
+                                            )}
+                                        </Popover>
+                                    ))}
+
+                                </div>
+                            </Popover.Group>
+
+                            <div className="ml-auto flex items-center">
+                            </div>
+                        </div>
+                    </div>
+                </nav>
             </header> */}
 
         </div>
