@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
 import { Disclosure, Menu, Popover, Transition } from '@headlessui/react'
 import { MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
-import Image from 'next/image'
+import { HeartIcon } from '@heroicons/react/solid'
+// import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
@@ -225,7 +226,7 @@ function Navbar() {
     return (
         <div className="min-h-full">
             <Disclosure as="nav" className="bg-black">
-            {({ open }) => (
+                {({ open }) => (
                     <>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
@@ -233,7 +234,9 @@ function Navbar() {
                                     <div className="flex-shrink-0">
                                         <Link href='/'>
                                             <a>
-                                                <Image src="/logo.svg" alt="Home" width={50} height={50} />
+                                                <HeartIcon className='text-white h-12 w-12' />
+
+                                                {/* <Image src="/logo.svg" alt="Home" width={50} height={50} /> */}
                                             </a>
                                         </Link>
                                     </div>
