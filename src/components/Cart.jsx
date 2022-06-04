@@ -165,22 +165,14 @@ const products = [
 
 function Carts() {
     return (
-            <main>
+            <>
                 <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                     {/* container begains from here */}
-                    <div className="flex h-full flex-col bg-white shadow-xl">
+                    <div className="flex h-full flex-col bg-gray-100 rounded-md shadow-xl">
                         <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                             <div className="flex items-start justify-between">
                                 <h2 className="text-xl font-large text-gray-900"> Shopping cart </h2>
                                 <div className="ml-3 flex h-7 items-center">
-                                    {/* <button
-                                        type="button"
-                                        className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        <span className="sr-only">Close panel</span>
-                                        <XIcon className="h-6 w-6" aria-hidden="true" />
-                                    </button> */}
                                 </div>
                             </div>
 
@@ -256,7 +248,7 @@ function Carts() {
                         </div>
                     </div>
                 </div>
-            </main>
+            </>
     )
 }
 
