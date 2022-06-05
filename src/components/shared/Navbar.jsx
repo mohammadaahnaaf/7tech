@@ -269,14 +269,33 @@ function Navbar() {
                                 </div>
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
-                                        <button
+                                        {/* <button
                                             // onClick={setOpen(true)}
                                             type="button"
                                             className="bg-white p-1 rounded-full text-black hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-gray-100"
                                         >
                                             <span className="sr-only">View Cart</span>
                                             <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                                        </button>
+                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                            <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                                        </button> */}
+                                        <Link href='/cart'>
+                                            <a>
+                                                <button
+                                                    type='button'
+                                                    // onClick={}
+                                                    className="text-black bg-white flex p-[8px] rounded-full relative hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-400 focus:ring-gray-100"
+                                                >
+                                                    <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
+
+                                                    <span class="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-sky-500 justify-center">
+                                                        <span class="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-sky-400 opacity-75"></span>
+                                                        <p class=" inline-flex items-center text-white text-xs">10</p>
+                                                    </span>
+                                                </button>
+                                            </a>
+                                        </Link>
+
 
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="ml-3 relative">

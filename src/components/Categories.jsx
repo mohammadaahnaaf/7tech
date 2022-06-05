@@ -8,7 +8,7 @@ const navigation = {
     categories: [
         {
             id: 'women',
-            name: 'Women',
+            name: 'Smartphones',
             featured: [
                 {
                     name: 'New Arrivals',
@@ -17,7 +17,7 @@ const navigation = {
                     imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
                 },
                 {
-                    name: 'Basic Tees',
+                    name: 'Offers',
                     href: '#',
                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
@@ -26,7 +26,7 @@ const navigation = {
             sections: [
                 {
                     id: 'clothing',
-                    name: 'Clothing',
+                    name: 'Smartphones',
                     items: [
                         { name: 'Tops', href: '#' },
                         { name: 'Dresses', href: '#' },
@@ -66,7 +66,7 @@ const navigation = {
         },
         {
             id: 'men',
-            name: 'Men',
+            name: 'PC',
             featured: [
                 {
                     name: 'New Arrivals',
@@ -76,7 +76,7 @@ const navigation = {
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
-                    name: 'Artwork Tees',
+                    name: 'Customized PC',
                     href: '#',
                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
                     imageAlt:
@@ -86,7 +86,7 @@ const navigation = {
             sections: [
                 {
                     id: 'clothing',
-                    name: 'Clothing',
+                    name: 'CPU',
                     items: [
                         { name: 'Tops', href: '#' },
                         { name: 'Pants', href: '#' },
@@ -123,7 +123,7 @@ const navigation = {
         },
         {
             id: 'kids',
-            name: 'Kids',
+            name: 'Laptop',
             featured: [
                 {
                     name: 'New Arrivals',
@@ -133,7 +133,7 @@ const navigation = {
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
-                    name: 'Artwork Tees',
+                    name: 'Macbook',
                     href: '#',
                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
                     imageAlt:
@@ -143,7 +143,7 @@ const navigation = {
             sections: [
                 {
                     id: 'clothing',
-                    name: 'Clothing',
+                    name: 'Laptop',
                     items: [
                         { name: 'Tops', href: '#' },
                         { name: 'Pants', href: '#' },
@@ -178,11 +178,121 @@ const navigation = {
                 },
             ],
         },
+        {
+            id: 'lifestyle',
+            name: 'Lifestyle',
+            featured: [
+                {
+                    name: 'New Arrivals',
+                    href: '#',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+                },
+                {
+                    name: 'Smartwatch',
+                    href: '#',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt:
+                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                },
+            ],
+            sections: [
+                {
+                    id: 'clothing',
+                    name: 'Women',
+                    items: [
+                        { name: 'Tops', href: '#' },
+                        { name: 'Pants', href: '#' },
+                        { name: 'Sweaters', href: '#' },
+                        { name: 'T-Shirts', href: '#' },
+                        { name: 'Jackets', href: '#' },
+                        { name: 'Activewear', href: '#' },
+                        { name: 'Browse All', href: '#' },
+                    ],
+                },
+                {
+                    id: 'accessories',
+                    name: 'Men',
+                    items: [
+                        { name: 'Watches', href: '#' },
+                        { name: 'Wallets', href: '#' },
+                        { name: 'Bags', href: '#' },
+                        { name: 'Sunglasses', href: '#' },
+                        { name: 'Hats', href: '#' },
+                        { name: 'Belts', href: '#' },
+                    ],
+                },
+                {
+                    id: 'brands',
+                    name: 'Households',
+                    items: [
+                        { name: 'Re-Arranged', href: '#' },
+                        { name: 'Counterfeit', href: '#' },
+                        { name: 'Full Nelson', href: '#' },
+                        { name: 'My Way', href: '#' },
+                    ],
+                },
+            ],
+        },
+        {
+            id: 'electronics',
+            name: 'Electronics',
+            featured: [
+                {
+                    name: 'Eid Offers',
+                    href: '#',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
+                },
+                {
+                    name: 'Refregerators',
+                    href: '#',
+                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt:
+                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                },
+            ],
+            sections: [
+                {
+                    id: 'clothing',
+                    name: 'Air Conditionar',
+                    items: [
+                        { name: 'Tops', href: '#' },
+                        { name: 'Pants', href: '#' },
+                        { name: 'Sweaters', href: '#' },
+                        { name: 'T-Shirts', href: '#' },
+                        { name: 'Jackets', href: '#' },
+                        { name: 'Activewear', href: '#' },
+                        { name: 'Browse All', href: '#' },
+                    ],
+                },
+                {
+                    id: 'accessories',
+                    name: 'Smart TV',
+                    items: [
+                        { name: 'Watches', href: '#' },
+                        { name: 'Wallets', href: '#' },
+                        { name: 'Bags', href: '#' },
+                        { name: 'Sunglasses', href: '#' },
+                        { name: 'Hats', href: '#' },
+                        { name: 'Belts', href: '#' },
+                    ],
+                },
+                {
+                    id: 'Kitchen Hood',
+                    name: 'Households',
+                    items: [
+                        { name: 'Re-Arranged', href: '#' },
+                        { name: 'Counterfeit', href: '#' },
+                        { name: 'Full Nelson', href: '#' },
+                        { name: 'My Way', href: '#' },
+                    ],
+                },
+            ],
+        },
     ]
-    // pages: [
-    //     { name: 'Company', href: '#' },
-    //     { name: 'Stores', href: '#' },
-    // ],
 }
 
 function classNames(...classes) {
@@ -190,7 +300,7 @@ function classNames(...classes) {
 }
 
 function Categories() {
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
     return (
         <div className="bg-white h-[100vh]">
@@ -334,13 +444,10 @@ function Categories() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="relative bg-yellow-100">
-                <p className="bg-indigo-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
-                    Get free delivery on orders over $100
-                </p>
+            <header className="relative bg-yellow-300 mb-2">
 
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
-                    <div className="border-b border-gray-200">
+                     <div className="border-b border-gray-200">
                         <div className="h-16 flex items-center">
                             <button
                                 type="button"
@@ -351,19 +458,6 @@ function Categories() {
                                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
                             </button>
 
-                            {/* Logo */}
-                            {/* <div className="ml-4 flex lg:ml-0">
-                                <a href="#">
-                                    <span className="sr-only">Workflow</span>
-                                    <img
-                                        className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                                        alt=""
-                                    />
-                                </a>
-                            </div> */}
-
-                            {/* Flyout menus */}
                             <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                                 <div className="h-full flex space-x-8">
                                     {navigation.categories.map((category) => (
@@ -376,7 +470,7 @@ function Categories() {
                                                                 open
                                                                     ? 'border-green-500 text-green-500'
                                                                     : 'border-transparent text-gray-700 hover:text-gray-800',
-                                                                'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px'
+                                                                'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-bold border-b-2 -mb-px pt-px'
                                                             )}
                                                         >
                                                             {category.name}
@@ -393,7 +487,6 @@ function Categories() {
                                                         leaveTo="opacity-0"
                                                     >
                                                         <Popover.Panel className="absolute top-full inset-x-0 text-sm text-gray-500">
-                                                            {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                                                             <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
                                                             <div className="relative bg-white">
@@ -451,50 +544,11 @@ function Categories() {
                                         </Popover>
                                     ))}
 
-                                    {/* {navigation.pages.map((page) => (
-                                        <a
-                                            key={page.name}
-                                            href={page.href}
-                                            className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                                        >
-                                            {page.name}
-                                        </a>
-                                    ))} */}
                                 </div>
                             </Popover.Group>
 
                             <div className="ml-auto flex items-center">
-                                {/* <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                        Sign in
-                                    </a>
-                                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                        Create account
-                                    </a>
-                                </div> */}
 
-                                {/* <div className="hidden lg:ml-8 lg:flex">
-                                    <a href="#" className="text-gray-700 hover:text-gray-800 flex items-center">
-                                        <img
-                                            src="https://tailwindui.com/img/flags/flag-canada.svg"
-                                            alt=""
-                                            className="w-5 h-auto block flex-shrink-0"
-                                        />
-                                        <span className="ml-3 block text-sm font-medium">CAD</span>
-                                        <span className="sr-only">, change currency</span>
-                                    </a>
-                                </div> */}
-
-                                {/* Search */}
-                                {/* <div className="flex lg:ml-6">
-                                    <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                                        <span className="sr-only">Search</span>
-                                        <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                                    </a>
-                                </div> */}
-
-                                {/* Cart */}
                                 {/* <div className="ml-4 flow-root lg:ml-6">
                                     <a href="#" className="group -m-2 p-2 flex items-center">
                                         <ShoppingBagIcon
@@ -507,8 +561,8 @@ function Categories() {
                                 </div> */}
                             </div>
                         </div>
-                    </div>
-                </nav>
+                    </div> 
+                </nav> 
             </header>
         </div>
     )

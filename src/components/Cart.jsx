@@ -1,13 +1,14 @@
 // import { Fragment, useState } from 'react'
 // import { Dialog, Transition } from '@headlessui/react'
+// import Footer from './shared/Footer'
+// import Navbar from './shared/Navbar'
+
 import {
     TrashIcon,
     // XIcon
 } from '@heroicons/react/outline'
 import Layout from './layout/Layout'
 
-import Footer from './shared/Footer'
-import Navbar from './shared/Navbar'
 
 const products = [
     {
