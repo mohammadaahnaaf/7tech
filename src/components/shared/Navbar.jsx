@@ -288,9 +288,9 @@ function Navbar() {
                                                 >
                                                     <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
 
-                                                    <span class="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-sky-500 justify-center">
-                                                        <span class="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-sky-400 opacity-75"></span>
-                                                        <p class=" inline-flex items-center text-white text-xs">10</p>
+                                                    <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-sky-500 justify-center">
+                                                        <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-sky-400 opacity-75"></span>
+                                                        <p className=" inline-flex items-center text-white text-xs">3</p>
                                                     </span>
                                                 </button>
                                             </a>

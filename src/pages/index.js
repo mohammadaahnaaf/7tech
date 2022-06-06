@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Homes } from '../components/Home'
 import { Shop } from '../components/Shop'
 import Layout from '../components/layout/Layout'
+import Modal from '../components/products/Details'
 
 // import Footer from '../components/shared/Footer'
 // import Navbar from '../components/shared/Navbar'
@@ -17,7 +18,8 @@ export default function MainPage() {
       </Head>
       <Layout>
         <Homes />
-        <Shop />
+        {/* <Shop /> */}
+        <Modal />
       </Layout>
 
     </>

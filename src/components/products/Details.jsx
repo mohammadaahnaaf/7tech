@@ -3,8 +3,9 @@ import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { StarIcon } from '@heroicons/react/solid'
-import { Product } from './Products'
+// import { Product } from './Products'
 import Layout from '../layout/Layout'
+import { Shop } from '../Shop'
 
 const product = {
     name: 'Basic Tee',
@@ -50,7 +51,8 @@ export default function Modal() {
     }
     return (
         <>
-            <Product handleClick={openModal} />
+            {/* <Product handleClick={openModal} /> */}
+            <Shop handleClick={openModal} />
 
             {/* Modal  */}
             <Transition appear show={isOpen} as={Fragment}>
