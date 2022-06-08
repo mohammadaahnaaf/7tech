@@ -301,17 +301,18 @@ function classNames(...classes) {
 
 export function Categories() {
     const [open, setOpen] = useState(false)
-    const [height, setHeight] = useState(false)
+    // const [height, setHeight] = useState(false)
 
     return (
         <div className={
-            classNames(height === true ? 'h-[100vh]' : '',
-                // 'bg-white h-[100vh]'
+            classNames(
+                // height === true ? 'h-[100vh]' : '',
+                'bg-white'
             )
         }>
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="relative z-0 lg:hidden" onClose={setOpen && setHeight}>
+                <Dialog as="div" className="relative z-0 lg:hidden" onClose={setOpen}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
@@ -353,7 +354,7 @@ export function Categories() {
                                             {navigation.categories.map((category) => (
                                                 <Tab
                                                     key={category.name}
-                                                    onClick={() => setHeight(true)}
+                                                    // onClick={() => setHeight(true)}
                                                     className={({ selected }) =>
                                                         classNames(
                                                             selected ? 'text-green-500 border-green-500' : 'text-gray-900 border-transparent',
@@ -472,7 +473,7 @@ export function Categories() {
                                                 <>
                                                     <div className="relative flex">
                                                         <Popover.Button
-                                                            onClick={() => setHeight(true)}
+                                                            // onClick={() => setHeight(true)}
                                                             className={classNames(
                                                                 open
                                                                     ? 'border-green-500 text-green-500'
