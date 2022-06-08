@@ -299,14 +299,19 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Categories() {
+export function Categories() {
     const [open, setOpen] = useState(false)
+    const [height, setHeight] = useState(false)
 
     return (
-        <div className="bg-white h-[100vh]">
+        <div className={
+            classNames(height === true ? 'h-[100vh]' : '',
+                // 'bg-white h-[100vh]'
+            )
+        }>
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="relative z-0 lg:hidden" onClose={setOpen}>
+                <Dialog as="div" className="relative z-0 lg:hidden" onClose={setOpen && setHeight}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
@@ -319,7 +324,7 @@ function Categories() {
                         <div className="fixed inset-0 bg-black bg-opacity-25" />
                     </Transition.Child>
 
-                    <div className="fixed inset-0 flex z-40">
+                    <div className="fixed inset-0 flex z-50">
                         <Transition.Child
                             as={Fragment}
                             enter="transition ease-in-out duration-300 transform"
@@ -348,6 +353,7 @@ function Categories() {
                                             {navigation.categories.map((category) => (
                                                 <Tab
                                                     key={category.name}
+                                                    onClick={() => setHeight(true)}
                                                     className={({ selected }) =>
                                                         classNames(
                                                             selected ? 'text-green-500 border-green-500' : 'text-gray-900 border-transparent',
@@ -362,15 +368,15 @@ function Categories() {
                                     </div>
                                     <Tab.Panels as={Fragment}>
                                         {navigation.categories.map((category) => (
-                                            <Tab.Panel key={category.name} className="pt-10 pb-8 px-4 space-y-10">
-                                                <div className="grid grid-cols-2 gap-x-4">
+                                            <Tab.Panel key={category.name} className="pt-10 pb-8 z-50 px-4 space-y-10">
+                                                <div className="grid grid-cols-2 gap-x-4 z-50">
                                                     {category.featured.map((item) => (
-                                                        <div key={item.name} className="group relative text-sm">
+                                                        <div key={item.name} className="group z-50 relative text-sm">
                                                             <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                                 <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
                                                             </div>
                                                             <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                                                <span className="absolute z-10 inset-0" aria-hidden="true" />
+                                                                <span className="absolute z-50 inset-0" aria-hidden="true" />
                                                                 {item.name}
                                                             </a>
                                                             <p aria-hidden="true" className="mt-1">
@@ -444,10 +450,10 @@ function Categories() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="relative bg-yellow-300 mb-2">
+            <header  className="relative bg-yellow-300 mb-2">
 
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
-                     <div className="border-b border-gray-200">
+                    <div className="border-b border-gray-200">
                         <div className="h-16 flex items-center">
                             <button
                                 type="button"
@@ -466,6 +472,7 @@ function Categories() {
                                                 <>
                                                     <div className="relative flex">
                                                         <Popover.Button
+                                                            onClick={() => setHeight(true)}
                                                             className={classNames(
                                                                 open
                                                                     ? 'border-green-500 text-green-500'
@@ -547,22 +554,9 @@ function Categories() {
                                 </div>
                             </Popover.Group>
 
-                            <div className="ml-auto flex items-center">
-
-                                {/* <div className="ml-4 flow-root lg:ml-6">
-                                    <a href="#" className="group -m-2 p-2 flex items-center">
-                                        <ShoppingBagIcon
-                                            className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                                            aria-hidden="true"
-                                        />
-                                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                        <span className="sr-only">items in cart, view bag</span>
-                                    </a>
-                                </div> */}
-                            </div>
                         </div>
-                    </div> 
-                </nav> 
+                    </div>
+                </nav>
             </header>
         </div>
     )

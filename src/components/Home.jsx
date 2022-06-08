@@ -7,12 +7,10 @@ import Layout from './layout/Layout'
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
 // import Footer from './shared/Footer'
 
-
-export function Homes() {
+function Banner() {
     return (
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-
-            {/* <Carousel
+            <Carousel
                 autoPlay
                 infiniteLoop
                 showStatus={false}
@@ -39,9 +37,14 @@ export function Homes() {
                     className='object-cover h-[max(550px,min(85vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
                 <Image src='/images/banner.webp' layout='fill' />
-            </Carousel> */}
+            </Carousel>
+        </div>
+    )
+}
 
-
+export function Homes() {
+    return (
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
 
             <div className="grid grid-cols-2 gap-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
 
@@ -65,7 +68,7 @@ export function Homes() {
                     </div>
                 </div>
 
-                <div className="col-end-7 col-span-2">
+                <div className="col-end-7 col-span-2 z-0">
 
                     {/* Decorative image grid */}
                     <div className="flex items-center space-x-6 lg:space-x-5">
@@ -78,7 +81,7 @@ export function Homes() {
                                     // src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
                                     src="/features/lady-airpod.jpg"
                                     alt=""
-                                    className="w-full h-full object-center object-cover"
+                                    className="w-full h-full object-center z-0 object-cover"
                                 />
                             </div>
                             <div className="w-40 h-64 rounded-lg overflow-hidden">
@@ -102,7 +105,7 @@ export function Homes() {
                                     src="/features/lady-headphone.jpg"
                                     // src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
                                     alt=""
-                                    className="w-full h-full object-center object-cover "
+                                    className="w-full h-full z-0 object-center object-cover "
                                 />
                             </div>
 
@@ -140,7 +143,8 @@ export function Homes() {
 export default function Home() {
     return (
         <Layout>
-            <Homes />
+            {/* <Homes /> */}
+            <Banner />
         </Layout>
     )
 }

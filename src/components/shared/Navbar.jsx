@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Disclosure, Menu, Popover, Transition } from '@headlessui/react'
-import { MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, SearchIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
 import { HeartIcon } from '@heroicons/react/solid'
 // import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -241,7 +241,19 @@ function Navbar() {
                                         </Link>
                                     </div>
                                     <div className="hidden md:block">
-                                        <div className="ml-10 flex items-baseline space-x-4">
+                                        <div className="ml-10 flex items-baseline">
+                                            <form>
+                                                <label htmlfor="default-search" className="mb-2 text-sm font-medium sr-only text-gray-300">Search</label>
+                                                <div className="relative">
+                                                    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                        <SearchIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                                                    </div>
+                                                    <input type="search" id="default-search" className="block py-2 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full focus:border-0 focus:ring-0" placeholder="Search..." required />
+                                                    <button type="submit" className="text-white absolute inset-y-1 right-1 bg-black bg-opacity-70 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm px-3 py-1 ">Search</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        {/* <div className="ml-10 flex items-baseline space-x-4">
                                             {navigation.map((item) => (
                                                 <Link
                                                     href={item.href}
@@ -264,7 +276,7 @@ function Navbar() {
                                                     </a>
                                                 </Link>
                                             ))}
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="hidden md:block">
