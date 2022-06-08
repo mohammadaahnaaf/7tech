@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Homes } from '../components/Home'
+import { Banner, Homes } from '../components/Home'
 import { Shop } from '../components/Shop'
 import Layout from '../components/layout/Layout'
 import Modal from '../components/products/Details'
@@ -17,8 +17,8 @@ export default function MainPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Homes />
-        {/* <Shop /> */}
+        <Banner />
+        {/* <Homes /> */}
         <Modal />
       </Layout>
 

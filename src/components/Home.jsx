@@ -2,41 +2,42 @@ import Image from 'next/image'
 import React from 'react'
 import Layout from './layout/Layout'
 
-// import Navbar from './shared/Navbar'
-// import { Carousel } from 'react-responsive-carousel';
-// import 'react-responsive-carousel/lib/styles/carousel.min.css';
-// import Footer from './shared/Footer'
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-function Banner() {
+
+export function Banner() {
     return (
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <Carousel
                 autoPlay
                 infiniteLoop
+                animationHandler="fade" 
                 showStatus={false}
                 showIndicators={false}
                 showThumbs={false}
-                interval={2000}
+                interval={2500}
+                transitionTime={512}
                 swipeable
                 emulateTouch
                 swipeScrollTolerance
             >
                 <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(40).webp"
-
-                    className='object-cover h-[max(550px,min(85vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    // src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(40).webp"
+                    src='/banners/banner-3.jpg'
+                    className='object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
                 <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(19).webp"
-
-                    className='object-cover h-[max(550px,min(85vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    // src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(19).webp"
+                    src='/banners/banner.jpg'
+                    className='object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
                 <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(35).webp"
-
-                    className='object-cover h-[max(550px,min(85vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    // src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(35).webp"
+                    src='/banners/banner-2.jpg'
+                    className='object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
-                <Image src='/images/banner.webp' layout='fill' />
+                {/* <Image src='/banners/banner.jpg' layout='fill' /> */}
             </Carousel>
         </div>
     )
@@ -143,8 +144,8 @@ export function Homes() {
 export default function Home() {
     return (
         <Layout>
-            {/* <Homes /> */}
-            <Banner />
+            <Homes />
+            {/* <Banner /> */}
         </Layout>
     )
 }
