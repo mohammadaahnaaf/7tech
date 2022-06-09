@@ -242,16 +242,22 @@ function Navbar() {
                                     </div>
                                     <div className="hidden md:block">
                                         <div className="ml-10 flex items-baseline">
-                                            <form>
-                                                <label htmlFor="default-search" className="mb-2 text-sm font-medium sr-only text-gray-300">Search</label>
-                                                <div className="relative">
-                                                    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                                        <SearchIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                                                    </div>
-                                                    <input type="search" id="default-search" className="block py-2 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full focus:border-0 focus:ring-0" placeholder="Search..." required />
-                                                    <button type="submit" className="text-white absolute inset-y-1 right-1 bg-black bg-opacity-70 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm px-3 py-1 ">Search</button>
+                                            <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+                                            <div className="relative">
+                                                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                                    <SearchIcon className='w-5 h-5 text-gray-500 dark:text-gray-400' />
+                                                    {/* <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> */}
                                                 </div>
-                                            </form>
+                                                <input
+                                                    type="search"
+                                                    id="default-search"
+                                                    className="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                                    placeholder="Search..."
+                                                    required
+
+                                                />
+                                                <button type="button" className="text-white absolute inset-y-2 right-2 items-center  bg-black bg-opacity-20 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm px-3 py-1 dark:bg-blur-sm dark:bg-black dark:hover:bg-green-700 dark:focus:ring-green-800">Search</button>
+                                            </div>
                                         </div>
                                         {/* <div className="ml-10 flex items-baseline space-x-4">
                                             {navigation.map((item) => (

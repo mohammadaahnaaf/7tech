@@ -11,15 +11,17 @@ const navigation = {
             name: 'Smartphones',
             featured: [
                 {
-                    name: 'New Arrivals',
+                    name: 'i phone',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+                    imageSrc: '/products/phone-0.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
                     imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
                 },
                 {
                     name: 'Offers',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageSrc: '/products/phone-1.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
                 },
             ],
@@ -71,16 +73,16 @@ const navigation = {
                 {
                     name: 'New Arrivals',
                     href: '#',
-                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageSrc: '/products/pc.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
                     name: 'Customized PC',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                    imageSrc: '/products/pc-fan.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
                 },
             ],
             sections: [
@@ -128,16 +130,16 @@ const navigation = {
                 {
                     name: 'New Arrivals',
                     href: '#',
-                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageSrc: '/products/laptop-0.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
                     name: 'Macbook',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                    imageSrc: '/products/laptop.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
                 },
             ],
             sections: [
@@ -185,21 +187,21 @@ const navigation = {
                 {
                     name: 'New Arrivals',
                     href: '#',
-                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageSrc: '/products/smart-glass.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
-                    name: 'Smartwatch',
+                    name: 'Airbuds',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                    imageSrc: '/products/airbot.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
                 },
             ],
             sections: [
                 {
-                    id: 'clothing',
+                    id: 'women',
                     name: 'Women',
                     items: [
                         { name: 'Tops', href: '#' },
@@ -242,16 +244,16 @@ const navigation = {
                 {
                     name: 'Eid Offers',
                     href: '#',
-                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+                    imageSrc: '/products/phone-6.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
                     name: 'Refregerators',
                     href: '#',
-                    imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-                    imageAlt:
-                        'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
+                    imageSrc: '/products/phone-0.jpg',
+                    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
+                    imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
                 },
             ],
             sections: [
@@ -299,17 +301,12 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export function Categories() {
+export function CategoryBar() {
     const [open, setOpen] = useState(false)
     // const [height, setHeight] = useState(false)
 
     return (
-        <div className={
-            classNames(
-                // height === true ? 'h-[100vh]' : '',
-                'bg-white'
-            )
-        }>
+        <div className='bg-white'>
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-0 lg:hidden" onClose={setOpen}>
@@ -354,7 +351,7 @@ export function Categories() {
                                             {navigation.categories.map((category) => (
                                                 <Tab
                                                     key={category.name}
-                                                    // onClick={() => setHeight(true)}
+
                                                     className={({ selected }) =>
                                                         classNames(
                                                             selected ? 'text-green-500 border-green-500' : 'text-gray-900 border-transparent',
@@ -411,47 +408,14 @@ export function Categories() {
                                     </Tab.Panels>
                                 </Tab.Group>
 
-                                {/* <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                                    {navigation.pages.map((page) => (
-                                        <div key={page.name} className="flow-root">
-                                            <a href={page.href} className="-m-2 p-2 block font-medium text-gray-900">
-                                                {page.name}
-                                            </a>
-                                        </div>
-                                    ))}
-                                </div> */}
 
-                                {/* <div className="border-t border-gray-200 py-6 px-4 space-y-6">
-                                    <div className="flow-root">
-                                        <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
-                                            Sign in
-                                        </a>
-                                    </div>
-                                    <div className="flow-root">
-                                        <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
-                                            Create account
-                                        </a>
-                                    </div>
-                                </div> */}
-
-                                {/* <div className="border-t border-gray-200 py-6 px-4">
-                                    <a href="#" className="-m-2 p-2 flex items-center">
-                                        <img
-                                            src="https://tailwindui.com/img/flags/flag-canada.svg"
-                                            alt=""
-                                            className="w-5 h-auto block flex-shrink-0"
-                                        />
-                                        <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
-                                        <span className="sr-only">, change currency</span>
-                                    </a>
-                                </div> */}
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
                 </Dialog>
             </Transition.Root>
 
-            <header  className="relative bg-yellow-300 mb-2">
+            <header className="relative bg-gray-200 mb-2">
 
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
                     <div className="border-b border-gray-200">
@@ -477,7 +441,7 @@ export function Categories() {
                                                             className={classNames(
                                                                 open
                                                                     ? 'border-green-500 text-green-500'
-                                                                    : 'border-transparent text-gray-700 hover:text-gray-800',
+                                                                    : 'border-transparent text-gray-500 hover:text-green-500',
                                                                 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-bold border-b-2 -mb-px pt-px'
                                                             )}
                                                         >
@@ -497,9 +461,9 @@ export function Categories() {
                                                         <Popover.Panel className="absolute top-full inset-x-0 text-sm text-gray-500">
                                                             <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
-                                                            <div className="relative bg-white">
+                                                            <div className="relative bg-white z-40">
                                                                 <div className="max-w-7xl mx-auto px-8">
-                                                                    <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
+                                                                    <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-8">
                                                                         <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                                                             {category.featured.map((item) => (
                                                                                 <div key={item.name} className="group relative text-base sm:text-sm">
@@ -567,7 +531,7 @@ export function Categories() {
 export default function Category() {
     return (
         <Layout>
-            <Categories />
+            <CategoryBar />
         </Layout>
     )
 }

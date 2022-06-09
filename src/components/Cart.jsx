@@ -13,24 +13,25 @@ import Layout from './layout/Layout'
 const products = [
     {
         id: 1,
-        name: 'Throwback Hip Bag',
+        name: 'Apple iphone',
         href: '#',
-        color: 'Salmon',
+        color: 'Gray',
         price: '$ 90.00',
         quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
+        imageSrc: '/products/phone-0.jpg',
+        // imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
         imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
     },
     {
         id: 2,
-        name: 'Medium Stuff Satchel',
+        name: 'Headphone',
         href: '#',
-        color: 'Blue',
+        color: 'White',
         price: '$ 32.00',
         quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+        imageSrc: '/products/phone-6.jpg',
+        // imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
+        imageAlt: 'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
     },
     // More products...
 ]
@@ -229,7 +230,7 @@ function Carts() {
                             <div className="mt-6">
                                 <a
                                     href="#"
-                                    className="flex items-center justify-center rounded-md border border-transparent bg-yellow-400 px-6 py-3 text-base font-medium text-black hover:text-white shadow-sm hover:bg-green-500"
+                                    className="flex items-center justify-center rounded-md border border-transparent bg-green-500 px-6 py-3 text-base font-medium text-black hover:text-white shadow-sm hover:bg-green-500"
                                 >
                                     Checkout
                                 </a>

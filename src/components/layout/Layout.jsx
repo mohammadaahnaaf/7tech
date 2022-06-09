@@ -1,13 +1,13 @@
 import React from 'react'
 import Footer from '../shared/Footer'
 import Navbar from '../shared/Navbar'
-import {Categories} from '../Categories';
+import { CategoryBar } from '../Categories';
 
 function Layout({ children }) {
     return (
         <>
             <Navbar />
-            <Categories />
+            <CategoryBar />
             <main>
                 {children}
             </main>

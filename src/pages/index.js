@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Banner, Homes } from '../components/Home'
-import { Shop } from '../components/Shop'
+// import { Shop } from '../components/Shop'
 import Layout from '../components/layout/Layout'
 import Modal from '../components/products/Details'
 

@@ -1,4 +1,5 @@
 import { ShoppingCartIcon } from '@heroicons/react/outline'
+import Image from 'next/image'
 // import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -7,72 +8,80 @@ import Layout from './layout/Layout'
 const products = [
   {
     id: 1,
-    name: 'Basic Tee',
+    name: 'Headphone',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+    imageSrc: '/products/phone-6.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
   },
   {
     id: 2,
-    name: 'Basic Tee',
+    name: 'Apple iphone X',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg',
+    imageSrc: '/products/phone-1.jpg',
+    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
   },
   {
     id: 3,
-    name: 'Basic Tee',
+    name: 'Airbuds',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg',
+    imageSrc: '/products/airbot.jpg',
+    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
   },
   {
     id: 4,
-    name: 'Basic Tee',
+    name: 'Headphone',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-04.jpg',
+    imageSrc: '/products/phone-5.jpg',
+    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-04.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
   },
   {
     id: 5,
-    name: 'Basic Tee',
+    name: 'Apple iphone 8',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg',
+    imageSrc: '/products/phone-0.jpg',
+    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
   },
   {
     id: 6,
-    name: 'Basic Tee',
+    name: 'Smart Glass',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+    imageSrc: '/products/smart-glass.jpg',
+    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
   },
   {
     id: 7,
-    name: 'Basic Tee',
+    name: 'Bluetooth Headphone',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-04.jpg',
+    imageSrc: '/products/phone-01.jpg',
+    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-04.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
   },
   {
     id: 8,
-    name: 'Basic Tee',
+    name: 'Laptop',
     href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg',
+    imageSrc: '/products/laptop.jpg',
+    // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
@@ -90,7 +99,7 @@ export function Shop({ handleClick }) {
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product) => (
               <div key={product.id} className="grid relative">
-                <div className="absolute grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white rounded-md bg-black bg-opacity-25 hover:bg-opacity-50">
+                <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white rounded-md bg-black bg-opacity-25 hover:bg-opacity-50">
                   <button
                     // onClick={}
                     type='button'
@@ -99,15 +108,17 @@ export function Shop({ handleClick }) {
                   </button>
                 </div>
                 <div className="w-full min-h-80 bg-white aspect-w-1 aspect-h-1 rounded-t-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                <button type='button' onClick={handleClick}>
-                  <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    className="w-full h-full object-center object-cover lg:w-full lg:h-full"
-                  />
-                </button>
+                  <button type='button' onClick={handleClick}>
+                    <Image
+                      layout='fill'
+                      src={product.imageSrc}
+                      // src='/products/phone-6.jpg'
+                      alt={product.imageAlt}
+                      className="w-full h-full object-center rounded-lg object-cover lg:w-full lg:h-full"
+                    />
+                  </button>
                 </div>
-                <div className="mt-0 p-2 rounded-b-md bg-pink-100 flex justify-between">
+                <div className="mt-0 p-2 z-10 rounded-b-md bg-pink-100 flex justify-between">
                   <div>
                     <h3 className="text-sm text-gray-700">
                       <Link href={product.href}>
