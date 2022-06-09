@@ -17,10 +17,10 @@ export function Banner() {
                 showIndicators={false}
                 showThumbs={false}
                 interval={2500}
-                transitionTime={512}
-                swipeable
+                transitionTime={500}
+                swipeable={false}
                 emulateTouch
-                swipeScrollTolerance
+                // swipeScrollTolerance
             >
                 <img
                     // src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(40).webp"

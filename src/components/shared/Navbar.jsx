@@ -243,7 +243,7 @@ function Navbar() {
                                     <div className="hidden md:block">
                                         <div className="ml-10 flex items-baseline">
                                             <form>
-                                                <label htmlfor="default-search" className="mb-2 text-sm font-medium sr-only text-gray-300">Search</label>
+                                                <label htmlFor="default-search" className="mb-2 text-sm font-medium sr-only text-gray-300">Search</label>
                                                 <div className="relative">
                                                     <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                                                         <SearchIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
