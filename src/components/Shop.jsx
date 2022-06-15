@@ -10,9 +10,10 @@ export function Shop({ handleClick }) {
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       <div className="bg-white">
-        <div className="max-w-2xl mx-auto py-6 px-4 sm:py-6 sm:px-0 lg:max-w-7xl lg:px-0">
-          <h2 className="text-2xl font-extrabold tracking-tight text-red-500">Offers Going On</h2>
-
+        <div className="max-w-2xl mx-auto py-0 px-4 sm:py-0 sm:px-0 lg:max-w-7xl lg:px-0">
+          <div className='py-10 bg-pink-200 rounded-md'>
+            <h2 className="text-2xl font-medium tracking-tight px-5 text-white">Offers Going On</h2>
+          </div>
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product) => (
               <div key={product.id} className="grid relative">

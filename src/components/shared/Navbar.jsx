@@ -13,191 +13,6 @@ const user = {
         'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 
-// const router = useRouter()
-// const { nowIn } = router.query
-// console.log(nowIn);
-
-
-// const data = {
-//     categories: [
-//         {
-//             id: 'women',
-//             name: 'Women',
-//             featured: [
-//                 {
-//                     name: 'New Arrivals',
-//                     href: '#',
-//                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-//                     imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
-//                 },
-//                 {
-//                     name: 'Basic Tees',
-//                     href: '#',
-//                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-//                     imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-//                 },
-//             ],
-//             sections: [
-//                 {
-//                     id: 'clothing',
-//                     name: 'Clothing',
-//                     items: [
-//                         { name: 'Tops', href: '#' },
-//                         { name: 'Dresses', href: '#' },
-//                         { name: 'Pants', href: '#' },
-//                         { name: 'Denim', href: '#' },
-//                         { name: 'Sweaters', href: '#' },
-//                         { name: 'T-Shirts', href: '#' },
-//                         { name: 'Jackets', href: '#' },
-//                         { name: 'Activewear', href: '#' },
-//                         { name: 'Browse All', href: '#' },
-//                     ],
-//                 },
-//                 {
-//                     id: 'accessories',
-//                     name: 'Accessories',
-//                     items: [
-//                         { name: 'Watches', href: '#' },
-//                         { name: 'Wallets', href: '#' },
-//                         { name: 'Bags', href: '#' },
-//                         { name: 'Sunglasses', href: '#' },
-//                         { name: 'Hats', href: '#' },
-//                         { name: 'Belts', href: '#' },
-//                     ],
-//                 },
-//                 {
-//                     id: 'brands',
-//                     name: 'Brands',
-//                     items: [
-//                         { name: 'Full Nelson', href: '#' },
-//                         { name: 'My Way', href: '#' },
-//                         { name: 'Re-Arranged', href: '#' },
-//                         { name: 'Counterfeit', href: '#' },
-//                         { name: 'Significant Other', href: '#' },
-//                     ],
-//                 },
-//             ],
-//         },
-//         {
-//             id: 'men',
-//             name: 'Men',
-//             featured: [
-//                 {
-//                     name: 'New Arrivals',
-//                     href: '#',
-//                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-//                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-//                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-//                 },
-//                 {
-//                     name: 'Artwork Tees',
-//                     href: '#',
-//                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-//                     imageAlt:
-//                         'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-//                 },
-//             ],
-//             sections: [
-//                 {
-//                     id: 'clothing',
-//                     name: 'Clothing',
-//                     items: [
-//                         { name: 'Tops', href: '#' },
-//                         { name: 'Pants', href: '#' },
-//                         { name: 'Sweaters', href: '#' },
-//                         { name: 'T-Shirts', href: '#' },
-//                         { name: 'Jackets', href: '#' },
-//                         { name: 'Activewear', href: '#' },
-//                         { name: 'Browse All', href: '#' },
-//                     ],
-//                 },
-//                 {
-//                     id: 'accessories',
-//                     name: 'Accessories',
-//                     items: [
-//                         { name: 'Watches', href: '#' },
-//                         { name: 'Wallets', href: '#' },
-//                         { name: 'Bags', href: '#' },
-//                         { name: 'Sunglasses', href: '#' },
-//                         { name: 'Hats', href: '#' },
-//                         { name: 'Belts', href: '#' },
-//                     ],
-//                 },
-//                 {
-//                     id: 'brands',
-//                     name: 'Brands',
-//                     items: [
-//                         { name: 'Re-Arranged', href: '#' },
-//                         { name: 'Counterfeit', href: '#' },
-//                         { name: 'Full Nelson', href: '#' },
-//                         { name: 'My Way', href: '#' },
-//                     ],
-//                 },
-//             ],
-//         },
-//         {
-//             id: 'kids',
-//             name: 'Kids',
-//             featured: [
-//                 {
-//                     name: 'New Arrivals',
-//                     href: '#',
-//                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-//                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-//                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-//                 },
-//                 {
-//                     name: 'Artwork Tees',
-//                     href: '#',
-//                     imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
-//                     imageAlt:
-//                         'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-//                 },
-//             ],
-//             sections: [
-//                 {
-//                     id: 'clothing',
-//                     name: 'Clothing',
-//                     items: [
-//                         { name: 'Tops', href: '#' },
-//                         { name: 'Pants', href: '#' },
-//                         { name: 'Sweaters', href: '#' },
-//                         { name: 'T-Shirts', href: '#' },
-//                         { name: 'Jackets', href: '#' },
-//                         { name: 'Activewear', href: '#' },
-//                         { name: 'Browse All', href: '#' },
-//                     ],
-//                 },
-//                 {
-//                     id: 'accessories',
-//                     name: 'Accessories',
-//                     items: [
-//                         { name: 'Watches', href: '#' },
-//                         { name: 'Wallets', href: '#' },
-//                         { name: 'Bags', href: '#' },
-//                         { name: 'Sunglasses', href: '#' },
-//                         { name: 'Hats', href: '#' },
-//                         { name: 'Belts', href: '#' },
-//                     ],
-//                 },
-//                 {
-//                     id: 'brands',
-//                     name: 'Brands',
-//                     items: [
-//                         { name: 'Re-Arranged', href: '#' },
-//                         { name: 'Counterfeit', href: '#' },
-//                         { name: 'Full Nelson', href: '#' },
-//                         { name: 'My Way', href: '#' },
-//                     ],
-//                 },
-//             ],
-//         },
-//     ]
-//     // pages: [
-//     //     { name: 'Company', href: '#' },
-//     //     { name: 'Stores', href: '#' },
-//     // ],
-// }
 
 const navigation = [
     { name: 'Home', href: '/home' },
@@ -232,11 +47,11 @@ function Navbar() {
                             <div className="flex items-center justify-between h-16">
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0 h-8">
-                                        <Link href='/'>
-                                            <a>
+                                        <Link href='/' className='text-white'>
+                                            <a className='text-white text-2xl'>
                                                 {/* <HeartIcon className='text-white h-12 w-12' /> */}
-
-                                                <Image src="/logo.png" alt="Home" height={50} width={50 * 3} />
+                                                7.Tech
+                                                {/* <Image src="/logo.png" alt="Home" height={50} width={50 * 3} /> */}
                                             </a>
                                         </Link>
                                     </div>
@@ -254,7 +69,6 @@ function Navbar() {
                                                     className="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                                                     placeholder="Search..."
                                                     required
-
                                                 />
                                                 <button type="button" className="text-white absolute inset-y-2 right-2 items-center  bg-black bg-opacity-20 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm px-3 py-1 dark:bg-blur-sm dark:bg-black dark:hover:bg-green-700 dark:focus:ring-green-800">Search</button>
                                             </div>
@@ -421,7 +235,7 @@ function Navbar() {
                         </Disclosure.Panel>
                     </>
                 )}
-            </Disclosure>
+        </Disclosure>
 
             {/* <header className="bg-white shadow">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -429,7 +243,7 @@ function Navbar() {
                 </div>
             </header> */}
 
-            {/* <header className="relative bg-yellow-100">
+    {/* <header className="relative bg-yellow-100">
               
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
                     <div className="border-b border-gray-200">
@@ -540,7 +354,7 @@ function Navbar() {
                 </nav>
             </header> */}
 
-        </div>
+        </div >
     )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Footer from '../shared/Footer'
+import Footer, { Footers } from '../shared/Footer'
 import Navbar from '../shared/Navbar'
 import { CategoryBar } from '../Categories';
 
@@ -11,7 +11,8 @@ function Layout({ children }) {
             <main>
                 {children}
             </main>
-            <Footer />
+            {/* <Footer /> */}
+            <Footers />
         </>
     )
 }

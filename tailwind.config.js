@@ -35,8 +35,8 @@ module.exports = {
       width: ['responsive', 'hover', 'group-hover'],
     },
   },
-  // plugins: [
-  //   require('@tailwindcss/forms'),
-  //   require('@tailwindcss/aspect-ratio'),
-  // ],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
 };

@@ -31,7 +31,7 @@ export function CategoryBar() {
                         <div className="fixed inset-0 bg-black bg-opacity-25" />
                     </Transition.Child>
 
-                    <div className="fixed inset-0 flex z-50">
+                    <div className="fixed inset-0 flex">
                         <Transition.Child
                             as={Fragment}
                             enter="transition ease-in-out duration-300 transform"
@@ -75,7 +75,7 @@ export function CategoryBar() {
                                     </div>
                                     <Tab.Panels as={Fragment}>
                                         {categoriesData.categories.map((category) => (
-                                            <Tab.Panel key={category.name} className="pt-10 pb-8 z-50 px-4 space-y-10">
+                                            <Tab.Panel key={category.name} className="pt-10 pb-8 px-4 space-y-10">
                                                 <div className="grid grid-cols-2 gap-x-4 z-50">
                                                     {category.featured.map((item) => (
                                                         <div key={item.name} className="group z-50 relative text-sm">
@@ -124,7 +124,7 @@ export function CategoryBar() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="relative bg-gray-200 mb-2">
+            <header className="relative bg-gray-200 mb-1">
 
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
                     <div className="border-b border-gray-200">
