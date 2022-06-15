@@ -84,12 +84,12 @@ export function Product({ handleClick }) {
   return (
 
     <main>
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <div className="max-w-full mx-auto">
         <div className="relative bg-white overflow-hidden">
           <div className="max-w-2xl mx-auto py-4 px-4 sm:py-6 sm:px-6 lg:max-w-7xl lg:px-8">
-            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">Customers also purchased</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900"></h2>
 
-            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
               {products.map((product) => (
                 <div key={product.id} className="group relative">
                   <div class="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white rounded-md bg-black bg-opacity-25 hover:bg-opacity-50">
