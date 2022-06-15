@@ -45,7 +45,7 @@ export function Footers() {
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Download Our App</h2>
             <ul className="text-gray-600 dark:text-gray-400">
               <li className="mb-4 flex">
-                <img src='/logos/google-play.svg' className='h-6 w-6 mr-2' />
+                <img src='/logos/google_play.svg' className='h-6 w-6 mr-2' />
                 <a href="#" className="hover:underline">Play Store</a>
               </li>
               <li className='flex'>
