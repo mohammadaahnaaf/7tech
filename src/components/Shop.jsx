@@ -26,7 +26,10 @@ export function Shop({ handleClick }) {
                   </button>
                 </div>
                 <div className="w-full min-h-80 bg-white aspect-w-1 aspect-h-1 rounded-t-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                  <button type='button' onClick={handleClick}>
+                  <a
+                  href='/details' 
+                  // type='button' onClick={handleClick}
+                  >
                     <Image
                       layout='fill'
                       src={product.imageSrc}
@@ -34,7 +37,7 @@ export function Shop({ handleClick }) {
                       alt={product.imageAlt}
                       className="w-full h-full object-center rounded-lg object-cover lg:w-full lg:h-full"
                     />
-                  </button>
+                  </a>
                 </div>
                 <div className="mt-0 p-2 z-10 rounded-b-md bg-pink-100 flex justify-between">
                   <div>
