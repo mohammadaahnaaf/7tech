@@ -4,7 +4,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Layout from './layout/Layout'
 import { categoriesData } from '../data/CategoriesData'
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
-import Modal from './products/Details'
+import Modal, { CategoryModal } from './products/Details'
 import { Product } from './products/Products'
 
 function classNames(...classes) {
@@ -246,11 +246,11 @@ const sortOptions =
         { name: 'Price: High to Low', href: '#', current: false },
     ]
 const subCategories = [
-    { name: 'Totes', href: '#' },
-    { name: 'Backpacks', href: '#' },
-    { name: 'Travel Bags', href: '#' },
-    { name: 'Hip Bags', href: '#' },
-    { name: 'Laptop Sleeves', href: '#' },
+    { name: 'Smartphone', href: '#' },
+    { name: 'PC', href: '#' },
+    { name: 'Laptop', href: '#' },
+    { name: 'Electronics', href: '#' },
+    { name: 'Lifestyle', href: '#' },
 ]
 const filters = [
     {
@@ -525,9 +525,9 @@ export function Example() {
                             </form>
 
                             {/* Product grid */}
+
                             <div className="lg:col-span-3">
-                             {/* <Modal /> */}
-                             <Product />
+                             <CategoryModal />
                             </div>
                         </div>
                     </section>
