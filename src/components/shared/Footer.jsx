@@ -49,7 +49,7 @@ export function Footers() {
                 <a href="#" className="hover:underline">Play Store</a>
               </li>
               <li className='flex'>
-                <img src='/logos/App_store.svg' className='h-6 w-6 mr-2' />
+                <img src='/logos/apple.svg' className='h-6 w-6 mr-2' />
                 <a href="#" className="hover:underline">App Store</a>
               </li>
             </ul>
