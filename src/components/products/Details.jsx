@@ -9,10 +9,12 @@ import { Shop } from '../Shop'
 import Products, { Product } from './Products'
 import Image from 'next/image'
 
+// const twoThirds = math.format(math.fraction('2/3'), { fraction: 'ratio' })
+
 const product = {
     name: 'Redmi 10C 4GB/128GB',
     price: 'TK 14,999',
-    rating: 3.9,
+    rating: 4.0,
     reviewCount: 117,
     href: '#',
     brand: 'Xiaomi',
@@ -765,7 +767,7 @@ export function Details() {
                                         type="submit"
                                         className="mt-6 w-full bg-sky-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                                     >
-                                        Add to bag
+                                        Add to Cart
                                     </button>
                                 </form>
                             </section>
@@ -844,7 +846,7 @@ export function Details() {
                                     <h2 className='text-xl font-medium'>Reviews:</h2>
                                     <div className='grid gap-5'>
                                         <div className='flex '>
-                                            <h1 className='text-7xl '>{product.rating}</h1>
+                                            <h1 className='text-7xl '>{product.rating.toFixed(1)}</h1>
                                             <div className='grid'>
                                                 <div className="flex items-center">
                                                     {[0, 1, 2, 3, 4].map((rating) => (
@@ -866,7 +868,7 @@ export function Details() {
                                                 <div className='grid md:flex justify-between col-span-1 gap-3'>
                                                     <div className='grid w-1/4 md:px-5 gap-0'>
                                                         <p className='text-sm'>{review.name}</p>
-                                                        <p className='text-xs text-gray-400'>{review.rating} Stars</p>
+                                                        <p className='text-xs text-gray-400'>{review.date}</p>
                                                     </div>
                                                     <div className="flex items-center">
                                                         {[0, 1, 2, 3, 4].map((rating) => (
