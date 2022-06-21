@@ -559,9 +559,16 @@ export function CategoryModal() {
 export function Details() {
 
     const [qty, setQty] = useState(1)
+    const [star, setStar] = useState(0)
     const [selectedColor, setSelectedColor] = useState(product.colors[0])
-    const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+    // const [selectedSize, setSelectedSize] = useState(product.sizes[2])
     const [show, setShow] = useState('details');
+
+    // function handleStar(index) {
+    //     setStar(index + 1);
+    // }
+
+    console.log("Star: ", star)
 
     const incrementQty = () => {
         setQty(count => count + 1);
@@ -756,7 +763,7 @@ export function Details() {
 
                                     <button
                                         type="submit"
-                                        className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        className="mt-6 w-full bg-sky-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                                     >
                                         Add to bag
                                     </button>
@@ -877,37 +884,42 @@ export function Details() {
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className='px-5'>
-                                            <label htmlFor="about" className="block text-xl font-medium text-gray-700">
-                                                Write a Review
-                                            </label>
-                                            <div className="mt-3">
-                                                <textarea
-                                                    id="about"
-                                                    name="about"
-                                                    rows={3}
-                                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                                    placeholder="Write your review"
-                                                    defaultValue={''}
-                                                />
-                                            </div>
-                                            <div className="flex items-center mt-3 bg-sky-200 p-3 rounded-md">
-                                                <p className='text-gray-500 mr-3'>Do You Like It?</p>
-                                                {[0, 1, 2, 3, 4].map((rating) => (
-                                                    <StarIcon
-                                                        key={rating}
-                                                        className={classNames(
-                                                            product.rating > rating ? 'text-sky-500' : 'text-gray-50',
-                                                            'h-6 w-6 flex-shrink-0'
-                                                        )}
-                                                        aria-hidden="true"
+                                        <form>
+                                            <div className='px-5'>
+                                                <label htmlFor="about" className="block text-xl font-medium text-gray-700">
+                                                    Write a Review
+                                                </label>
+                                                <div className="mt-3">
+                                                    <textarea
+                                                        id="about"
+                                                        name="about"
+                                                        rows={3}
+                                                        className="shadow-sm focus:ring-sky-500 focus:border-sky-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                                        placeholder="Write your review"
+                                                        defaultValue={''}
                                                     />
-                                                ))}
+                                                </div>
+                                                <div className="flex items-center mt-3 bg-sky-100 p-3 rounded-md">
+                                                    <p className='text-gray-500 mr-3'>Do You Like It?</p>
+                                                    {[0, 1, 2, 3, 4].map((rating, index) => (
+                                                        <button type='button' onClick={() => setStar(index + 1)}>
+                                                            <StarIcon
+                                                                key={rating}
+                                                                className={classNames(
+                                                                    star > rating ? 'text-sky-500' : 'text-sky-200',
+                                                                    'h-6 w-6 flex-shrink-0 ring-sky-200 ring-2 rounded bg-white mx-1'
+                                                                )}
+                                                                aria-hidden="true"
+                                                            />
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                                <button type='submit' className="mt-3 w-15 justify-center bg-sky-500 border border-transparent rounded-md py-2 px-8 flex items-center text-base font-medium text-white hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                                                    Done
+                                                </button>
                                             </div>
-                                            <button className="mt-3 w-10 justify-center bg-indigo-600 border border-transparent rounded-md py-2 px-8 flex items-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                Done
-                                            </button>
-                                        </div>
+                                        </form>
+
                                     </div>
                                 </div>
                             )}
