@@ -68,6 +68,26 @@ const product = {
         { title: 'Connectivity', description: '802.11a/b/g/n/ac Wi-Fi | Bluetooth: 5.0 | GPS' },
         { title: 'Battery mAh', description: '5000mAh (typ) battery| Supports 18W fast charging | 10W in-box charger | USB-C' },
         { title: 'Model', description: 'Redmi 10C' },
+    ],
+    reviews: [
+        {
+            name: "Mohammed Ahnaf",
+            date: "12 june 2022",
+            comment: "Good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
+            rating: 4,
+        },
+        {
+            name: "Tanvir",
+            date: "13 june 2022",
+            comment: "not much good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
+            rating: 3,
+        },
+        {
+            name: "Istiak",
+            date: "19 june 2022",
+            comment: "Very good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
+            rating: 5,
+        },
     ]
 }
 
@@ -559,7 +579,7 @@ export function Details() {
 
                     <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
 
-                        <div className="aspect-w-4 aspect-h-5 rounded-lg bg-gray-100 overflow-hidden sm:col-span-4 lg:col-span-4">
+                        <div className="aspect-w-4 aspect-h-5 rounded-lg bg-gray-100 overflow-hidden lg:col-span-4">
                             <Image
                                 layout='fill'
                                 // width={200}
@@ -571,7 +591,7 @@ export function Details() {
                         </div>
 
 
-                        <div className="sm:col-span-5 lg:col-span-4">
+                        <div className="col-span-12 lg:col-span-4">
                             <h2 className="text-2xl font-extrabold text-gray-900 sm:pr-12">{product.name}</h2>
 
                             <section aria-labelledby="information-heading" className="mt-2">
@@ -789,7 +809,7 @@ export function Details() {
                             {/* Details */}
                             {(show === 'details') && (
                                 <>
-                                    <div div className='p-5 mt-5 rounded-md bg-gray-50'>
+                                    <div div className='md:p-5 mt-5 rounded-md bg-gray-50'>
                                         <h2 className='text-xl font-medium'>{product.name}</h2>
                                         {product.details.map((detail, index) => (
                                             <p className='text-sm font-normal py-1 pl-10 text-gray-500'>{index + 1}. {detail.title}</p>
@@ -800,7 +820,7 @@ export function Details() {
 
                             {/* More Information  */}
                             {(show === 'info') && (
-                                <div className='p-5 mt-5 rounded-md bg-gray-50'>
+                                <div className='md:p-5 mt-5 rounded-md bg-gray-50'>
                                     <h2 className='text-xl font-medium'>{product.name}</h2>
                                     {product.informations.map((info, index) => (
                                         <div key={index} className='flex  justify-items-start md:w-4/5'>
@@ -813,15 +833,82 @@ export function Details() {
 
                             {/* Reviews  */}
                             {(show === 'reviews') && (
-                                <div className='p-5 mt-5 rounded-md bg-gray-50'>
-                                    <h2 className='text-xl text-red-500 font-medium'>Reviews:</h2>
-                                    <h2 className='text-xl text-center text-red-500 font-medium'>Under Developement ^_^</h2>
-                                    {/* {product.informations.map((info, index) => (
-                                        <div key={index} className='flex  justify-items-start md:w-4/5'>
-                                            <p className='text-sm w-56 font-normal py-1 pl-10 text-gray-500'>{index + 1}. {info.title}:</p>
-                                            <p className='text-sm font-normal py-1 pl-10 text-gray-500'>{info.description}</p>
+                                <div className='md:p-5 mt-5 rounded-md bg-gray-50'>
+                                    <h2 className='text-xl font-medium'>Reviews:</h2>
+                                    <div className='grid gap-5'>
+                                        <div className='flex '>
+                                            <h1 className='text-7xl '>{product.rating}</h1>
+                                            <div className='grid'>
+                                                <div className="flex items-center">
+                                                    {[0, 1, 2, 3, 4].map((rating) => (
+                                                        <StarIcon
+                                                            key={rating}
+                                                            className={classNames(
+                                                                product.rating > rating ? 'text-sky-400' : 'text-gray-300',
+                                                                'h-8 w-8 flex-shrink-0'
+                                                            )}
+                                                            aria-hidden="true"
+                                                        />
+                                                    ))}
+                                                </div>
+                                                <h2 className='py-1 px-2 text-gray-500'>{product.reviewsrate}5 Reviews</h2>
+                                            </div>
                                         </div>
-                                    ))} */}
+                                        <div className='grid gap-3'>
+                                            {product.reviews.map((review, index) => (
+                                                <div className='grid md:flex justify-between col-span-1 gap-3'>
+                                                    <div className='grid w-1/4 md:px-5 gap-0'>
+                                                        <p className='text-sm'>{review.name}</p>
+                                                        <p className='text-xs text-gray-400'>{review.rating} Stars</p>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        {[0, 1, 2, 3, 4].map((rating) => (
+                                                            <StarIcon
+                                                                key={rating}
+                                                                className={classNames(
+                                                                    review.rating > rating ? 'text-sky-400' : 'text-gray-300',
+                                                                    'h-6 w-6 flex-shrink-0'
+                                                                )}
+                                                                aria-hidden="true"
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                    <p className='flex text-sm w-1/3 items-center text-gray-500'>{review.comment}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className='px-5'>
+                                            <label htmlFor="about" className="block text-xl font-medium text-gray-700">
+                                                Write a Review
+                                            </label>
+                                            <div className="mt-3">
+                                                <textarea
+                                                    id="about"
+                                                    name="about"
+                                                    rows={3}
+                                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                                    placeholder="Write your review"
+                                                    defaultValue={''}
+                                                />
+                                            </div>
+                                            <div className="flex items-center mt-3 bg-sky-200 p-3 rounded-md">
+                                                <p className='text-gray-500 mr-3'>Do You Like It?</p>
+                                                {[0, 1, 2, 3, 4].map((rating) => (
+                                                    <StarIcon
+                                                        key={rating}
+                                                        className={classNames(
+                                                            product.rating > rating ? 'text-sky-500' : 'text-gray-50',
+                                                            'h-6 w-6 flex-shrink-0'
+                                                        )}
+                                                        aria-hidden="true"
+                                                    />
+                                                ))}
+                                            </div>
+                                            <button className="mt-3 w-10 justify-center bg-indigo-600 border border-transparent rounded-md py-2 px-8 flex items-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                Done
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -830,7 +917,7 @@ export function Details() {
                 </div>
 
             </div>
-        </div >
+        </div>
     )
 }
 
