@@ -563,14 +563,10 @@ export function Details() {
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [selectedColor, setSelectedColor] = useState(product.colors[0])
-    // const [selectedSize, setSelectedSize] = useState(product.sizes[2])
     const [show, setShow] = useState('details');
+    // const [selectedSize, setSelectedSize] = useState(product.sizes[2])
 
-    // function handleStar(index) {
-    //     setStar(index + 1);
-    // }
-
-    console.log("Star: ", star)
+    // console.log("Star: ", star)
 
     const incrementQty = () => {
         setQty(count => count + 1);
@@ -777,11 +773,17 @@ export function Details() {
 
                             <>
                                 <div className="sm:hidden">
-                                    <label for="tabs" className="sr-only">More Information</label>
+                                    <label htmlFor="tabs" className="sr-only">More Information</label>
                                     <select id="tabs" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5">
-                                        <option>Details</option>
-                                        <option>More Information</option>
-                                        <option>Reviews</option>
+                                        <option>
+                                            Details
+                                        </option>
+                                        <option>
+                                            More Information
+                                        </option>
+                                        <option>
+                                            Reviews
+                                        </option>
                                     </select>
                                 </div>
                                 <ul className="hidden text-sm font-medium text-center text-gray-500 rounded-lg divide-x divide-gray-200 ring-2 ring-gray-200 shadow sm:flex ">
@@ -815,6 +817,7 @@ export function Details() {
 
                                 </ul>
                             </>
+
                             {/* Details */}
                             {(show === 'details') && (
                                 <>

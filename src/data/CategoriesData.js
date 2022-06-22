@@ -6,14 +6,14 @@ export const categoriesData = {
             featured: [
                 {
                     name: 'i phone',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/phone-0.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
                     imageAlt: 'Models sitting back to back, wearing Basic Tee in black and bone.',
                 },
                 {
                     name: 'Offers',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/phone-1.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
@@ -66,14 +66,14 @@ export const categoriesData = {
             featured: [
                 {
                     name: 'New Arrivals',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/pc.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
                     name: 'Customized PC',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/pc-fan.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
                     imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
@@ -123,14 +123,14 @@ export const categoriesData = {
             featured: [
                 {
                     name: 'New Arrivals',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/laptop-0.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
                     name: 'Macbook',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/laptop.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
                     imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
@@ -180,14 +180,14 @@ export const categoriesData = {
             featured: [
                 {
                     name: 'New Arrivals',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/smart-glass.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
                     name: 'Airbuds',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/airbot.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
                     imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
@@ -237,14 +237,14 @@ export const categoriesData = {
             featured: [
                 {
                     name: 'Eid Offers',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/phone-6.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
                     imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
                 },
                 {
                     name: 'Refregerators',
-                    href: '#',
+                    href: '/category',
                     imageSrc: '/products/phone-0.jpg',
                     // imageSrc: 'https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg',
                     imageAlt: 'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',

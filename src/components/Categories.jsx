@@ -6,6 +6,7 @@ import { categoriesData } from '../data/CategoriesData'
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
 import Modal, { CategoryModal } from './products/Details'
 import { Product } from './products/Products'
+import Link from 'next/link'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -148,6 +149,7 @@ export function CategoryBar() {
                                                     <div className="relative flex">
                                                         <Popover.Button
                                                             // onClick={() => setHeight(true)}
+                                                            href='/category'
                                                             className={classNames(
                                                                 open
                                                                     ? 'border-green-500 text-green-500'
@@ -289,10 +291,6 @@ const filters = [
         ],
     },
 ]
-
-// function classNames(...classes) {
-//     return classes.filter(Boolean).join(' ')
-// }
 
 export function Example() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
@@ -527,7 +525,7 @@ export function Example() {
                             {/* Product grid */}
 
                             <div className="lg:col-span-3">
-                             <CategoryModal />
+                                <CategoryModal />
                             </div>
                         </div>
                     </section>
