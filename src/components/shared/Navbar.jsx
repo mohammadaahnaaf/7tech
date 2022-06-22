@@ -21,7 +21,7 @@ const navigation = [
     { name: 'Cart', href: '/cart' },
 ]
 const userNavigation = [
-    { name: 'Your Cart', href: '/cart' },
+    { name: 'Admin', href: '/admin' },
     { name: 'Your Profile', href: '/profile' },
     { name: 'Settings', href: '/settings' },
     { name: 'Sign out', href: '/login' },
@@ -46,17 +46,19 @@ function Navbar() {
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
                                 <div className="flex items-center">
-                                    <div className="flex-shrink-0 h-8">
+                                    <div className="hidden md:block h-8">
                                         <Link href='/' className='text-white'>
-                                            <a className='text-white text-2xl'>
+                                            <a className='text-sky-500 text-2xl'>
                                                 {/* <HeartIcon className='text-white h-12 w-12' /> */}
                                                 7.Tech
                                                 {/* <Image src="/logo.png" alt="Home" height={50} width={50 * 3} /> */}
                                             </a>
                                         </Link>
                                     </div>
-                                    <div className="hidden md:block">
-                                        <div className="ml-10 flex items-baseline">
+
+                                    {/* Search Bar  */}
+                                    <div className="">
+                                        <div className="md:ml-10 px-3 md:px-0 flex items-baseline">
                                             <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
                                             <div className="relative">
                                                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -70,7 +72,7 @@ function Navbar() {
                                                     placeholder="Search..."
                                                     required
                                                 />
-                                                <button type="button" className="text-white absolute inset-y-2 right-2 items-center  bg-black bg-opacity-20 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm px-3 py-1 dark:bg-blur-sm dark:bg-black dark:hover:bg-green-700 dark:focus:ring-green-800">Search</button>
+                                                <button type="button" className="text-white absolute inset-y-2 right-2 items-center  bg-black bg-opacity-20 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm px-3 py-1 dark:bg-blur-sm dark:bg-black dark:hover:bg-sky-500 dark:focus:ring-sky-500">Search</button>
                                             </div>
                                         </div>
                                         {/* <div className="ml-10 flex items-baseline space-x-4">
@@ -184,7 +186,7 @@ function Navbar() {
                             </div>
                         </div>
 
-                        <Disclosure.Panel className="md:hidden bg-yellow-100">
+                        <Disclosure.Panel className="md:hidden bg-gray-100">
                             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                                 {navigation.map((item) => (
                                     <Disclosure.Button

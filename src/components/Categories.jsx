@@ -140,8 +140,8 @@ export function CategoryBar() {
                                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
                             </button>
 
-                            <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
-                                <div className="h-full flex space-x-8">
+                            <Popover.Group className="hidden lg:ml-0 lg:block lg:self-stretch">
+                                <div className="h-full flex gap-8">
                                     {categoriesData.categories.map((category) => (
                                         <Popover key={category.name} className="flex">
                                             {({ open }) => (
@@ -149,11 +149,11 @@ export function CategoryBar() {
                                                     <div className="relative flex">
                                                         <Popover.Button
                                                             // onClick={() => setHeight(true)}
-                                                            href='/category'
+                                                            // href='/category'
                                                             className={classNames(
                                                                 open
-                                                                    ? 'border-green-500 text-green-500'
-                                                                    : 'border-transparent text-gray-500 hover:text-green-500',
+                                                                    ? 'border-sky-500 text-sky-500'
+                                                                    : 'border-transparent text-gray-500 hover:text-sky-500',
                                                                 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-bold border-b-2 -mb-px pt-px'
                                                             )}
                                                         >
