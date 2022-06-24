@@ -4,7 +4,8 @@ import Link from 'next/link'
 import React from 'react'
 import Layout from './layout/Layout'
 
-export function Shop({items, title}) {
+export function Shop({ items, title }) {
+  // console.log(items)
 
   return (
     <div className="rounded-md max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
@@ -14,7 +15,7 @@ export function Shop({items, title}) {
             <h2 className="text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
           </div>
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {items.map((product) => (
+            {items?.map((product) => (
               <div key={product.id} className="grid relative ring-2 rounded-md ring-gray-300">
                 <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white rounded-md bg-black bg-opacity-25 hover:bg-opacity-50">
                   <button
