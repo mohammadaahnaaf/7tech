@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import Layout from './layout/Layout'
 
-export function Shop({ items, title }) {
+export function Shop({items, title}) {
 
   return (
     <div className="rounded-md max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
