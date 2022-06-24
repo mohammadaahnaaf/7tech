@@ -3,6 +3,7 @@
 
 import { TrashIcon } from '@heroicons/react/outline'
 import { cartProducts } from '../data/CartItems'
+import { products } from '../data/ProductsData'
 import Layout from './layout/Layout'
 // import { useNavigate } from "react-router-dom";
 
@@ -15,7 +16,7 @@ import Layout from './layout/Layout'
 export function Carts() {
     return (
         <>
-            <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div className="max-w-5xl mx-auto py-6 sm:px-6 lg:px-8">
                 {/* container begains from here */}
                 <div className="flex h-full flex-col bg-gray-100 rounded-md shadow-xl">
                     <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
@@ -28,7 +29,7 @@ export function Carts() {
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {cartProducts.map((product) => (
+                                    {products.map((product) => (
                                         <li key={product.id} className="flex py-6">
                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 <img
@@ -77,7 +78,7 @@ export function Carts() {
                         <div className="mt-6">
                             <a
                                 href="/checkout"
-                                className="flex items-center justify-center rounded-md border border-transparent bg-sky-500 px-6 py-3 text-base font-medium text-white hover:text-black shadow-sm hover:bg-sky-300"
+                                className="flex items-center justify-center rounded-md border border-transparent bg-red-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-black"
                             >
                                 Checkout
                             </a>
@@ -87,7 +88,7 @@ export function Carts() {
                                 or{' '}
                                 <button
                                     type="button"
-                                    className="font-medium text-sky-500 hover:text-sky-300"
+                                    className="font-medium text-red-600 hover:text-red-300"
                                     // onClick={() => setOpen(false)}
                                     
                                 >

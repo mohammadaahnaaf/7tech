@@ -1,6 +1,7 @@
 import { TrashIcon } from '@heroicons/react/solid'
 import React from 'react'
 import { cartProducts } from '../data/CartItems'
+import { products } from '../data/ProductsData'
 import { Carts } from './Cart'
 import Layout from './layout/Layout'
 
@@ -146,7 +147,7 @@ function Checkouts() {
                             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                                 <button
                                     type="submit"
-                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white hover:text-black bg-sky-500 hover:bg-sky-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                                 >
                                     Order
                                 </button>
@@ -161,7 +162,7 @@ function Checkouts() {
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {cartProducts.map((product) => (
+                                    {products.map((product) => (
                                         <li key={product.id} className="flex py-6">
                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 <img

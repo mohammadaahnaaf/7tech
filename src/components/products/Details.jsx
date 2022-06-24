@@ -18,7 +18,7 @@ const product = {
     reviewCount: 117,
     href: '#',
     brand: 'Xiaomi',
-    imageSrc: '/products/redmi.jpg',
+    imageSrc: '/productss/redmi.jpg',
     imageAlt: 'Two each of gray, white, and black shirts arranged on table.',
     colors: [
         { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
