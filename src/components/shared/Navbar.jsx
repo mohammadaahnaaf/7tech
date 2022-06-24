@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react'
-import { Disclosure, Menu, Popover, Transition } from '@headlessui/react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
-// import { HeartIcon } from '@heroicons/react/solid'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -99,10 +98,10 @@ function Navbar() {
                                         </Link>
                                         {!useri && (
                                             <div className='flex justify-between gap-2 ml-3'>
-                                                <Link href='signin'>
+                                                <Link href='/signin'>
                                                     <a className='bg-red-600 hover:bg-white text-white ring-0 focus:ring-2 ring-white hover:ring-red-600 hover:text-black py-1 px-3 rounded-md'>Signup</a>
                                                 </Link>
-                                                <Link href='login'>
+                                                <Link href='/login'>
                                                     <a className='bg-white hover:bg-red-600 ring-0 focus:ring-2 ring-red-600 hover:ring-white hover:text-white py-1 px-3 rounded-md'>Login</a>
                                                 </Link>
                                             </div>
@@ -154,6 +153,7 @@ function Navbar() {
                                     </div>
                                 </div>
                                 <div className="-mr-2 flex md:hidden">
+                                
                                     {/* Mobile menu button */}
                                     <Disclosure.Button className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200">
                                         <span className="sr-only">Open main menu</span>
@@ -185,23 +185,7 @@ function Navbar() {
                                 ))}
                             </div>
                             <div className="pt-2 pb-3 border-t border-gray-300">
-                                {/* <div className="flex items-center px-5">
-                                    <div className="flex-shrink-0">
-                                        <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
-                                    </div>
-                                    <div className="ml-3">
-                                        <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                                        <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        className="ml-auto bg-white flex-shrink-0 p-1 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-white"
-                                    >
-                                        <span className="sr-only">View notifications</span>
-                                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                        <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                                    </button>
-                                </div> */}
+  
                                 <div className="mt-3 px-2 space-y-1">
                                     {userNavigation.map((item) => (
                                         <Disclosure.Button
@@ -219,124 +203,6 @@ function Navbar() {
                     </>
                 )}
             </Disclosure>
-
-            {/* <header className="bg-white shadow">
-                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <h1 className="text-3xl font-bold text-gray-900">{headerTitle}</h1>
-                </div>
-            </header> */}
-
-            {/* <header className="relative bg-yellow-100">
-              
-                <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
-                    <div className="border-b border-gray-200">
-                        <div className="h-16 flex items-center">
-                            <button
-                                type="button"
-                                className="bg-white p-2 rounded-md text-gray-400 lg:hidden"
-                                onClick={() => setOpen(true)}
-                            >
-                                <span className="sr-only">Open menu</span>
-                                <MenuIcon className="h-6 w-6" aria-hidden="true" />
-                            </button>
-
-                            <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
-                                <div className="h-full flex space-x-8">
-                                    {data.categories.map((category) => (
-                                        <Popover key={category.name} className="flex">
-                                            {({ open }) => (
-                                                <>
-                                                    <div className="relative flex">
-                                                        <Popover.Button
-                                                            className={classNames(
-                                                                open
-                                                                    ? 'border-green-500 text-green-500'
-                                                                    : 'border-transparent text-gray-700 hover:text-gray-800',
-                                                                'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px'
-                                                            )}
-                                                        >
-                                                            {category.name}
-                                                        </Popover.Button>
-                                                    </div>
-
-                                                    <Transition
-                                                        as={Fragment}
-                                                        enter="transition ease-out duration-200"
-                                                        enterFrom="opacity-0"
-                                                        enterTo="opacity-100"
-                                                        leave="transition ease-in duration-150"
-                                                        leaveFrom="opacity-100"
-                                                        leaveTo="opacity-0"
-                                                    >
-                                                        <Popover.Panel className="absolute top-full inset-x-0 text-sm text-gray-500">
-                                                        
-                                                            <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
-
-                                                            <div className="relative bg-white">
-                                                                <div className="max-w-7xl mx-auto px-8">
-                                                                    <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
-                                                                        <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                                                            {category.featured.map((item) => (
-                                                                                <div key={item.name} className="group relative text-base sm:text-sm">
-                                                                                    <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                                                                        <img
-                                                                                            src={item.imageSrc}
-                                                                                            alt={item.imageAlt}
-                                                                                            className="object-center object-cover"
-                                                                                        />
-                                                                                    </div>
-                                                                                    <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                                                                        <span className="absolute z-10 inset-0" aria-hidden="true" />
-                                                                                        {item.name}
-                                                                                    </a>
-                                                                                    <p aria-hidden="true" className="mt-1">
-                                                                                        Shop now
-                                                                                    </p>
-                                                                                </div>
-                                                                            ))}
-                                                                        </div>
-                                                                        <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
-                                                                            {category.sections.map((section) => (
-                                                                                <div key={section.name}>
-                                                                                    <p id={`${section.name}-heading`} className="font-medium text-gray-900">
-                                                                                        {section.name}
-                                                                                    </p>
-                                                                                    <ul
-                                                                                        role="list"
-                                                                                        aria-labelledby={`${section.name}-heading`}
-                                                                                        className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                                                                    >
-                                                                                        {section.items.map((item) => (
-                                                                                            <li key={item.name} className="flex">
-                                                                                                <a href={item.href} className="hover:text-gray-800">
-                                                                                                    {item.name}
-                                                                                                </a>
-                                                                                            </li>
-                                                                                        ))}
-                                                                                    </ul>
-                                                                                </div>
-                                                                            ))}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </Popover.Panel>
-                                                    </Transition>
-                                                </>
-                                            )}
-                                        </Popover>
-                                    ))}
-
-                                </div>
-                            </Popover.Group>
-
-                            <div className="ml-auto flex items-center">
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </header> */}
-
         </div>
     )
 }

@@ -4,8 +4,8 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Layout from './layout/Layout'
 import { categoriesData } from '../data/CategoriesData'
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
-import { CategoryModal } from './products/Details'
-// import { Product } from './products/Products'
+import { Product } from './products/Products'
+
 // import Link from 'next/link'
 
 function classNames(...classes) {
@@ -525,7 +525,7 @@ export function Example() {
                             {/* Product grid */}
 
                             <div className="lg:col-span-3">
-                                <CategoryModal />
+                                <Product />
                             </div>
                         </div>
                     </section>

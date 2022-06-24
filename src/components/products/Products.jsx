@@ -6,11 +6,11 @@ import { products } from '../../data/ProductsData'
 import Layout from '../layout/Layout'
 import Modal from './Details'
 
-export function Product({ handleClick }) {
+export function Product() {
 
   return (
 
-    <main>
+    <>
       <div className="max-w-full mx-auto">
         <div className="relative bg-white overflow-hidden">
           <div className="max-w-2xl lg:max-w-7xl mx-auto ">
@@ -28,7 +28,7 @@ export function Product({ handleClick }) {
                     </button>
                   </div>
                   <div className="w-full min-h-80 bg-white aspect-w-1 aspect-h-1 rounded-t-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                    <a href='/details' 
+                    <a href='/details'
                     // type='button'
                     // onClick={handleClick}
                     >
@@ -66,7 +66,7 @@ export function Product({ handleClick }) {
           </div>
         </div>
       </div>
-    </main>
+    </>
   )
 }
 
