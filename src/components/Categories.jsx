@@ -4,9 +4,9 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Layout from './layout/Layout'
 import { categoriesData } from '../data/CategoriesData'
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
-import Modal, { CategoryModal } from './products/Details'
-import { Product } from './products/Products'
-import Link from 'next/link'
+import { CategoryModal } from './products/Details'
+// import { Product } from './products/Products'
+// import Link from 'next/link'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -17,7 +17,7 @@ export function CategoryBar() {
     // const [height, setHeight] = useState(false)
 
     return (
-        <div className='bg-white'>
+        <div className=''>
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-0 lg:hidden" onClose={setOpen}>
@@ -152,8 +152,8 @@ export function CategoryBar() {
                                                             // href='/category'
                                                             className={classNames(
                                                                 open
-                                                                    ? 'border-sky-500 text-sky-500'
-                                                                    : 'border-transparent text-gray-500 hover:text-sky-500',
+                                                                    ? 'border-red-500 text-red-500'
+                                                                    : 'border-transparent text-gray-500 hover:border-b-red-500 hover:border-b-4 hover:text-red-500',
                                                                 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-bold border-b-2 -mb-px pt-px'
                                                             )}
                                                         >

@@ -1,15 +1,17 @@
 import React from 'react'
+import { headsets, keyboards, mouses } from '../data/ProductsData'
 import { Banner } from './Home'
 import Layout from './layout/Layout'
-import Modal from './products/Details'
+// import Modal from './products/Details'
+import { Shop } from './Shop'
 
 function Main() {
     return (
         <Layout>
             <Banner />
-            <Modal />
-            <Modal />
-            <Modal />
+            <Shop items={mouses} title='MADE FOR GAMING' />
+            <Shop items={keyboards} title='BEST FOR GAMING' />
+            <Shop items={headsets} title='DEDICATED FOR GAMING' />
         </Layout>
     )
 }

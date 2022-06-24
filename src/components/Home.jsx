@@ -20,19 +20,20 @@ export function Banner() {
                 transitionTime={500}
                 swipeable={false}
                 emulateTouch
+                className='z-20'
             // swipeScrollTolerance
             >
                 <img
                     src='/banners/banner-3.jpg'
-                    className='object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className='rounded-b-md object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
                 <img
                     src='/banners/banner.jpg'
-                    className='object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className='rounded-b-md object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
                 <img
                     src='/banners/banner-2.jpg'
-                    className='object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className='rounded-b-md object-cover h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
                 {/* <Image
                     src='/banners/banner-3.jpg'

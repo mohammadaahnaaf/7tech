@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Disclosure, Menu, Popover, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
-import { HeartIcon } from '@heroicons/react/solid'
+// import { HeartIcon } from '@heroicons/react/solid'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -21,10 +21,10 @@ const navigation = [
     { name: 'Cart', href: '/cart' },
 ]
 const userNavigation = [
-    { name: 'Admin', href: '/admin' },
-    { name: 'Your Profile', href: '/profile' },
-    { name: 'Settings', href: '/settings' },
-    { name: 'Sign out', href: '/login' },
+    { name: 'Admin', href: '/admin', state: true },
+    { name: 'Your Profile', href: '/profile', state: true },
+    { name: 'Settings', href: '/settings', state: true },
+    { name: 'Sign out', href: '/login', state: false },
 ]
 
 
@@ -35,6 +35,7 @@ function classNames(...classes) {
 
 function Navbar() {
 
+    const [useri, setUseri] = useState(false);
     const { pathname } = useRouter();
     // console.log(pathname);
 
@@ -48,19 +49,17 @@ function Navbar() {
                                 <div className="flex items-center">
                                     <div className="hidden md:block h-8">
                                         <Link href='/' className='text-white'>
-                                            <a className='text-sky-500 text-2xl'>
-                                                {/* <HeartIcon className='text-white h-12 w-12' /> */}
-                                                7.Tech
-                                                {/* <Image src="/logo.png" alt="Home" height={50} width={50 * 3} /> */}
+                                            <a className=''>
+                                                <Image src="/logo.png" alt="Home" height={40} width={50 * 3} />
                                             </a>
                                         </Link>
                                     </div>
 
                                     {/* Search Bar  */}
-                                    <div className="">
-                                        <div className="md:ml-10 px-3 md:px-0 flex items-baseline">
+                                    <div className="md:w-96">
+                                        <div className="md:ml-3 w-full px-3 md:px-0 flex items-baseline">
                                             <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
-                                            <div className="relative">
+                                            <div className="relative w-full">
                                                 <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                                                     <SearchIcon className='w-5 h-5 text-gray-500 dark:text-gray-400' />
                                                     {/* <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> */}
@@ -68,76 +67,57 @@ function Navbar() {
                                                 <input
                                                     type="search"
                                                     id="default-search"
-                                                    className="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                                    className="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
                                                     placeholder="Search..."
                                                     required
                                                 />
-                                                <button type="button" className="text-white absolute inset-y-2 right-2 items-center  bg-black bg-opacity-20 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm px-3 py-1 dark:bg-blur-sm dark:bg-black dark:hover:bg-sky-500 dark:focus:ring-sky-500">Search</button>
+                                                <button type="button" className="text-white absolute inset-y-2 right-2 items-center  bg-black bg-opacity-20 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm px-3 py-1 dark:bg-blur-sm dark:bg-black dark:hover:bg-red-600 dark:focus:ring-red-500">Search</button>
                                             </div>
                                         </div>
-                                        {/* <div className="ml-10 flex items-baseline space-x-4">
-                                            {navigation.map((item) => (
-                                                <Link
-                                                    href={item.href}
-                                                    key={item.name}
-                                                >
-                                                    <a
-                                                        className={classNames(
-                                                            pathname === item.href
-                                                                ? 'bg-white text-gray-800'
-                                                                : 'text-white hover:bg-white hover:text-green-500',
-                                                            'px-3 py-2 rounded-md text-sm font-medium'
 
-                                                            // item.current
-                                                            //     ? 'bg-white text-blue-500'
-                                                            //     : 'text-white hover:bg-white hover:text-blue-500',
-                                                        )}
-                                                        aria-current={pathname === item.href ? 'page' : undefined}
-                                                    >
-                                                        {item.name}
-                                                    </a>
-                                                </Link>
-                                            ))}
-                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
-                                        {/* <button
-                                            // onClick={setOpen(true)}
-                                            type="button"
-                                            className="bg-white p-1 rounded-full text-black hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200 focus:ring-gray-100"
-                                        >
-                                            <span className="sr-only">View Cart</span>
-                                            <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                                            <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-                                        </button> */}
+
+                                        {/* Cart  */}
                                         <Link href='/cart'>
                                             <a>
                                                 <button
                                                     type='button'
                                                     // onClick={}
-                                                    className="text-black bg-white flex p-[8px] rounded-full relative hover:text-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-400 focus:ring-gray-100"
+                                                    className="text-black bg-white flex p-[8px] rounded-full relative hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-400 focus:ring-gray-100"
                                                 >
                                                     <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
 
-                                                    <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-sky-500 justify-center">
-                                                        <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-sky-400 opacity-75"></span>
+                                                    <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-500 justify-center">
+                                                        <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
                                                         <p className=" inline-flex items-center text-white text-xs">3</p>
                                                     </span>
                                                 </button>
                                             </a>
                                         </Link>
+                                        {!useri && (
+                                            <div className='flex justify-between gap-2 ml-3'>
+                                                <Link href='signin'>
+                                                    <a className='bg-red-600 hover:bg-white text-white ring-0 focus:ring-2 ring-white hover:ring-red-600 hover:text-black py-1 px-3 rounded-md'>Signup</a>
+                                                </Link>
+                                                <Link href='login'>
+                                                    <a className='bg-white hover:bg-red-600 ring-0 focus:ring-2 ring-red-600 hover:ring-white hover:text-white py-1 px-3 rounded-md'>Login</a>
+                                                </Link>
+                                            </div>
+                                        )}
 
 
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="ml-3 relative">
                                             <div>
-                                                <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-white">
-                                                    <span className="sr-only">Open user menu</span>
-                                                    <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
-                                                </Menu.Button>
+                                                {useri && (
+                                                    <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-white">
+                                                        <span className="sr-only">Open user menu</span>
+                                                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                                                    </Menu.Button>
+                                                )}
                                             </div>
                                             <Transition
                                                 as={Fragment}
@@ -154,6 +134,7 @@ function Navbar() {
                                                             {({ active }) => (
                                                                 <Link
                                                                     href={item.href}
+                                                                    onClick={() => setUseri(item.state)}
                                                                 >
                                                                     <a
                                                                         className={classNames(
@@ -237,7 +218,7 @@ function Navbar() {
                         </Disclosure.Panel>
                     </>
                 )}
-        </Disclosure>
+            </Disclosure>
 
             {/* <header className="bg-white shadow">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -245,7 +226,7 @@ function Navbar() {
                 </div>
             </header> */}
 
-    {/* <header className="relative bg-yellow-100">
+            {/* <header className="relative bg-yellow-100">
               
                 <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
                     <div className="border-b border-gray-200">
@@ -356,7 +337,7 @@ function Navbar() {
                 </nav>
             </header> */}
 
-        </div >
+        </div>
     )
 }
 
