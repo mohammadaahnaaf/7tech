@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { products } from '../../data/ProductsData'
 import Layout from '../layout/Layout'
-import Modal from './Details'
+// import Modal from './Details'
 
 export function Product() {
 
@@ -74,7 +74,7 @@ export default function Products() {
   return (
     <Layout>
       <Product />
-      <Modal />
+      {/* <Modal /> */}
     </Layout>
   )
 }
