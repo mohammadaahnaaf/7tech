@@ -2,9 +2,11 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Disclosure, Tab, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Layout from './layout/Layout'
-import { categoriesData } from '../data/CategoriesData'
-import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
+import { categoriesData, subCategories } from '../data/CategoriesData'
+import { ChevronDoubleRightIcon, ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
 import { Product } from './products/Products'
+import Navbar from './shared/Navbar'
+import Footer, { Footers } from './shared/Footer'
 
 // import Link from 'next/link'
 
@@ -20,7 +22,7 @@ export function CategoryBar() {
         <div className=''>
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="relative z-0 lg:hidden" onClose={setOpen}>
+                <Dialog as="div" className="relative z-10 lg:hidden" onClose={setOpen}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
@@ -65,7 +67,7 @@ export function CategoryBar() {
 
                                                     className={({ selected }) =>
                                                         classNames(
-                                                            selected ? 'text-green-500 border-green-500' : 'text-gray-900 border-transparent',
+                                                            selected ? 'text-red-600 border-red-600' : 'text-gray-900 border-transparent',
                                                             'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium'
                                                         )
                                                     }
@@ -77,15 +79,15 @@ export function CategoryBar() {
                                     </div>
                                     <Tab.Panels as={Fragment}>
                                         {categoriesData.categories.map((category) => (
-                                            <Tab.Panel key={category.name} className="pt-10 pb-8 px-4 space-y-10">
-                                                <div className="grid grid-cols-2 gap-x-4 z-50">
+                                            <Tab.Panel key={category.name} className="pt-10 pb-8 px-4 -z-50 space-y-10">
+                                                <div className="grid grid-cols-2 gap-x-4 z-60">
                                                     {category.featured.map((item) => (
-                                                        <div key={item.name} className="group z-50 relative text-sm">
+                                                        <div key={item.name} className="group z-60 relative text-sm">
                                                             <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                                 <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
                                                             </div>
                                                             <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                                                <span className="absolute z-50 inset-0" aria-hidden="true" />
+                                                                <span className="absolute z-60 inset-0" aria-hidden="true" />
                                                                 {item.name}
                                                             </a>
                                                             <p aria-hidden="true" className="mt-1">
@@ -128,19 +130,21 @@ export function CategoryBar() {
 
             <header className="relative bg-gray-200 mb-1">
 
-                <nav aria-label="Top" className="max-w-7xl mx-auto px-4 md:block hidden sm:px-6 lg:px-8">
+                <nav area-position='fixed' aria-label="Top" className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
                     <div className="border-b border-gray-200">
                         <div className="h-16 flex items-center">
                             <button
                                 type="button"
-                                className="bg-white p-2 rounded-md text-gray-400 lg:hidden"
+                                className="bg-white p-2 flex items-center rounded-md text-gray-400 xl:hidden"
                                 onClick={() => setOpen(true)}
                             >
                                 <span className="sr-only">Open menu</span>
-                                <MenuIcon className="h-6 w-6" aria-hidden="true" />
+                                {/* <MenuIcon className="h-6 w-6" aria-hidden="true" /> */}
+                                <ChevronDoubleRightIcon className="h-6 w-6 mr-1" aria-hidden="true" />
+                                <span className="">Categories</span>
                             </button>
 
-                            <Popover.Group className="hidden lg:ml-0 lg:block lg:self-stretch">
+                            <Popover.Group className="hidden lg:ml-0 xl:block lg:self-stretch">
                                 <div className="h-full flex gap-8">
                                     {categoriesData.categories.map((category) => (
                                         <Popover key={category.name} className="flex">
@@ -247,13 +251,7 @@ const sortOptions =
         { name: 'Price: Low to High', href: '#', current: false },
         { name: 'Price: High to Low', href: '#', current: false },
     ]
-const subCategories = [
-    { name: 'Smartphone', href: '#' },
-    { name: 'PC', href: '#' },
-    { name: 'Laptop', href: '#' },
-    { name: 'Electronics', href: '#' },
-    { name: 'Lifestyle', href: '#' },
-]
+
 const filters = [
     {
         id: 'color',
@@ -293,6 +291,7 @@ const filters = [
 ]
 
 export function Example() {
+
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     return (
@@ -399,10 +398,10 @@ export function Example() {
                 </Transition.Root>
 
                 <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="relative z-10 flex items-baseline justify-between py-6 border-b border-gray-200">
-                        <h1 className="text-4xl font-medium tracking-tight text-gray-900">Categories</h1>
+                    <div className="relative flex items-baseline justify-between py-6 border-b border-gray-200">
+                        <h1 className="text-lg lg:text-4xl font-medium text-gray-900">Categories</h1>
 
-                        <div className="flex items-center">
+                        <div className="flex z-30 items-center">
                             <Menu as="div" className="relative inline-block text-left">
                                 <div>
                                     <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
@@ -423,7 +422,7 @@ export function Example() {
                                     leaveFrom="transform opacity-100 scale-100"
                                     leaveTo="transform opacity-0 scale-95"
                                 >
-                                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <Menu.Items className=" origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="py-1">
                                             {sortOptions.map((option) => (
                                                 <Menu.Item key={option.name}>
@@ -539,8 +538,10 @@ export function Example() {
 
 export default function Category() {
     return (
-        <Layout>
+        <>
+            <Navbar />
             <Example />
-        </Layout>
+            <Footers />
+        </>
     )
 }

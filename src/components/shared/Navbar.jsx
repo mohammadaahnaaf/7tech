@@ -47,9 +47,9 @@ function Navbar() {
                             <div className="flex items-center justify-between h-16">
                                 <div className="flex items-center">
                                     <div className="hidden md:block h-8">
-                                        <Link href='/' className='text-white'>
-                                            <a className=''>
-                                                <Image src="/logo.png" alt="Home" height={40} width={50 * 3} />
+                                        <Link href='/'>
+                                            <a className='h-20 w-full'>
+                                                <Image src="/logo.png" alt="Home" layout="fixed" width={80} height={40} />
                                             </a>
                                         </Link>
                                     </div>
@@ -153,7 +153,7 @@ function Navbar() {
                                     </div>
                                 </div>
                                 <div className="-mr-2 flex md:hidden">
-                                
+
                                     {/* Mobile menu button */}
                                     <Disclosure.Button className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200">
                                         <span className="sr-only">Open main menu</span>
@@ -185,7 +185,7 @@ function Navbar() {
                                 ))}
                             </div>
                             <div className="pt-2 pb-3 border-t border-gray-300">
-  
+
                                 <div className="mt-3 px-2 space-y-1">
                                     {userNavigation.map((item) => (
                                         <Disclosure.Button

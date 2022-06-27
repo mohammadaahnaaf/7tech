@@ -15,7 +15,7 @@ function Checkouts() {
                     <div className="mt-5 md:mt-0 md:col-span-2">
 
                         <div className="shadow overflow-hidden sm:rounded-md">
-                            <div className="px-4 py-5 bg-white sm:p-6">
+                            <div className="px-4 py-5 bg-gray-50 sm:p-6">
                                 <div className="grid grid-cols-6 gap-6">
                                     <h2 className='text-center col-span-6 font-medium text-2xl'>Checkout</h2>
                                     <div className="col-span-6">
@@ -158,7 +158,7 @@ function Checkouts() {
                 </div>
 
                 <div className='w-1/3 shadow overflow-hidden sm:rounded-md'>
-                    <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
+                    <div className="flex-1 bg-gray-50 overflow-y-auto py-6 px-4 sm:px-6">
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">

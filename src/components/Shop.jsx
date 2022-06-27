@@ -40,7 +40,7 @@ export function Shop({ items, title }) {
                     />
                   </a>
                 </div>
-                <div className="mt-0 p-2 z-10 rounded-b-md bg-gradient-to-b from-red-200 to-white flex justify-between">
+                <div className="mt-0 p-2 z-10 rounded-b-md bg-gradient-to-b from-red-200 to-red-50 flex justify-between">
                   <div>
                     <h3 className="text-sm text-gray-700">
                       <Link href={product.href}>

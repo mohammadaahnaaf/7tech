@@ -61,7 +61,7 @@ export const categoriesData = {
             ],
         },
         {
-            id: 'men',
+            id: 'mouse',
             name: 'Mouse',
             featured: [
                 {
@@ -575,3 +575,16 @@ export const categoriesData = {
         },
     ]
 }
+
+export const subCategories = [
+    { name: 'Gamming Chair', href: '#' },
+    { name: 'Mouse', href: '#' },
+    { name: 'Mousepad', href: '#' },
+    { name: 'Keyboard', href: '#' },
+    { name: 'Microphone', href: '#' },
+    { name: 'Headset', href: '#' },
+    { name: 'Gamepad', href: '#' },
+    { name: 'Webcam', href: '#' },
+    { name: 'Speaker', href: '#' },
+    { name: 'Chassis', href: '#' },
+]
