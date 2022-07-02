@@ -1,5 +1,5 @@
 import React from 'react'
-import Error from '../components/404'
+import Error from '../components/client/404'
 
 function ErrorPage() {
   return (

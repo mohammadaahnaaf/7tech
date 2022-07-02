@@ -1,12 +1,12 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Disclosure, Tab, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import Layout from './layout/Layout'
-import { categoriesData, subCategories } from '../data/CategoriesData'
+// import Layout from './layout/Layout'
+import { categoriesData, subCategories } from '../../data/CategoriesData'
 import { ChevronDoubleRightIcon, ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
 import { Product } from './products/Products'
-import Navbar from './shared/Navbar'
-import Footer, { Footers } from './shared/Footer'
+import Navbar from '../shared/Navbar'
+import { Footers } from '../shared/Footer'
 
 // import Link from 'next/link'
 
@@ -15,11 +15,12 @@ function classNames(...classes) {
 }
 
 export function CategoryBar() {
+
     const [open, setOpen] = useState(false)
-    // const [height, setHeight] = useState(false)
 
     return (
-        <div className=''>
+        <div>
+
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-10 lg:hidden" onClose={setOpen}>
@@ -84,7 +85,7 @@ export function CategoryBar() {
                                                     {category.featured.map((item) => (
                                                         <div key={item.name} className="group z-60 relative text-sm">
                                                             <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                                                <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
+                                                                {/* <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" /> */}
                                                             </div>
                                                             <a href={item.href} className="mt-6 block font-medium text-gray-900">
                                                                 <span className="absolute z-60 inset-0" aria-hidden="true" />
@@ -184,11 +185,11 @@ export function CategoryBar() {
                                                                             {category.featured.map((item) => (
                                                                                 <div key={item.name} className="group relative text-base sm:text-sm">
                                                                                     <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                                                                        <img
+                                                                                        {/* <img
                                                                                             src={item.imageSrc}
                                                                                             alt={item.imageAlt}
                                                                                             className="object-center object-cover"
-                                                                                        />
+                                                                                        /> */}
                                                                                     </div>
                                                                                     <a href={item.href} className="mt-6 block font-medium text-gray-900">
                                                                                         <span className="absolute z-10 inset-0" aria-hidden="true" />

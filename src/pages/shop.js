@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import Shops from '../components/Shop'
+import Shops from '../components/client/Shop'
 
 function ShopPage() {
     return (

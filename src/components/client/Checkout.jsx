@@ -1,9 +1,9 @@
 import { TrashIcon } from '@heroicons/react/solid'
 import React from 'react'
-import { cartProducts } from '../data/CartItems'
-import { products } from '../data/ProductsData'
-import { Carts } from './Cart'
-import Layout from './layout/Layout'
+// import { cartProducts } from '../data/CartItems'
+import { products } from '../../data/ProductsData'
+// import { Carts } from './Cart'
+import Layout from '../layout/Layout'
 
 function Checkouts() {
 

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import Layout from './layout/Layout'
+import Layout from '../layout/Layout'
 
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';

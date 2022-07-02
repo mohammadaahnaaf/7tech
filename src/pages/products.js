@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Products from '../components/products/Products'
+import Products from '../components/client/products/Products'
 
 function ProductsPage() {
     return (

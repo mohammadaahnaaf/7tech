@@ -1,9 +1,10 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+
 
 const user = {
     name: 'Ahnaf',
@@ -32,9 +33,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Navbar() {
+function AdminNavbar() {
 
-    const [useri, setUseri] = useState(true);
+    const [useri, setUseri] = React.useState(true);
     const { pathname } = useRouter();
     // console.log(pathname);
 
@@ -178,7 +179,7 @@ function Navbar() {
                                             pathname === item.href ? 'bg-white text-gray-800' : '',
                                             'block px-3 py-2 rounded-md text-base font-medium'
                                         )}
-                                        aria-current={item.current ? 'page' : undefined}
+                                        aria-current={pathname === item.href ? 'page' : undefined}
                                     >
                                         {item.name}
                                     </Disclosure.Button>
@@ -207,4 +208,4 @@ function Navbar() {
     )
 }
 
-export default Navbar
+export default AdminNavbar

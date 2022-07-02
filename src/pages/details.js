@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import { Detail } from '../components/products/Details'
+import { Detail } from '../components/client/products/Details'
 
 function DetailsPage() {
     return (

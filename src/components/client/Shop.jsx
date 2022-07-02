@@ -2,7 +2,7 @@ import { ShoppingCartIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import Layout from './layout/Layout'
+import Layout from '../layout/Layout'
 
 export function Shop({ items, title }) {
   // console.log(items)
@@ -16,7 +16,7 @@ export function Shop({ items, title }) {
           </div>
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {items?.map((product) => (
-              <div key={product.id} className="grid relative ring-2 rounded-md ring-gray-300">
+              <div key={product.id} className="grid relative ring-2 rounded-md hover:zoom-10 ring-gray-300">
                 <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white rounded-md bg-black bg-opacity-25 hover:bg-opacity-50">
                   <button
                     // onClick={}
@@ -25,7 +25,7 @@ export function Shop({ items, title }) {
                     <ShoppingCartIcon className='h-8 w-8' />
                   </button>
                 </div>
-                <div className=" bg-white aspect-w-1 aspect-h-1 rounded-t-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+                <div className="bg-white aspect-w-1 aspect-h-1 rounded-t-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
                   <a
                     href='/details'
                   // type='button' onClick={handleClick}

@@ -1,4 +1,4 @@
-import Layout from "./layout/Layout"
+import Layout from "../layout/Layout"
 
 /*
   This example requires Tailwind CSS v2.0+ 

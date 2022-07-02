@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Profile from '../components/Profile'
+import Profile from '../components/client/Profile'
 // import Products from '../components/products/Products'
 
 function ProfilePage() {

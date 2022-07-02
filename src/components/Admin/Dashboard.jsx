@@ -1,9 +1,21 @@
 import React from 'react'
+import { Footers } from '../shared/Footer'
+import Navbar from '../shared/Navbar'
 
-function Dashboard() {
+function Dashboards() {
   return (
-    <div>Dashboard</div>
+    <div className='h-[100vh]'>
+      <h1 className='py-10 text-red-600 text-center text-5xl'>Admin Dashboard</h1>
+    </div>
   )
 }
 
-export default Dashboard
+export default function Dashboard() {
+  return (
+    <>
+      <Navbar />
+      <Dashboards />
+      <Footers />
+    </>
+  )
+}

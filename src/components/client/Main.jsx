@@ -1,7 +1,7 @@
 import React from 'react'
-import { headsets, keyboards, mouses } from '../data/ProductsData'
+import { headsets, keyboards, mouses } from '../../data/ProductsData'
 import { Banner } from './Home'
-import Layout from './layout/Layout'
+import Layout from '../layout/Layout'
 import { Shop } from './Shop'
 
 function Main() {

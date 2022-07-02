@@ -1,11 +1,10 @@
 // import { Fragment, useState } from 'react'
 // import { Dialog, Transition } from '@headlessui/react'
+// import { useNavigate } from "react-router-dom";
 
 import { TrashIcon } from '@heroicons/react/outline'
-import { cartProducts } from '../data/CartItems'
-import { products } from '../data/ProductsData'
-import Layout from './layout/Layout'
-// import { useNavigate } from "react-router-dom";
+import Layout from '../layout/Layout'
+import { products } from '../../data/ProductsData'
 
 // const navigate = useNavigate()
 
