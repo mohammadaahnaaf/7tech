@@ -6,8 +6,8 @@ import { StarIcon } from '@heroicons/react/solid'
 // import { Shop } from '../Shop'
 // import { Product } from './Products'
 
-import Layout from '../layout/Layout'
 import Image from 'next/image'
+import Layout from '../../layout/Layout'
 
 
 const product = {
@@ -470,7 +470,7 @@ export function Details() {
     )
 }
 
-export function Detail() {
+export default function Detail() {
     return (
         <Layout>
             <Details />
