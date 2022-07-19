@@ -4,6 +4,8 @@ import { MenuIcon, SearchIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { products } from '../../data/ProductsData'
+// import { cartProducts } from '../../data/CartItems'
 
 const user = {
     name: 'Ahnaf',
@@ -37,6 +39,7 @@ function Navbar() {
     const [useri, setUseri] = useState(true);
     const { pathname } = useRouter();
     // console.log(pathname);
+    const ItemsInCart = products.length;
 
     return (
         <div className="min-h-full">
@@ -91,7 +94,7 @@ function Navbar() {
 
                                                     <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-500 justify-center">
                                                         <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
-                                                        <p className=" inline-flex items-center text-white text-xs">3</p>
+                                                        <p className=" inline-flex items-center text-white text-xs">{ItemsInCart}</p>
                                                     </span>
                                                 </button>
                                             </a>

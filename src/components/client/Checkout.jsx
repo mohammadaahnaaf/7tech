@@ -4,11 +4,17 @@ import React from 'react'
 import { products } from '../../data/ProductsData'
 // import { Carts } from './Cart'
 import Layout from '../layout/Layout'
+import Success from './Success'
 
-function Checkouts() {
+const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "Srilanka"]
+
+function Checkouts({handleSubmit}) {
+
+    const [country, setCountry] = React.useState('')
+    console.log(country)
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className="flex justify-between max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 {/* Account and delevary details */}
                 <div>
@@ -81,12 +87,12 @@ function Checkouts() {
                                             autoComplete="country-name"
                                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         >
-                                            <option>Afghanistan</option>
-                                            <option>Bangladesh</option>
-                                            <option>India</option>
-                                            <option>Nepal</option>
-                                            <option>Pakistan</option>
-                                            <option>Srilanka</option>
+                                            {countries.map((item, index) => (
+
+                                                <option key={index}>
+                                                    {item}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
 
@@ -215,9 +221,19 @@ function Checkouts() {
 }
 
 export default function Checkout() {
+
+    const [success, setSuccess] = React.useState(false)
+    function handleSubmit() {
+        setSuccess(true)
+    }
+
     return (
         <Layout>
-            <Checkouts />
+            {!success ?
+                <Checkouts handleSubmit={handleSubmit} />
+                :
+                <Success />
+            }
         </Layout>
     )
 }
