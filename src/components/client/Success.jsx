@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/outline'
-import Link from 'next/link'
+// import Link from 'next/link'
 import React from 'react'
 
 function Success() {
