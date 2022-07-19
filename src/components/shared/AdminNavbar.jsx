@@ -15,15 +15,17 @@ const user = {
 
 
 const navigation = [
-    { name: 'Home', href: '/home' },
-    { name: 'Shop', href: '/shop' },
-    { name: 'Categories', href: '/category' },
-    { name: 'Cart', href: '/cart' },
+    { name: 'Dashboard', href: '/admin' },
+    { name: 'Products', href: '#' },
+    { name: 'Add Product', href: '#' },
+    { name: 'Orders', href: '#' },
+    { name: 'Subscribers', href: '#' },
+    { name: 'Settings', href: '#' },
 ]
 const userNavigation = [
-    { name: 'Admin', href: '/admin', state: true },
-    { name: 'Your Profile', href: '/profile', state: true },
-    { name: 'Settings', href: '/settings', state: true },
+    { name: 'Home', href: '/', state: true },
+    // { name: 'Your Profile', href: '/profile', state: true },
+    // { name: 'Settings', href: '/settings', state: true },
     { name: 'Sign out', href: '/login', state: false },
 ]
 
@@ -128,7 +130,7 @@ function AdminNavbar() {
                                                 leaveFrom="transform opacity-100 scale-100"
                                                 leaveTo="transform opacity-0 scale-95"
                                             >
-                                                <Menu.Items className="origin-top-right absolute z-40 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                <Menu.Items className="origin-top-right absolute z-40 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gradient-to-r from-black to-red-900 ring-1 ring-red-600 ring-opacity-20 focus:outline-none">
                                                     {userNavigation.map((item) => (
                                                         <Menu.Item key={item.name}>
                                                             {({ active }) => (
@@ -138,8 +140,8 @@ function AdminNavbar() {
                                                                 >
                                                                     <a
                                                                         className={classNames(
-                                                                            active ? 'bg-gray-100' : '',
-                                                                            'block px-4 py-2 text-sm text-gray-700'
+                                                                            active ? 'bg-red-600' : '',
+                                                                            'block px-4 py-2 text-sm text-gray-100 hover:bg-red-600 hover:text-white'
                                                                         )}
                                                                     >
                                                                         {item.name}

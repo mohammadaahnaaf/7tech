@@ -1,21 +1,30 @@
 import React from 'react'
-import { Footers } from '../shared/Footer'
-import Navbar from '../shared/Navbar'
+import AdminLayout from '../layout/AdminLayout'
 
 function Dashboards() {
+
   return (
-    <div className='h-[100vh]'>
-      <h1 className='py-10 text-red-600 text-center text-5xl'>Admin Dashboard</h1>
+    <div className='grid w-[100%] grid-cols-1 gap-3 justify-around m-3 sm:grid-cols-2 lg:grid-cols-4'>
+      <div className='p-3 mx-auto w-[100%] h-40 rounded-md bg-gray-200'>
+
+      </div>
+      <div className='p-3 mx-auto w-[100%] h-40 rounded-md bg-gray-200'>
+
+      </div>
+      <div className='p-3 mx-auto w-[100%] h-40 rounded-md bg-gray-200'>
+
+      </div>
+      <div className='p-3 mx-auto w-[100%] h-40 rounded-md bg-gray-200'>
+
+      </div>
     </div>
   )
 }
 
 export default function Dashboard() {
   return (
-    <>
-      <Navbar />
+    <AdminLayout>
       <Dashboards />
-      <Footers />
-    </>
+    </AdminLayout>
   )
 }

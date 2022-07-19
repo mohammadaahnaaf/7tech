@@ -8,10 +8,16 @@ import Success from './Success'
 
 const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "Srilanka"]
 
-function Checkouts({handleSubmit}) {
+function Checkouts({ handleSubmit }) {
 
     const [country, setCountry] = React.useState('')
+    const [value, setValue] = React.useState(false)
     console.log(country)
+
+    function clickedValue() {
+        value ? setValue(false) : setValue(true)
+        console.log(value)
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -33,7 +39,7 @@ function Checkouts({handleSubmit}) {
                                             name="first-name"
                                             id="first-name"
                                             autoComplete="given-name"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
@@ -46,7 +52,7 @@ function Checkouts({handleSubmit}) {
                                             name="last-name"
                                             id="last-name"
                                             autoComplete="family-name"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div> */}
 
@@ -59,7 +65,7 @@ function Checkouts({handleSubmit}) {
                                             name="email-address"
                                             id="email-address"
                                             autoComplete="email"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
                                     <div className="col-span-6 sm:col-span-3">
@@ -73,7 +79,7 @@ function Checkouts({handleSubmit}) {
                                             pattern="[+]{1}[0-9]{11,14}"
                                             required
                                             autoComplete="phone"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
@@ -85,7 +91,7 @@ function Checkouts({handleSubmit}) {
                                             id="country"
                                             name="country"
                                             autoComplete="country-name"
-                                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
                                         >
                                             {countries.map((item, index) => (
 
@@ -105,7 +111,7 @@ function Checkouts({handleSubmit}) {
                                             name="city"
                                             id="city"
                                             autoComplete="address-level2"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
@@ -118,7 +124,7 @@ function Checkouts({handleSubmit}) {
                                             name="region"
                                             id="region"
                                             autoComplete="address-level1"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
@@ -131,7 +137,7 @@ function Checkouts({handleSubmit}) {
                                             name="postal-code"
                                             id="postal-code"
                                             autoComplete="postal-code"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
@@ -143,10 +149,36 @@ function Checkouts({handleSubmit}) {
                                             id="street-address"
                                             name="street-address"
                                             rows={3}
-                                            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                            className="shadow-sm focus:ring-red-500 focus:border-red-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                                             placeholder="Address"
                                             defaultValue={''}
                                         />
+                                    </div>
+                                    <div className="flex items-center col-span-3">
+                                        <input
+                                            id="payment"
+                                            name="push-notifications"
+                                            type="radio"
+                                            value={value}
+                                            onClick={clickedValue}
+                                            className="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300"
+                                        />
+                                        <label htmlFor="payment" className="ml-3 block text-sm font-medium text-gray-700">
+                                            Cash on delevary
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center col-span-6">
+                                        <input
+                                            id="payment"
+                                            name="push-notifications"
+                                            type="radio"
+                                            value={value}
+                                            onClick={clickedValue}
+                                            className="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300"
+                                        />
+                                        <label htmlFor="payment" className="ml-3 block text-sm font-medium text-gray-700">
+                                            Pay with VISA
+                                        </label>
                                     </div>
                                 </div>
                             </div>
