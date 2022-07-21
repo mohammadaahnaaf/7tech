@@ -1,7 +1,7 @@
 import React from 'react'
 import AdminLayout from '../../layout/AdminLayout'
 
-function ProductsLists() {
+export function ProductsLists() {
   return (
 
     <div className="mx-3 mt-3 overflow-x-auto relative shadow-md sm:rounded-lg">

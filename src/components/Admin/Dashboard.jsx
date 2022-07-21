@@ -1,6 +1,6 @@
 import React from 'react'
 import AdminLayout from '../layout/AdminLayout'
-import ProductsList from './products/ProductsList'
+import { ProductsLists } from './products/ProductsList'
 
 function Dashboards() {
 
@@ -32,7 +32,7 @@ export default function Dashboard() {
   return (
     <AdminLayout>
       <Dashboards />
-      <ProductsList />
+      <ProductsLists />
     </AdminLayout>
   )
 }
