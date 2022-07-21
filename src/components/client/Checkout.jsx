@@ -12,11 +12,16 @@ function Checkouts({ handleSubmit }) {
 
     const [country, setCountry] = React.useState('')
     const [value, setValue] = React.useState(false)
+    const [payNowValue, setPayNowValue] = React.useState(false)
     console.log(country)
 
     function clickedValue() {
         value ? setValue(false) : setValue(true)
         console.log(value)
+    }
+    function clickedPayNow() {
+        payNowValue ? setPayNowValue(false) : setPayNowValue(true)
+        console.log(payNowValue)
     }
 
     return (
@@ -157,9 +162,10 @@ function Checkouts({ handleSubmit }) {
                                     <div className="flex items-center col-span-3">
                                         <input
                                             id="payment"
-                                            name="push-notifications"
+                                            name="cashOnDelevary"
                                             type="radio"
-                                            value={value}
+                                            // value={value}
+                                            checked={value}
                                             onClick={clickedValue}
                                             className="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300"
                                         />
@@ -170,10 +176,11 @@ function Checkouts({ handleSubmit }) {
                                     <div className="flex items-center col-span-6">
                                         <input
                                             id="payment"
-                                            name="push-notifications"
+                                            name="payWithVisa"
                                             type="radio"
-                                            value={value}
-                                            onClick={clickedValue}
+                                            // value={value}
+                                            checked={payNowValue}
+                                            onClick={clickedPayNow}
                                             className="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300"
                                         />
                                         <label htmlFor="payment" className="ml-3 block text-sm font-medium text-gray-700">
