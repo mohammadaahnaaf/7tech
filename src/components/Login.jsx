@@ -2,11 +2,8 @@ import Navbar from './shared/Navbar'
 import Footer from './shared/Footer'
 import { LockClosedIcon } from '@heroicons/react/solid'
 
-export default function Login() {
+export function Logins() {
     return (
-        <>
-
-            <Navbar />
             <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
@@ -90,6 +87,14 @@ export default function Login() {
                     </form>
                 </div>
             </div>
+    )
+}
+
+export default function Login() {
+    return (
+        <>
+            <Navbar />
+            <Logins />
             <Footer />
         </>
     )

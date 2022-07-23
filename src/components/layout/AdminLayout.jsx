@@ -6,7 +6,7 @@ const Sidebar = () => {
 
     return (
         <aside className="w-64 md:block hidden" aria-label="Sidebar">
-            <div className="overflow-y-auto h-[100vh] py-4 px-3 border-t-2 border-red-600 bg-gray-50 dark:bg-gray-800">
+            <div className="overflow-y-auto h-full py-4 px-3 border-t-2 border-red-600 bg-gray-50 dark:bg-gray-800">
                 <ul className="space-y-2">
                     <li>
                         <a href="/admin" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -75,7 +75,7 @@ export default function AdminLayout({ children }) {
     return (
         <>
             <AdminNavbar />
-            <div className='flex min-h-screen'>
+            <div className='flex'>
                 <Sidebar />
                 <div className='w-full bg-gray-200'>
                     {children}

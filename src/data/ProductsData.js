@@ -1,3 +1,81 @@
+export const details = {
+  name: 'Redmi 10C 4GB/128GB',
+  price: 'TK 14,999',
+  rating: 4.0,
+  reviewCount: 117,
+  href: '#',
+  brand: 'Xiaomi',
+  imageSrc: '/productss/redmi.jpg',
+  imageAlt: 'Two each of gray, white, and black shirts arranged on table.',
+  colors: [
+      { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
+      { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
+      { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+  ],
+  sizes: [
+      { name: 'S', inStock: true },
+      { name: 'M', inStock: true },
+      { name: 'L', inStock: true },
+      { name: 'XL', inStock: true }
+  ],
+  details: [
+      { title: 'OS: MIUI 13 based on Android 11' },
+      { title: 'Processor: Snapdragon® 680 (6nm)' },
+      { title: 'CPU: Octa-core CPU, up to 2.4GHz' },
+      { title: 'GPU: Qualcomm® Adreno™ 610 GPU' },
+      { title: 'RAM: 4GB LPDDR4X' },
+      { title: 'ROM: 128GB UFS 2.2' },
+      { title: 'Network: 2G/3G/4G' },
+      { title: 'Card Slot: Dual SIM + microSD | Expandable storage up to 1TB' },
+      { title: 'Display: 6.71" HD+ Dot Drop display | Corning® Gorilla® Glass' },
+      { title: 'Display Resolution: 1650 x 720 pixels' },
+      { title: 'Camera: Front: 5MP (f/2.2), Rear: 50MP+2MP' },
+      { title: 'Back Camera Mechanism: 50MP (Main camera, f/1.8) + 2MP (Depth Camera, f/2.4)' },
+      { title: 'Video (Rear): 1080p | 1920x1080 at 30fps, 720p | 720p | 1280x720 at 30fps' },
+      { title: 'Battery: 5000mAh (typ) battery| Supports 18W fast charging | 10W in-box charger | USB-C' },
+      { title: 'Network & Connectivity: 802.11a/b/g/n/ac Wi-Fi | Bluetooth: 5.0 | GPS' },
+      { title: 'Audio: 3.5mm headphone jack' },
+      { title: 'Security: Rear fingerprint sensor | AI face unlock' },
+      { title: 'Sensors: Proximity sensor | Ambient light sensor | Accelerometer' },
+  ],
+  informations: [
+      { title: 'Brand', description: 'Xiaomi' },
+      { title: 'SKU', description: 'RDMI10C4128GB' },
+      { title: 'Express Delivery', description: 'Yes' },
+      { title: 'Warranty Information', description: '12 Months' },
+      { title: 'Emi Available', description: '0' },
+      { title: 'Front Camera', description: '5 MP' },
+      { title: 'System Storage', description: '128 GB' },
+      { title: 'RAM(GB)', description: '4' },
+      { title: 'SIM Card', description: 'Nano-SIM & dual stand-by' },
+      { title: 'Processor', description: 'Qualcomm Snapdragon 680' },
+      { title: 'CPU Speed(Ghz)', description: 'Octa-core CPU, up to 2.4GHz' },
+      { title: 'Connectivity', description: '802.11a/b/g/n/ac Wi-Fi | Bluetooth: 5.0 | GPS' },
+      { title: 'Battery mAh', description: '5000mAh (typ) battery| Supports 18W fast charging | 10W in-box charger | USB-C' },
+      { title: 'Model', description: 'Redmi 10C' },
+  ],
+  reviews: [
+      {
+          name: "Mohammed Ahnaf",
+          date: "12 june 2022",
+          comment: "Good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
+          rating: 4,
+      },
+      {
+          name: "Tanvir",
+          date: "13 june 2022",
+          comment: "not much good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
+          rating: 3,
+      },
+      {
+          name: "Istiak",
+          date: "19 june 2022",
+          comment: "Very good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
+          rating: 5,
+      },
+  ]
+}
+
 export const products = [
   {
     id: 1,

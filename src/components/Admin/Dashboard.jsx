@@ -5,7 +5,7 @@ import { ProductsLists } from './products/ProductsList'
 function Dashboards() {
 
   return (
-    <div className='grid w-[100%] grid-cols-1 gap-3 justify-around mx-3 my-3 sm:grid-cols-2 lg:grid-cols-4'>
+    <div className='grid grid-cols-1 gap-3 justify-around mx-3 my-3 sm:grid-cols-2 lg:grid-cols-4'>
       <div className='p-3 items-center grid mx-auto w-[100%] h-40 rounded-md bg-white'>
         <h1 className='text-2xl text-gray-500'>Total Products</h1>
         <h1 className='text-5xl text-gray-500'>10,000</h1>

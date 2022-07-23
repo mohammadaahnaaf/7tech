@@ -8,85 +8,10 @@ import { StarIcon } from '@heroicons/react/solid'
 
 import Image from 'next/image'
 import Layout from '../../layout/Layout'
+import { details } from '../../../data/ProductsData'
 
 
-const product = {
-    name: 'Redmi 10C 4GB/128GB',
-    price: 'TK 14,999',
-    rating: 4.0,
-    reviewCount: 117,
-    href: '#',
-    brand: 'Xiaomi',
-    imageSrc: '/productss/redmi.jpg',
-    imageAlt: 'Two each of gray, white, and black shirts arranged on table.',
-    colors: [
-        { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-        { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-        { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-    ],
-    sizes: [
-        { name: 'S', inStock: true },
-        { name: 'M', inStock: true },
-        { name: 'L', inStock: true },
-        { name: 'XL', inStock: true }
-    ],
-    details: [
-        { title: 'OS: MIUI 13 based on Android 11' },
-        { title: 'Processor: Snapdragon® 680 (6nm)' },
-        { title: 'CPU: Octa-core CPU, up to 2.4GHz' },
-        { title: 'GPU: Qualcomm® Adreno™ 610 GPU' },
-        { title: 'RAM: 4GB LPDDR4X' },
-        { title: 'ROM: 128GB UFS 2.2' },
-        { title: 'Network: 2G/3G/4G' },
-        { title: 'Card Slot: Dual SIM + microSD | Expandable storage up to 1TB' },
-        { title: 'Display: 6.71" HD+ Dot Drop display | Corning® Gorilla® Glass' },
-        { title: 'Display Resolution: 1650 x 720 pixels' },
-        { title: 'Camera: Front: 5MP (f/2.2), Rear: 50MP+2MP' },
-        { title: 'Back Camera Mechanism: 50MP (Main camera, f/1.8) + 2MP (Depth Camera, f/2.4)' },
-        { title: 'Video (Rear): 1080p | 1920x1080 at 30fps, 720p | 720p | 1280x720 at 30fps' },
-        { title: 'Battery: 5000mAh (typ) battery| Supports 18W fast charging | 10W in-box charger | USB-C' },
-        { title: 'Network & Connectivity: 802.11a/b/g/n/ac Wi-Fi | Bluetooth: 5.0 | GPS' },
-        { title: 'Audio: 3.5mm headphone jack' },
-        { title: 'Security: Rear fingerprint sensor | AI face unlock' },
-        { title: 'Sensors: Proximity sensor | Ambient light sensor | Accelerometer' },
-    ],
-    informations: [
-        { title: 'Brand', description: 'Xiaomi' },
-        { title: 'SKU', description: 'RDMI10C4128GB' },
-        { title: 'Express Delivery', description: 'Yes' },
-        { title: 'Warranty Information', description: '12 Months' },
-        { title: 'Emi Available', description: '0' },
-        { title: 'Front Camera', description: '5 MP' },
-        { title: 'System Storage', description: '128 GB' },
-        { title: 'RAM(GB)', description: '4' },
-        { title: 'SIM Card', description: 'Nano-SIM & dual stand-by' },
-        { title: 'Processor', description: 'Qualcomm Snapdragon 680' },
-        { title: 'CPU Speed(Ghz)', description: 'Octa-core CPU, up to 2.4GHz' },
-        { title: 'Connectivity', description: '802.11a/b/g/n/ac Wi-Fi | Bluetooth: 5.0 | GPS' },
-        { title: 'Battery mAh', description: '5000mAh (typ) battery| Supports 18W fast charging | 10W in-box charger | USB-C' },
-        { title: 'Model', description: 'Redmi 10C' },
-    ],
-    reviews: [
-        {
-            name: "Mohammed Ahnaf",
-            date: "12 june 2022",
-            comment: "Good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
-            rating: 4,
-        },
-        {
-            name: "Tanvir",
-            date: "13 june 2022",
-            comment: "not much good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
-            rating: 3,
-        },
-        {
-            name: "Istiak",
-            date: "19 june 2022",
-            comment: "Very good product. very useful. Delivery was fine. But it takes much time. overall is ok.",
-            rating: 5,
-        },
-    ]
-}
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -96,9 +21,9 @@ export function Details() {
 
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
-    const [selectedColor, setSelectedColor] = useState(product.colors[0])
+    const [selectedColor, setSelectedColor] = useState(details.colors[0])
     const [show, setShow] = useState('details');
-    const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+    const [selectedSize, setSelectedSize] = useState(details.sizes[2])
 
     const incrementQty = () => {
         setQty(count => count + 1);
@@ -121,22 +46,22 @@ export function Details() {
                                 layout='fill'
                                 // width={200}
                                 // height={500}
-                                src={product.imageSrc}
-                                alt={product.imageAlt}
+                                src={details.imageSrc}
+                                alt={details.imageAlt}
                                 className="w-full h-full object-center rounded-lg object-cover lg:w-full lg:h-full"
                             />
                         </div>
 
 
                         <div className="col-span-12 lg:col-span-4">
-                            <h2 className="text-2xl font-extrabold text-gray-900 sm:pr-12">{product.name}</h2>
+                            <h2 className="text-2xl font-extrabold text-gray-900 sm:pr-12">{details.name}</h2>
 
                             <section aria-labelledby="information-heading" className="mt-2">
                                 <h3 id="information-heading" className="sr-only">
                                     Product information
                                 </h3>
 
-                                <p className="text-2xl text-gray-900">{product.price}</p>
+                                <p className="text-2xl text-gray-900">{details.price}</p>
 
                                 {/* Reviews */}
                                 <div className="mt-6">
@@ -147,24 +72,24 @@ export function Details() {
                                                 <StarIcon
                                                     key={rating}
                                                     className={classNames(
-                                                        product.rating > rating ? 'text-gray-900' : 'text-gray-200',
+                                                        details.rating > rating ? 'text-gray-900' : 'text-gray-200',
                                                         'h-5 w-5 flex-shrink-0'
                                                     )}
                                                     aria-hidden="true"
                                                 />
                                             ))}
                                         </div>
-                                        <p className="sr-only">{product.rating} out of 5 stars</p>
+                                        <p className="sr-only">{details.rating} out of 5 stars</p>
                                         <a href="#" className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                            {product.reviewCount} reviews
+                                            {details.reviewCount} reviews
                                         </a>
                                         <a href="#" className="ml-1 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                                             | Add your review
                                         </a>
                                     </div>
                                     <div className='py-2 grid gap-1'>
-                                        <h5 className='text-xs'>Brand: <a href='#' className='text-blue-500'>{product.brand}</a></h5>
-                                        <h5 className='text-xs'>Sold By: <a href='#' className='text-blue-500'>{product.brand}</a></h5>
+                                        <h5 className='text-xs'>Brand: <a href='#' className='text-blue-500'>{details.brand}</a></h5>
+                                        <h5 className='text-xs'>Sold By: <a href='#' className='text-blue-500'>{details.brand}</a></h5>
                                     </div>
                                 </div>
                             </section>
@@ -182,7 +107,7 @@ export function Details() {
                                         <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                                             <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                                             <span className="flex items-center space-x-3">
-                                                {product.colors.map((color) => (
+                                                {details.colors.map((color) => (
                                                     <RadioGroup.Option
                                                         key={color.name}
                                                         value={color}
@@ -223,7 +148,7 @@ export function Details() {
                                         <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                                             <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
                                             <div className="grid grid-cols-4 gap-4">
-                                                {product.sizes.map((size) => (
+                                                {details.sizes.map((size) => (
                                                     <RadioGroup.Option
                                                         key={size.name}
                                                         value={size}
@@ -354,8 +279,8 @@ export function Details() {
                             {(show === 'details') && (
                                 <>
                                     <div div className='md:p-5 mt-5 rounded-md bg-gray-50'>
-                                        <h2 className='text-xl font-medium'>{product.name}</h2>
-                                        {product.details.map((detail, index) => (
+                                        <h2 className='text-xl font-medium'>{details.name}</h2>
+                                        {details.details.map((detail, index) => (
                                             <p className='text-sm font-normal py-1 pl-10 text-gray-500'>{index + 1}. {detail.title}</p>
                                         ))}
                                     </div>
@@ -365,8 +290,8 @@ export function Details() {
                             {/* More Information  */}
                             {(show === 'info') && (
                                 <div className='md:p-5 mt-5 rounded-md bg-gray-50'>
-                                    <h2 className='text-xl font-medium'>{product.name}</h2>
-                                    {product.informations.map((info, index) => (
+                                    <h2 className='text-xl font-medium'>{details.name}</h2>
+                                    {details.informations.map((info, index) => (
                                         <div key={index} className='flex  justify-items-start md:w-4/5'>
                                             <p className='text-sm w-56 font-normal py-1 pl-10 text-gray-500'>{index + 1}. {info.title}:</p>
                                             <p className='text-sm font-normal py-1 pl-10 text-gray-500'>{info.description}</p>
@@ -381,25 +306,25 @@ export function Details() {
                                     <h2 className='text-xl font-medium'>Reviews:</h2>
                                     <div className='grid gap-5'>
                                         <div className='flex '>
-                                            <h1 className='text-7xl '>{product.rating.toFixed(1)}</h1>
+                                            <h1 className='text-7xl '>{details.rating.toFixed(1)}</h1>
                                             <div className='grid'>
                                                 <div className="flex items-center">
                                                     {[0, 1, 2, 3, 4].map((rating) => (
                                                         <StarIcon
                                                             key={rating}
                                                             className={classNames(
-                                                                product.rating > rating ? 'text-sky-400' : 'text-gray-300',
+                                                                details.rating > rating ? 'text-sky-400' : 'text-gray-300',
                                                                 'h-8 w-8 flex-shrink-0'
                                                             )}
                                                             aria-hidden="true"
                                                         />
                                                     ))}
                                                 </div>
-                                                <h2 className='py-1 px-2 text-gray-500'>{product.reviewsrate}5 Reviews</h2>
+                                                <h2 className='py-1 px-2 text-gray-500'>{details.reviewsrate}5 Reviews</h2>
                                             </div>
                                         </div>
                                         <div className='grid gap-3'>
-                                            {product.reviews.map((review, index) => (
+                                            {details.reviews.map((review, index) => (
                                                 <div className='grid md:flex justify-between col-span-1 gap-3'>
                                                     <div className='grid w-1/4 md:px-5 gap-0'>
                                                         <p className='text-sm'>{review.name}</p>
