@@ -119,7 +119,7 @@ export function Order() {
                   ${order.total}
                 </td>
                 <td className="py-4 px-6 text-right">
-                  <a href="/admin/orders/details" className="font-medium text-gray-400 hover:underline"><PencilAltIcon className='h-5 w-5' /> </a>
+                  <a href="/admin/orders/edit" className="font-medium text-gray-400 hover:underline"><PencilAltIcon className='h-5 w-5' /> </a>
                 </td>
               </tr>
             )

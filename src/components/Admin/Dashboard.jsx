@@ -22,7 +22,7 @@ function Dashboards() {
       <div className='p-3 mx-auto grid items-center w-[100%] h-40 rounded-md bg-white'>
         <h1 className='text-2xl text-gray-500'>Out of Stock</h1>
         <p className='text-green-500'>(Last 2 Weeks)</p>
-        <h1 className='text-5xl text-gray-500'>104</h1>
+        <h1 className='text-5xl text-red-500'>104</h1>
       </div>
     </div>
   )

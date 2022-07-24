@@ -274,7 +274,10 @@ const Detail = () => {
                         </div>
                     </div> */}
                 </div>
-
+                <div className='p-2 bg-gray-200 rounded-lg mt-2 gap-2 flex items-end justify-end'>
+                    <button className="w-auto text-white bg-red-600 hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type='button'>Cancel</button>
+                    <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type='submit'>Submit</button>
+                </div>
             </form>
         </div>
     )
