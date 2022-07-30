@@ -85,7 +85,7 @@ export function CategoryBar() {
                                                     {category.featured.map((item) => (
                                                         <div key={item.name} className="group z-60 relative text-sm">
                                                             <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                                                {/* <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" /> */}
+                                                                <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
                                                             </div>
                                                             <a href={item.href} className="mt-6 block font-medium text-gray-900">
                                                                 <span className="absolute z-60 inset-0" aria-hidden="true" />
@@ -129,14 +129,14 @@ export function CategoryBar() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="relative bg-gray-200 mb-1">
+            <header className="relative bg-red-600 mb-1">
 
                 <nav area-position='fixed' aria-label="Top" className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
-                    <div className="border-b border-gray-200">
+                    <div>
                         <div className="h-16 flex items-center">
                             <button
                                 type="button"
-                                className="bg-white p-2 flex items-center rounded-md text-gray-400 xl:hidden"
+                                className="bg-white p-2 flex items-center rounded-md text-black xl:hidden"
                                 onClick={() => setOpen(true)}
                             >
                                 <span className="sr-only">Open menu</span>
@@ -157,9 +157,9 @@ export function CategoryBar() {
                                                             // href='/category'
                                                             className={classNames(
                                                                 open
-                                                                    ? 'border-red-500 text-red-500'
-                                                                    : 'border-transparent text-gray-500 hover:border-b-red-500 hover:border-b-4 hover:text-red-500',
-                                                                'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-bold border-b-2 -mb-px pt-px'
+                                                                    ? 'border-gray-900 text-white border-b-white border-b-4'
+                                                                    : 'border-transparent text-gray-900 hover:border-b-white hover:border-b-4 hover:text-white',
+                                                                'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-semibold -mb-px pt-px'
                                                             )}
                                                         >
                                                             {category.name}
@@ -178,24 +178,24 @@ export function CategoryBar() {
                                                         <Popover.Panel className="absolute top-full inset-x-0 text-sm text-gray-500">
                                                             <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
-                                                            <div className="relative bg-white z-40">
+                                                            <div className="relative bg-gradient-to-b from-black via-red-900 to-black z-40">
                                                                 <div className="max-w-7xl mx-auto px-8">
                                                                     <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-8">
                                                                         <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                                                             {category.featured.map((item) => (
                                                                                 <div key={item.name} className="group relative text-base sm:text-sm">
                                                                                     <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                                                                        {/* <img
+                                                                                        <img
                                                                                             src={item.imageSrc}
                                                                                             alt={item.imageAlt}
                                                                                             className="object-center object-cover"
-                                                                                        /> */}
+                                                                                        />
                                                                                     </div>
-                                                                                    <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                                                                    <a href={item.href} className="mt-6 block font-medium text-gray-200">
                                                                                         <span className="absolute z-10 inset-0" aria-hidden="true" />
                                                                                         {item.name}
                                                                                     </a>
-                                                                                    <p aria-hidden="true" className="mt-1">
+                                                                                    <p aria-hidden="true" className="mt-1 text-gray-400">
                                                                                         Shop now
                                                                                     </p>
                                                                                 </div>
@@ -204,7 +204,7 @@ export function CategoryBar() {
                                                                         <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
                                                                             {category.sections.map((section) => (
                                                                                 <div key={section.name}>
-                                                                                    <p id={`${section.name}-heading`} className="font-medium text-gray-900">
+                                                                                    <p id={`${section.name}-heading`} className="font-medium text-gray-200">
                                                                                         {section.name}
                                                                                     </p>
                                                                                     <ul
@@ -214,7 +214,7 @@ export function CategoryBar() {
                                                                                     >
                                                                                         {section.items.map((item) => (
                                                                                             <li key={item.name} className="flex">
-                                                                                                <a href={item.href} className="hover:text-gray-800">
+                                                                                                <a href={item.href} className="text-gray-400 hover:text-gray-200">
                                                                                                     {item.name}
                                                                                                 </a>
                                                                                             </li>

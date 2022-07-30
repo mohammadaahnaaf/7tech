@@ -43,12 +43,12 @@ export function Footers() {
           <div>
 
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Call Us</h2>
-            <ul className="text-gray-600 dark:text-gray-400">
+            <ul className="text-gray-600 dark:text-gray-200">
               <li className="mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
-                <a href="#" className="hover:underline">+8801911444466</a>
+                <a href="#" className="hover:text-red-600">+8801911444466</a>
               </li>
 
             </ul>
@@ -57,38 +57,38 @@ export function Footers() {
 
           <div>
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">About</h2>
-            <ul className="text-gray-600 dark:text-gray-400">
+            <ul className="text-gray-600 dark:text-gray-200">
               <li className="mb-2">
-                <a href="#" className="hover:underline">About us</a>
+                <a href="#" className="hover:text-red-600">About us</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="hover:underline">Terms &amp; Conditions</a>
+                <a href="#" className="hover:text-red-600">Terms &amp; Conditions</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="hover:underline">Privacy Policy</a>
+                <a href="#" className="hover:text-red-600">Privacy Policy</a>
               </li>
               <li>
-                <a href="#" className="hover:underline">Help</a>
+                <a href="#" className="hover:text-red-600">Help</a>
               </li>
             </ul>
           </div>
           <div>
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Contact</h2>
-            <ul className="text-gray-600 dark:text-gray-400">
+            <ul className="text-gray-600 dark:text-gray-200">
               <li className="mb-2">
-                <a href="https://www.facebook.com/rdragonbd/" className="hover:underline ">Facebook</a>
+                <a href="https://www.facebook.com/rdragonbd/" className="hover:text-red-600">Facebook</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="hover:underline ">Twitter</a>
+                <a href="#" className="hover:text-red-600 ">Twitter</a>
               </li>
               <li>
-                <a href="#" className="hover:underline">Instagram</a>
+                <a href="#" className="hover:text-red-600">Instagram</a>
               </li>
             </ul>
           </div>
           <div>
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Find us</h2>
-            <ul className="text-gray-600 dark:text-gray-400">
+            <ul className="text-gray-600 dark:text-gray-200">
               <li className="mb-2">
                 <p className='flex items-center'>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
@@ -117,7 +117,7 @@ export function Footers() {
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
-        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://7tech.vercel.app/" className="hover:underline">SevenTech™</a> - All rights reserved.
+        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-200">© 2022 <a href="https://7tech.vercel.app/" className="hover:text-red-600">SevenTech™</a> - All rights reserved.
         </span>
         <div className="flex mt-4 space-x-6 justify-center sm:mt-0">
           <a href="https://www.facebook.com/rdragonbd/" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">

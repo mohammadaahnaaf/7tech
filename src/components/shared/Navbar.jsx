@@ -88,11 +88,11 @@ function Navbar() {
                                                 <button
                                                     type='button'
                                                     // onClick={}
-                                                    className="text-black bg-white flex p-[8px] rounded-full relative hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-400 focus:ring-gray-100"
+                                                    className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-400 focus:ring-gray-100"
                                                 >
                                                     <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
 
-                                                    <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-500 justify-center">
+                                                    <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-50 justify-center">
                                                         <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
                                                         <p className=" inline-flex items-center text-white text-xs">{ItemsInCart}</p>
                                                     </span>

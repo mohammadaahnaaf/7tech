@@ -3,7 +3,6 @@ export const details = {
   code: 'SpA10C',
   price: 1700,
   rating: 4.0,
-  reviewCount: 117,
   href: '#',
   qty: 5,
   brand: 'ReDragon',

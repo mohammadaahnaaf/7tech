@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { RadioGroup} from '@headlessui/react'
+import { useRef, useState } from 'react'
+import { RadioGroup } from '@headlessui/react'
 import { StarIcon } from '@heroicons/react/solid'
 
 // import { XIcon } from '@heroicons/react/outline'
@@ -19,6 +19,7 @@ function classNames(...classes) {
 
 export function Details() {
 
+    const myRef = useRef()
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [selectedColor, setSelectedColor] = useState(details.colors[0])
@@ -32,12 +33,18 @@ export function Details() {
         setQty(count => count - 1);
     }
 
+    function handleScroll(e) {
+        e.preventDefault()
+        setShow('reviews')
+        myRef.current?.scrollIntoView()
+    }
+
     return (
 
         <div className="max-w-7xl pb-6 mx-auto sm:px-6 lg:px-8">
             <div className="flex text-base text-left transform transition w-full md:px-4 md:my-8">
 
-                <div className="w-full relative flex items-center bg-white px-4 pt-14 pb-8 overflow-hidden shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                <div className="w-full relative flex items-center bg-white px-4 pt-3 pb-8 overflow-hidden ring-0 md:ring-2 rounded-lg ring-gray-200 sm:px-6 sm:pt-4 md:p-6 lg:p-8">
 
                     <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
 
@@ -61,7 +68,7 @@ export function Details() {
                                     Product information
                                 </h3>
 
-                                <p className="text-2xl text-gray-900">{details.price}</p>
+                                <p className="text-2xl text-gray-900">{details.price} Tk</p>
 
                                 {/* Reviews */}
                                 <div className="mt-6">
@@ -80,16 +87,16 @@ export function Details() {
                                             ))}
                                         </div>
                                         <p className="sr-only">{details.rating} out of 5 stars</p>
-                                        <a href="#" className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                            {details.reviewCount} reviews
-                                        </a>
-                                        <a href="#" className="ml-1 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                        <button type='button' onClick={handleScroll} className="ml-3 text-sm font-medium text-red-600 hover:text-red-500">
+                                            {details.reviews.length} reviews
+                                        </button>
+                                        <button type='button' onClick={handleScroll} className="ml-1 text-sm font-medium text-red-600 hover:text-red-500">
                                             | Add your review
-                                        </a>
+                                        </button>
                                     </div>
                                     <div className='py-2 grid gap-1'>
-                                        <h5 className='text-xs'>Brand: <a href='#' className='text-blue-500'>{details.brand}</a></h5>
-                                        <h5 className='text-xs'>Sold By: <a href='#' className='text-blue-500'>{details.brand}</a></h5>
+                                        <h5 className='text-xs'>Brand: <a href='#' className='text-red-500'>{details.brand}</a></h5>
+                                        <h5 className='text-xs'>Sold By: <a href='#' className='text-red-500'>7Tech</a></h5>
                                     </div>
                                 </div>
                             </section>
@@ -140,7 +147,7 @@ export function Details() {
                                     {/* <div className="mt-10">
                                         <div className="flex items-center justify-between">
                                             <h4 className="text-sm text-gray-900 font-medium">Size</h4>
-                                            <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                            <a href="#" className="text-sm font-medium text-red-600 hover:text-red-500">
                                                 Size guide
                                             </a>
                                         </div>
@@ -158,7 +165,7 @@ export function Details() {
                                                                 size.inStock
                                                                     ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
                                                                     : 'bg-gray-50 text-gray-200 cursor-not-allowed',
-                                                                active ? 'ring-2 ring-indigo-500' : '',
+                                                                active ? 'ring-2 ring-red-500' : '',
                                                                 'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1'
                                                             )
                                                         }
@@ -170,7 +177,7 @@ export function Details() {
                                                                     <span
                                                                         className={classNames(
                                                                             active ? 'border' : 'border-2',
-                                                                            checked ? 'border-indigo-500' : 'border-transparent',
+                                                                            checked ? 'border-red-500' : 'border-transparent',
                                                                             'absolute -inset-px rounded-md pointer-events-none'
                                                                         )}
                                                                         aria-hidden="true"
@@ -218,7 +225,7 @@ export function Details() {
 
                                     <button
                                         type="submit"
-                                        className="mt-6 w-full bg-sky-500 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                        className="mt-6 w-full bg-red-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600"
                                     >
                                         Add to Cart
                                     </button>
@@ -226,7 +233,7 @@ export function Details() {
                             </section>
                         </div>
 
-                        <div className='col-span-12 rounded-md w-auto min-h-44'>
+                        <div ref={myRef} className='col-span-12 rounded-md w-auto min-h-44'>
 
                             <>
                                 <div className="sm:hidden">
@@ -313,7 +320,7 @@ export function Details() {
                                                         <StarIcon
                                                             key={rating}
                                                             className={classNames(
-                                                                details.rating > rating ? 'text-sky-400' : 'text-gray-300',
+                                                                details.rating > rating ? 'text-red-400' : 'text-gray-300',
                                                                 'h-8 w-8 flex-shrink-0'
                                                             )}
                                                             aria-hidden="true"
@@ -335,7 +342,7 @@ export function Details() {
                                                             <StarIcon
                                                                 key={rating}
                                                                 className={classNames(
-                                                                    review.rating > rating ? 'text-sky-400' : 'text-gray-300',
+                                                                    review.rating > rating ? 'text-red-400' : 'text-gray-300',
                                                                     'h-6 w-6 flex-shrink-0'
                                                                 )}
                                                                 aria-hidden="true"
@@ -356,27 +363,27 @@ export function Details() {
                                                         id="about"
                                                         name="about"
                                                         rows={3}
-                                                        className="shadow-sm focus:ring-sky-500 focus:border-sky-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                                        className="shadow-sm focus:ring-red-600 focus:border-red-600 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                                                         placeholder="Write your review"
                                                         defaultValue={''}
                                                     />
                                                 </div>
-                                                <div className="flex items-center mt-3 bg-sky-100 p-3 rounded-md">
+                                                <div className="flex items-center mt-3 bg-red-100 p-3 rounded-md">
                                                     <p className='text-gray-500 mr-3'>Do You Like It?</p>
                                                     {[0, 1, 2, 3, 4].map((rating, index) => (
                                                         <button type='button' onClick={() => setStar(index + 1)}>
                                                             <StarIcon
                                                                 key={rating}
                                                                 className={classNames(
-                                                                    star > rating ? 'text-sky-500' : 'text-sky-200',
-                                                                    'h-6 w-6 flex-shrink-0 ring-sky-200 ring-2 rounded bg-white mx-1'
+                                                                    star > rating ? 'text-red-600' : 'text-red-200',
+                                                                    'h-6 w-6 flex-shrink-0 ring-red-200 ring-2 rounded bg-white mx-1'
                                                                 )}
                                                                 aria-hidden="true"
                                                             />
                                                         </button>
                                                     ))}
                                                 </div>
-                                                <button type='submit' className="mt-3 w-15 justify-center bg-sky-500 border border-transparent rounded-md py-2 px-8 flex items-center text-base font-medium text-white hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                                                <button type='submit' className="mt-3 w-15 justify-center bg-red-600 border border-transparent rounded-md py-2 px-8 flex items-center text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600">
                                                     Done
                                                 </button>
                                             </div>
