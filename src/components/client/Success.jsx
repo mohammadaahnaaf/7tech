@@ -1,6 +1,7 @@
 import { CheckIcon } from '@heroicons/react/outline'
 // import Link from 'next/link'
 import React from 'react'
+import { products } from '../../data/ProductsData'
 
 function Success() {
     return (
@@ -33,10 +34,54 @@ function Success() {
                         <h1 className='text-center text-sm'>Paid</h1>
                     </div>
                 </div>
+                <ProductsViews />
             </div>
-
         </div>
     )
 }
 
-export default Success
+const ProductsViews = () => {
+    return (
+
+        <div className="overflow-x-auto relative my-5">
+            <table className="w-full text-sm text-left text-gray-500">
+                <thead className="text-xs text-gray-700 uppercase bg-green-100">
+                    <tr>
+                        <th scope="col" className="py-3 px-6">
+                            Product name
+                        </th>
+                        <th scope="col" className="py-3 px-6">
+                            Qty
+                        </th>
+                        <th scope="col" className="py-3 px-6">
+                            Price
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {products.map((item, index) => (
+                        <tr key={index} className="border-b">
+                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                {item.name}
+                            </th>
+                            <td className="py-4 px-6">
+                                {item.quantity}
+                            </td>
+                            <td className="py-4 px-6">
+                                {item.price}
+                            </td>
+                        </tr>
+                    ))}
+                    <tr>
+                        <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Total</th>
+                        <td className="py-4 px-6"></td>
+                        <td className="py-4 px-6">$1200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    )
+}
+
+export default Success;
