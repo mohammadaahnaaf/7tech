@@ -1,9 +1,16 @@
 import React from 'react'
+import AdminLayout from '../../layout/AdminLayout'
 
-function AddCategory() {
+export function AddCategorys() {
   return (
     <div>AddCategory</div>
   )
 }
 
-export default AddCategory
+export function AddCategory() {
+  return (
+    <AdminLayout>
+      <AddCategorys />
+    </AdminLayout>
+  )
+}

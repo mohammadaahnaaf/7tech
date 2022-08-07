@@ -36,18 +36,18 @@ export const categoriesData = {
 
                     ],
                 },
-                {
-                    id: 'brands',
-                    name: 'Brands',
-                    items: [
-                        { name: 'Redragon', href: '#' },
-                        { name: 'Gigabyte', href: '#' },
-                        { name: 'Cougar', href: '#' },
-                        { name: '1STPLAYER', href: '#' },
-                        { name: 'Gamemax', href: '#' },
-                        { name: 'Browse All', href: '#' },
-                    ],
-                },
+                // {
+                //     id: 'brands',
+                //     name: 'Brands',
+                //     items: [
+                //         { name: 'Redragon', href: '#' },
+                //         { name: 'Gigabyte', href: '#' },
+                //         { name: 'Cougar', href: '#' },
+                //         { name: '1STPLAYER', href: '#' },
+                //         { name: 'Gamemax', href: '#' },
+                //         { name: 'Browse All', href: '#' },
+                //     ],
+                // },
             ],
         },
         {

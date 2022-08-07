@@ -2,6 +2,7 @@ import { MailIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import React from 'react'
 import { subscribers } from '../../data/Subscribers';
 import AdminLayout from '../layout/AdminLayout'
+import Search from '../shared/Search';
 
 function Subscriber() {
 
@@ -45,6 +46,9 @@ function Subscriber() {
     return (
 
         <div className="mx-3 mt-3 overflow-x-auto relative shadow-md sm:rounded-lg">
+            <div className='flex justify-center py-1 bg-black'>
+                <Search />
+            </div>
             <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
