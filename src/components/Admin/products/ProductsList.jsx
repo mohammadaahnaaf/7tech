@@ -6,10 +6,12 @@ import Search from '../../shared/Search';
 
 export function ProductsLists() {
 
-  // const [checked, setChecked] = React.useState(false)
-  // const [checkedAll, setCheckedAll] = React.useState(false)
+  const [searchTerm, setSearchTerm] = React.useState('')
   const [selected, setSelected] = React.useState([]);
   const [allSelected, setAllSelected] = React.useState(false)
+
+  // const [checked, setChecked] = React.useState(false)
+  // const [checkedAll, setCheckedAll] = React.useState(false)
 
   function handleAllChecked(event) {
     // !checkedAll ? setCheckedAll(true) : setCheckedAll(false)
@@ -53,7 +55,7 @@ export function ProductsLists() {
 
     <div className="mx-3 mt-3 overflow-x-auto relative shadow-md sm:rounded-lg">
       <div className='flex justify-center py-1 bg-black'>
-        <Search />
+        <Search setSearchTerm={setSearchTerm} />
       </div>
       <table className="w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -91,7 +93,15 @@ export function ProductsLists() {
           </tr>
         </thead>
         <tbody>
-          {products.map((product, index) => {
+          {products.filter((row) => {
+            if (searchTerm === "") {
+              return row;
+            } else if (row.category.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+              return row;
+            } else if (row.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+              return row;
+            } return ""
+          }).map((product, index) => {
             const isItemSelected = isSelected(product.id);
             return (
               <tr key={index} className="bg-white border-b hover:bg-gray-50">

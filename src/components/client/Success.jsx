@@ -3,7 +3,11 @@ import { CheckIcon } from '@heroicons/react/outline'
 import React from 'react'
 import { products } from '../../data/ProductsData'
 
+const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+const subtotal = countSubtotal(products)
+
 function Success() {
+
     return (
         <div className="grid min-h-screen justify-center max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <div className='ring-4 rounded-lg ring-gray-300 px-10'>
@@ -27,7 +31,7 @@ function Success() {
                     </div>
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
                         <h1 className='text-center text-xs text-gray-500'>Total:</h1>
-                        <h1 className='text-center text-sm'>$ 2001</h1>
+                        <h1 className='text-center text-sm'>$ {subtotal}</h1>
                     </div>
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
                         <h1 className='text-center text-xs text-gray-500'>Status:</h1>
@@ -41,6 +45,7 @@ function Success() {
 }
 
 const ProductsViews = () => {
+
     return (
 
         <div className="overflow-x-auto relative my-5">
@@ -68,14 +73,14 @@ const ProductsViews = () => {
                                 {item.quantity}
                             </td>
                             <td className="py-4 px-6">
-                                {item.price}
+                               $ {item.price}
                             </td>
                         </tr>
                     ))}
                     <tr>
                         <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Total</th>
                         <td className="py-4 px-6"></td>
-                        <td className="py-4 px-6">$1200</td>
+                        <td className="py-4 px-6">$ {subtotal}</td>
                     </tr>
                 </tbody>
             </table>

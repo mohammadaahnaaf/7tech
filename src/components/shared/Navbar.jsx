@@ -37,6 +37,7 @@ function classNames(...classes) {
 
 function Navbar() {
 
+    const [searchTerm, setSearchTerm] = React.useState('')
     const [useri, setUseri] = useState(true);
     const { pathname } = useRouter();
     // console.log(pathname);
@@ -59,7 +60,7 @@ function Navbar() {
                                     </div>
 
                                     {/* Search Bar  */}
-                                    <Search />
+                                    <Search setSearchTerm={setSearchTerm} />
                                 </div>
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
@@ -70,7 +71,7 @@ function Navbar() {
                                                 <button
                                                     type='button'
                                                     // onClick={}
-                                                    className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-400 focus:ring-gray-100"
+                                                    className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800"
                                                 >
                                                     <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
 

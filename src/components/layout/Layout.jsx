@@ -4,6 +4,8 @@ import Navbar from '../shared/Navbar'
 import { CategoryBar } from '../client/Categories';
 
 function Layout({ children }) {
+
+    // const { setSearchTerm } = props;
     return (
         <>
             <Navbar />

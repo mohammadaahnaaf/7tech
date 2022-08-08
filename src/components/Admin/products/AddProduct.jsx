@@ -111,9 +111,7 @@ const Detail = () => {
 
         <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around m-3'>
             <form>
-
                 <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Add Product</h1>
-
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
 
                     {/* Details  */}

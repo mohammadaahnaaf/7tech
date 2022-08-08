@@ -5,6 +5,8 @@ import Layout from '../layout/Layout'
 import { Shop } from './Shop'
 
 function Main() {
+    // const [searchTerm, setSearchTerm] = React.useState('')
+
     return (
         <Layout>
             <Banner />

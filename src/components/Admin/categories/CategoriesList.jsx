@@ -1,4 +1,5 @@
 import { MailIcon, PencilAltIcon, TranslateIcon, TrashIcon } from '@heroicons/react/solid';
+import Link from 'next/link';
 import React from 'react'
 // import { subscribers } from '../../data/Subscribers';
 import { subscribers } from '../../../data/Subscribers'
@@ -7,9 +8,10 @@ import Search from '../../shared/Search';
 
 export function Categories() {
 
-
+    const [searchTerm, setSearchTerm] = React.useState('')
     const [selected, setSelected] = React.useState([]);
     const [allSelected, setAllSelected] = React.useState(false)
+    console.log(searchTerm)
 
     function handleAllChecked(event) {
         if (event.target.checked) {
@@ -46,8 +48,11 @@ export function Categories() {
 
     return (
         <div className="mx-3 mt-3 overflow-x-auto relative shadow-md sm:rounded-lg">
-            <div className='flex justify-center py-1 bg-black'>
-                <Search />
+            <div className='flex gap-2 justify-center py-1 bg-black'>
+                <Search setSearchTerm={setSearchTerm} />
+                <Link href='/admin/category/add'>
+                    <a className='bg-white ml-4 text-sm font-medium text-black hover:bg-red-600 hover:text-white flex items-center py-1 px-3 rounded-lg'>Add Category</a>
+                </Link>
             </div>
             <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -79,7 +84,17 @@ export function Categories() {
                     </tr>
                 </thead>
                 <tbody>
-                    {subscribers.map((item, index) => {
+                    {subscribers.filter((row) => {
+                        if (searchTerm === "") {
+                            return row;
+                        } else if (row.phone.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                            return row;
+                        } else if (row.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                            return row;
+                        } else if (row.email.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                            return row;
+                        } return ""
+                    }).map((item, index) => {
                         const isItemSelected = isSelected(item.id);
                         return (
                             <tr key={index} className="bg-white border-b">
