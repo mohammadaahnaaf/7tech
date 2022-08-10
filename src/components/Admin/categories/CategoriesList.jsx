@@ -1,6 +1,7 @@
 import { MailIcon, PencilAltIcon, TranslateIcon, TrashIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import React from 'react'
+import { dataCategories } from '../../../data/CategoriesData';
 // import { subscribers } from '../../data/Subscribers';
 import { subscribers } from '../../../data/Subscribers'
 import AdminLayout from '../../layout/AdminLayout'
@@ -51,7 +52,7 @@ export function Categories() {
             <div className='flex gap-2 justify-center py-1 bg-black'>
                 <Search setSearchTerm={setSearchTerm} />
                 <Link href='/admin/category/add'>
-                    <a className='bg-white ml-4 text-sm font-medium text-black hover:bg-red-600 hover:text-white flex items-center py-1 px-3 rounded-lg'>Add Category</a>
+                    <a className='bg-white ml-4 text-sm font-medium text-black hover:bg-red-600 hover:text-white flex items-center py-0 px-3 rounded-lg'>Add Category</a>
                 </Link>
             </div>
             <table className="w-full text-sm text-left text-gray-500">
@@ -84,14 +85,12 @@ export function Categories() {
                     </tr>
                 </thead>
                 <tbody>
-                    {subscribers.filter((row) => {
+                    {dataCategories.filter((row) => {
                         if (searchTerm === "") {
                             return row;
-                        } else if (row.phone.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                        } else if (row.name.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
                             return row;
-                        } else if (row.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                            return row;
-                        } else if (row.email.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                        } else if (row.childs.map((item) => item.name.toLowerCase()).includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
                             return row;
                         } return ""
                     }).map((item, index) => {
@@ -108,10 +107,10 @@ export function Categories() {
                                     {item.name}
                                 </th>
                                 <td className="py-4 px-6">
-                                    {item.phone}
+                                    {item.childs.length}
                                 </td>
                                 <td className="py-4 px-6">
-                                    {item.email}
+                                    {item.createdAt}
                                 </td>
                                 <td className="py-4 px-6">
                                     <a href="/admin/products/details" className="font-medium text-gray-400 hover:underline">

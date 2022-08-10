@@ -457,3 +457,191 @@ export const subCategories = [
     { name: 'Speaker', href: '#' },
     { name: 'Chassis', href: '#' },
 ]
+export const dataCategories = [
+    {
+        id: 1,
+        name: 'Gamming Chair',
+        createdAt: '6 days ago',
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            }
+        ]
+    },
+    {
+        id: 10,
+        name: 'Mouse',
+        createdAt: '1 day ago',
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            },
+            {
+                name: 'super'
+            },
+        ]
+    },
+    {
+        name: 'Mousepad', href: '#',
+        id: 9,
+        createdAt: '1 day ago',
+
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            },
+            {
+                name: 'super'
+            },
+        ]
+    },
+    {
+        name: 'Keyboard', href: '#',
+        id: 2,
+        createdAt: '1 day ago',
+
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            },
+            {
+                name: 'super'
+            },
+        ]
+    },
+    {
+        name: 'Microphone', href: '#',
+        id: 3,
+        createdAt: '1 day ago',
+
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            },
+            {
+                name: 'super'
+            },
+        ]
+    },
+    {
+        name: 'Headset', href: '#',
+        id: 4,
+        createdAt: '1 day ago',
+
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            },
+            {
+                name: 'super'
+            },
+        ]
+    },
+    {
+        name: 'Gamepad', href: '#',
+        id: 5,
+        createdAt: '4 days ago',
+
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            }
+        ]
+    },
+    {
+        name: 'Webcam', href: '#',
+        id: 6,
+        createdAt: '1 day ago',
+
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            },
+            {
+                name: 'super'
+            },
+        ]
+    },
+    {
+        name: 'Speaker', href: '#',
+        id: 7,
+        createdAt: '8 days ago',
+
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            },
+        ]
+    },
+    {
+        name: 'Chassis', href: '#',
+        id: 8,
+        createdAt: '1 day ago',
+
+        childs: [
+            {
+                name: 'female'
+            },
+            {
+                name: 'Comfort'
+            },
+            {
+                name: 'male'
+            },
+            {
+                name: 'super'
+            },
+        ]
+    },
+]
