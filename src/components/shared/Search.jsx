@@ -1,15 +1,11 @@
 import { SearchIcon } from '@heroicons/react/outline'
 import React from 'react'
 
-function Search(props) {
-    // this way we pass the setSearchTerm via props ;
-    const { setSearchTerm } = props;
+function Search({setSearchTerm}) {
 
-    // function handleSearch(event) {
-    //     let val = event.target.value
-    //     setSearchTerm(val)
-    // }
-
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value)
+    }
 
     return (
         <div className="md:w-96">
@@ -23,7 +19,7 @@ function Search(props) {
                     <input
                         type="search"
                         id="default-search"
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={handleSearch}
                         className="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-red-500 focus:border-red-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
                         placeholder="Search..."
                         required

@@ -25,7 +25,7 @@ const navigation = [
 const userNavigation = [
     { name: 'Admin', href: '/admin', state: true },
     { name: 'Your Profile', href: '/profile', state: true },
-    { name: 'Settings', href: '/settings', state: true },
+    // { name: 'Settings', href: '/settings', state: true },
     { name: 'Sign out', href: '/login', state: false },
 ]
 
@@ -35,9 +35,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Navbar() {
+function Navbar({setSearchTerm}) {
 
-    const [searchTerm, setSearchTerm] = React.useState('')
+    // const [searchTerm, setSearchTerm] = React.useState('')
     const [useri, setUseri] = useState(true);
     const { pathname } = useRouter();
     // console.log(pathname);

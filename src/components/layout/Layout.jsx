@@ -3,12 +3,12 @@ import { Footers } from '../shared/Footer'
 import Navbar from '../shared/Navbar'
 import { CategoryBar } from '../client/Categories';
 
-function Layout({ children }) {
+function Layout({ children, setSearchTerm }) {
 
     // const { setSearchTerm } = props;
     return (
         <>
-            <Navbar />
+            <Navbar setSearchTerm={setSearchTerm}/>
             <CategoryBar />
             <main>
                 {children}
