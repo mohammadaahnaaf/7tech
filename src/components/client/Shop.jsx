@@ -21,11 +21,11 @@ export function Shop({ items, title, term }) {
             {items?.filter((item) => {
               if (searchTerm === "") {
                 return item;
-              } else if (item.color.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+              } else if (item.color.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
                 return item;
               } else if (item.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
                 return item;
-              } else if (item.price === (typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+              } else if (item.price.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
                 return item;
               } return ""
             }).map((product) => (
@@ -62,12 +62,6 @@ export function Shop({ items, title, term }) {
                           {product.name}
                         </a>
                       </Link>
-
-                      {/* <button>
-                          <span aria-hidden="true" className="absolute inset-0" />
-                          {product.name}
-                        </button> */}
-
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                   </div>
