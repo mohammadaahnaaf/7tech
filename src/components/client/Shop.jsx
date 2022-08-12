@@ -3,23 +3,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import Layout from '../layout/Layout'
-// import Search from '../shared/Search'
 
 export function Shop({ items, title, term }) {
-  console.log(term)
+
+  // console.log(term)
   const searchTerm = term;
-  // const [searchTerm, setSearchTerm] = React.useState('')
 
   return (
     <div className="rounded-md max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
       <div>
-        {/* <div className='hidden'>
-          <Search setSearchTerm={setSearchTerm} />
-        </div> */}
         <div className="max-w-2xl mx-auto py-0 px-4 sm:py-0 sm:px-0 lg:max-w-7xl lg:px-0">
           <div className='py-8 bg-gradient-to-r from-black to-red-600 rounded-md'>
             <h2 className="text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
           </div>
+
           <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {items?.filter((item) => {
               if (searchTerm === "") {
