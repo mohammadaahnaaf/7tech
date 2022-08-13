@@ -1,13 +1,29 @@
-import { ShoppingCartIcon } from '@heroicons/react/outline'
-import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { ShoppingCartIcon } from '@heroicons/react/outline'
+import { MinusIcon, PlusIcon } from '@heroicons/react/solid'
 import Layout from '../layout/Layout'
+import { useCart } from 'react-use-cart'
 
 export function Shop({ items, title, term }) {
 
-  // console.log(term)
   const searchTerm = term;
+  const {
+    addItem,
+    isEmpty,
+    updateItemQuantity,
+  } = useCart();
+
+  // function handleAddCart(product) {
+  //   () => addItem(product)
+  //   console.log("items: " + totalUniqueItems)
+  // }
+
+  // function handleRemoveCart(id) {
+  //   () => removeItem(id)
+  //   // console.log(totalUniqueItems)
+  // }
 
   return (
     <div className="rounded-md max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
@@ -31,12 +47,17 @@ export function Shop({ items, title, term }) {
             }).map((product) => (
               <div key={product.id} className="grid relative ring-2 rounded-md hover:zoom-10 ring-gray-300">
                 <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white rounded-md bg-black bg-opacity-25 hover:bg-opacity-50">
-                  <button
-                    // onClick={}
-                    type='button'
-                  >
+
+
+                  {/* <button type='button' onClick={() => handleRemoveCart(product.id)} className='relative'>
+                      <ShoppingCartIcon className='h-8 w-8 text-red-600' />
+                      <MinusCircleIcon className="absolute h-5 w-5 -right-1 -top-1 text-red-600 bg-white rounded-full" />
+                    </button> */}
+
+                  <button type='button' onClick={() => addItem(product)}>
                     <ShoppingCartIcon className='h-8 w-8' />
                   </button>
+
                 </div>
                 <div className="bg-white aspect-w-1 aspect-h-1 rounded-t-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
                   <a
@@ -63,7 +84,15 @@ export function Shop({ items, title, term }) {
                         </a>
                       </Link>
                     </h3>
-                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                    <div className='flex justify-between mt-2'>
+                      <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                      {!isEmpty && (
+                        <div className='flex ring-black ring-1'>
+                          <button type='button' onClick={() => updateItemQuantity(product.id, product.quantity + 1)} className='px-3 bg-black hover:bg-opacity-10 bg-opacity-20'><PlusIcon className='h-3 w-3' /></button>
+                          <button type='button' onClick={() => updateItemQuantity(product.id, product.quantity - 1)} className='px-3 bg-black hover:bg-opacity-10 bg-opacity-20 border-black border-l'><MinusIcon className='h-3 w-3' /></button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <p className="text-sm font-medium text-gray-900">{product.price}</p>
                 </div>

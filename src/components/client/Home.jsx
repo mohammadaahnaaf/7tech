@@ -25,15 +25,15 @@ export function Banner() {
             >
                 <img
                     src='/banners/banner-3.jpg'
-                    className='rounded-b-md object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className=' object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
                 <img
                     src='/banners/banner.jpg'
-                    className='rounded-b-md object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className='object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
                 <img
                     src='/banners/banner-2.jpg'
-                    className='rounded-b-md object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className='object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
                 />
             </Carousel>
         </div>
@@ -142,7 +142,6 @@ export default function Home() {
     return (
         <Layout>
             <Homes />
-            {/* <Banner /> */}
         </Layout>
     )
 }

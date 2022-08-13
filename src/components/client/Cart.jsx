@@ -3,8 +3,9 @@
 // import { useNavigate } from "react-router-dom";
 
 import { TrashIcon } from '@heroicons/react/outline'
+import { useCart } from 'react-use-cart'
 import Layout from '../layout/Layout'
-import { products } from '../../data/ProductsData'
+// import { products } from '../../data/ProductsData'
 
 // const navigate = useNavigate()
 
@@ -13,6 +14,7 @@ import { products } from '../../data/ProductsData'
 // }
 
 export function Carts() {
+    const { removeItem, items } = useCart()
     return (
         <>
             <div className="max-w-5xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -28,7 +30,7 @@ export function Carts() {
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {products.map((product) => (
+                                    {items.map((product) => (
                                         <li key={product.id} className="flex py-6">
                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 <img
@@ -54,6 +56,7 @@ export function Carts() {
                                                     <div className="flex">
                                                         <button
                                                             type="button"
+                                                            onClick={ () => removeItem(product.id)}
                                                             className="font-medium"
                                                         >
                                                             <TrashIcon className="h-6 w-6 text-red-500 hover:text-red-300" aria-hidden="true" />

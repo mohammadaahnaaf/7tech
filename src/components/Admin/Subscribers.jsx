@@ -1,5 +1,5 @@
 import { MailIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { subscribers } from '../../data/Subscribers';
 import AdminLayout from '../layout/AdminLayout'
 import Search from '../shared/Search';
@@ -92,8 +92,10 @@ function Subscriber() {
                         } else if (row.email.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
                             return row;
                         } return ""
-                    }).map((item, index) => {
+                    }).slice(0, 4).map((item, index) => {
                         const isItemSelected = isSelected(item.id);
+
+                        {/* .slice(0, n) is used to get a range of items from Array[] */}
                         return (
                             <tr key={index} className="bg-white border-b">
                                 <td class="p-4 w-4">
@@ -122,14 +124,36 @@ function Subscriber() {
                 </tbody>
             </table>
             <div className='p-2 flex justify-end'>
-                <Pagenation />
+                <Pagenation itemsPerPage={2} />
             </div>
         </div>
     )
 }
 
 
-function Pagenation() {
+function Pagenation({itemsPerPage}) {
+
+    const [currentItems, setCurrentItems] = React.useState(null);
+    const [pageCount, setPageCount] = React.useState(1);
+    const [itemOffset, setItemOffset] = React.useState(0);
+    const [pages, setPages] = React.useState(['']);
+
+    useEffect(() => {
+        // Fetch items from another resources.
+        const endOffset = itemOffset + itemsPerPage;
+        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+        setCurrentItems(subscribers.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(subscribers.length / itemsPerPage));
+        setPages([...Array(pageCount).keys()])
+    }, [itemOffset, itemsPerPage]);
+
+    // Invoke when user click to request another page.
+    const handlePageClick = (event) => {
+        const newOffset = event.selected * itemsPerPage % subscribers.length;
+        console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+        setItemOffset(newOffset);
+    };
+
     return (
         <nav className='flex items-center gap-2' aria-label="Page navigation example">
             <p className='text-sm'>Pages</p>
@@ -140,10 +164,15 @@ function Pagenation() {
                         <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
                     </button>
                 </li>
-                <li>
-                    <button type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">1</button>
-                </li>
-                <li>
+                {pages.map((page) => (
+
+                    <li key={page}>
+                        <button onClick={handlePageClick} type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">
+                            {page}
+                        </button>
+                    </li>
+                ))}
+                {/* <li>
                     <button type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">2</button>
                 </li>
                 <li>
@@ -154,7 +183,7 @@ function Pagenation() {
                 </li>
                 <li>
                     <button type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black ">5</button>
-                </li>
+                </li> */}
                 <li>
                     <button type='button' className="block py-2 px-3 leading-tight text-red-600 bg-white rounded-r-lg border border-red-300 hover:bg-red-100 hover:text-black ">
                         <span className="sr-only">Next</span>

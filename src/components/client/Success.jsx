@@ -1,12 +1,15 @@
 import { CheckIcon } from '@heroicons/react/outline'
 // import Link from 'next/link'
 import React from 'react'
-import { products } from '../../data/ProductsData'
+import { useCart } from 'react-use-cart';
+// import { products } from '../../data/ProductsData'
 
-const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
-const subtotal = countSubtotal(products)
 
 function Success() {
+
+    const { items } = useCart()
+    const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+    const subtotal = countSubtotal(items)
 
     return (
         <div className="grid min-h-screen justify-center max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -45,6 +48,9 @@ function Success() {
 }
 
 const ProductsViews = () => {
+    const { items } = useCart()
+    const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+    const subtotal = countSubtotal(items)
 
     return (
 
@@ -64,7 +70,7 @@ const ProductsViews = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((item, index) => (
+                    {items.map((item, index) => (
                         <tr key={index} className="border-b">
                             <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {item.name}
@@ -73,7 +79,7 @@ const ProductsViews = () => {
                                 {item.quantity}
                             </td>
                             <td className="py-4 px-6">
-                               $ {item.price}
+                                $ {item.price}
                             </td>
                         </tr>
                     ))}

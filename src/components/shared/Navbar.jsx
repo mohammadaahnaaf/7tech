@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { products } from '../../data/ProductsData'
 import Search from './Search'
+import { useCart } from 'react-use-cart'
 // import { cartProducts } from '../../data/CartItems'
 
 const user = {
@@ -35,13 +36,13 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Navbar({setSearchTerm}) {
+function Navbar({ setSearchTerm }) {
 
-    // const [searchTerm, setSearchTerm] = React.useState('')
     const [useri, setUseri] = useState(true);
     const { pathname } = useRouter();
+    const { totalUniqueItems } = useCart()
     // console.log(pathname);
-    const ItemsInCart = products.length;
+    // const ItemsInCart = products.length;
 
     return (
         <div className="min-h-full">
@@ -66,22 +67,23 @@ function Navbar({setSearchTerm}) {
                                     <div className="ml-4 flex items-center md:ml-6">
 
                                         {/* Cart  */}
-                                        <Link href='/cart'>
-                                            <a>
-                                                <button
-                                                    type='button'
-                                                    // onClick={}
-                                                    className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800"
-                                                >
-                                                    <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
+                                            <Link href='/cart'>
+                                                <a>
+                                                    <button
+                                                        type='button'
+                                                        // onClick={}
+                                                        className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800"
+                                                    >
+                                                        <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
 
-                                                    <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-50 justify-center">
-                                                        <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
-                                                        <p className=" inline-flex items-center text-white text-xs">{ItemsInCart}</p>
-                                                    </span>
-                                                </button>
-                                            </a>
-                                        </Link>
+                                                        <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-50 justify-center">
+                                                            <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
+                                                            <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
+                                                        </span>
+                                                    </button>
+                                                </a>
+                                            </Link>
+
                                         {!useri && (
                                             <div className='flex justify-between gap-2 ml-3'>
                                                 <Link href='/signin'>

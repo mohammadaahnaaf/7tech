@@ -1,27 +1,19 @@
 import { TrashIcon } from '@heroicons/react/solid'
+import Link from 'next/link'
 import React from 'react'
-// import { cartProducts } from '../data/CartItems'
-import { products } from '../../data/ProductsData'
-// import { Carts } from './Cart'
+// import { products } from '../../data/ProductsData'
+import { useCart } from 'react-use-cart'
 import Layout from '../layout/Layout'
 import Success from './Success'
 
-const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "Srilanka"]
 
+const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "Srilanka"]
 
 function Checkouts({ handleSubmit }) {
 
-    const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
-    const subtotal = countSubtotal(products)
-
-    const [country, setCountry] = React.useState('')
-    const [value, setValue] = React.useState(false)
-    console.log(country)
-
-    function clickedValue() {
-        value ? setValue(false) : setValue(true)
-        console.log(value)
-    }
+    const { items } = useCart()
+    const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+    const subtotal = countSubtotal(items)
 
     return (
         <form onSubmit={handleSubmit}>
@@ -46,19 +38,6 @@ function Checkouts({ handleSubmit }) {
                                             className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
-
-                                    {/* <div className="col-span-6 sm:col-span-3">
-                                        <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                                            Last name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="last-name"
-                                            id="last-name"
-                                            autoComplete="family-name"
-                                            className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                        />
-                                    </div> */}
 
                                     <div className="col-span-6 sm:col-span-3">
                                         <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
@@ -158,34 +137,6 @@ function Checkouts({ handleSubmit }) {
                                             defaultValue={''}
                                         />
                                     </div>
-                                    <div className="flex items-center col-span-3">
-                                        <input
-                                            id="payment"
-                                            name="cashOnDelevary"
-                                            type="radio"
-                                            // value={value}
-                                            checked={value}
-                                            onClick={clickedValue}
-                                            className="focus:ring-red-500 cursor-pointer h-4 w-4 text-red-600 border-gray-300"
-                                        />
-                                        <label htmlFor="payment" className="cursor-pointer hover:text-red-600 ml-2 block text-sm font-medium text-gray-700">
-                                            Cash on delevary
-                                        </label>
-                                    </div>
-                                    {/* <div className="flex items-center col-span-6">
-                                        <input
-                                            id="payment"
-                                            name="payWithVisa"
-                                            type="radio"
-                                            // value={value}
-                                            checked={payNowValue}
-                                            onClick={clickedPayNow}
-                                            className="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300"
-                                        />
-                                        <label htmlFor="payment" className="ml-3 block text-sm font-medium text-gray-700">
-                                            Pay with VISA
-                                        </label>
-                                    </div> */}
                                 </div>
                             </div>
                             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -207,7 +158,7 @@ function Checkouts({ handleSubmit }) {
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {products.map((product) => (
+                                    {items.map((product) => (
                                         <li key={product.id} className="flex py-6">
                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 <img
@@ -220,9 +171,9 @@ function Checkouts({ handleSubmit }) {
                                             <div className="ml-4 flex flex-1 flex-col">
                                                 <div>
                                                     <div className="flex justify-between text-base font-medium text-gray-900">
-                                                        <h3>
-                                                            <a href={product.href}> {product.name} </a>
-                                                        </h3>
+                                                        <Link href={product.href}>
+                                                            <a> {product.name} </a>
+                                                        </Link>
                                                         <p className="ml-2">${product.price}</p>
                                                     </div>
                                                     <p className="mt-1 text-sm text-gray-500">{product.color}</p>
@@ -251,7 +202,7 @@ function Checkouts({ handleSubmit }) {
                             <p>Subtotal :</p>
                             <p>${subtotal}</p>
                         </div>
-                        <p className="mt-0.5 text-sm text-gray-500">(Shipping and taxes are included)</p>
+                        <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes are included</p>
                     </div>
                 </div>
             </div>
@@ -268,11 +219,11 @@ export default function Checkout() {
 
     return (
         <Layout>
-            {!success ?
-                <Checkouts handleSubmit={handleSubmit} />
-                :
-                <Success />
-            }
+                {!success ?
+                    <Checkouts handleSubmit={handleSubmit} />
+                    :
+                    <Success />
+                }
         </Layout>
     )
 }
