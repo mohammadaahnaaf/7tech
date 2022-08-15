@@ -15,6 +15,8 @@ import Layout from '../layout/Layout'
 
 export function Carts() {
     const { removeItem, items } = useCart()
+    const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+    const subtotal = countSubtotal(items)
     return (
         <>
             <div className="max-w-5xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -56,7 +58,7 @@ export function Carts() {
                                                     <div className="flex">
                                                         <button
                                                             type="button"
-                                                            onClick={ () => removeItem(product.id)}
+                                                            onClick={() => removeItem(product.id)}
                                                             className="font-medium"
                                                         >
                                                             <TrashIcon className="h-6 w-6 text-red-500 hover:text-red-300" aria-hidden="true" />
@@ -74,7 +76,7 @@ export function Carts() {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                         <div className="flex items-end justify-between text-base font-medium text-gray-900">
                             <p>Subtotal :</p>
-                            <p>$ 122.00</p>
+                            <p>{subtotal}</p>
                         </div>
                         {/* <div className="flex justify-between text-base font-medium text-gray-900">
                             <p>Delevery :</p>

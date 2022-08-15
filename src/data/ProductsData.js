@@ -178,7 +178,7 @@ export const mouses = [
     href: '#',
     imageSrc: '/productss/1.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -187,7 +187,7 @@ export const mouses = [
     href: '#',
     imageSrc: '/productss/2.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'White',
   },
   {
@@ -196,7 +196,7 @@ export const mouses = [
     href: '#',
     imageSrc: '/productss/3.jpg',
     imageAlt: "product alt name",
-    price: '$47',
+    price: 4700,
     color: 'Black',
   },
   {
@@ -205,7 +205,7 @@ export const mouses = [
     href: '#',
     imageSrc: '/productss/4.jpg',
     imageAlt: "product alt name",
-    price: '$42',
+    price: 4200,
     color: 'white',
   },
   {
@@ -214,7 +214,7 @@ export const mouses = [
     href: '#',
     imageSrc: '/productss/5.png',
     imageAlt: "product alt name",
-    price: '$45',
+    price: 4500,
     color: 'Black',
   },
   {
@@ -223,7 +223,7 @@ export const mouses = [
     href: '#',
     imageSrc: '/productss/6.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -232,7 +232,7 @@ export const mouses = [
     href: '#',
     imageSrc: '/productss/7.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -241,7 +241,7 @@ export const mouses = [
     href: '#',
     imageSrc: '/productss/8.jpg',
     imageAlt: "product alt name",
-    price: '$54',
+    price: 5099,
     color: 'Black',
   },
 ]
@@ -252,7 +252,7 @@ export const keyboards = [
     href: '#',
     imageSrc: '/productss/9.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -261,7 +261,7 @@ export const keyboards = [
     href: '#',
     imageSrc: '/productss/10.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -270,7 +270,7 @@ export const keyboards = [
     href: '#',
     imageSrc: '/productss/11.jpg',
     imageAlt: "product alt name",
-    price: '$47',
+    price: 4700,
     color: 'White',
   },
   {
@@ -279,7 +279,7 @@ export const keyboards = [
     href: '#',
     imageSrc: '/productss/12.jpg',
     imageAlt: "product alt name",
-    price: '$42',
+    price: 4200,
     color: 'white',
   },
   {
@@ -288,7 +288,7 @@ export const keyboards = [
     href: '#',
     imageSrc: '/productss/13.jpg',
     imageAlt: "product alt name",
-    price: '$45',
+    price: 4500,
     color: 'Black',
   },
   {
@@ -297,7 +297,7 @@ export const keyboards = [
     href: '#',
     imageSrc: '/productss/14.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -306,7 +306,7 @@ export const keyboards = [
     href: '#',
     imageSrc: '/productss/15.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -315,7 +315,7 @@ export const keyboards = [
     href: '#',
     imageSrc: '/productss/16.jpg',
     imageAlt: "product alt name",
-    price: '$54',
+    price: 5099,
     color: 'White',
   },
 ]
@@ -326,7 +326,7 @@ export const headsets = [
     href: '#',
     imageSrc: '/productss/17.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -335,7 +335,7 @@ export const headsets = [
     href: '#',
     imageSrc: '/productss/18.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'White',
   },
   {
@@ -344,7 +344,7 @@ export const headsets = [
     href: '#',
     imageSrc: '/productss/19.jpg',
     imageAlt: "product alt name",
-    price: '$47',
+    price: 4700,
     color: 'Pink',
   },
   {
@@ -353,7 +353,7 @@ export const headsets = [
     href: '#',
     imageSrc: '/productss/20.jpg',
     imageAlt: "product alt name",
-    price: '$42',
+    price: 4200,
     color: 'Black',
   },
   {
@@ -362,7 +362,7 @@ export const headsets = [
     href: '#',
     imageSrc: '/productss/21.png',
     imageAlt: "product alt name",
-    price: '$45',
+    price: 4500,
     color: 'Black',
   },
   {
@@ -371,7 +371,7 @@ export const headsets = [
     href: '#',
     imageSrc: '/productss/22.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -380,7 +380,7 @@ export const headsets = [
     href: '#',
     imageSrc: '/productss/23.jpg',
     imageAlt: "product alt name",
-    price: '$35',
+    price: 3500,
     color: 'Black',
   },
   {
@@ -389,7 +389,7 @@ export const headsets = [
     href: '#',
     imageSrc: '/productss/24.jpg',
     imageAlt: "product alt name",
-    price: '$54',
+    price: 5099,
     color: 'Black',
   },
 ]

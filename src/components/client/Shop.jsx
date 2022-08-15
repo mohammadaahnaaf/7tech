@@ -48,7 +48,6 @@ export function Shop({ items, title, term }) {
               <div key={product.id} className="grid relative ring-2 rounded-md hover:zoom-10 ring-gray-300">
                 <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white rounded-md bg-black bg-opacity-25 hover:bg-opacity-50">
 
-
                   {/* <button type='button' onClick={() => handleRemoveCart(product.id)} className='relative'>
                       <ShoppingCartIcon className='h-8 w-8 text-red-600' />
                       <MinusCircleIcon className="absolute h-5 w-5 -right-1 -top-1 text-red-600 bg-white rounded-full" />
@@ -74,27 +73,26 @@ export function Shop({ items, title, term }) {
                     />
                   </a>
                 </div>
-                <div className="mt-0 p-2 z-10 rounded-b-md bg-gradient-to-b from-red-200 to-red-50 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
+                <div className="p-2 z-10 h-[12vh] rounded-b-md bg-gradient-to-b from-red-200 to-red-50 flex justify-between">
+                  <div className='grid justify-between'>
+                    <div>
                       <Link href={product.href}>
-                        <a>
-                          <span aria-hidden="true" className="" />
+                        <a className="text-sm text-gray-700">
                           {product.name}
                         </a>
                       </Link>
-                    </h3>
-                    <div className='flex justify-between mt-2'>
-                      <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                      {!isEmpty && (
+                    </div>
+                    <div className='flex items-end justify-between gap-2'>
+                      <p className="text-sm text-gray-500">{product.color}</p>
+                      <p className="text-sm flex font-medium text-gray-900">৳ {product.price}</p>
+                      {/* {!isEmpty && (
                         <div className='flex ring-black ring-1'>
                           <button type='button' onClick={() => updateItemQuantity(product.id, product.quantity + 1)} className='px-3 bg-black hover:bg-opacity-10 bg-opacity-20'><PlusIcon className='h-3 w-3' /></button>
                           <button type='button' onClick={() => updateItemQuantity(product.id, product.quantity - 1)} className='px-3 bg-black hover:bg-opacity-10 bg-opacity-20 border-black border-l'><MinusIcon className='h-3 w-3' /></button>
                         </div>
-                      )}
+                      )} */}
                     </div>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">{product.price}</p>
                 </div>
               </div>
             ))}

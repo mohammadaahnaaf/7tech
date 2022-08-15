@@ -8,14 +8,12 @@ function Layout({ children, setSearchTerm }) {
 
     return (
         <>
-            <CartProvider>
-                <Navbar setSearchTerm={setSearchTerm} />
-                <CategoryBar />
-                <div>
-                    {children}
-                </div>
-                <Footers />
-            </CartProvider>
+            <Navbar setSearchTerm={setSearchTerm} />
+            <CategoryBar />
+            <div>
+                {children}
+            </div>
+            <Footers />
         </>
     )
 }

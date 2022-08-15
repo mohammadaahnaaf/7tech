@@ -11,8 +11,8 @@ const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "S
 
 function Checkouts({ handleSubmit }) {
 
-    const { items } = useCart()
-    const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+    const { items, cartTotal } = useCart()
+    const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
     const subtotal = countSubtotal(items)
 
     return (
@@ -200,7 +200,7 @@ function Checkouts({ handleSubmit }) {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                         <div className="flex justify-between text-base font-medium text-gray-900">
                             <p>Subtotal :</p>
-                            <p>${subtotal}</p>
+                            <p>${cartTotal}</p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes are included</p>
                     </div>
