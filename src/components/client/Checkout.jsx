@@ -12,8 +12,8 @@ const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "S
 function Checkouts({ handleSubmit }) {
 
     const { items, cartTotal } = useCart()
-    const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
-    const subtotal = countSubtotal(items)
+    // const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+    // const subtotal = countSubtotal(items)
 
     return (
         <form onSubmit={handleSubmit}>
@@ -212,18 +212,20 @@ function Checkouts({ handleSubmit }) {
 
 export default function Checkout() {
 
+   
     const [success, setSuccess] = React.useState(false)
     function handleSubmit() {
         setSuccess(true)
+        // emptyCart(true)
     }
 
     return (
         <Layout>
-                {!success ?
-                    <Checkouts handleSubmit={handleSubmit} />
-                    :
-                    <Success />
-                }
+            {!success ?
+                <Checkouts handleSubmit={handleSubmit} />
+                :
+                <Success />
+            }
         </Layout>
     )
 }

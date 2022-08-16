@@ -1,15 +1,20 @@
+import React, { useEffect } from 'react'
 import { CheckIcon } from '@heroicons/react/outline'
-// import Link from 'next/link'
-import React from 'react'
 import { useCart } from 'react-use-cart';
-// import { products } from '../../data/ProductsData'
-
+import Router from 'next/router'
 
 function Success() {
 
-    const { items } = useCart()
-    const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
-    const subtotal = countSubtotal(items)
+    const { emptyCart, cartTotal } = useCart();
+    function handleSuccess() {
+ 
+            const { pathname } = Router
+            if (pathname == '/checkout') {
+                Router.push('/')
+            }
+
+        emptyCart(true)
+    }
 
     return (
         <div className="grid min-h-screen justify-center max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -34,7 +39,7 @@ function Success() {
                     </div>
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
                         <h1 className='text-center text-xs text-gray-500'>Total:</h1>
-                        <h1 className='text-center text-sm'>$ {subtotal}</h1>
+                        <h1 className='text-center text-sm'>$ {cartTotal}</h1>
                     </div>
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
                         <h1 className='text-center text-xs text-gray-500'>Status:</h1>
@@ -42,18 +47,18 @@ function Success() {
                     </div>
                 </div>
                 <ProductsViews />
+                <div>
+                    <button className='text-sm hover:text-red-600 text-green-600' type='button' onClick={handleSuccess}>Back to home</button>
+                </div>
             </div>
         </div>
     )
 }
 
 const ProductsViews = () => {
-    const { items } = useCart()
-    const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
-    const subtotal = countSubtotal(items)
+    const { items, cartTotal, totalItems } = useCart()
 
     return (
-
         <div className="overflow-x-auto relative my-5">
             <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-green-100">
@@ -85,8 +90,8 @@ const ProductsViews = () => {
                     ))}
                     <tr>
                         <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Total</th>
-                        <td className="py-4 px-6"></td>
-                        <td className="py-4 px-6">$ {subtotal}</td>
+                        <td className="py-4 px-6">{totalItems}</td>
+                        <td className="py-4 px-6">$ {cartTotal}</td>
                     </tr>
                 </tbody>
             </table>
