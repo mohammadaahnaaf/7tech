@@ -119,31 +119,35 @@ const Detail = () => {
                     <div>
                         <div>
                             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
-                            <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+                            <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         <div>
                             <label htmlFor="brand" className="block mb-2 text-sm font-medium text-gray-900 ">Brand</label>
-                            <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+                            <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         <div>
                             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
-                            <input type="text" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+                            <input type="text" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         <div>
                             <label htmlFor="code" className="block mb-2 text-sm font-medium text-gray-900 ">Product code</label>
-                            <input type="text" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                            <input type="text" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
                         </div>
                         <div>
                             <label htmlFor="qty" className="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
-                            <input type="number" id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+                            <input type="number" id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         <div>
                             <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">Price</label>
-                            <input type="url" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+                            <input type="number" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         <div>
                             <label htmlFor="tag" className="block mb-2 text-sm font-medium text-gray-900">Tag</label>
-                            <input type="text" id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="New" required />
+                            <input type="text" id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="New" required />
+                        </div>
+                        <div class="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
+                            <input id="bordered-checkbox-1" type="checkbox" value="" name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
+                            <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
                         </div>
                     </div>
 
@@ -243,7 +247,7 @@ const Detail = () => {
                                         <input
                                             type="text" name="detail" id="detail" value={element.detail || ""}
                                             onChange={(e) => handleChange(element.id, e)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Enter a detail" required />
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block p-2.5" placeholder="Enter a detail" required />
                                     </div>
                                     {formValues.length != 1 && (
                                         <button type="button" className="items-end flex" onClick={() => removeFormFields(element.id)}>
@@ -270,7 +274,7 @@ const Detail = () => {
                                         <label htmlFor="info" className="block mb-2 text-xs font-medium text-gray-900">More Information</label>
                                         <input type="text" name="info" id="info" value={element.info || ""}
                                             onChange={(e) => handleMoreinfo(element.id, e)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
                                             placeholder="Enter an info" required
 
                                         />
@@ -300,7 +304,7 @@ const Detail = () => {
                                         <label htmlFor="review" className="block mb-2 text-xs font-medium text-gray-900">Reviews</label>
                                         <input type="text" name="review" id="review" value={element.review || ""}
                                             onChange={(e) => handleReview(element.id, e)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
                                             placeholder="Enter a review" required
                                         />
                                     </div>

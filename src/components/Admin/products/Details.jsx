@@ -157,6 +157,10 @@ const Detail = () => {
             <label htmlFor="tag" className="block mb-2 text-sm font-medium text-gray-900">Tag</label>
             <input type="text" value={details.tag || null} id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
           </div>
+          <div class="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
+            <input id="bordered-checkbox-1" type="checkbox" value={details.featured || null} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
+            <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
+          </div>
         </div>
 
         {/* Upload product images  */}

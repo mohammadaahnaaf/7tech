@@ -6,10 +6,12 @@ export const details = {
   rating: 4.0,
   href: '#',
   qty: 5,
+  featured: true,
   brand: 'ReDragon',
   category: 'Mouse',
   imageSrc: '/productss/1.jpg',
   imageAlt: 'ReDragon M808 Storm Wireless Gaming Mouse',
+  tag: ['new', 'upcomming', 'hot'],
   colors: [
     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
     { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },

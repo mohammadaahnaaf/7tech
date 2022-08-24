@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react'
 import { CheckIcon } from '@heroicons/react/outline'
-import { useCart } from 'react-use-cart';
+// import { useCart } from 'react-use-cart';
 import Router from 'next/router'
+import { products } from '../../data/ProductsData'
+
 
 function Success() {
 
-    const { emptyCart, cartTotal } = useCart();
-    function handleSuccess() {
- 
-            const { pathname } = Router
-            if (pathname == '/checkout') {
-                Router.push('/')
-            }
+    // const { emptyCart, cartTotal } = useCart();
+    const cartTotal = 172300;
 
-        emptyCart(true)
+    function handleSuccess() {
+
+        const { pathname } = Router
+        if (pathname == '/checkout') {
+            Router.push('/')
+        }
+
+        // emptyCart(true)
     }
 
     return (
@@ -56,7 +60,9 @@ function Success() {
 }
 
 const ProductsViews = () => {
-    const { items, cartTotal, totalItems } = useCart()
+    // const { items, cartTotal, totalItems } = useCart()
+    const totalItems = 12;
+    const cartTotal = 172300;
 
     return (
         <div className="overflow-x-auto relative my-5">
@@ -75,7 +81,7 @@ const ProductsViews = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item, index) => (
+                    {products.map((item, index) => (
                         <tr key={index} className="border-b">
                             <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {item.name}

@@ -1,8 +1,8 @@
 import { TrashIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import React from 'react'
-// import { products } from '../../data/ProductsData'
-import { useCart } from 'react-use-cart'
+import { products } from '../../data/ProductsData'
+// import { useCart } from 'react-use-cart'
 import Layout from '../layout/Layout'
 import Success from './Success'
 
@@ -11,9 +11,10 @@ const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "S
 
 function Checkouts({ handleSubmit }) {
 
-    const { items, cartTotal } = useCart()
-    // const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
-    // const subtotal = countSubtotal(items)
+    // const { items, cartTotal } = useCart()
+    const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+    // const subtotal = countSubtotal(products)
+    const cartTotal = countSubtotal(products)
 
     return (
         <form onSubmit={handleSubmit}>
@@ -158,7 +159,7 @@ function Checkouts({ handleSubmit }) {
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {items.map((product) => (
+                                    {products.map((product) => (
                                         <li key={product.id} className="flex py-6">
                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 <img
