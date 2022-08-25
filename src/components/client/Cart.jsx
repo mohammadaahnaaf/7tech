@@ -1,40 +1,25 @@
-// import { Fragment, useState } from 'react'
-// import { Dialog, Transition } from '@headlessui/react'
-// import { useNavigate } from "react-router-dom";
-
 import { TrashIcon } from '@heroicons/react/outline'
-// import { useCart } from 'react-use-cart'
+import { useCart } from 'react-use-cart'
 import Layout from '../layout/Layout'
-import { products } from '../../data/ProductsData'
-
-// const navigate = useNavigate()
-
-// const routeChange = () => {
-//     navigate('/')
-// }
+// import { products } from '../../data/ProductsData'
 
 export function Carts() {
-    // const { removeItem, items } = useCart()
-    // const subtotal = countSubtotal(items)
+    const { removeItem, items } = useCart()
     const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
-    const subtotal = countSubtotal(products)
-   
+    const subtotal = countSubtotal(items)
+    // const subtotal = countSubtotal(products)
+
     return (
         <>
             <div className="max-w-5xl mx-auto py-6 sm:px-6 lg:px-8">
                 {/* container begains from here */}
-                <div className="flex h-full flex-col bg-gray-100 rounded-md shadow-xl">
+                <div className="flex h-full flex-col bg-red-100 rounded-md shadow-xl">
                     <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
-                        <div className="flex items-start justify-between">
-                            <h2 className="text-xl lg:text-4xl text-center w-full font-large text-gray-900"> Shopping Cart </h2>
-                            <div className="ml-3 flex h-7 items-center">
-                            </div>
-                        </div>
-
+                        <h2 className="text-xl lg:text-4xl text-center w-full font-large text-gray-900"> Shopping Cart </h2>
                         <div className="mt-8">
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {products.map((product) => (
+                                    {items.map((product) => (
                                         <li key={product.id} className="flex py-6">
                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 <img
@@ -50,7 +35,7 @@ export function Carts() {
                                                         <h3>
                                                             <a href={product.href}> {product.name} </a>
                                                         </h3>
-                                                        <p className="ml-4">{product.price}</p>
+                                                        <p className="ml-4">৳ {product.price}</p>
                                                     </div>
                                                     <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                                                 </div>
@@ -78,7 +63,7 @@ export function Carts() {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                         <div className="flex items-end justify-between text-base font-medium text-gray-900">
                             <p>Subtotal :</p>
-                            <p>{subtotal}</p>
+                            <p>৳ {subtotal}</p>
                         </div>
                         {/* <div className="flex justify-between text-base font-medium text-gray-900">
                             <p>Delevery :</p>

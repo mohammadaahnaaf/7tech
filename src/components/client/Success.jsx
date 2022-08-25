@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { CheckIcon } from '@heroicons/react/outline'
-// import { useCart } from 'react-use-cart';
+import { useCart } from 'react-use-cart';
 import Router from 'next/router'
-import { products } from '../../data/ProductsData'
+// import { products } from '../../data/ProductsData'
 
 
 function Success() {
 
-    // const { emptyCart, cartTotal } = useCart();
-    const cartTotal = 172300;
+    const { emptyCart, cartTotal } = useCart();
+    // const cartTotal = 172300;
 
     function handleSuccess() {
 
@@ -17,12 +17,12 @@ function Success() {
             Router.push('/')
         }
 
-        // emptyCart(true)
+        emptyCart(true)
     }
 
     return (
         <div className="grid min-h-screen justify-center max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <div className='ring-4 rounded-lg ring-gray-300 px-10'>
+            <div className='ring-4 overflow-scroll rounded-lg ring-gray-300 px-10'>
                 <div>
                     <CheckIcon className='bg-green-500 mx-auto text-white rounded-full h-20 w-20 my-10' />
                     <h1 className='text-green-500 text-4xl text-center'>Thank you</h1>
@@ -41,10 +41,12 @@ function Success() {
                         <h1 className='text-center text-xs text-gray-500'>Created at:</h1>
                         <h1 className='text-center text-sm'>3 days ago</h1>
                     </div>
+
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
                         <h1 className='text-center text-xs text-gray-500'>Total:</h1>
                         <h1 className='text-center text-sm'>$ {cartTotal}</h1>
                     </div>
+                    
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
                         <h1 className='text-center text-xs text-gray-500'>Status:</h1>
                         <h1 className='text-center text-sm'>Paid</h1>
@@ -60,9 +62,9 @@ function Success() {
 }
 
 const ProductsViews = () => {
-    // const { items, cartTotal, totalItems } = useCart()
-    const totalItems = 12;
-    const cartTotal = 172300;
+    const { items, cartTotal, totalItems } = useCart()
+    // const totalItems = 12;
+    // const cartTotal = 172300;
 
     return (
         <div className="overflow-x-auto relative my-5">
@@ -81,7 +83,7 @@ const ProductsViews = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((item, index) => (
+                    {items.map((item, index) => (
                         <tr key={index} className="border-b">
                             <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {item.name}
@@ -97,7 +99,7 @@ const ProductsViews = () => {
                     <tr>
                         <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Total</th>
                         <td className="py-4 px-6">{totalItems}</td>
-                        <td className="py-4 px-6">$ {cartTotal}</td>
+                        <td className="py-4 px-6">৳ {cartTotal}</td>
                     </tr>
                 </tbody>
             </table>

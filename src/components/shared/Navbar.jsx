@@ -1,13 +1,13 @@
 import React, { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { MenuIcon, SearchIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { products } from '../../data/ProductsData'
 import Search from './Search'
 import { useCart } from 'react-use-cart'
 // import { cartProducts } from '../../data/CartItems'
+// import { products } from '../../data/ProductsData'
 
 const user = {
     name: 'Ahnaf',

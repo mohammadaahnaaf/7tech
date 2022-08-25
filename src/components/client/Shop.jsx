@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { ShoppingCartIcon } from '@heroicons/react/outline'
 // import { MinusIcon, PlusIcon } from '@heroicons/react/solid'
 // import Layout from '../layout/Layout'
-import { CartProvider, useCart } from 'react-use-cart'
+import { useCart } from 'react-use-cart'
 
 export function Shop({ items, title, term }) {
 
