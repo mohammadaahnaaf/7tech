@@ -238,6 +238,36 @@ const Detail = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 items-start gap-2'>
                     {/* Details  */}
                     <div className='grid items-end gap-2'>
+                        <h1>Product Details</h1>
+                        {formValues.map((element, index) => (
+
+                            <div key={index} className='grid grid-cols-10 items-end'>
+                                <div className='col-span-9'>
+                                    <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
+                                    <input type="text" name="detail" id="detail" placeholder="Enter detail" required
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        value={element.title || ""}
+                                        onChange={(e) => handleChange(element.id, e)}
+
+                                    />
+                                </div>
+                                <div>
+                                    {formValues.length != 1 && (
+                                        <button type="button" className="items-end flex" onClick={() => removeFormFields(element.id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+
+                        ))}
+                        <div>
+                            <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
+                        </div>
+                    </div>
+                    {/* <div className='grid items-end gap-2'>
 
                         {formValues.map((element, index) => (
                             <div className="flex gap-2 items-center" key={index}>
@@ -262,23 +292,32 @@ const Detail = () => {
                         <div>
                             <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* More Information  */}
                     <div className='grid items-end gap-2'>
-
+                        <h1>More Information</h1>
                         {moreInfos.map((element, index) => (
-                            <div className="flex gap-2 items-center" key={index}>
-                                <div className='flex'>
+                            <div className='grid grid-cols-10 items-end'>
+                                <div className='grid grid-cols-2 gap-2 col-span-9'>
                                     <div>
-                                        <label htmlFor="info" className="block mb-2 text-xs font-medium text-gray-900">More Information</label>
-                                        <input type="text" name="info" id="info" value={element.info || ""}
+                                        <label htmlFor="info" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
+                                        <input type="text" name="info" id="info" placeholder="Enter title" required
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            value={element.title || ""}
                                             onChange={(e) => handleMoreinfo(element.id, e)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
-                                            placeholder="Enter an info" required
-
                                         />
                                     </div>
+                                    <div>
+                                        <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
+                                        <input type="text" name="description" id="description" placeholder="Enter description" required 
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
+                                        value={element.description || ""} 
+                                        onChange={(e) => handleMoreinfo(element.id, e)} 
+                                        />
+                                    </div>
+                                </div>
+                                <div className='col-span-1'>
                                     {moreInfos.length != 1 && (
                                         <button type="button" className="items-end flex" onClick={() => removeMoreinfo(element.id)}>
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

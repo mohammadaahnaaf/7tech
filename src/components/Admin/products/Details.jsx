@@ -247,17 +247,18 @@ const Detail = () => {
 
       {/* Dynamic Input  */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-2'>
+
         {/* Details  */}
         <div className='grid items-end gap-2'>
-
+          <h1>Product Details</h1>
           {details.details.map((element, index) => (
-            <div className="flex gap-2 items-center" key={index}>
 
-              <div className='flex'>
-                <div>
-                  <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
-                  <input type="text" name="detail" id="detail" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
-                </div>
+            <div key={index} className='grid grid-cols-10 items-end'>
+              <div className='col-span-9'>
+                <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
+                <input type="text" name="detail" id="detail" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+              </div>
+              <div>
                 {details.details.length != 1 && (
                   <button type="button" className="items-end flex" onClick={() => removeFormFields(element.id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -267,6 +268,7 @@ const Detail = () => {
                 )}
               </div>
             </div>
+
           ))}
           <div>
             <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
@@ -275,13 +277,17 @@ const Detail = () => {
 
         {/* More Information  */}
         <div className='grid items-end gap-2'>
-
+          <h1>More Information</h1>
           {details.informations.map((element, index) => (
             <div className="flex gap-2 items-center" key={index}>
-              <div className='flex'>
+              <div className='flex gap-2'>
                 <div>
-                  <label htmlFor="info" className="block mb-2 text-xs font-medium text-gray-900">More Information</label>
+                  <label htmlFor="info" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
                   <input type="text" name="info" id="info" value={element.title || ""} onChange={(e) => handleMoreinfo(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                </div>
+                <div>
+                  <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
+                  <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
                 </div>
                 {details.informations.length != 1 && (
                   <button type="button" className="items-end flex" onClick={() => removeMoreinfo(element.id)}>
@@ -300,7 +306,7 @@ const Detail = () => {
 
         {/* Reviews  */}
         <div className='grid items-end gap-2'>
-
+          <h1>Reviews</h1>
           {details.reviews.map((element, index) => (
             <div className="flex gap-2 items-center" key={index}>
               <div>
@@ -322,9 +328,9 @@ const Detail = () => {
               </div>
             </div>
           ))}
-          <div>
+          {/* <div>
             <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addReview}>Add</button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
