@@ -53,7 +53,7 @@ function Success() {
                     </div>
                 </div>
                 <ProductsViews />
-                <div>
+                <div className='py-3'>
                     <button className='text-sm hover:text-red-600 text-green-600' type='button' onClick={handleSuccess}>Back to home</button>
                 </div>
             </div>

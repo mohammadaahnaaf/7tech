@@ -1,14 +1,13 @@
-import { MailIcon, PencilAltIcon, TranslateIcon, TrashIcon } from '@heroicons/react/solid';
-import Link from 'next/link';
 import React from 'react'
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import { dataCategories } from '../../../data/CategoriesData';
-// import { subscribers } from '../../data/Subscribers';
-import { subscribers } from '../../../data/Subscribers'
 import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
+import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 export function Categories() {
-
+    const router = useRouter()
     const [searchTerm, setSearchTerm] = React.useState('')
     const [selected, setSelected] = React.useState([]);
     const [allSelected, setAllSelected] = React.useState(false)
@@ -16,7 +15,7 @@ export function Categories() {
 
     function handleAllChecked(event) {
         if (event.target.checked) {
-            const newSelecteds = subscribers.map((n) => n.id);
+            const newSelecteds = dataCategories.map((n) => n.id);
             setSelected(newSelecteds);
             setAllSelected(true)
             return;
@@ -113,9 +112,11 @@ export function Categories() {
                                     {item.createdAt}
                                 </td>
                                 <td className="py-4 px-6">
-                                    <a href="/admin/category/details" className="font-medium text-gray-400 hover:underline">
-                                        <PencilAltIcon className='h-5 w-5' />
-                                    </a>
+                                    <button type='button' onClick={() => router.push('/admin/category/' + item.id)}>
+                                        <p className="font-medium text-gray-400 hover:underline">
+                                            <PencilAltIcon className='h-5 w-5' />
+                                        </p>
+                                    </button>
                                 </td>
                             </tr>
                         )

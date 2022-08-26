@@ -456,7 +456,8 @@ export const subCategories = [
     { name: 'Webcam', href: '#' },
     { name: 'Speaker', href: '#' },
     { name: 'Chassis', href: '#' },
-]
+];
+
 export const dataCategories = [
     {
         id: 1,
@@ -464,12 +465,15 @@ export const dataCategories = [
         createdAt: '6 days ago',
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             }
         ]
@@ -480,15 +484,19 @@ export const dataCategories = [
         createdAt: '1 day ago',
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             },
             {
+                id: 4,
                 name: 'super'
             },
         ]
@@ -500,15 +508,19 @@ export const dataCategories = [
 
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             },
             {
+                id: 4,
                 name: 'super'
             },
         ]
@@ -517,18 +529,22 @@ export const dataCategories = [
         name: 'Keyboard', href: '#',
         id: 2,
         createdAt: '1 day ago',
-
+        
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             },
             {
+                id: 4,
                 name: 'super'
             },
         ]
@@ -537,18 +553,22 @@ export const dataCategories = [
         name: 'Microphone', href: '#',
         id: 3,
         createdAt: '1 day ago',
-
+        
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             },
             {
+                id: 4,
                 name: 'super'
             },
         ]
@@ -557,18 +577,22 @@ export const dataCategories = [
         name: 'Headset', href: '#',
         id: 4,
         createdAt: '1 day ago',
-
+        
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             },
             {
+                id: 4,
                 name: 'super'
             },
         ]
@@ -577,12 +601,14 @@ export const dataCategories = [
         name: 'Gamepad', href: '#',
         id: 5,
         createdAt: '4 days ago',
-
+        
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             }
         ]
@@ -591,18 +617,22 @@ export const dataCategories = [
         name: 'Webcam', href: '#',
         id: 6,
         createdAt: '1 day ago',
-
+        
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             },
             {
+                id: 4,
                 name: 'super'
             },
         ]
@@ -611,15 +641,18 @@ export const dataCategories = [
         name: 'Speaker', href: '#',
         id: 7,
         createdAt: '8 days ago',
-
+        
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             },
         ]
@@ -628,18 +661,22 @@ export const dataCategories = [
         name: 'Chassis', href: '#',
         id: 8,
         createdAt: '1 day ago',
-
+        
         childs: [
             {
+                id: 1,
                 name: 'female'
             },
             {
+                id: 2,
                 name: 'Comfort'
             },
             {
+                id: 3,
                 name: 'male'
             },
             {
+                id: 1,
                 name: 'super'
             },
         ]
