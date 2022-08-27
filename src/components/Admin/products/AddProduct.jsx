@@ -121,10 +121,10 @@ const Detail = () => {
                             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
                             <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
-                        <div>
+                        {/* <div>
                             <label htmlFor="brand" className="block mb-2 text-sm font-medium text-gray-900 ">Brand</label>
                             <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
-                        </div>
+                        </div> */}
                         <div>
                             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
                             <input type="text" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
@@ -141,10 +141,32 @@ const Detail = () => {
                             <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">Price</label>
                             <input type="number" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
+
+                        {/* antd component for tags */}
+                        {/* <div>
+                            <label name="materials">Tags</label>
+                            <Select
+                                mode="tags"
+                                style={{ width: "100%" }}
+                                placeholder="Tags"
+                            >
+                                {materials.map((elm) => (
+                                    <Option key={elm}>{elm}</Option>
+                                ))}
+                            </Select>
+                        </div> */}
+
                         <div>
-                            <label htmlFor="tag" className="block mb-2 text-sm font-medium text-gray-900">Tag</label>
-                            <input type="text" id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="New" required />
+                            <label htmlFor="input" className="block mb-2 text-sm font-medium text-gray-900">Tags</label>
+                            <div class="grid">
+                                <input type="text" name="input" multiple className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" />
+                                <small class="form-text text-muted">Separate keywords with a comma, space bar, or enter key</small>
+                            </div>
                         </div>
+                        {/* <div>
+                            <label htmlFor="tag" className="block mb-2 text-sm font-medium text-gray-900">Tag</label>
+                            <input type="text" list='tag' multiple id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" required />
+                        </div> */}
                         <div class="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
                             <input id="bordered-checkbox-1" type="checkbox" value="" name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
                             <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
@@ -310,10 +332,10 @@ const Detail = () => {
                                     </div>
                                     <div>
                                         <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
-                                        <input type="text" name="description" id="description" placeholder="Enter description" required 
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-                                        value={element.description || ""} 
-                                        onChange={(e) => handleMoreinfo(element.id, e)} 
+                                        <input type="text" name="description" id="description" placeholder="Enter description" required
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            value={element.description || ""}
+                                            onChange={(e) => handleMoreinfo(element.id, e)}
                                         />
                                     </div>
                                 </div>
