@@ -27,11 +27,11 @@ export function Shop({ items, title, term }) {
 
   return (
     <>
-      <div className="rounded-md max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
         <div>
-          <div className="max-w-2xl mx-auto py-0 px-4 sm:py-0 sm:px-0 lg:max-w-7xl lg:px-0">
-            <div className='py-8 bg-gradient-to-r from-black to-red-600 rounded-md'>
-              <h2 className="text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
+          <div className="max-w-2xl mx-auto px-2 lg:max-w-7xl lg:px-0">
+            <div className='py-8 bg-gradient-to-r from-black to-red-600 rounded-lg'>
+              <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">

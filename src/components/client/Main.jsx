@@ -10,9 +10,9 @@ function Main() {
     return (
         <Layout setSearchTerm={setSearchTerm}>
             <Banner />
-            <Shop term={searchTerm} items={mouses} title={'MADE FOR GAMING'} />
-            <Shop term={searchTerm} items={keyboards} title={'BEST FOR GAMING'} />
-            <Shop term={searchTerm} items={headsets} title={'DEDICATED FOR GAMING'} />
+                <Shop term={searchTerm} items={mouses} title={'MADE FOR GAMING'} />
+                <Shop term={searchTerm} items={keyboards} title={'BEST FOR GAMING'} />
+                <Shop term={searchTerm} items={headsets} title={'DEDICATED FOR GAMING'} />
         </Layout>
     )
 }

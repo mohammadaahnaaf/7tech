@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AdminLayout from '../../layout/AdminLayout'
 import { v4 as uuidv4 } from 'uuid';
 import { TrashIcon } from '@heroicons/react/solid';
+
 
 const Detail = () => {
 
@@ -108,6 +109,21 @@ const Detail = () => {
         setMoreInfo(values);
     }
 
+    const [tag, setTag] = useState(['ahnaf', 'istiak', 'tanvir'])
+    function handleTag() {
+
+    }
+    const tags = [
+        "Gold",
+        "Platinum",
+        "Silver",
+        "Copper",
+        "Steel",
+        "Aluminium",
+    ];
+
+
+
     return (
 
         <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around m-3'>
@@ -142,31 +158,20 @@ const Detail = () => {
                             <input type="number" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
 
-                        {/* antd component for tags */}
-                        {/* <div>
-                            <label name="materials">Tags</label>
-                            <Select
+                        
+                        <div>
+                            <label className='block mb-2 text-sm font-medium text-gray-900' name="tags">Tags</label>
+                            <input
+                                multiple
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
                                 mode="tags"
+                                name='tags'
                                 style={{ width: "100%" }}
                                 placeholder="Tags"
-                            >
-                                {materials.map((elm) => (
-                                    <Option key={elm}>{elm}</Option>
-                                ))}
-                            </Select>
-                        </div> */}
+                                value={tag || null}
+                            />
 
-                        <div>
-                            <label htmlFor="input" className="block mb-2 text-sm font-medium text-gray-900">Tags</label>
-                            <div class="grid">
-                                <input type="text" name="input" multiple className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" />
-                                <small class="form-text text-muted">Separate keywords with a comma, space bar, or enter key</small>
-                            </div>
                         </div>
-                        {/* <div>
-                            <label htmlFor="tag" className="block mb-2 text-sm font-medium text-gray-900">Tag</label>
-                            <input type="text" list='tag' multiple id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" required />
-                        </div> */}
                         <div class="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
                             <input id="bordered-checkbox-1" type="checkbox" value="" name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
                             <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
