@@ -3,7 +3,7 @@ import Footer from './shared/Footer'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import axiosRoot from './utils/axios-root';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import Router from 'next/router'
 
 export function Logins() {
 
@@ -23,7 +23,7 @@ export function Logins() {
             const { access_token, refresh_token } = res.data;
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refresh_token', refresh_token);
-            Navigate('/');
+            Router.push('/')
         } catch (error) {
             console.log(error.response);
             setError(error.response)

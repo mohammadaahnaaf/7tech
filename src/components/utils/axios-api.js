@@ -17,7 +17,7 @@ const authTokenRefresh = async () => {
 };
 
 const axiosAPI = Axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 axiosAPI.interceptors.request.use(function (config) {
