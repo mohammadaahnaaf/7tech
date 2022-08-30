@@ -31,8 +31,8 @@ export function Logins() {
     };
 
     return (
-        <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8">
+        <div className="min-h-[85vh] flex items-center justify-center my-auto">
+            <div className="max-w-md w-full">
                 <div>
                     <img
                         className="mx-auto h-16 w-auto"

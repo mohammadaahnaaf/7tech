@@ -1,11 +1,12 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Link from 'next/link'
 import Search from './Search'
 import { useCart } from 'react-use-cart'
+import axiosAPI from '../utils/axios-api'
 // import { cartProducts } from '../../data/CartItems'
 // import { products } from '../../data/ProductsData'
 
@@ -27,7 +28,7 @@ const userNavigation = [
     { name: 'Admin', href: '/admin', state: true },
     { name: 'Your Profile', href: '/profile', state: true },
     // { name: 'Settings', href: '/settings', state: true },
-    { name: 'Sign out', href: '/login', state: false },
+    // { name: 'Sign out', href: '/login', state: false },
 ]
 
 
@@ -38,11 +39,33 @@ function classNames(...classes) {
 
 function Navbar({ setSearchTerm }) {
 
-    const [useri, setUseri] = useState(true);
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [useri, setUseri] = useState(false);
     const { pathname } = useRouter();
     const { totalUniqueItems } = useCart()
-    // console.log(pathname);
-    // const ItemsInCart = products.length;
+
+    useEffect(() => {
+        if (!useri) {
+            axiosAPI
+                .get('/auth/get-me')
+                .then(res => {
+                    setUseri(!!res.data.email);
+                })
+                .catch(error => {
+                    console.log(error);
+                    Router.push('/login')
+                });
+        }
+    }, [useri]);
+
+    async function handleLogout(e) {
+        e.preventDefault()
+        // httpClient.logOut()
+        // this.setState({ currentUser: null })
+        await axiosAPI.delete('/auth/logout');
+        setUseri(false);
+        Router.push('/login')
+    }
 
     return (
         <div className="min-h-full">
@@ -61,12 +84,16 @@ function Navbar({ setSearchTerm }) {
                                     </div>
 
                                     {/* Search Bar  */}
-                                    <Search setSearchTerm={setSearchTerm} />
+                                    {useri && (
+                                        <Search setSearchTerm={setSearchTerm} />
+                                    )}
+
                                 </div>
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
 
                                         {/* Cart  */}
+                                        {useri && (
                                             <Link href='/cart'>
                                                 <a>
                                                     <button
@@ -83,14 +110,15 @@ function Navbar({ setSearchTerm }) {
                                                     </button>
                                                 </a>
                                             </Link>
+                                        )}
 
                                         {!useri && (
                                             <div className='flex justify-between gap-2 ml-3'>
                                                 <Link href='/signin'>
-                                                    <a className='bg-red-600 hover:bg-white text-white ring-0 focus:ring-2 ring-white hover:ring-red-600 hover:text-black py-1 px-3 rounded-md'>Signup</a>
+                                                    <a className='bg-red-600 text-sm hover:bg-white text-white ring-0 ring-white hover:ring-red-600 hover:text-black py-1 px-3 rounded-full'>Signup</a>
                                                 </Link>
                                                 <Link href='/login'>
-                                                    <a className='bg-white hover:bg-red-600 ring-0 focus:ring-2 ring-red-600 hover:ring-white hover:text-white py-1 px-3 rounded-md'>Login</a>
+                                                    <a className='bg-white text-sm hover:bg-red-600 ring-0 ring-red-600 hover:ring-white hover:text-white py-1 px-3 rounded-full'>Login</a>
                                                 </Link>
                                             </div>
                                         )}
@@ -135,6 +163,20 @@ function Navbar({ setSearchTerm }) {
                                                             )}
                                                         </Menu.Item>
                                                     ))}
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <button
+                                                                type='button'
+                                                                onClick={handleLogout}
+                                                                className={classNames(
+                                                                    active ? 'bg-red-600' : '',
+                                                                    'w-full text-left block px-4 py-2 text-sm text-gray-100 hover:text-white hover:bg-red-600'
+                                                                )}
+                                                            >
+                                                                Signout
+                                                            </button>
+                                                        )}
+                                                    </Menu.Item>
                                                 </Menu.Items>
                                             </Transition>
                                         </Menu>
