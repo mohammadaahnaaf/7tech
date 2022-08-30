@@ -26,7 +26,8 @@ export function Logins() {
             Router.push('/')
         } catch (error) {
             console.log(error.response);
-            setError(error.response)
+            setError(error.response.data.message)
+            // Router.push('/login')
         }
     };
 
@@ -37,7 +38,7 @@ export function Logins() {
                     <img
                         className="mx-auto h-16 w-auto"
                         src="/logo.png"
-                        alt="Workflow"
+                        alt="seventech logo"
                     />
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Login Here</h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
@@ -49,12 +50,12 @@ export function Logins() {
                 </div>
 
                 {error && (
-                    <div class="p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800" role="alert">
+                    <div class="p-3 my-2 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800" role="alert">
                         <span class="font-medium">Warning!</span> {error}
                     </div>
                 )}
 
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                <form className=" space-y-6" onSubmit={handleSubmit}>
                     <input type="hidden" name="remember" defaultValue="true" />
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
