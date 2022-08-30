@@ -1,13 +1,23 @@
 import Navbar from './shared/Navbar'
 import Footer from './shared/Footer'
-import { LockClosedIcon } from '@heroicons/react/solid'
+import { EyeIcon, EyeOffIcon, LockClosedIcon } from '@heroicons/react/solid'
 import axiosRoot from './utils/axios-root';
 import { useState } from 'react';
 import Router from 'next/router'
+import Link from 'next/link';
 
 export function Logins() {
 
     const [error, setError] = useState("")
+    const [showPass, setShowPass] = useState("password")
+
+    function handleShowPass() {
+        if (showPass === "password") {
+            setShowPass('text')
+        } else {
+            setShowPass('password')
+        }
+    }
     const handleSubmit = async (event) => {
         try {
             event.preventDefault();
@@ -50,7 +60,7 @@ export function Logins() {
                 </div>
 
                 {error && (
-                    <div class="p-3 my-2 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800" role="alert">
+                    <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
                         <span class="font-medium">Warning!</span> {error}
                     </div>
                 )}
@@ -72,24 +82,40 @@ export function Logins() {
                                 placeholder="Email address"
                             />
                         </div>
-                        <div>
+                        <div className='relative'>
                             <label htmlFor="password" className="sr-only">
                                 Password
                             </label>
                             <input
                                 id="password"
                                 name="password"
-                                type="password"
+                                type={showPass}
                                 autoComplete="current-password"
                                 required
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Password"
                             />
+                            <span className="absolute px-2 right-0 inset-y-0 flex items-center pl-3">
+                                <button type='button' onClick={handleShowPass} className=''>
+                                    {showPass === 'password' ? (
+                                        <EyeIcon className="h-5 w-5 text-gray-700 hover:text-red-500" aria-hidden="true" />
+                                    ) : (
+                                        <EyeOffIcon className="h-5 w-5 text-gray-700 hover:text-red-500" aria-hidden="true" />
+                                    )}
+                                </button>
+                            </span>
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
+                    <div className='grid gap-1'>
+                        <div className="text-sm text-right">
+                            <Link href='/forgotpassword'>
+                                <a className="font-medium text-red-600 hover:text-green-500">
+                                    Forgot your password?
+                                </a>
+                            </Link>
+                        </div>
+                        <div className="flex items-center w-full">
                             <input
                                 id="remember-me"
                                 name="remember-me"
@@ -97,25 +123,15 @@ export function Logins() {
                                 className="h-4 w-4 text-red-600 focus:ring-black border-gray-300 rounded"
                             />
                             <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                                Remember me
+                                I agree to the terms and conditions.
                             </label>
                         </div>
-
-                        <div className="text-sm">
-                            <a href="#" className="font-medium text-red-600 hover:text-green-500">
-                                Forgot your password?
-                            </a>
-                        </div>
                     </div>
-
                     <div>
                         <button
                             type="submit"
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                         >
-                            <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                                <LockClosedIcon className="h-5 w-5 text-white hover:text-red-500" aria-hidden="true" />
-                            </span>
                             Login
                         </button>
                     </div>

@@ -4,7 +4,7 @@ import React from 'react'
 function Footer() {
   return (
     <footer className='flex gap-2 justify-center text-lg bg-red-600 py-2'>
-      <div className='flex gap-2 justify-center'>
+      <div className='flex text-sm gap-2 justify-center'>
         <h1>
           This site is developed by{' '}
         </h1>
