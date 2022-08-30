@@ -1,10 +1,9 @@
+import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axiosAPI from '../components/utils/axios-api';
 
 export const withAuth = (Component) => {
     const AuthComponent = () => {
-        const navigate = useNavigate();
         const [isLoggedIn, setIsLoggedIn] = useState(false);
 
         useEffect(() => {
@@ -16,13 +15,13 @@ export const withAuth = (Component) => {
                     })
                     .catch(error => {
                         console.log(error);
-                        navigate('/login');
+                        Router.push('/login')
                     });
             }
-        }, [isLoggedIn, navigate]);
+        }, [isLoggedIn]);
 
         return isLoggedIn && <Component />;
     }
 
-    return <AuthComponent />;
+    return AuthComponent;
 }
