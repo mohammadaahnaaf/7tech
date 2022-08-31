@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import Dashboard from '../../components/Admin/Dashboard'
-import { withAuth } from '../../hook/withAuth'
+import { withAuth } from '../../hoc/withAuth'
 
 function AdminPage() {
     return (

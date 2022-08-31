@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import React from 'react'
 import { AddProduct } from '../../../components/Admin/products/AddProduct'
+import { withAuth } from '../../../hoc/withAuth'
 
-function addProductPage() {
+function AddProductPage() {
     return (
         <>
             <Head>
@@ -16,4 +17,4 @@ function addProductPage() {
 
 }
 
-export default addProductPage
+export default withAuth(AddProductPage)

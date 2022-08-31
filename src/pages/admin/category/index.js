@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import { CategoriesList } from '../../../components'
+import { withAuth } from '../../../hoc/withAuth'
 // import CategoriesList from '../../../components/Admin/categories/CategoriesList'
 
 function CategoryPage() {
@@ -15,4 +16,4 @@ function CategoryPage() {
         </>)
 }
 
-export default CategoryPage
+export default withAuth(CategoryPage)

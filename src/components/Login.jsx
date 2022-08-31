@@ -1,4 +1,4 @@
-import Navbar from './shared/Navbar'
+import Navbar, { BasicNavbar } from './shared/Navbar'
 import Footer from './shared/Footer'
 import { EyeIcon, EyeOffIcon, LockClosedIcon } from '@heroicons/react/solid'
 import axiosRoot from './utils/axios-root';
@@ -33,7 +33,7 @@ export function Logins() {
             const { access_token, refresh_token } = res.data;
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refresh_token', refresh_token);
-            Router.push('/')
+            Router.push('/admin')
         } catch (error) {
             console.log(error.response);
             setError(error.response.data.message)
@@ -42,7 +42,7 @@ export function Logins() {
     };
 
     return (
-        <div className="min-h-[85vh] flex items-center justify-center my-auto">
+        <div className="min-h-[85vh] px-1 md:px-0 flex items-center justify-center my-auto">
             <div className="max-w-md w-full">
                 <div>
                     <img
@@ -50,7 +50,7 @@ export function Logins() {
                         src="/logo.png"
                         alt="seventech logo"
                     />
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Login Here</h2>
+                    <h2 className="mt-6 text-center text-2xl md:text-3xl font-extrabold text-gray-900">Login Here</h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Don't have an account?{' '}
                         <a href="signin" className="font-medium text-red-400 hover:text-black">
@@ -108,7 +108,7 @@ export function Logins() {
                     </div>
 
                     <div className='grid gap-1'>
-                        <div className="text-sm text-right">
+                        <div className="text-sm text-center py-2 md:text-right">
                             <Link href='/forgotpassword'>
                                 <a className="font-medium text-red-600 hover:text-green-500">
                                     Forgot your password?
@@ -144,7 +144,7 @@ export function Logins() {
 export default function Login() {
     return (
         <>
-            <Navbar />
+            <BasicNavbar />
             <Logins />
             <Footer />
         </>

@@ -2,8 +2,9 @@ import Head from 'next/head'
 import React from 'react'
 // import { AddCategory } from '../../../components'
 import Details from '../../../components/Admin/categories/Details'
+import { withAuth } from '../../../hoc/withAuth'
 
-export default function AddCategoryPage() {
+function CategoryDetailsPage() {
     return (
         <>
             <Head>
@@ -16,3 +17,5 @@ export default function AddCategoryPage() {
     )
 
 }
+
+export default withAuth(CategoryDetailsPage)

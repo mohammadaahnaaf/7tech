@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Detail from '../components/client/products/Details'
+// import { withAuth } from '../hoc/withAuth'
 
 function DetailsPage() {
     return (

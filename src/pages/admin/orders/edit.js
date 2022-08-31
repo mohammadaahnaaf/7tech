@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import { Details } from '../../../components/Admin/orders/Details'
+import { withAuth } from '../../../hoc/withAuth'
 
 function OrderEditPage() {
     return (
@@ -15,4 +16,4 @@ function OrderEditPage() {
     )
 }
 
-export default OrderEditPage
+export default withAuth(OrderEditPage)

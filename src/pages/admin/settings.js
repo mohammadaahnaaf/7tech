@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import Settings from '../../components/Admin/Settings'
+import { withAuth } from '../../hoc/withAuth'
 
 function SettingsPage() {
     return (
@@ -15,4 +16,4 @@ function SettingsPage() {
     )
 }
 
-export default SettingsPage
+export default withAuth(SettingsPage)

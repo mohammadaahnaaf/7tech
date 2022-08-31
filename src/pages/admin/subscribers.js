@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import Subscribers from '../../components/Admin/Subscribers'
+import { withAuth } from '../../hoc/withAuth'
 
 function SubscribersPage() {
   return (
@@ -15,4 +16,4 @@ function SubscribersPage() {
   )
 }
 
-export default SubscribersPage
+export default withAuth(SubscribersPage)

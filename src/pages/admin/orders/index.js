@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import Orders from '../../../components/Admin/orders/Orders'
+import { withAuth } from '../../../hoc/withAuth'
 
 function OrdersPage() {
     return (
@@ -15,4 +16,4 @@ function OrdersPage() {
     )
 }
 
-export default OrdersPage
+export default withAuth(OrdersPage)
