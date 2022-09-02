@@ -1066,6 +1066,11 @@ globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
+goober@^2.1.10:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-2.1.11.tgz#bbd71f90d2df725397340f808dbe7acc3118e610"
+  integrity sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A==
+
 has-bigints@^1.0.1, has-bigints@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/has-bigints/-/has-bigints-1.0.2.tgz#0871bd3e3d51626f6ca0966668ba35d5602d6eaa"
@@ -1696,6 +1701,13 @@ react-responsive-carousel@^3.2.23:
     classnames "^2.2.5"
     prop-types "^15.5.8"
     react-easy-swipe "^0.0.21"
+
+react-tag-input-component@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-tag-input-component/-/react-tag-input-component-1.1.1.tgz#21f1c2243a4639f5ee8aed9960ae983564a09acb"
+  integrity sha512-GltRO4e2oq4xG0SZ7bxrZIc8svhWuAVWa1Gi4TaCeIRQe33dh459DOJbUpPoVt6BEZlQmb7g4PI2AG6GiONoWw==
+  dependencies:
+    goober "^2.1.10"
 
 react-use-cart@^1.13.0:
   version "1.13.0"
