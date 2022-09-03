@@ -15,7 +15,6 @@ const Detail = () => {
     const [error, setError] = React.useState('')
     const [loading, setIsLoading] = React.useState(false)
     const [tags, setTags] = useState(["Tech"]);
-    const [tagData, setTagData] = useState([{ id: uuidv4(), name: '' }])
     const [selectedFiles, setSelectedFiles] = useState('');
 
     const [userInfo, setuserInfo] = useState({
@@ -36,13 +35,7 @@ const Detail = () => {
     // submit form data
     const handleSubmit = async (event) => {
         event.preventDefault()
-        setTagData([
-            ...tagData,
-            {
-                id: uuidv4(),
-                name: tags
-            }
-        ])
+
         try {
             const data = new FormData(event.currentTarget);
 
@@ -52,7 +45,7 @@ const Detail = () => {
                 price: data.get('price'),
                 quantity: data.get('quantity'),
                 category: data.get('category'),
-                tags: JSON.stringify(tagData),
+                tags: JSON.stringify(tags),
                 isFeatured: featured,
                 details: JSON.stringify(formValues),
                 informations: JSON.stringify(moreInfos),
@@ -124,17 +117,16 @@ const Detail = () => {
         values.splice(values.findIndex(value => value.id === id), 1);
         setMoreInfo(values);
     }
+    
+    // Featured? 
+    const handleFeature = () => {
+        if (featured === false) {
+            setFeatured(true)
+        } else {
+            setFeatured(false)
+        }
+    }
 
-    //Tags
-    // useEffect(() => {
-    //     setTagData([
-    //         ...tagData,
-    //         {
-    //             id: uuidv4(),
-    //             name: tags
-    //         }
-    //     ])
-    // })
     return (
 
         <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around m-3'>
@@ -186,14 +178,14 @@ const Detail = () => {
 
                         </div>
                         <div class="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
-                            <input id="bordered-checkbox-1" type="checkbox" value="" name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
+                            <input id="bordered-checkbox-1" type="checkbox" onClick={handleFeature} checked={featured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
                             <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
                         </div>
                     </div>
 
                     <div>
 
-                        {/* Product images  */}
+                        {/* Upload Product images  */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Upload Photos</label>
                             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -230,6 +222,8 @@ const Detail = () => {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Images  */}
                         <div className='grid mt-5 gap-2 grid-cols-2'>
                             <div className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
                                 <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
