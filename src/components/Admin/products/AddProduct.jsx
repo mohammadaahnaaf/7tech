@@ -34,9 +34,9 @@ const Detail = () => {
 
     // submit form data
     const handleSubmit = async (event) => {
-        event.preventDefault()
-
+        
         try {
+            event.preventDefault()
             const data = new FormData(event.currentTarget);
 
             const reqData = {
@@ -62,8 +62,7 @@ const Detail = () => {
         } catch (error) {
             setIsLoading(false);
             console.log(error)
-            setError(error.response?.data?.message)
-        }
+            setError(error.response.data.message ? error.response.data.message : 'loading')        }
     }
 
     // Details 
