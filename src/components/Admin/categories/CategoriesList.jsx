@@ -5,13 +5,26 @@ import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import axiosRoot from '../../utils/axios-root';
 
 export function Categories() {
     const router = useRouter()
     const [searchTerm, setSearchTerm] = React.useState('')
     const [selected, setSelected] = React.useState([]);
     const [allSelected, setAllSelected] = React.useState(false)
-    console.log(searchTerm)
+    // console.log(searchTerm)
+
+    //Get Data
+    const [rows, setRows] = React.useState([]);
+
+    React.useEffect(() => {
+        async function getCategory() {
+            const res = await axiosRoot.get('/categories');
+            setRows(res.data)
+        }
+        getCategory()
+    }, []);
+
 
     function handleAllChecked(event) {
         if (event.target.checked) {
@@ -84,12 +97,12 @@ export function Categories() {
                     </tr>
                 </thead>
                 <tbody>
-                    {dataCategories.filter((row) => {
+                    {rows.filter((row) => {
                         if (searchTerm === "") {
                             return row;
                         } else if (row.name.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
                             return row;
-                        } else if (row.childs.map((item) => item.name.toLowerCase()).includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                        } else if (row.subCategories.map((item) => item.name.toLowerCase()).includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
                             return row;
                         } return ""
                     }).map((item, index) => {
@@ -106,7 +119,7 @@ export function Categories() {
                                     {item.name}
                                 </th>
                                 <td className="py-4 px-6">
-                                    {item.childs.length}
+                                    {item.subCategories.length}
                                 </td>
                                 <td className="py-4 px-6">
                                     {item.createdAt}
