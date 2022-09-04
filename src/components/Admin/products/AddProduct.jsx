@@ -51,7 +51,7 @@ const Detail = () => {
             data.set('isFeatured', featured)
 
             Array.from(selectedFiles).forEach(file => {
-                data.append('images[]', file)
+                data.append('images', file)
             })
 
             await axiosAPI.post('/products', data);
