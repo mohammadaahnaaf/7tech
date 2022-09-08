@@ -46,8 +46,21 @@ const Detail = () => {
             data.delete('description')
 
             data.set('tags', JSON.stringify(tags))
-            data.set('details', JSON.stringify(formValues))
-            data.set('information', JSON.stringify(moreInfos))
+            // data.set('details', JSON.stringify(formValues))
+            // data.set('information', JSON.stringify(moreInfos))
+
+            // object should not contain id. it will be generated from the database
+            // object should contain only a single field "title"
+            data.set('details', JSON.stringify([{ title: 'very good product' }]))
+
+            // object should not contain id. it will be generated from the database
+            // object should contain two fields only "title" and "description"
+            data.set('information', JSON.stringify([
+                {
+                    title: 'ram',
+                    description: '64 gb'
+                }
+            ]))
             data.set('isFeatured', featured)
 
             Array.from(selectedFiles).forEach(file => {
