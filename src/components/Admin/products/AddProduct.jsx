@@ -45,33 +45,10 @@ const Detail = () => {
             data.delete('detail')
             data.delete('title')
             data.delete('description')
-
             data.set('tags', JSON.stringify(tags))
             data.set('isFeatured', featured)
-
-            // data.set('details', JSON.stringify(formValues))
-            // data.set('information', JSON.stringify(moreInfos))
-
-            // object should not contain id. it will be generated from the database
-            // object should contain only a single field "title"
-
-            formValues.forEach((item) =>
-                data.set('details', JSON.stringify([
-                    { title: item.title }
-                ]))
-            )
-
-            // object should not contain id. it will be generated from the database
-            // object should contain two fields only "title" and "description"
-
-            moreInfos.forEach((item) =>
-                data.append('information', JSON.stringify([
-                    {
-                        title: item.title,
-                        description: item.description
-                    }
-                ]))
-            )
+            data.set('details', JSON.stringify(formValues.map(value => ({ title: value.title }))))
+            data.set('information', JSON.stringify(moreInfos.map(info => ({ title: info.title, description: info.description }))))
 
             Array.from(selectedFiles).forEach(file => {
                 data.append('images', file)
