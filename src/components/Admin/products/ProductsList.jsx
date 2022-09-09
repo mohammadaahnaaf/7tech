@@ -1,4 +1,5 @@
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
+import { useRouter } from 'next/router';
 import React from 'react'
 import { products } from '../../../data/ProductsData'
 import AdminLayout from '../../layout/AdminLayout'
@@ -6,7 +7,7 @@ import Search from '../../shared/Search';
 import axiosRoot from '../../utils/axios-root';
 
 export function ProductsLists() {
-
+  const router = useRouter()
   const [searchTerm, setSearchTerm] = React.useState('')
   const [selected, setSelected] = React.useState([]);
   const [allSelected, setAllSelected] = React.useState(false)
@@ -136,7 +137,12 @@ export function ProductsLists() {
                   ${product.price}
                 </td>
                 <td className="py-4 px-6 text-right">
-                  <a href="/admin/products/details" className="font-medium text-gray-400 hover:underline"><PencilAltIcon className='h-5 w-5' /> </a>
+                  <button type='button' onClick={() => router.push('/admin/products/' + product._id)}>
+                    <p className="font-medium text-gray-400 hover:underline">
+                      <PencilAltIcon className='h-5 w-5' />
+                    </p>
+                  </button>
+                  {/* <a href="/admin/products/details" className="font-medium text-gray-400 hover:underline"><PencilAltIcon className='h-5 w-5' /> </a> */}
                 </td>
               </tr>
             )

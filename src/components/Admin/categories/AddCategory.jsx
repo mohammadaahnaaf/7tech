@@ -28,11 +28,11 @@ export function AddCategorys() {
 
       const reqData = {
         name: data.get('categoryName'),
-        subCategories: JSON.stringify(formValues.map(value => (
+        subCategories: formValues.map(value => (
           {
             name: value.names,
           }
-        )))
+        ))
       }
       await axiosAPI.post('/categories', reqData);
       Router.push('/admin/category')

@@ -1,46 +1,58 @@
 import React from 'react'
 import AdminLayout from '../../layout/AdminLayout'
 import { v4 as uuidv4 } from 'uuid';
-import { details } from '../../../data/ProductsData';
-// import { ShoppingCartIcon } from '@heroicons/react/outline';
 import { TrashIcon } from '@heroicons/react/solid';
+import { useRouter } from 'next/router';
+import axiosRoot from '../../utils/axios-root';
+// import { TagsInput } from 'react-tag-input-component';
 
 const Detail = () => {
 
-  const [formValues, setFormValues] = React.useState([{ id: uuidv4(), detail: "" }])
-  const [moreInfos, setMoreInfo] = React.useState([{ id: uuidv4(), info: "" }])
-  const [reviews, setReviews] = React.useState([{ id: uuidv4(), review: "" }]);
+  const router = useRouter()
+  const itemId = router.query.id
 
-  // const [details, setDetails] = React.useState({
-  //   name: '',
-  // })
+  const [images, setImages] = React.useState([]);
+  const [tags, setTags] = React.useState([]);
+  const [isFeatured, setIsFeatured] = React.useState(false)
+  const [details, setDetails] = React.useState({
+    _id: '',
+    name: ''
+  });
+  const [formValues, setFormValues] = React.useState([
+    {
+      _id: '',
+      title: ""
+    }
+  ])
+  const [moreInfos, setMoreInfo] = React.useState([
+    {
+      _id: '',
+      title: "",
+      description: ''
+    }
+  ])
+  const [reviews, setReviews] = React.useState([
+    {
+      id: uuidv4(),
+      review: ""
+    }
+  ]);
 
-  // function handleData() {
-  //   let newFormValues = [...details];
-  //   newFormValues[i][e.target.name] = e.target.value;
-  //   setDetails(newFormValues);
-  //   setDetails(data);
-  // }
-  // function handleChange(i, e) {
-  //   let newFormValues = [...formValues];
-  //   newFormValues[i][e.target.name] = e.target.value;
-  //   setFormValues(newFormValues);
-  // }
+  // get data 
+  React.useEffect(() => {
 
-  // function addFormFields() {
-  //   setFormValues([...formValues, { name: "", email: "" }])
-  // }
+    async function getCategory() {
+      const res = await axiosRoot.get('/products/' + itemId);
+      setDetails(res.data)
+      setTags(res.data.tags)
+      setIsFeatured(res.data.isFeatured)
+      setFormValues(res.data.details)
+      setMoreInfo(res.data.information)
+      setImages(res.data.images)
+    }
 
-  // function removeFormFields(i) {
-  //   let newFormValues = [...formValues];
-  //   newFormValues.splice(i, 1);
-  //   setFormValues(newFormValues)
-  // }
-
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   // alert(JSON.stringify(formValues));
-  // }
+    getCategory()
+  }, []);
 
   // Details 
   const handleChange = (id, event) => {
@@ -64,14 +76,14 @@ const Detail = () => {
 
   const removeFormFields = id => {
     const values = [...formValues];
-    values.splice(values.findIndex(value => value.id === id), 1);
+    values.splice(values.findIndex(value => value._id === id), 1);
     setFormValues(values);
   }
 
   // Reviews 
   const handleReview = (id, event) => {
     const newInputFields = reviews.map(i => {
-      if (id === i.id) {
+      if (id === i._id) {
         i[event.target.name] = event.target.value
       }
       return i;
@@ -90,14 +102,14 @@ const Detail = () => {
 
   const removeReview = id => {
     const values = [...reviews];
-    values.splice(values.findIndex(value => value.id === id), 1);
+    values.splice(values.findIndex(value => value._id === id), 1);
     setReviews(values);
   }
 
   // More Information 
   const handleMoreinfo = (id, event) => {
     const newInputFields = moreInfos.map(i => {
-      if (id === i.id) {
+      if (id === i._id) {
         i[event.target.name] = event.target.value
       }
       return i;
@@ -109,14 +121,14 @@ const Detail = () => {
   const addMoreinfo = () => {
     setMoreInfo([...moreInfos,
     {
-      id: uuidv4(),
+      _id: uuidv4(),
       info: ''
     }])
   };
 
   const removeMoreinfo = id => {
     const values = [...moreInfos];
-    values.splice(values.findIndex(value => value.id === id), 1);
+    values.splice(values.findIndex(value => value._id === id), 1);
     setMoreInfo(values);
   }
 
@@ -133,10 +145,10 @@ const Detail = () => {
             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
             <input type="text" value={details.name || ""} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
           </div>
-          <div>
+          {/* <div>
             <label htmlFor="brand" className="block mb-2 text-sm font-medium text-gray-900 ">Brand</label>
             <input type="text" value={details.brand || ""} id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
-          </div>
+          </div> */}
           <div>
             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
             <input type="text" value={details.category || ""} id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
@@ -147,18 +159,28 @@ const Detail = () => {
           </div>
           <div>
             <label htmlFor="qty" className="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
-            <input type="number" value={details.qty || ""} id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+            <input type="number" value={details.quantity || ""} id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
           </div>
           <div>
             <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">Price</label>
             <input type="number" value={details.price || null} id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
           </div>
           <div>
+            {/* <TagsInput
+              // style={styles}
+              // className="bg-gray-50 text-clip border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
+              value={tags}
+              // onChange={setTags}
+              name="tags"
+              placeHolder="enter tags"
+            /> */}
+
             <label htmlFor="tag" className="block mb-2 text-sm font-medium text-gray-900">Tag</label>
-            <input type="text" value={details.tag || null} id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+            <input type="text" value={tags.join(', ') || null} id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+
           </div>
           <div className="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
-            <input id="bordered-checkbox-1" type="checkbox" value={details.featured || null} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
+            <input id="bordered-checkbox-1" type="checkbox" onClick={() => isFeatured ? setIsFeatured(false) : setIsFeatured(true)} checked={isFeatured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
             <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
           </div>
         </div>
@@ -198,17 +220,22 @@ const Detail = () => {
 
           {/* Product images  */}
           <div className='grid mt-5 gap-2 grid-cols-2'>
-            <div className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
-              <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                <button type='button'
-                // onClick={}
-                >
-                  <TrashIcon className='text-red-600 h-6 w-6' />
-                </button>
+            {images.map((item, index) => (
+
+              <div key={index} className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
+                <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
+                  <button type='button'
+                  // onClick={}
+                  >
+                    <TrashIcon className='text-red-600 h-6 w-6' />
+                  </button>
+                </div>
+                <img alt='product image' src={`${item}`} className='h-36 mx-auto' />
               </div>
-              <img alt='product image' src={details.imageSrc} className='h-36 mx-auto' />
-            </div>
-            <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
+
+            ))}
+
+            {/* <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
               <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
                 <button type='button'
                 // onClick={}
@@ -217,8 +244,8 @@ const Detail = () => {
                 </button>
               </div>
               <img alt='product image' src={details.imageSrc} className='h-36 mx-auto ' />
-            </div>
-            <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
+            </div> */}
+            {/* <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
               <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
                 <button type='button'
                 // onClick={}
@@ -227,8 +254,8 @@ const Detail = () => {
                 </button>
               </div>
               <img alt='product image' src={details.imageSrc} className='h-36 mx-auto' />
-            </div>
-            <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
+            </div> */}
+            {/* <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
               <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
                 <button type='button'
                 // onClick={handleDeletePhoto}
@@ -237,7 +264,7 @@ const Detail = () => {
                 </button>
               </div>
               <img alt='product image' src={details.imageSrc} className='h-36 mx-auto' />
-            </div>
+            </div> */}
 
           </div>
         </div>
@@ -251,7 +278,7 @@ const Detail = () => {
         {/* Details  */}
         <div className='grid items-end gap-2'>
           <h1>Product Details</h1>
-          {details.details.map((element, index) => (
+          {formValues.map((element, index) => (
 
             <div key={index} className='grid grid-cols-10 items-end'>
               <div className='col-span-9'>
@@ -259,7 +286,7 @@ const Detail = () => {
                 <input type="text" name="detail" id="detail" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
               </div>
               <div>
-                {details.details.length != 1 && (
+                {formValues.length != 1 && (
                   <button type="button" className="items-end flex" onClick={() => removeFormFields(element.id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -278,19 +305,19 @@ const Detail = () => {
         {/* More Information  */}
         <div className='grid items-end gap-2'>
           <h1>More Information</h1>
-          {details.informations.map((element, index) => (
+          {moreInfos.map((element, index) => (
             <div className="flex gap-2 items-center" key={index}>
               <div className='flex gap-2'>
                 <div>
                   <label htmlFor="info" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
-                  <input type="text" name="info" id="info" value={element.title || ""} onChange={(e) => handleMoreinfo(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                  <input type="text" name="info" id="info" value={element.title || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
                 </div>
                 <div>
                   <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
-                  <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                  <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
                 </div>
-                {details.informations.length != 1 && (
-                  <button type="button" className="items-end flex" onClick={() => removeMoreinfo(element.id)}>
+                {moreInfos.length != 1 && (
+                  <button type="button" className="items-end flex" onClick={() => removeMoreinfo(element._id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
@@ -307,19 +334,19 @@ const Detail = () => {
         {/* Reviews  */}
         <div className='grid items-end gap-2'>
           <h1>Reviews</h1>
-          {details.reviews.map((element, index) => (
+          {details.reviews?.map((element, index) => (
             <div className="flex gap-2 items-center" key={index}>
               <div>
                 <label htmlFor="review" className="block mb-2 text-xs font-medium text-gray-900">Reviewed by</label>
-                <input type="text" name="review" id="review" value={element.name || ""} onChange={(e) => handleReview(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                <input type="text" name="review" id="review" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
               </div>
               <div className='flex'>
                 <div>
                   <label htmlFor="review" className="block mb-2 text-xs font-medium text-gray-900">Comment</label>
-                  <input type="text" name="review" id="review" value={element.comment || ""} onChange={(e) => handleReview(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                  <input type="text" name="review" id="review" value={element.comment || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
                 </div>
                 {details.reviews.length != 1 && (
-                  <button type="button" className="items-end flex" onClick={() => removeReview(element.id)}>
+                  <button type="button" className="items-end flex" onClick={() => removeReview(element._id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>

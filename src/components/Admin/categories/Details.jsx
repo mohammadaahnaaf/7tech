@@ -1,44 +1,52 @@
 import React, { useState, useEffect } from 'react'
 import AdminLayout from '../../layout/AdminLayout'
 import { v4 as uuidv4 } from 'uuid';
-import { dataCategories } from '../../../data/CategoriesData';
+// import { dataCategories } from '../../../data/CategoriesData';
 import { useRouter } from 'next/router';
-// import { useParams } from 'react-router-dom';
+import axiosRoot from '../../utils/axios-root';
 
 export function Detail() {
 
-  const [itemId, setItemId] = useState()
   const router = useRouter()
-  // let itemId = router.query.id || 1
-  console.log("ItemId: " + itemId)
-
-  const [loading, setLoading] = useState(false)
+  const itemId = router.query.id
   const [itemo, setItemo] = useState({
-    id: '',
-    name: '',
-
+    _id: '',
+    name: ''
   });
+  const [formValues, setFormValues] = useState([
+    {
+      _id: '',
+      name: ''
+    }
+  ])
 
   useEffect(() => {
-    setItemId(router.query.id)
-    const data = dataCategories.find(i => i.id === 1)
-    async function getProduct() {
-      // const res = await axiosAPI.get('/products/' + itemId);
-      // setOrder(res.data)
-      setItemo(data)
-      setFormValues(data?.childs)
+
+    async function getCategory() {
+      const res = await axiosRoot.get('/categories/' + itemId);
+      setItemo(res.data)
+      setFormValues(res.data.subCategories)
     }
-    console.log("itemo: ", itemo)
-    getProduct()
+    
+    getCategory()
   }, []);
 
-  const [formValues, setFormValues] = useState([
-    { id: uuidv4(), name: "" }
-  ])
+  // useEffect(() => {
+  //   setItemId(router.query.id)
+  //   const data = dataCategories.find(i => i.id === 1)
+  //   async function getProduct() {
+  //     // const res = await axiosAPI.get('/products/' + itemId);
+  //     // setOrder(res.data)
+  //     setItemo(data)
+  //     setFormValues(data?.childs)
+  //   }
+  //   console.log("itemo: ", itemo)
+  //   getProduct()
+  // }, []);
 
   const handleChange = (id, event) => {
     const newInputFields = formValues.map(i => {
-      if (id === i.id) {
+      if (id === i._id) {
         i[event.target.name] = event.target.value
       }
       return i;
@@ -58,14 +66,14 @@ export function Detail() {
   const addFormFields = () => {
     setFormValues([...formValues,
     {
-      id: uuidv4(),
+      _id: uuidv4(),
       name: ''
     }])
   };
 
   const removeFormFields = id => {
     const values = [...formValues];
-    values.splice(values.findIndex(value => value.id === id), 1);
+    values.splice(values.findIndex(value => value._id === id), 1);
     setFormValues(values);
   }
 
@@ -81,7 +89,7 @@ export function Detail() {
             <input type="text" id="name" name='name' placeholder="Category name" required
               value={itemo?.name || ''}
               // value={res.name}
-              onChange={(e) => handleName(itemo.id, e)}
+              onChange={(e) => handleName(itemo._id, e)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             />
           </div>
@@ -91,14 +99,14 @@ export function Detail() {
             {formValues?.map((element, index) => (
               <div className='grid grid-cols-10 w-full' key={index}>
                 <div className='col-span-9'>
-                  <label htmlFor="child" className="block mb-2 text-xs text-gray-900">childs</label>
+                  <label htmlFor="child" className="block mb-2 text-xs text-gray-900">Subcategories</label>
                   <input
                     type="text" name="name" id="child" value={element.name || ""}
-                    onChange={(e) => handleChange(element.id, e)}
+                    onChange={(e) => handleChange(element._id, e)}
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Enter a child" required />
                 </div>
                 {formValues.length != 1 && (
-                  <button type="button" className="items-end flex" onClick={() => removeFormFields(element.id)}>
+                  <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>

@@ -28,7 +28,7 @@ export function Categories() {
 
     function handleAllChecked(event) {
         if (event.target.checked) {
-            const newSelecteds = dataCategories.map((n) => n.id);
+            const newSelecteds = dataCategories.map((n) => n._id);
             setSelected(newSelecteds);
             setAllSelected(true)
             return;
@@ -106,12 +106,12 @@ export function Categories() {
                             return row;
                         } return ""
                     }).map((item, index) => {
-                        const isItemSelected = isSelected(item.id);
+                        const isItemSelected = isSelected(item._id);
                         return (
                             <tr key={index} className="bg-white border-b">
                                 <td className="p-4 w-4">
                                     <div className="flex items-center">
-                                        <input onChange={(event) => handleChecked(event, item.id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-red-100 rounded border-red-300 focus:ring-red-500 focus:ring-2" />
+                                        <input onChange={(event) => handleChecked(event, item._id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-red-100 rounded border-red-300 focus:ring-red-500 focus:ring-2" />
                                         <label htmlFor="checkbox" className="sr-only">checkbox</label>
                                     </div>
                                 </td>
@@ -125,7 +125,7 @@ export function Categories() {
                                     {item.createdAt}
                                 </td>
                                 <td className="py-4 px-6">
-                                    <button type='button' onClick={() => router.push('/admin/category/' + item.id)}>
+                                    <button type='button' onClick={() => router.push('/admin/category/' + item._id)}>
                                         <p className="font-medium text-gray-400 hover:underline">
                                             <PencilAltIcon className='h-5 w-5' />
                                         </p>
