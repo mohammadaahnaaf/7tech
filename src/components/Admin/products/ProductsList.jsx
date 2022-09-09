@@ -3,6 +3,7 @@ import React from 'react'
 import { products } from '../../../data/ProductsData'
 import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
+import axiosRoot from '../../utils/axios-root';
 
 export function ProductsLists() {
 
@@ -10,13 +11,21 @@ export function ProductsLists() {
   const [selected, setSelected] = React.useState([]);
   const [allSelected, setAllSelected] = React.useState(false)
 
-  // const [checked, setChecked] = React.useState(false)
-  // const [checkedAll, setCheckedAll] = React.useState(false)
+  const [rows, setRows] = React.useState([]);
+
+  React.useEffect(() => {
+    async function getProducts() {
+      const res = await axiosRoot.get('/products');
+      setRows(res.data)
+    }
+    getProducts()
+  }, []);
+
 
   function handleAllChecked(event) {
     // !checkedAll ? setCheckedAll(true) : setCheckedAll(false)
     if (event.target.checked) {
-      const newSelecteds = products.map((n) => n.id);
+      const newSelecteds = products.map((n) => n._id);
       setSelected(newSelecteds);
       setAllSelected(true)
       return;
@@ -93,7 +102,7 @@ export function ProductsLists() {
           </tr>
         </thead>
         <tbody>
-          {products.filter((row) => {
+          {rows.filter((row) => {
             if (searchTerm === "") {
               return row;
             } else if (row.category.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
@@ -102,17 +111,17 @@ export function ProductsLists() {
               return row;
             } return ""
           }).map((product, index) => {
-            const isItemSelected = isSelected(product.id);
+            const isItemSelected = isSelected(product._id);
             return (
               <tr key={index} className="bg-white border-b hover:bg-gray-50">
                 <td class="p-4 w-4">
                   <div className="flex items-center">
-                    <input onChange={(event) => handleChecked(event, product.id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
+                    <input onChange={(event) => handleChecked(event, product._id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
                     <label htmlFor="checkbox" className="sr-only">checkbox</label>
                   </div>
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                  {product.id}
+                  {product._id}
                 </td>
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                   {product.name}
@@ -131,7 +140,7 @@ export function ProductsLists() {
                 </td>
               </tr>
             )
-          })}     
+          })}
         </tbody>
       </table>
       <div className='p-2 flex justify-end'>

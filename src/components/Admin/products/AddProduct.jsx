@@ -1,5 +1,5 @@
 import { TrashIcon } from '@heroicons/react/solid';
-import { Router } from 'next/router';
+import Router from 'next/router';
 import React, { useState } from 'react';
 import { TagsInput } from "react-tag-input-component";
 import { v4 as uuidv4 } from 'uuid';
@@ -9,7 +9,8 @@ import axiosAPI from '../../utils/axios-api';
 
 const Detail = () => {
 
-    const [formValues, setFormValues] = React.useState([{ id: uuidv4(), detail: "" }])
+    const [formValues, setFormValues] = React.useState([{ id: uuidv4(), title: "" }])
+    // const [details, setDetails] = React.useState([{ title: "" }])
     const [moreInfos, setMoreInfo] = React.useState([{ id: uuidv4(), title: '', description: "" }])
     const [featured, setFeatured] = React.useState(false)
     const [error, setError] = React.useState('')
@@ -34,11 +35,11 @@ const Detail = () => {
 
     // submit form data
     const handleSubmit = async (event) => {
-        
+
         try {
             event.preventDefault()
             const data = new FormData(event.currentTarget);
-            
+
             data.delete('bordered-checkbox')
             data.delete('file-upload')
             data.delete('detail')
@@ -46,22 +47,30 @@ const Detail = () => {
             data.delete('description')
 
             data.set('tags', JSON.stringify(tags))
+            data.set('isFeatured', featured)
+
             // data.set('details', JSON.stringify(formValues))
             // data.set('information', JSON.stringify(moreInfos))
 
             // object should not contain id. it will be generated from the database
             // object should contain only a single field "title"
-            data.set('details', JSON.stringify([{ title: 'very good product' }]))
+            formValues.forEach((item) =>
+                data.set('details', JSON.stringify([
+                    { title: item.title }
+                ]))
+            )
 
             // object should not contain id. it will be generated from the database
             // object should contain two fields only "title" and "description"
-            data.set('information', JSON.stringify([
-                {
-                    title: 'ram',
-                    description: '64 gb'
-                }
-            ]))
-            data.set('isFeatured', featured)
+
+            moreInfos.forEach((item) =>
+                data.set('information', JSON.stringify([
+                    {
+                        title: item.title,
+                        description: item.description
+                    }
+                ]))
+            )
 
             Array.from(selectedFiles).forEach(file => {
                 data.append('images', file)
@@ -69,10 +78,12 @@ const Detail = () => {
 
             await axiosAPI.post('/products', data);
             Router.push('/admin/products')
-        } catch (error) {
+        } catch(error) {
+
             setIsLoading(false);
             console.log(error)
-            setError(error.response.data.message ? error.response.data.message : 'loading')        }
+            setError(error.response?.data?.message)
+        }
     }
 
     // Details 
@@ -95,7 +106,7 @@ const Detail = () => {
         }])
     };
 
-    const removeFormFields = id => {
+    const removeFormFields = (id, index) => {
         const values = [...formValues];
         values.splice(values.findIndex(value => value.id === id), 1);
         setFormValues(values);
@@ -126,7 +137,7 @@ const Detail = () => {
         values.splice(values.findIndex(value => value.id === id), 1);
         setMoreInfo(values);
     }
-    
+
     // Featured? 
     const handleFeature = () => {
         if (featured === false) {
@@ -291,11 +302,11 @@ const Detail = () => {
 
                             <div key={index} className='grid items-end grid-cols-10'>
                                 <div className='col-span-9'>
-                                    <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
-                                    <input type="text" name="detail" id="detail" placeholder="Enter detail" required
+                                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
+                                    <input type="text" name="title" id="title" placeholder="Enter detail" required
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         onChange={(e) => handleChange(element.id, e)}
-                                        value={element.detail || ""}
+                                        value={element.title || ""}
 
                                     />
                                 </div>
