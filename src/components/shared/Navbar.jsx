@@ -88,7 +88,7 @@ function Navbar({ setSearchTerm }) {
                                     <div className="hidden md:block h-8">
                                         <Link href='/'>
                                             <a className='h-20 w-full'>
-                                                <Image src="/logo.png" alt="Home" layout="fixed" width={80} height={40} />
+                                                <Image src="/logo.png" srcset="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
                                             </a>
                                         </Link>
                                     </div>
@@ -103,24 +103,24 @@ function Navbar({ setSearchTerm }) {
                                     <div className="ml-4 flex items-center md:ml-6">
 
                                         {/* Cart  */}
-                                       
-                                            <Link href='/cart'>
-                                                <a>
-                                                    <button
-                                                        type='button'
-                                                        // onClick={}
-                                                        className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800"
-                                                    >
-                                                        <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
 
-                                                        <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-50 justify-center">
-                                                            <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
-                                                            <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
-                                                        </span>
-                                                    </button>
-                                                </a>
-                                            </Link>
-                                       
+                                        <Link href='/cart'>
+                                            <a>
+                                                <button
+                                                    type='button'
+                                                    // onClick={}
+                                                    className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800"
+                                                >
+                                                    <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
+
+                                                    <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-50 justify-center">
+                                                        <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
+                                                        <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
+                                                    </span>
+                                                </button>
+                                            </a>
+                                        </Link>
+
 
                                         {!useri && (
                                             <div className='flex justify-between gap-2 ml-3'>
@@ -282,15 +282,7 @@ export function BasicNavbar() {
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
 
-                                        {/* Login and Signup Button shall show when user != isLoggedIn */}
-                                        <div className='flex justify-between gap-2 mr-3'>
-                                            <Link href='/signin'>
-                                                <a className='bg-red-600 text-sm hover:bg-white text-white ring-0 ring-white hover:ring-red-600 hover:text-black py-1 px-3 rounded-full'>Signup</a>
-                                            </Link>
-                                            <Link href='/login'>
-                                                <a className='bg-white text-sm hover:bg-red-600 ring-0 ring-red-600 hover:ring-white hover:text-white py-1 px-3 rounded-full'>Login</a>
-                                            </Link>
-                                        </div>
+
 
                                         {/* Cart  */}
                                         <Link href='/cart'>
@@ -303,6 +295,16 @@ export function BasicNavbar() {
                                                 </span>
                                             </a>
                                         </Link>
+
+                                        {/* Login and Signup Button shall show when user != isLoggedIn */}
+                                        <div className='flex justify-between gap-2 mx-3'>
+                                            <Link href='/signin'>
+                                                <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Signup</a>
+                                            </Link>
+                                            <Link href='/login'>
+                                                <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Login</a>
+                                            </Link>
+                                        </div>
 
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="hidden ml-3 relative">
