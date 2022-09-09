@@ -8,7 +8,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export function Banner() {
     return (
-        <div className="max-w-full pb-6 mx-auto">
+        <div className="max-w-full border-b-2 border-red-600 mx-auto">
             <Carousel
                 autoPlay
                 infiniteLoop
@@ -20,12 +20,12 @@ export function Banner() {
                 transitionTime={500}
                 swipeable={false}
                 emulateTouch
-                className='z-20'
+                className='z-50'
             // swipeScrollTolerance
             >
                 <img
                     src='/banners/banner-3.jpg'
-                    className=' object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
+                    className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
                 />
                 <img
                     src='/banners/banner.jpg'
