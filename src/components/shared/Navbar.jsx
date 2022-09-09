@@ -125,10 +125,10 @@ function Navbar({ setSearchTerm }) {
                                         {!useri && (
                                             <div className='flex justify-between gap-2 ml-3'>
                                                 <Link href='/signin'>
-                                                    <a className='bg-red-600 text-sm hover:bg-white text-white ring-0 ring-white hover:ring-red-600 hover:text-black py-1 px-3 rounded-full'>Signup</a>
+                                                    <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Signup</a>
                                                 </Link>
                                                 <Link href='/login'>
-                                                    <a className='bg-white text-sm hover:bg-red-600 ring-0 ring-red-600 hover:ring-white hover:text-white py-1 px-3 rounded-full'>Login</a>
+                                                    <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Login</a>
                                                 </Link>
                                             </div>
                                         )}
