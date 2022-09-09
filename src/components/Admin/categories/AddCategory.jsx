@@ -6,7 +6,7 @@ import Router from 'next/router';
 
 export function AddCategorys() {
 
-  const [formValues, setFormValues] = React.useState([{ _id: uuidv4(), names: "" }])
+  const [formValues, setFormValues] = React.useState([{ id: uuidv4(), names: "" }])
   const [error, setError] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
 
@@ -17,32 +17,30 @@ export function AddCategorys() {
       event.preventDefault()
 
       const data = new FormData(event.currentTarget);
-      // const formData = new FormData();
-      data.delete('names')
+      const formData = new FormData();
 
-      formValues.forEach((item) =>
-        data.set('subCategories', JSON.stringify([
-          {
-            _id: item._id,
-            name: item.names,
-            // description: item.description
-          }
-        ]))
-      )
+      formData.set('name', JSON.stringify(data.get('categoryName')))
+      // formData.set('name',  JSON.stringify("Cateegory"))
+      formData.set('subCategories', JSON.stringify(formValues.map(value => (
+        {
+          // _id: value._id,
+          name: value.names,
+        }
+      ))))
 
-      await axiosAPI.post('/categories', data);
+      await axiosAPI.post('/categories', formData);
       Router.push('/admin/category')
 
     } catch (error) {
       setIsLoading(false);
       console.log(error)
-      setError(error.response?.data?.message ? error.response.data.message : 'loading')
+      setError(error.response?.data?.message)
     }
   }
 
   const handleChange = (id, event) => {
     const newInputFields = formValues.map(i => {
-      if (id === i._id) {
+      if (id === i.id) {
         i[event.target.name] = event.target.value
       }
       return i;
@@ -61,7 +59,7 @@ export function AddCategorys() {
 
   const removeFormFields = id => {
     const values = [...formValues];
-    values.splice(values.findIndex(value => value._id === id), 1);
+    values.splice(values.findIndex(value => value.id === id), 1);
     setFormValues(values);
   }
 
@@ -77,20 +75,20 @@ export function AddCategorys() {
         <div className="grid gap-2 max-w-4xl mx-auto bg-gray-100 shadow rounded-lg ring-2 ring-gray-300 mb-6">
 
           <div className='w-full px-4'>
-            <label htmlFor="name" className="block my-2 text-xs font-medium text-gray-900">Category name</label>
-            <input type="text" name='name' id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" required />
+            <label htmlFor="categoryName" className="block my-2 text-xs font-medium text-gray-900">Category name</label>
+            <input type="text" name='categoryName' id="categoryName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Name" required />
           </div>
 
           <div className='px-4 grid items-center w-full gap-2'>
 
-            {formValues.map((element, index) => (
+            {formValues.map((value, index) => (
               <div className='grid grid-cols-10 w-full' key={index}>
                 <div className='col-span-9'>
                   <label htmlFor="names" className="block mb-2 text-xs text-gray-900">childs</label>
                   <input
-                    type="text" name="names" id="names" value={element.names || ""}
-                    onChange={(e) => handleChange(element._id, e)}
-                    className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Enter a child" required />
+                    type="text" name="names" id="names" value={value.names || ""}
+                    onChange={(e) => handleChange(value.id, e)}
+                    className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5" placeholder="Enter a subcategory" required />
                 </div>
                 {formValues.length != 1 && (
                   <button type="button" className="items-end flex" onClick={() => removeFormFields(element.id)}>

@@ -47,8 +47,15 @@ const Detail = () => {
             data.delete('description')
             data.set('tags', JSON.stringify(tags))
             data.set('isFeatured', featured)
-            data.set('details', JSON.stringify(formValues.map(value => ({ title: value.title }))))
-            data.set('information', JSON.stringify(moreInfos.map(info => ({ title: info.title, description: info.description }))))
+            data.set('details', JSON.stringify(formValues.map(value => (
+                { title: value.title }
+            ))))
+            data.set('information', JSON.stringify(moreInfos.map(info => (
+                {
+                    title: info.title,
+                    description: info.description
+                }
+            ))))
 
             Array.from(selectedFiles).forEach(file => {
                 data.append('images', file)

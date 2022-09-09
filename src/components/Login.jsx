@@ -42,7 +42,7 @@ export function Logins() {
     };
 
     return (
-        <div className="min-h-[85vh] px-1 md:px-0 flex items-center justify-center my-auto">
+        <div className="min-h-screen px-1 md:px-0 flex items-center justify-center my-auto">
             <div className="max-w-md w-full">
                 <div>
                     <img
@@ -65,7 +65,7 @@ export function Logins() {
                     </div>
                 )}
 
-                <form className=" space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-6" onSubmit={handleSubmit}>
                     <input type="hidden" name="remember" defaultValue="true" />
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
@@ -115,7 +115,7 @@ export function Logins() {
                                 </a>
                             </Link>
                         </div>
-                        <div className="flex items-center w-full">
+                        {/* <div className="flex items-center w-full">
                             <input
                                 id="remember-me"
                                 name="remember-me"
@@ -125,7 +125,7 @@ export function Logins() {
                             <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                                 I agree to the terms and conditions.
                             </label>
-                        </div>
+                        </div> */}
                     </div>
                     <div>
                         <button
