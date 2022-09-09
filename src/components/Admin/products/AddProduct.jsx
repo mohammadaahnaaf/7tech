@@ -54,6 +54,7 @@ const Detail = () => {
 
             // object should not contain id. it will be generated from the database
             // object should contain only a single field "title"
+
             formValues.forEach((item) =>
                 data.set('details', JSON.stringify([
                     { title: item.title }
@@ -64,7 +65,7 @@ const Detail = () => {
             // object should contain two fields only "title" and "description"
 
             moreInfos.forEach((item) =>
-                data.set('information', JSON.stringify([
+                data.append('information', JSON.stringify([
                     {
                         title: item.title,
                         description: item.description
@@ -78,7 +79,7 @@ const Detail = () => {
 
             await axiosAPI.post('/products', data);
             Router.push('/admin/products')
-        } catch(error) {
+        } catch (error) {
 
             setIsLoading(false);
             console.log(error)
@@ -253,7 +254,9 @@ const Detail = () => {
                                         <TrashIcon className='w-6 h-6 text-red-600' />
                                     </button>
                                 </div>
-                                <img alt='product image' src={userInfo.filepreview} className='mx-auto h-36' />
+                                {userInfo.filepreview && (
+                                    <img alt='product image' src={userInfo.filepreview} className='mx-auto h-36' />
+                                )}
                             </div>
                             <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
                                 <div className="absolute top-0 right-0 z-10 grid items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">

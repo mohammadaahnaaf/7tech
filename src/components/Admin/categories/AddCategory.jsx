@@ -6,7 +6,7 @@ import Router from 'next/router';
 
 export function AddCategorys() {
 
-  const [formValues, setFormValues] = React.useState([{ id: uuidv4(), name: "" }])
+  const [formValues, setFormValues] = React.useState([{ _id: uuidv4(), names: "" }])
   const [error, setError] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
 
@@ -17,15 +17,20 @@ export function AddCategorys() {
       event.preventDefault()
 
       const data = new FormData(event.currentTarget);
+      // const formData = new FormData();
       data.delete('names')
-      // data.set('subCategories', JSON.stringify(formValues))
 
-      const reqData = {
-        name: data.get('name'),
-        subCategories: JSON.stringify(formValues)
-      }
+      formValues.forEach((item) =>
+        data.set('subCategories', JSON.stringify([
+          {
+            _id: item._id,
+            name: item.names,
+            // description: item.description
+          }
+        ]))
+      )
 
-      await axiosAPI.post('/categories', reqData);
+      await axiosAPI.post('/categories', data);
       Router.push('/admin/category')
 
     } catch (error) {
@@ -37,7 +42,7 @@ export function AddCategorys() {
 
   const handleChange = (id, event) => {
     const newInputFields = formValues.map(i => {
-      if (id === i.id) {
+      if (id === i._id) {
         i[event.target.name] = event.target.value
       }
       return i;
@@ -56,7 +61,7 @@ export function AddCategorys() {
 
   const removeFormFields = id => {
     const values = [...formValues];
-    values.splice(values.findIndex(value => value.id === id), 1);
+    values.splice(values.findIndex(value => value._id === id), 1);
     setFormValues(values);
   }
 
@@ -83,8 +88,8 @@ export function AddCategorys() {
                 <div className='col-span-9'>
                   <label htmlFor="names" className="block mb-2 text-xs text-gray-900">childs</label>
                   <input
-                    type="text" name="name" id="names" value={element.name || ""}
-                    onChange={(e) => handleChange(element.id, e)}
+                    type="text" name="names" id="names" value={element.names || ""}
+                    onChange={(e) => handleChange(element._id, e)}
                     className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Enter a child" required />
                 </div>
                 {formValues.length != 1 && (
