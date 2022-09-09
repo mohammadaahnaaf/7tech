@@ -17,18 +17,24 @@ export function AddCategorys() {
       event.preventDefault()
 
       const data = new FormData(event.currentTarget);
-      const formData = new FormData();
+      // const formData = new FormData();
 
-      formData.set('name', JSON.stringify(data.get('categoryName')))
-      // formData.set('name',  JSON.stringify("Cateegory"))
-      formData.set('subCategories', JSON.stringify(formValues.map(value => (
-        {
-          // _id: value._id,
-          name: value.names,
-        }
-      ))))
+      // formData.set('name', JSON.stringify(data.get('categoryName')))
+      // formData.set('subCategories', JSON.stringify(formValues.map(value => (
+      //   {
+      //     name: value.names,
+      //   }
+      // ))))
 
-      await axiosAPI.post('/categories', formData);
+      const reqData = {
+        name: data.get('categoryName'),
+        subCategories: JSON.stringify(formValues.map(value => (
+          {
+            name: value.names,
+          }
+        )))
+      }
+      await axiosAPI.post('/categories', reqData);
       Router.push('/admin/category')
 
     } catch (error) {
