@@ -8,7 +8,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export function Banner() {
     return (
-        <div className="max-w-7xl pb-6 mx-auto px-0 lg:px-8">
+        <div className="max-w-full pb-6 mx-auto">
             <Carousel
                 autoPlay
                 infiniteLoop
@@ -25,15 +25,15 @@ export function Banner() {
             >
                 <img
                     src='/banners/banner-3.jpg'
-                    className=' object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className=' object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
                 />
                 <img
                     src='/banners/banner.jpg'
-                    className='object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className='object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
                 />
                 <img
                     src='/banners/banner-2.jpg'
-                    className='object-cover h-[20vh] md:h-[max(550px,min(55vh,calc(626/1128*100vw)))] select-none cursor-pointer'
+                    className='object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
                 />
             </Carousel>
         </div>

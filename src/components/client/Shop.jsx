@@ -30,7 +30,7 @@ export function Shop({ items, title, term }) {
       <div className="max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
         <div>
           <div className="max-w-2xl mx-auto px-2 lg:max-w-7xl lg:px-0">
-            <div className='py-8 bg-gradient-to-r from-black to-red-600 rounded-lg'>
+            <div className='py-8 bg-gradient-to-r from-black to-red-600'>
               <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
             </div>
 
@@ -46,8 +46,8 @@ export function Shop({ items, title, term }) {
                   return item;
                 } return ""
               }).map((product) => (
-                <div key={product.id} className="grid relative ring-2 rounded-md hover:zoom-10 ring-gray-300">
-                  <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white rounded-md bg-black bg-opacity-25 hover:bg-opacity-50">
+                <div key={product.id} className="grid relative ring-2 hover:zoom-10 ring-gray-300">
+                  <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white bg-black bg-opacity-25 hover:bg-opacity-50">
 
                     {/* <button type='button' onClick={() => handleRemoveCart(product.id)} className='relative'>
                       <ShoppingCartIcon className='h-8 w-8 text-red-600' />

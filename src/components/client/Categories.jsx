@@ -129,7 +129,7 @@ export function CategoryBar() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="relative bg-red-600 mb-1">
+            <header className="relative bg-red-600">
 
                 <nav area-position='fixed' aria-label="Top" className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
                     <div>
