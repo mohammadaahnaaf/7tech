@@ -103,7 +103,7 @@ function Navbar({ setSearchTerm }) {
                                     <div className="ml-4 flex items-center md:ml-6">
 
                                         {/* Cart  */}
-                                        {useri && (
+                                       
                                             <Link href='/cart'>
                                                 <a>
                                                     <button
@@ -120,7 +120,7 @@ function Navbar({ setSearchTerm }) {
                                                     </button>
                                                 </a>
                                             </Link>
-                                        )}
+                                       
 
                                         {!useri && (
                                             <div className='flex justify-between gap-2 ml-3'>
