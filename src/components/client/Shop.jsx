@@ -1,19 +1,11 @@
 import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
 import { ShoppingCartIcon } from '@heroicons/react/outline'
-// import { MinusIcon, PlusIcon } from '@heroicons/react/solid'
-// import Layout from '../layout/Layout'
 import { useCart } from 'react-use-cart'
+import { useRouter } from 'next/router'
 
 export function Shop({ items, title, term }) {
 
   const searchTerm = term;
-  const {
-    addItem,
-    isEmpty,
-    updateItemQuantity,
-  } = useCart();
 
   // function handleAddCart(product) {
   //   () => addItem(product)
@@ -50,10 +42,12 @@ export function Shop({ items, title, term }) {
 }
 
 export function ProductCard({ product }) {
+
+  const router = useRouter()
   const {
     addItem,
-    isEmpty,
-    updateItemQuantity,
+    // isEmpty,
+    // updateItemQuantity,
   } = useCart();
 
   return (
@@ -65,9 +59,9 @@ export function ProductCard({ product }) {
         </button>
       </div>
       <div className='bg-white h-[32vh]'>
-        <a href='/details'>
+        <button onClick={() => router.push('/product/' + '631b6d25edc4879f5486a195')}>
           <img className="p-8 rounded-t-lg" src={product?.imageSrc} alt="product image" />
-        </a>
+        </button>
       </div>
       <div className="p-3 border-t-2 z-20 border-red-600">
         <a href="#">

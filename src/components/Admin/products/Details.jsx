@@ -41,7 +41,7 @@ const Detail = () => {
   // get data 
   React.useEffect(() => {
 
-    async function getCategory() {
+    async function getProduct() {
       const res = await axiosRoot.get('/products/' + itemId);
       setDetails(res.data)
       setTags(res.data.tags)
@@ -51,7 +51,7 @@ const Detail = () => {
       setImages(res.data.images)
     }
 
-    getCategory()
+    getProduct()
   }, []);
 
   // Details 

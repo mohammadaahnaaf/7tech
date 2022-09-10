@@ -2,7 +2,7 @@ import React from 'react'
 import { headsets, keyboards, mouses } from '../../data/ProductsData'
 import { Banner } from './Home'
 import Layout from '../layout/Layout'
-import { ProductCard, Shop } from './Shop'
+import { Shop } from './Shop'
 
 function Main() {
     const [searchTerm, setSearchTerm] = React.useState('')

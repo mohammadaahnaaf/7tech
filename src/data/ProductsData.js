@@ -1,4 +1,8 @@
-
+export const colors = [
+  { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
+  { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
+  { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+]
 export const details = {
   name: 'ReDragon M808 Storm Wireless Gaming Mouse',
   code: 'SpA10C',
@@ -350,7 +354,7 @@ export const products = [
 
 export const mouses = [
   {
-    id: 1,
+    id: '631b6d25edc4879f5486a195',
     name: 'ReDragon M808 Storm Wireless Gaming Mouse',
     href: '#',
     imageSrc: '/productss/1.jpg',

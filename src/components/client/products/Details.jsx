@@ -1,15 +1,17 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { StarIcon } from '@heroicons/react/solid'
 
 // import { XIcon } from '@heroicons/react/outline'
 // import { Shop } from '../Shop'
 // import { Product } from './Products'
+// import { details } from '../../../data/ProductsData'
 
 import Image from 'next/image'
 import Layout from '../../layout/Layout'
-import { details } from '../../../data/ProductsData'
 import { useRouter } from 'next/router'
+import axiosRoot from '../../utils/axios-root'
+import { colors } from '../../../data/ProductsData'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -22,9 +24,29 @@ export function Details() {
     const myRef = useRef()
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
-    const [selectedColor, setSelectedColor] = useState(details.colors[0])
+    const [selectedColor, setSelectedColor] = useState('')
     const [show, setShow] = useState('details');
-    const [selectedSize, setSelectedSize] = useState(details.sizes[2])
+    const [selectedSize, setSelectedSize] = useState('')
+    const [details, setDetails] = useState([])
+    const [info, setInfo] = useState([])
+    const [moreInfo, setMoreInfo] = useState([])
+    const [images, setImages] = useState([])
+    const ratings = 4.00
+
+    // get data 
+    useEffect(() => {
+        async function getProduct() {
+            const res = await axiosRoot.get('/products/' + itemId);
+            setDetails(res.data)
+            // setTags(res.data.tags)
+            // setIsFeatured(res.data.isFeatured)
+            setInfo(res.data.details)
+            setMoreInfo(res.data.information)
+            setImages(res.data.images)
+        }
+
+        getProduct()
+    }, []);
 
     const incrementQty = () => {
         setQty(count => count + 1);
@@ -45,18 +67,18 @@ export function Details() {
             <div className="max-w-5xl mx-auto col-span-12 grid gap-4">
 
                 <div className="w-full col-span-12 lg:col-span-3">
-                    {/* <img
-                        src={details.imageSrc}
-                        alt={details.imageAlt}
-                    // className="w-[40vh] h-[40vh]"
-                    /> */}
-                    <Image
-                        height={500}
-                        width={500}
-                        src={details.imageSrc}
-                        alt={details.imageAlt}
-                    // className="w-[40vh] h-[40vh]"
-                    />
+                    {images.map((item, index) => (
+                        <div key={index}>
+
+                            <img
+                                height={500}
+                                width={500}
+                                src={`${item}`}
+                                alt='product-images'
+                                className="w-[40vh] h-[40vh]"
+                            />
+                        </div>
+                    ))}
                 </div>
 
 
@@ -79,16 +101,16 @@ export function Details() {
                                         <StarIcon
                                             key={rating}
                                             className={classNames(
-                                                details.rating > rating ? 'text-gray-900' : 'text-gray-200',
+                                                ratings > rating ? 'text-gray-900' : 'text-gray-200',
                                                 'h-5 w-5 flex-shrink-0'
                                             )}
                                             aria-hidden="true"
                                         />
                                     ))}
                                 </div>
-                                <p className="sr-only">{details.rating} out of 5 stars</p>
+                                <p className="sr-only">{ratings} out of 5 stars</p>
                                 <button type='button' onClick={handleScroll} className="ml-3 text-sm font-medium text-red-600 hover:text-red-500">
-                                    {details.reviews.length} reviews
+                                    {details.reviews?.length} reviews
                                 </button>
                                 <button type='button' onClick={handleScroll} className="ml-1 text-sm font-medium text-red-600 hover:text-red-500">
                                     | Add your review
@@ -96,7 +118,7 @@ export function Details() {
                             </div>
                             <div className='py-2 grid gap-1'>
                                 {/* <h5 className='text-xs'>Brand: <a href='#' className='text-red-500'>{details.brand}</a></h5> */}
-                                <h5 className='text-xs'>Sold By: <a href='#' className='text-red-500'>7Tech</a></h5>
+                                <h5 className='text-sm'>Sold By: <a href='#' className='text-red-500'>7Tech</a></h5>
                             </div>
                         </div>
                     </section>
@@ -115,7 +137,7 @@ export function Details() {
                                     <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-1 p-2 ring-black ring-2">
                                         <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                                         <span className="flex items-center space-x-3">
-                                            {details.colors.map((color) => (
+                                            {colors?.map((color) => (
                                                 <RadioGroup.Option
                                                     key={color.name}
                                                     value={color}
@@ -289,7 +311,7 @@ export function Details() {
                         <>
                             <div div className='md:p-5 mt-5 rounded-md bg-gray-50'>
                                 <h2 className='text-xl font-medium'>{details.name}</h2>
-                                {details.details.map((detail, index) => (
+                                {info?.map((detail, index) => (
                                     <p className='text-sm font-normal py-1 pl-10 text-gray-500'>{index + 1}. {detail.title}</p>
                                 ))}
                             </div>
@@ -300,7 +322,7 @@ export function Details() {
                     {(show === 'info') && (
                         <div className='md:p-5 mt-5 rounded-md bg-gray-50'>
                             <h2 className='text-xl font-medium'>{details.name}</h2>
-                            {details.informations.map((info, index) => (
+                            {moreInfo.map((info, index) => (
                                 <div key={index} className='flex  justify-items-start md:w-4/5'>
                                     <p className='text-sm w-56 font-normal py-1 pl-10 text-gray-500'>{index + 1}. {info.title}:</p>
                                     <p className='text-sm font-normal py-1 pl-10 text-gray-500'>{info.description}</p>
@@ -315,25 +337,25 @@ export function Details() {
                             <h2 className='text-xl font-medium'>Reviews:</h2>
                             <div className='grid gap-5'>
                                 <div className='flex '>
-                                    <h1 className='text-7xl '>{details.rating.toFixed(1)}</h1>
+                                    <h1 className='text-7xl '>{ratings.toFixed(1)}</h1>
                                     <div className='grid'>
                                         <div className="flex items-center">
                                             {[0, 1, 2, 3, 4].map((rating) => (
                                                 <StarIcon
                                                     key={rating}
                                                     className={classNames(
-                                                        details.rating > rating ? 'text-red-400' : 'text-gray-300',
+                                                        ratings > rating ? 'text-red-400' : 'text-gray-300',
                                                         'h-8 w-8 flex-shrink-0'
                                                     )}
                                                     aria-hidden="true"
                                                 />
                                             ))}
                                         </div>
-                                        <h2 className='py-1 px-2 text-gray-500'>{details.reviewsrate}5 Reviews</h2>
+                                        <h2 className='py-1 px-2 text-gray-500'>{details.reviews.length} Reviews</h2>
                                     </div>
                                 </div>
                                 <div className='grid gap-3'>
-                                    {details.reviews.map((review, index) => (
+                                    {details.reviews?.map((review, index) => (
                                         <div className='grid md:flex justify-between col-span-1 gap-3'>
                                             <div className='grid w-1/4 md:px-5 gap-0'>
                                                 <p className='text-sm'>{review.name}</p>
