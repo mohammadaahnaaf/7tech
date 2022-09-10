@@ -5,6 +5,7 @@ import { TagsInput } from "react-tag-input-component";
 import { v4 as uuidv4 } from 'uuid';
 import AdminLayout from '../../layout/AdminLayout';
 import axiosAPI from '../../utils/axios-api';
+import axiosRoot from '../../utils/axios-root';
 // import style from './styles'
 
 const Detail = () => {
@@ -28,8 +29,9 @@ const Detail = () => {
         setSelectedFiles(e.target.files);
         setuserInfo({
             ...userInfo,
-            file: e.target.files[0],
+            file: e.target.files,
             filepreview: URL.createObjectURL(e.target.files[0]),
+            // filepreview2: URL.createObjectURL(e.target.files[1]),
         })
     }
 
@@ -132,6 +134,16 @@ const Detail = () => {
         }
     }
 
+    const [cats, setCats] = React.useState([]);
+
+    React.useEffect(() => {
+        async function getCategory() {
+            const res = await axiosRoot.get('/categories');
+            setCats(res.data)
+        }
+        getCategory()
+    }, []);
+    console.log(cats.map((i)=> i.name))
     return (
 
         <div className='grid justify-around grid-cols-1 gap-3 p-5 m-3 bg-white rounded-lg'>
@@ -155,8 +167,15 @@ const Detail = () => {
                             <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div> */}
                         <div>
+                            {/* <input type="text" name='category' id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required /> */}
+                            {/* <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label> */}
+                            
                             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
-                            <input type="text" name='category' id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            <select id="category" name='category' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required>
+                                {cats.map((cat) => 
+                                    <option>{cat.name}</option>
+                                )}
+                            </select>
                         </div>
                         <div>
                             <label htmlFor="code" className="block mb-2 text-sm font-medium text-gray-900 ">Product code</label>
@@ -221,7 +240,7 @@ const Detail = () => {
                                                 onChange={handleSelectImage}
                                             />
                                         </label>
-                                        <p className="pl-1">or drag and drop</p>
+                                        {/* <p className="pl-1">or drag and drop</p> */}
                                     </div>
                                     <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                                 </div>
@@ -250,7 +269,7 @@ const Detail = () => {
                                         <TrashIcon className='w-6 h-6 text-red-600' />
                                     </button>
                                 </div>
-                                {/* <img alt='product image' src={userInfo.filepreview2} className='mx-auto h-36 ' /> */}
+                                <img alt='product image' src={userInfo?.filepreview} className='mx-auto h-36 ' />
                             </div>
                             <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
                                 <div className="absolute top-0 right-0 z-10 grid items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
