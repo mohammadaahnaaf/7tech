@@ -122,7 +122,7 @@ export function ProductsLists() {
                   </div>
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                  {product._id}
+                  {product.code}
                 </td>
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                   {product.name}
