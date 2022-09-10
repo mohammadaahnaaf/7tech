@@ -9,7 +9,7 @@ export const orders = [
         area: 'Kazipara',
         address: '20/2 - 5/B1',
         payment: 'cash on delevery',
-        total: (35*1)+(30*2),
+        total: (3500*1)+(3000*2),
         qty: 3,
 
         products: [
@@ -21,7 +21,7 @@ export const orders = [
                 category: 'Mouse',
                 imageSrc: '/productss/6.jpg',
                 imageAlt: "product alt name",
-                price: 35,
+                price: 3500,
                 color: 'Black',
             },
             {
@@ -32,7 +32,7 @@ export const orders = [
                 category: 'Mouse',
                 imageSrc: '/productss/7.jpg',
                 imageAlt: "product alt name",
-                price: 30,
+                price: 3000,
                 color: 'Black',
             },
         ]
@@ -47,7 +47,7 @@ export const orders = [
         area: 'Uttara',
         address: 'Dhaka - 1230',
         payment: 'cash on delevery',
-        total: (35*3)+(30*2),
+        total: (3500*3)+(3000*2),
         qty: 5,
 
         products: [
@@ -59,7 +59,7 @@ export const orders = [
                 category: 'Mouse',
                 imageSrc: '/productss/6.jpg',
                 imageAlt: "product alt name",
-                price: 35,
+                price: 3500,
                 color: 'Black',
             },
             {
@@ -70,7 +70,7 @@ export const orders = [
                 category: 'Mouse',
                 imageSrc: '/productss/7.jpg',
                 imageAlt: "product alt name",
-                price: 30,
+                price: 3000,
                 color: 'Black',
             },
         ]

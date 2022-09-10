@@ -59,9 +59,9 @@ export function ProductCard({ product }) {
   return (
 
     <div key={product?.id} className="w-full h-[45vh] relative max-w-xs bg-gray-900 shadow-md ring-2 ring-red-600">
-      <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-red-600 ring-1 ring-red-600 bg-black">
+      <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 bg-black bg-opacity-30">
         <button type='button' onClick={() => addItem(product)}>
-          <ShoppingCartIcon className='h-8 w-8' />
+          <ShoppingCartIcon className='h-7 w-7' />
         </button>
       </div>
       <div className='bg-white h-[32vh]'>

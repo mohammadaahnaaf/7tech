@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Dialog, Popover, Disclosure, Tab, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 // import Layout from './layout/Layout'
@@ -7,6 +7,9 @@ import { ChevronDoubleRightIcon, ChevronDownIcon, FilterIcon, MinusSmIcon, PlusS
 import { Product } from './products/Products'
 import Navbar from '../shared/Navbar'
 import { Footers } from '../shared/Footer'
+import { mouses } from '../../data/ProductsData'
+import Layout from '../layout/Layout'
+import { ProductCard } from './Shop'
 
 // import Link from 'next/link'
 
@@ -291,12 +294,14 @@ const filters = [
     },
 ]
 
-export function Example() {
+export function Example({ term }) {
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const items = mouses;
+    const searchTerm = term
 
     return (
-        <div className="bg-white">
+        <div className="">
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -398,9 +403,9 @@ export function Example() {
                     </Dialog>
                 </Transition.Root>
 
-                <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <main className="max-w-7xl mx-auto px-1 sm:px-2 lg:px-3">
                     <div className="relative flex items-baseline justify-between py-6 border-b border-gray-200">
-                        <h1 className="text-lg lg:text-4xl font-medium text-gray-900">Categories</h1>
+                        <h1 className="text-lg lg:text-4xl font-medium text-red-600">Categories</h1>
 
                         <div className="flex z-30 items-center">
                             <Menu as="div" className="relative inline-block text-left">
@@ -432,7 +437,7 @@ export function Example() {
                                                             href={option.href}
                                                             className={classNames(
                                                                 option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                                                active ? 'bg-gray-100' : '',
+                                                                active ? 'bg-red-100' : '',
                                                                 'block px-4 py-2 text-sm'
                                                             )}
                                                         >
@@ -466,11 +471,11 @@ export function Example() {
                             Products
                         </h2>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-10">
                             {/* Filters */}
                             <form className="hidden lg:block">
                                 <h3 className="sr-only">Categories</h3>
-                                <ul role="list" className="text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200">
+                                <ul role="list" className="text-sm font-medium text-red-600 space-y-4 pb-6 border-b border-gray-200">
                                     {subCategories.map((category) => (
                                         <li key={category.name}>
                                             <a href={category.href}>{category.name}</a>
@@ -483,7 +488,7 @@ export function Example() {
                                         {({ open }) => (
                                             <>
                                                 <h3 className="-my-3 flow-root">
-                                                    <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
+                                                    <Disclosure.Button className="py-3 bg-red-600 px-3 w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
                                                         <span className="font-medium text-gray-900">{section.name}</span>
                                                         <span className="ml-6 flex items-center">
                                                             {open ? (
@@ -524,8 +529,25 @@ export function Example() {
 
                             {/* Product grid */}
 
-                            <div className="lg:col-span-3">
-                                <Product />
+                            <div className="lg:col-span-4">
+                                {/* <Product /> */}
+                                <div className='px-3 py-3'>
+                                    <div className='max-w-7xl items-center justify-center justify-items-center mx-auto gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'>
+                                        {items?.filter((item) => {
+                                            if (searchTerm === "") {
+                                                return item;
+                                            } else if (item.color.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                                                return item;
+                                            } else if (item.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                                                return item;
+                                            } else if (item.price.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
+                                                return item;
+                                            } return ""
+                                        }).map((product) => (
+                                            <ProductCard product={product} />
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -538,11 +560,14 @@ export function Example() {
 
 
 export default function Category() {
+
+    const [searchTerm, setSearchTerm] = React.useState('')
+
     return (
-        <>
-            <Navbar />
-            <Example />
-            <Footers />
-        </>
+        <Layout setSearchTerm={setSearchTerm}>
+            <div className='bg-black'>
+                <Example term={searchTerm} />
+            </div>
+        </Layout>
     )
 }
