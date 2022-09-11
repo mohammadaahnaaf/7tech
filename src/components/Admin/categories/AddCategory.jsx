@@ -17,14 +17,6 @@ export function AddCategorys() {
       event.preventDefault()
 
       const data = new FormData(event.currentTarget);
-      // const formData = new FormData();
-
-      // formData.set('name', JSON.stringify(data.get('categoryName')))
-      // formData.set('subCategories', JSON.stringify(formValues.map(value => (
-      //   {
-      //     name: value.names,
-      //   }
-      // ))))
 
       const reqData = {
         name: data.get('categoryName'),

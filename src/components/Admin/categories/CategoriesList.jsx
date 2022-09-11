@@ -4,8 +4,9 @@ import { dataCategories } from '../../../data/CategoriesData';
 import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
 import Link from 'next/link'
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
+import axiosAPI from '../../utils/axios-api';
 
 export function Categories() {
     const router = useRouter()
@@ -24,6 +25,12 @@ export function Categories() {
         }
         getCategory()
     }, []);
+
+
+    async function handleDelete() {
+        await axiosAPI.delete('/categories/' + selected);
+        Router.push('/admin/category')
+    }
 
 
     function handleAllChecked(event) {
@@ -88,7 +95,7 @@ export function Categories() {
                         <th scope="col" className="py-3 px-6">
                             {selected != 0 && (
                                 <>
-                                    <button type='button'>
+                                    <button type='button' onClick={handleDelete}>
                                         <TrashIcon className='h-5 w-5 text-red-600' />
                                     </button>
                                 </>

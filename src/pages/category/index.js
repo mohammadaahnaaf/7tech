@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react'
-import Category from '../components/client/Categories'
+import Category from '../../components/client/Categories'
 
 function CategoryPage() {
     return (

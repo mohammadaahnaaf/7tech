@@ -1,9 +1,10 @@
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import React from 'react'
 import { products } from '../../../data/ProductsData'
 import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
+import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
 
 export function ProductsLists() {
@@ -11,9 +12,9 @@ export function ProductsLists() {
   const [searchTerm, setSearchTerm] = React.useState('')
   const [selected, setSelected] = React.useState([]);
   const [allSelected, setAllSelected] = React.useState(false)
-
   const [rows, setRows] = React.useState([]);
 
+  // get product data 
   React.useEffect(() => {
     async function getProducts() {
       const res = await axiosRoot.get('/products');
@@ -22,6 +23,11 @@ export function ProductsLists() {
     getProducts()
   }, []);
 
+  // Delete Product 
+  async function handleDelete() {
+    await axiosAPI.delete('/products/' + selected);
+    Router.push('/admin/products')
+  }
 
   function handleAllChecked(event) {
     // !checkedAll ? setCheckedAll(true) : setCheckedAll(false)
@@ -93,7 +99,7 @@ export function ProductsLists() {
             </th>
             <th scope="col" className="py-3 px-6">
               {selected != 0 && (
-                <button type='button'>
+                <button type='submit' onClick={handleDelete}>
                   <TrashIcon className='h-5 w-5 text-red-600' />
                 </button>
               )}

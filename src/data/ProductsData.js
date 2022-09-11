@@ -9,7 +9,7 @@ export const details = {
   price: 1700,
   rating: 4.0,
   href: '#',
-  qty: 5,
+  qty: 0,
   featured: true,
   brand: 'ReDragon',
   category: 'Mouse',
@@ -361,6 +361,7 @@ export const mouses = [
     imageAlt: "product alt name",
     price: 3500,
     color: 'Black',
+    stock: 0,
   },
   {
     id: 2,
@@ -370,6 +371,7 @@ export const mouses = [
     imageAlt: "product alt name",
     price: 3500,
     color: 'White',
+    stock: 1,
   },
   {
     id: 3,
@@ -379,6 +381,7 @@ export const mouses = [
     imageAlt: "product alt name",
     price: 4700,
     color: 'Black',
+    stock: 4,
   },
   {
     id: 4,
@@ -388,6 +391,7 @@ export const mouses = [
     imageAlt: "product alt name",
     price: 4200,
     color: 'white',
+    stock: 0,
   },
   {
     id: 5,
@@ -397,6 +401,8 @@ export const mouses = [
     imageAlt: "product alt name",
     price: 4500,
     color: 'Black',
+    stock: 0,
+
   },
   {
     id: 6,
@@ -406,6 +412,8 @@ export const mouses = [
     imageAlt: "product alt name",
     price: 3500,
     color: 'Black',
+    stock: 0,
+
   },
   {
     id: 7,
@@ -415,6 +423,7 @@ export const mouses = [
     imageAlt: "product alt name",
     price: 3500,
     color: 'Black',
+    stock: 6
   },
   {
     id: 8,
@@ -424,6 +433,7 @@ export const mouses = [
     imageAlt: "product alt name",
     price: 5099,
     color: 'Black',
+    stock: 1,
   },
 ]
 export const keyboards = [

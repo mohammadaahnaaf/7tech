@@ -9,44 +9,65 @@ import { StarIcon } from '@heroicons/react/solid'
 
 import Image from 'next/image'
 import Layout from '../../layout/Layout'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import axiosRoot from '../../utils/axios-root'
 import { colors } from '../../../data/ProductsData'
+import axiosAPI from '../../utils/axios-api'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export function Details() {
+
     const router = useRouter()
     const itemId = router.query.id
-
+    const ratings = 4.00
     const myRef = useRef()
+
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [selectedColor, setSelectedColor] = useState('')
     const [show, setShow] = useState('details');
-    const [selectedSize, setSelectedSize] = useState('')
+    // const [selectedSize, setSelectedSize] = useState('')
     const [details, setDetails] = useState([])
     const [info, setInfo] = useState([])
     const [moreInfo, setMoreInfo] = useState([])
     const [images, setImages] = useState([])
-    const ratings = 4.00
+    const [error, setError] = useState('')
 
     // get data 
     useEffect(() => {
         async function getProduct() {
+
             const res = await axiosRoot.get('/products/' + itemId);
             setDetails(res.data)
-            // setTags(res.data.tags)
-            // setIsFeatured(res.data.isFeatured)
             setInfo(res.data.details)
             setMoreInfo(res.data.information)
             setImages(res.data.images)
         }
-
         getProduct()
     }, []);
+
+    // submit review data
+    const handleSubmit = async (event) => {
+
+        try {
+            event.preventDefault()
+            const data = new FormData(event.currentTarget);
+
+            const reqData = {
+                comment: data.get('comment'),
+                rating: JSON.stringify(star)
+            }
+            await axiosAPI.post(`/products/${itemId}/review`, reqData);
+            Router.push('/')
+
+        } catch (error) {
+            console.log(error)
+            setError(error.response?.data?.message)
+        }
+    }
 
     const incrementQty = () => {
         setQty(count => count + 1);
@@ -183,7 +204,7 @@ export function Details() {
 
                                 <div>
                                     <button
-                                        type="submit"
+                                        type="button"
                                         className="mt-6 w-full bg-red-600 ring-2 ring-black py-3 px-8 flex items-center justify-center text-base font-medium"
                                     >
                                         Add to Cart
@@ -191,68 +212,6 @@ export function Details() {
                                 </div>
                             </div>
 
-
-                            {/* Sizes */}
-                            {/* <div className="mt-10">
-                                        <div className="flex items-center justify-between">
-                                            <h4 className="text-sm text-gray-900 font-medium">Size</h4>
-                                            <a href="#" className="text-sm font-medium text-red-600 hover:text-red-500">
-                                                Size guide
-                                            </a>
-                                        </div>
-
-                                        <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                                            <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                                            <div className="grid grid-cols-4 gap-4">
-                                                {details.sizes.map((size) => (
-                                                    <RadioGroup.Option
-                                                        key={size.name}
-                                                        value={size}
-                                                        disabled={!size.inStock}
-                                                        className={({ active }) =>
-                                                            classNames(
-                                                                size.inStock
-                                                                    ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
-                                                                    : 'bg-gray-50 text-gray-200 cursor-not-allowed',
-                                                                active ? 'ring-2 ring-red-500' : '',
-                                                                'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1'
-                                                            )
-                                                        }
-                                                    >
-                                                        {({ active, checked }) => (
-                                                            <>
-                                                                <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                                                                {size.inStock ? (
-                                                                    <span
-                                                                        className={classNames(
-                                                                            active ? 'border' : 'border-2',
-                                                                            checked ? 'border-red-500' : 'border-transparent',
-                                                                            'absolute -inset-px rounded-md pointer-events-none'
-                                                                        )}
-                                                                        aria-hidden="true"
-                                                                    />
-                                                                ) : (
-                                                                    <span
-                                                                        aria-hidden="true"
-                                                                        className="absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none"
-                                                                    >
-                                                                        <svg
-                                                                            className="absolute inset-0 w-full h-full text-gray-200 stroke-2"
-                                                                            viewBox="0 0 100 100"
-                                                                            preserveAspectRatio="none"
-                                                                            stroke="currentColor"
-                                                                        >
-                                                                            <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                                                        </svg>
-                                                                    </span>
-                                                                )}
-                                                            </>
-                                                        )}
-                                                    </RadioGroup.Option>
-                                                ))}
-                                            </div>
-                                        </RadioGroup>
-                                    </div> */}
                         </form>
                     </section>
                 </div>
@@ -351,7 +310,7 @@ export function Details() {
                                                 />
                                             ))}
                                         </div>
-                                        <h2 className='py-1 px-2 text-gray-500'>{details.reviews.length} Reviews</h2>
+                                        <h2 className='py-1 px-2 text-gray-500'>{details.reviews?.length} Reviews</h2>
                                     </div>
                                 </div>
                                 <div className='grid gap-3'>
@@ -377,15 +336,16 @@ export function Details() {
                                         </div>
                                     ))}
                                 </div>
-                                <form>
+                                <form onSubmit={handleSubmit}>
                                     <div className='px-5'>
-                                        <label htmlFor="about" className="block text-xl font-medium text-gray-700">
+                                        <label htmlFor="comment" className="block text-xl font-medium text-gray-700">
                                             Write a Review
                                         </label>
                                         <div className="mt-3">
                                             <textarea
-                                                id="about"
-                                                name="about"
+                                                id="comment"
+                                                name="comment"
+                                                type='text'
                                                 rows={3}
                                                 className="shadow-sm focus:ring-red-600 focus:border-red-600 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                                                 placeholder="Write your review"

@@ -1,10 +1,10 @@
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import axiosAPI from '../components/utils/axios-api';
 
 export const withAuth = (Component) => {
     const AuthComponent = () => {
-        const { pathname } = useRouter();
+        // const { pathname } = useRouter();
         const [isLoggedIn, setIsLoggedIn] = useState(false);
         useEffect(() => {
             if (!isLoggedIn) {
@@ -16,15 +16,7 @@ export const withAuth = (Component) => {
                     })
                     .catch(error => {
                         console.log(error);
-                        {
-                            pathname === '/' ? (
-                                setIsLoggedIn(true)
-                                && Router.push('/')
-                            ) : (
-                                Router.push('/login')
-                            )
-                        }
-                        console.log(pathname)
+                        Router.push('/login')
                     });
             }
         }, [isLoggedIn]);
