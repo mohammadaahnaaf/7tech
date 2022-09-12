@@ -2,10 +2,12 @@ import React from 'react'
 import { ShoppingCartIcon } from '@heroicons/react/outline'
 import { useCart } from 'react-use-cart'
 import { useRouter } from 'next/router'
+import axiosRoot from '../utils/axios-root';
 
-export function Shop({ items, title, term }) {
+export function Shop({ items, title, term, filters }) {
 
   const searchTerm = term;
+  const filterI = filters;
 
   // function handleAddCart(product) {
   //   () => addItem(product)
@@ -19,23 +21,27 @@ export function Shop({ items, title, term }) {
 
   return (
     <div className='bg-black px-3 py-3'>
-      <div className='max-w-7xl mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
-        <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
-      </div>
+      {items.map((i) => {
+        return i.category === filterI ? (
+        <div className='max-w-7xl mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
+          <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
+        </div>
+      ) : null
+      })}
       <div className='max-w-7xl items-center justify-center justify-items-center mx-auto mt-3 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
         {items?.filter((item) => {
           if (searchTerm === "") {
-            return item;
-          } else if (item.color.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
             return item;
           } else if (item.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
             return item;
           } else if (item.price.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
             return item;
           } return ""
-        }).map((product) => (
-          <ProductCard product={product} />
-        ))}
+        }).map((product) => {
+          return filterI === product.category ? (
+            <ProductCard product={product} />
+          ) : null
+        })}
       </div>
     </div>
   )
@@ -43,25 +49,34 @@ export function Shop({ items, title, term }) {
 
 export function ProductCard({ product }) {
 
+  const [images, setImages] = React.useState([]);
+  const { addItem } = useCart();
   const router = useRouter()
-  const {
-    addItem,
-    // isEmpty,
-    // updateItemQuantity,
-  } = useCart();
+
+  // get product data 
+  React.useEffect(() => {
+    async function getImages() {
+      const res = await axiosRoot.get(`/products/${product._id}`);
+      setImages(res.data.images)
+    }
+    getImages()
+  }, []);
 
   return (
 
-    <div key={product?.id} className="w-full h-[45vh] relative max-w-xs bg-red-600 bg-opacity-10 shadow-md ring-2 ring-opacity-30 ring-red-600">
+    <div key={product?._id} className="w-full h-[45vh] relative max-w-xs bg-red-600 bg-opacity-10 shadow-md ring-2 ring-opacity-30 ring-red-600">
       <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 ring-opacity-30 bg-black bg-opacity-30">
         <button type='button' onClick={() => addItem(product)}>
           <ShoppingCartIcon className='h-7 w-7' />
         </button>
       </div>
       <div className='bg-white h-[32vh]'>
-        <button onClick={() => router.push('/product/' + '631b6d25edc4879f5486a195')}>
-          <img className="p-8 rounded-t-lg" src={product?.imageSrc} alt="product image" />
-        </button>
+        {images.map((item, index) => (
+          <button key={index} onClick={() => router.push(`/product/${product?._id}`)}>
+            <img className="p-8 rounded-t-lg" src={`${item}` || product?.imageSrc} alt="product image" />
+          </button>
+        ))}
+        {/* <img className="p-8 rounded-t-lg" src={product?.imageSrc} alt="product image" /> */}
       </div>
       <div className="p-3 border-t-2 z-20 border-red-600 border-opacity-30">
         <a href="#">

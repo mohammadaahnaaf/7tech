@@ -51,7 +51,7 @@ export function AddCategorys() {
     setFormValues([...formValues,
     {
       id: uuidv4(),
-      child: ''
+      names: ''
     }])
   };
 
