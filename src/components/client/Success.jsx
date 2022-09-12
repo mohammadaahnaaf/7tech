@@ -22,7 +22,7 @@ function Success() {
 
     return (
         <div className="grid min-h-screen justify-center max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <div className='ring-4 overflow-scroll rounded-lg ring-gray-300 px-10'>
+            <div className='rounded-lg bg-gray-50 shadow-md px-10'>
                 <div>
                     <CheckIcon className='bg-green-500 mx-auto text-white rounded-full h-20 w-20 my-10' />
                     <h1 className='text-green-500 text-4xl text-center'>Thank you</h1>
@@ -39,17 +39,17 @@ function Success() {
                     </div>
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
                         <h1 className='text-center text-xs text-gray-500'>Created at:</h1>
-                        <h1 className='text-center text-sm'>3 days ago</h1>
+                        <h1 className='text-center text-sm'>Just now</h1>
                     </div>
 
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
-                        <h1 className='text-center text-xs text-gray-500'>Total:</h1>
-                        <h1 className='text-center text-sm'>$ {cartTotal}</h1>
+                        <h1 className='text-center text-xs text-gray-500'>Subtotal:</h1>
+                        <h1 className='text-center text-sm'>৳ {cartTotal}</h1>
                     </div>
-                    
+
                     <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
                         <h1 className='text-center text-xs text-gray-500'>Status:</h1>
-                        <h1 className='text-center text-sm'>Paid</h1>
+                        <h1 className='text-center text-sm'>Recived</h1>
                     </div>
                 </div>
                 <ProductsViews />
@@ -63,11 +63,12 @@ function Success() {
 
 const ProductsViews = () => {
     const { items, cartTotal, totalItems } = useCart()
-    // const totalItems = 12;
-    // const cartTotal = 172300;
+    let vat = (cartTotal * (7 / 100)).toFixed(2)
+    let shipping = items.length * 100
+    let total = (+ vat + shipping + cartTotal)
 
     return (
-        <div className="overflow-x-auto relative my-5">
+        <div className="overflow-y-scroll max-h-screen relative my-5">
             <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-green-100">
                     <tr>
@@ -86,20 +87,25 @@ const ProductsViews = () => {
                     {items.map((item, index) => (
                         <tr key={index} className="border-b">
                             <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                {item.name}
+                                {index + 1}{'.  '} {item.name}
                             </th>
                             <td className="py-4 px-6">
                                 {item.quantity}
                             </td>
                             <td className="py-4 px-6">
-                                $ {item.price}
+                                ৳ {item.price}
                             </td>
                         </tr>
                     ))}
-                    <tr>
-                        <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Total</th>
+                    <tr className=' bg-green-100 border-b'>
+                        <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Subtotal:</th>
                         <td className="py-4 px-6">{totalItems}</td>
                         <td className="py-4 px-6">৳ {cartTotal}</td>
+                    </tr>
+                    <tr>
+                        <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Total: (7% VAT and 100 ৳/product shipping cost.)</th>
+                        <td className="py-4 px-6">{''}</td>
+                        <td className="py-4 px-6">৳ {total}</td>
                     </tr>
                 </tbody>
             </table>

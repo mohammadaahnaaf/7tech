@@ -23,10 +23,10 @@ export function Shop({ items, title, term, filters }) {
     <div className='bg-black px-3 py-3'>
       {items.map((i) => {
         return i.category === filterI ? (
-        <div className='max-w-7xl mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
-          <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
-        </div>
-      ) : null
+          <div className='max-w-7xl mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
+            <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
+          </div>
+        ) : null
       })}
       <div className='max-w-7xl items-center justify-center justify-items-center mx-auto mt-3 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
         {items?.filter((item) => {
@@ -62,11 +62,20 @@ export function ProductCard({ product }) {
     getImages()
   }, []);
 
+  const cartProduct = {
+    id: product._id,
+    imageSrc: images.map((i) => i),
+    name: product.name,
+    price: product.price,
+    category: product.category,
+    quantity: 1
+  }
+
   return (
 
     <div key={product?._id} className="w-full h-[45vh] relative max-w-xs bg-red-600 bg-opacity-10 shadow-md ring-2 ring-opacity-30 ring-red-600">
       <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 ring-opacity-30 bg-black bg-opacity-30">
-        <button type='button' onClick={() => addItem(product)}>
+        <button type='button' onClick={() => addItem(cartProduct)}>
           <ShoppingCartIcon className='h-7 w-7' />
         </button>
       </div>
