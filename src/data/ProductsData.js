@@ -146,7 +146,7 @@ export const products = [
     name: 'ReDragon M612 Predator Gaming Mouse',
     href: '#',
     quantity: 1,
-    category: 'Mouse',
+    category: 'Keyboard',
     imageSrc: '/productss/6.jpg',
     imageAlt: "product alt name",
     price: 1999,
