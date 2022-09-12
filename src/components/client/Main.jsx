@@ -35,9 +35,9 @@ function Main() {
     return (
         <Layout setSearchTerm={setSearchTerm}>
             <Banner />
-            <Shop nItems={1} term={searchTerm} filters={filterI} items={products.slice(0, 10)} title={'MADE FOR GAMING'} />
-            <Shop nItems={1} term={searchTerm} filters={filter2} items={products.slice(0, 10)} title={'BEST FOR GAMING'} />
-            <Shop nItems={1} term={searchTerm} filters={filter3} items={products.slice(0, 10)} title={'DEDICATED FOR GAMING'} />
+            <Shop term={searchTerm} filters={filterI} items={products.slice(0, 10)} title={'MADE FOR GAMING'} />
+            <Shop term={searchTerm} filters={filter2} items={products.slice(0, 10)} title={'BEST FOR GAMING'} />
+            <Shop term={searchTerm} filters={filter3} items={products.slice(0, 10)} title={'DEDICATED FOR GAMING'} />
         </Layout>
     )
 }
