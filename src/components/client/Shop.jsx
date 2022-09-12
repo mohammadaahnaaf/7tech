@@ -23,12 +23,14 @@ export function Shop({ items, title, term, filters, nItems }) {
 
   return (
     <div className='bg-black px-3 py-3'>
-      {items.length > n ? (
-        <div className='max-w-7xl mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
-          <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
-        </div>
-      ) : null}
-      
+      {items.map(i => {
+        return i.category === filterI ? (
+          <div className='max-w-7xl mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
+            <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
+          </div>
+        ) : null
+      })}
+
       <div className='max-w-7xl items-center justify-center justify-items-center mx-auto mt-3 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
         {items?.filter((item) => {
           if (searchTerm === "") {
