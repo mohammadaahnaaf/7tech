@@ -10,7 +10,7 @@ function Layout({ children, setSearchTerm }) {
         <CartProvider>
             <Navbar setSearchTerm={setSearchTerm} />
             <CategoryBar />
-            <div className='border-b-2 border-t-2 border-red-600'>
+            <div className='border-0 border-red-600'>
                 {children}
             </div>
             <Footers />

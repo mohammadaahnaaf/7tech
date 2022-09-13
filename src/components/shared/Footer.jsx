@@ -18,7 +18,7 @@ function Footer() {
 export function Footers() {
   return (
 
-    <footer className="p-4 bg-black sm:p-6">
+    <footer className="p-4 border-t-2 border-red-600 bg-black sm:p-6">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0">
           <a href="#" className="grid items-center justify-items-center">
