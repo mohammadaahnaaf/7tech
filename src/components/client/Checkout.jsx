@@ -1,6 +1,6 @@
 import { TrashIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { useCart } from 'react-use-cart'
 import Layout from '../layout/Layout'
 import Success from './Success'
@@ -10,6 +10,16 @@ import Success from './Success'
 const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "Srilanka"]
 
 function Checkouts({ handleSubmit }) {
+
+    const [order, setOrder] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        area: '',
+        city: '',
+        address: '',
+        zone: '',
+    })
 
     let { items, cartTotal, removeItem } = useCart()
     let vat = (cartTotal * (7 / 100)).toFixed(2)
@@ -69,25 +79,6 @@ function Checkouts({ handleSubmit }) {
                                 />
                             </div>
 
-                            <div className="col-span-6">
-                                <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                                    Country
-                                </label>
-                                <select
-                                    id="country"
-                                    name="country"
-                                    autoComplete="country-name"
-                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
-                                >
-                                    {countries.map((item, index) => (
-
-                                        <option key={index}>
-                                            {item}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
                             <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                                 <label htmlFor="city" className="block text-sm font-medium text-gray-700">
                                     City
@@ -103,7 +94,7 @@ function Checkouts({ handleSubmit }) {
 
                             <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                                 <label htmlFor="region" className="block text-sm font-medium text-gray-700">
-                                    State / Province
+                                    Zone
                                 </label>
                                 <input
                                     type="text"
@@ -115,29 +106,41 @@ function Checkouts({ handleSubmit }) {
                             </div>
 
                             <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                                <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
-                                    ZIP / Postal code
+                                <label htmlFor="area" className="block text-sm font-medium text-gray-700">
+                                    Area
                                 </label>
                                 <input
                                     type="text"
-                                    name="postal-code"
-                                    id="postal-code"
+                                    name="area"
+                                    id="area"
                                     autoComplete="postal-code"
                                     className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
                             </div>
+                            <div className="col-span-6">
+                                <label htmlFor="payment" className="block text-sm font-medium text-gray-700">
+                                    Payment Mathod
+                                </label>
+                                <select
+                                    id="payment"
+                                    name="payment"
+                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                >
+                                    <option value='cod'>Cash on delevary</option>
+                                    <option value='bkash'>BKash</option>
+                                </select>
+                            </div>
 
                             <div className="col-span-6">
-                                <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
+                                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
                                     Street address
                                 </label>
                                 <textarea
-                                    id="street-address"
-                                    name="street-address"
+                                    id="address"
+                                    name="address"
                                     rows={3}
                                     className="shadow-sm focus:ring-red-500 focus:border-red-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                                     placeholder="Address"
-                                    defaultValue={''}
                                 />
                             </div>
                         </div>
