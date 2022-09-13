@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import { StarIcon } from '@heroicons/react/solid'
+import { useEffect, useRef, useState } from 'react'
 
 // import { XIcon } from '@heroicons/react/outline'
 // import { Shop } from '../Shop'
 // import { Product } from './Products'
 // import { details } from '../../../data/ProductsData'
 
-import Image from 'next/image'
-import Layout from '../../layout/Layout'
 import Router, { useRouter } from 'next/router'
-import axiosRoot from '../../utils/axios-root'
 import { colors } from '../../../data/ProductsData'
+import Layout from '../../layout/Layout'
 import axiosAPI from '../../utils/axios-api'
+import axiosRoot from '../../utils/axios-root'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -58,7 +57,7 @@ export function Details() {
 
             const reqData = {
                 comment: data.get('comment'),
-                rating: JSON.stringify(star)
+                rating: star
             }
             await axiosAPI.post(`/products/${itemId}/review`, reqData);
             Router.push('/')
@@ -83,9 +82,9 @@ export function Details() {
     }
 
     return (
-        <div className="md:py-8 bg-gray-100 mx-auto shadow md:px-8 px-3">
+        <div className="px-3 mx-auto bg-gray-100 shadow md:py-8 md:px-8">
 
-            <div className="max-w-5xl mx-auto col-span-12 grid gap-4">
+            <div className="grid max-w-5xl col-span-12 gap-4 mx-auto">
 
                 <div className="w-full col-span-12 lg:col-span-3">
                     {images.map((item, index) => (
@@ -137,7 +136,7 @@ export function Details() {
                                     | Add your review
                                 </button>
                             </div>
-                            <div className='py-2 grid gap-1'>
+                            <div className='grid gap-1 py-2'>
                                 {/* <h5 className='text-xs'>Brand: <a href='#' className='text-red-500'>{details.brand}</a></h5> */}
                                 <h5 className='text-sm'>Sold By: <a href='#' className='text-red-500'>7Tech</a></h5>
                             </div>
@@ -150,12 +149,12 @@ export function Details() {
                         </h3>
 
                         <form>
-                            <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+                            <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
                                 {/* Colors */}
                                 <div>
-                                    <h4 className="text-sm text-gray-900 font-medium">Color</h4>
+                                    <h4 className="text-sm font-medium text-gray-900">Color</h4>
 
-                                    <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-1 p-2 ring-black ring-2">
+                                    <RadioGroup value={selectedColor} onChange={setSelectedColor} className="p-2 mt-1 ring-black ring-2">
                                         <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                                         <span className="flex items-center space-x-3">
                                             {colors?.map((color) => (
@@ -190,13 +189,13 @@ export function Details() {
                                 {/* Qty */}
                                 <div>
 
-                                    <h4 className="text-sm text-gray-900 font-medium">Qty</h4>
-                                    <div className="flex flex-row h-12 w-full ring-black ring-2 relative bg-transparent mt-1">
-                                        <button type='button' onClick={decrementQty} data-action="decrement" className=" bg-white text-black h-full w-20 cursor-pointer">
+                                    <h4 className="text-sm font-medium text-gray-900">Qty</h4>
+                                    <div className="relative flex flex-row w-full h-12 mt-1 bg-transparent ring-black ring-2">
+                                        <button type='button' onClick={decrementQty} data-action="decrement" className="w-20 h-full text-black bg-white cursor-pointer ">
                                             <span className="m-auto text-2xl font-semibold">−</span>
                                         </button>
-                                        <p className="text-center w-full bg-white border-x-2 border-black font-semibold text-md flex items-center justify-center text-black">{qty}</p>
-                                        <button type='button' onClick={incrementQty} data-action="increment" className="bg-white text-black h-full w-20 cursor-pointer">
+                                        <p className="flex items-center justify-center w-full font-semibold text-center text-black bg-white border-black border-x-2 text-md">{qty}</p>
+                                        <button type='button' onClick={incrementQty} data-action="increment" className="w-20 h-full text-black bg-white cursor-pointer">
                                             <span className="m-auto text-2xl font-semibold">+</span>
                                         </button>
                                     </div>
@@ -205,7 +204,7 @@ export function Details() {
                                 <div>
                                     <button
                                         type="button"
-                                        className="mt-6 w-full bg-red-600 ring-2 ring-black py-3 px-8 flex items-center justify-center text-base font-medium"
+                                        className="flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 ring-2 ring-black"
                                     >
                                         Add to Cart
                                     </button>
@@ -216,7 +215,7 @@ export function Details() {
                     </section>
                 </div>
 
-                <div ref={myRef} className='col-span-12 rounded-md w-auto min-h-44'>
+                <div ref={myRef} className='w-auto col-span-12 rounded-md min-h-44'>
 
                     <>
                         <div className="sm:hidden">
@@ -233,12 +232,12 @@ export function Details() {
                                 </option>
                             </select>
                         </div>
-                        <ul className="hidden text-sm font-medium text-center text-gray-500 rounded-lg divide-x divide-gray-200 ring-2 ring-gray-200 shadow sm:flex ">
+                        <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow ring-2 ring-gray-200 sm:flex ">
                             <li className="w-full">
                                 <button
                                     onClick={() => setShow('details')}
                                     type='button'
-                                    className="inline-block p-4 w-full text-gray-900 bg-gray-50 focus:bg-gray-100 rounded-l-lg focus:ring-2 focus:ring-gray-300 active focus:outline-none"
+                                    className="inline-block w-full p-4 text-gray-900 rounded-l-lg bg-gray-50 focus:bg-gray-100 focus:ring-2 focus:ring-gray-300 active focus:outline-none"
                                 >
                                     Details
                                 </button>
@@ -247,7 +246,7 @@ export function Details() {
                                 <button
                                     onClick={() => setShow('info')}
                                     type='button'
-                                    className="inline-block p-4 w-full bg-gray-50 focus:bg-gray-100  hover:text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:outline-none"
+                                    className="inline-block w-full p-4 bg-gray-50 focus:bg-gray-100 hover:text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:outline-none"
                                 >
                                     More Information
                                 </button>
@@ -256,7 +255,7 @@ export function Details() {
                                 <button
                                     onClick={() => setShow('reviews')}
                                     type='button'
-                                    className="inline-block p-4 w-full bg-gray-50 focus:bg-gray-100  hover:text-gray-700  rounded-r-lg hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:outline-none"
+                                    className="inline-block w-full p-4 rounded-r-lg bg-gray-50 focus:bg-gray-100 hover:text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:outline-none"
                                 >
                                     Reviews
                                 </button>
@@ -268,10 +267,10 @@ export function Details() {
                     {/* Details */}
                     {(show === 'details') && (
                         <>
-                            <div div className='md:p-5 mt-5 rounded-md bg-gray-50'>
+                            <div div className='mt-5 rounded-md md:p-5 bg-gray-50'>
                                 <h2 className='text-xl font-medium'>{details.name}</h2>
                                 {info?.map((detail, index) => (
-                                    <p className='text-sm font-normal py-1 pl-10 text-gray-500'>{index + 1}. {detail.title}</p>
+                                    <p className='py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {detail.title}</p>
                                 ))}
                             </div>
                         </>
@@ -279,12 +278,12 @@ export function Details() {
 
                     {/* More Information  */}
                     {(show === 'info') && (
-                        <div className='md:p-5 mt-5 rounded-md bg-gray-50'>
+                        <div className='mt-5 rounded-md md:p-5 bg-gray-50'>
                             <h2 className='text-xl font-medium'>{details.name}</h2>
                             {moreInfo.map((info, index) => (
-                                <div key={index} className='flex  justify-items-start md:w-4/5'>
-                                    <p className='text-sm w-56 font-normal py-1 pl-10 text-gray-500'>{index + 1}. {info.title}:</p>
-                                    <p className='text-sm font-normal py-1 pl-10 text-gray-500'>{info.description}</p>
+                                <div key={index} className='flex justify-items-start md:w-4/5'>
+                                    <p className='w-56 py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {info.title}:</p>
+                                    <p className='py-1 pl-10 text-sm font-normal text-gray-500'>{info.description}</p>
                                 </div>
                             ))}
                         </div>
@@ -292,7 +291,7 @@ export function Details() {
 
                     {/* Reviews  */}
                     {(show === 'reviews') && (
-                        <div className='md:p-5 mt-5 rounded-md bg-gray-50'>
+                        <div className='mt-5 rounded-md md:p-5 bg-gray-50'>
                             <h2 className='text-xl font-medium'>Reviews:</h2>
                             <div className='grid gap-5'>
                                 <div className='flex '>
@@ -310,13 +309,13 @@ export function Details() {
                                                 />
                                             ))}
                                         </div>
-                                        <h2 className='py-1 px-2 text-gray-500'>{details.reviews?.length} Reviews</h2>
+                                        <h2 className='px-2 py-1 text-gray-500'>{details.reviews?.length} Reviews</h2>
                                     </div>
                                 </div>
                                 <div className='grid gap-3'>
                                     {details.reviews?.map((review, index) => (
-                                        <div className='grid md:flex justify-between col-span-1 gap-3'>
-                                            <div className='grid w-1/4 md:px-5 gap-0'>
+                                        <div className='grid justify-between col-span-1 gap-3 md:flex'>
+                                            <div className='grid w-1/4 gap-0 md:px-5'>
                                                 <p className='text-sm'>{review.name}</p>
                                                 <p className='text-xs text-gray-400'>{review.date}</p>
                                             </div>
@@ -332,7 +331,7 @@ export function Details() {
                                                     />
                                                 ))}
                                             </div>
-                                            <p className='flex text-sm w-1/3 items-center text-gray-500'>{review.comment}</p>
+                                            <p className='flex items-center w-1/3 text-sm text-gray-500'>{review.comment}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -347,13 +346,13 @@ export function Details() {
                                                 name="comment"
                                                 type='text'
                                                 rows={3}
-                                                className="shadow-sm focus:ring-red-600 focus:border-red-600 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                                className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-red-600 focus:border-red-600 sm:text-sm"
                                                 placeholder="Write your review"
                                                 defaultValue={''}
                                             />
                                         </div>
-                                        <div className="flex items-center mt-3 bg-red-100 p-3 rounded-md">
-                                            <p className='text-gray-500 mr-3'>Do You Like It?</p>
+                                        <div className="flex items-center p-3 mt-3 bg-red-100 rounded-md">
+                                            <p className='mr-3 text-gray-500'>Do You Like It?</p>
                                             {[0, 1, 2, 3, 4].map((rating, index) => (
                                                 <button type='button' onClick={() => setStar(index + 1)}>
                                                     <StarIcon
@@ -367,7 +366,7 @@ export function Details() {
                                                 </button>
                                             ))}
                                         </div>
-                                        <button type='submit' className="mt-3 w-15 justify-center bg-red-600 border border-transparent rounded-md py-2 px-8 flex items-center text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600">
+                                        <button type='submit' className="flex items-center justify-center px-8 py-2 mt-3 text-base font-medium text-white bg-red-600 border border-transparent rounded-md w-15 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600">
                                             Done
                                         </button>
                                     </div>
