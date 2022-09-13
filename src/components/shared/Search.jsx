@@ -1,5 +1,5 @@
 import { SearchIcon } from '@heroicons/react/outline'
-import { Router } from 'next/router'
+// import { Router } from 'next/router'
 import React from 'react'
 
 function Search({ setSearchTerm }) {

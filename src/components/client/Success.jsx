@@ -21,8 +21,8 @@ function Success() {
     }
 
     return (
-        <div className="grid min-h-screen justify-center max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <div className='rounded-lg bg-gray-50 shadow-md px-10'>
+        <div className="grid min-h-screen bg-black justify-centerpy-6 sm:px-6 lg:px-8">
+            <div className=' max-w-7xl mx-auto bg-gray-50 my-4 rounded-lg shadow-md px-10'>
                 <div>
                     <CheckIcon className='bg-green-500 mx-auto text-white rounded-full h-20 w-20 my-10' />
                     <h1 className='text-green-500 text-4xl text-center'>Thank you</h1>
@@ -53,8 +53,8 @@ function Success() {
                     </div>
                 </div>
                 <ProductsViews />
-                <div className='py-3'>
-                    <button className='text-sm hover:text-red-600 text-green-600' type='button' onClick={handleSuccess}>Back to home</button>
+                <div className='py-3 flex items-center justify-center bg-green-100 mx-auto'>
+                    <button className='text-sm hover:text-red-600 text-center text-green-600' type='button' onClick={handleSuccess}>Back to home</button>
                 </div>
             </div>
         </div>
