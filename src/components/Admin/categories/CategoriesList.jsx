@@ -9,14 +9,15 @@ import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
 
 export function Categories() {
+
     const router = useRouter()
     const [searchTerm, setSearchTerm] = React.useState('')
     const [selected, setSelected] = React.useState([]);
     const [allSelected, setAllSelected] = React.useState(false)
+    const [rows, setRows] = React.useState([]);
     // console.log(searchTerm)
 
     //Get Data
-    const [rows, setRows] = React.useState([]);
 
     React.useEffect(() => {
         async function getCategory() {
@@ -26,10 +27,11 @@ export function Categories() {
         getCategory()
     }, []);
 
-
+    // delete category 
     async function handleDelete() {
         await axiosAPI.delete('/categories/' + selected);
-        Router.push('/admin/category')
+        // Router.push('/admin/category')
+        router.reload()
     }
 
 

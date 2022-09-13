@@ -25,8 +25,8 @@ export function ProductsLists() {
 
   // Delete Product 
   async function handleDelete() {
-    await axiosAPI.delete('/products/' + selected);
-    Router.push('/admin/products')
+    await axiosAPI.delete(`/products/${selected}`);
+    router.reload()
   }
 
   function handleAllChecked(event) {
@@ -143,7 +143,7 @@ export function ProductsLists() {
                   ${product.price}
                 </td>
                 <td className="py-4 px-6 text-right">
-                  <button type='button' onClick={() => router.push('/admin/products/' + product._id)}>
+                  <button type='button' onClick={() => router.push(`/admin/products/${product._id}`)}>
                     <p className="font-medium text-gray-400 hover:underline">
                       <PencilAltIcon className='h-5 w-5' />
                     </p>

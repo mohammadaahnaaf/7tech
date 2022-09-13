@@ -10,8 +10,12 @@ function Loading() {
 
   useEffect(() => {
     const handleStart = (url) => (url !== router.asPath) && setLoading(true);
-    // const handleComplete = (url) => (url === router.asPath) && setTimeout(() => { setLoading(false) }, 5000);
     const handleForce = () => setTimeout(() => setLoading(false), 1600)
+    
+    // const handleForce = (url) => (url === router.asPath) && (
+    //   setTimeout(() => { setLoading(false) }, 1600)
+    // )
+    
 
     router.events.on('routeChangeStart', handleStart)
     router.events.on('routeChangeComplete', handleForce)
@@ -41,8 +45,10 @@ function Loading() {
   )
 }
 
+
 function MyApp({ Component, pageProps }) {
-  return <><Loading /><Component {...pageProps} /></>
+  return <><Loading /> <Component {...pageProps} /></>
+
 }
 
 export default MyApp
