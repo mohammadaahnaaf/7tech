@@ -1,17 +1,31 @@
-import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import React from 'react'
-import { orders } from '../../../data/OrderList';
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
+import { useRouter } from 'next/router';
 import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
+import axiosAPI from '../../utils/axios-api'
+
+// import { orders } from '../../../data/OrderList';
 
 export function Order() {
 
+  const router = useRouter()
   const [searchTerm, setSearchTerm] = React.useState('')
   const [selected, setSelected] = React.useState([]);
   const [allSelected, setAllSelected] = React.useState(false)
+  const [orders, setOrders] = React.useState([]);
 
   // const [checked, setChecked] = React.useState(false)
   // const [checkedAll, setCheckedAll] = React.useState(false)
+
+  //Get Data
+  React.useEffect(() => {
+    async function getCategory() {
+      const res = await axiosAPI.get('/orders');
+      setOrders(res.data)
+    }
+    getCategory()
+  }, []);
 
   function handleAllChecked(event) {
     // !checkedAll ? setCheckedAll(true) : setCheckedAll(false)
@@ -117,13 +131,13 @@ export function Order() {
                   </div>
                 </td>
                 <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                  #{order.id}
+                  #{order._id}
                 </td>
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                  {order.name}
+                  {order.customer_name}
                 </th>
                 <td className="py-4 px-6">
-                  {order.phone}
+                  {order.customer_phone}
                 </td>
                 <td className="py-4 px-6">
                   {order.createdAt}
@@ -135,7 +149,13 @@ export function Order() {
                   ${order.total}
                 </td>
                 <td className="py-4 px-6 text-right">
-                  <a href="/admin/orders/edit" className="font-medium text-gray-400 hover:underline"><PencilAltIcon className='h-5 w-5' /> </a>
+                  <button
+                    type='button'
+                    className="font-medium text-gray-400 hover:underline"
+                    onClick={() => router.push(`/admin/orders/${order._id}`)}
+                  >
+                    <PencilAltIcon className='h-5 w-5' />
+                  </button>
                 </td>
               </tr>
             )

@@ -1,33 +1,62 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdminLayout from '../../layout/AdminLayout'
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/router';
+import axiosAPI from '../../utils/axios-api';
+import axiosRoot from '../../utils/axios-root';
 
 const Detail = () => {
+    const router = useRouter()
+    const itemId = router.query.id
 
     const [formValues, setFormValues] = React.useState([{ id: uuidv4(), detail: "" }])
-    const [moreInfos, setMoreInfo] = React.useState([{ id: uuidv4(), info: "" }])
-    const [reviews, setReviews] = React.useState([{ id: uuidv4(), review: "" }])
+    const [products, setProducts] = React.useState([])
+    const [status, setStatus] = React.useState('')
+    const [productId, setProductId] = React.useState([
+        {
+            _id: '',
+            productId: '',
+            quantity: ''
+        }
+    ])
 
-    // function handleChange(i, e) {
-    //   let newFormValues = [...formValues];
-    //   newFormValues[i][e.target.name] = e.target.value;
-    //   setFormValues(newFormValues);
-    // }
+    const [order, setOrder] = React.useState({
+        customer_name: '',
+        customer_phone: '',
+        city: '',
+        zone: '',
+        address: '',
+        status: '',
+        payment_method: '',
+        total: ''
+    })
 
-    // function addFormFields() {
-    //   setFormValues([...formValues, { name: "", email: "" }])
-    // }
+    useEffect(() => {
+        async function getOrder() {
+            const res = await axiosAPI.get(`/orders/${itemId}`);
+            setOrder(res.data)
+            setProductId(res.data.products)
+            setStatus(res.data.status)
+            // setProducts(res.data.products)
+        }
 
-    // function removeFormFields(i) {
-    //   let newFormValues = [...formValues];
-    //   newFormValues.splice(i, 1);
-    //   setFormValues(newFormValues)
-    // }
+        productId.map((i) => {
+            async function getProduct() {
+                const res = await axiosRoot.get(`/products/${i.productId}`);
+                setProducts([
+                    // ...products,
+                    {
+                        name: res.data.name,
+                        price: res.data.price,
+                        quantity: productId.map(i => i.quantity)
+                    }
+                ])
+            }
+            getProduct()
+        })
+        getOrder()
 
-    // function handleSubmit(event) {
-    //   event.preventDefault();
-    //   // alert(JSON.stringify(formValues));
-    // }
+    }, []);
 
     // Details 
     const handleChange = (id, event) => {
@@ -55,58 +84,6 @@ const Detail = () => {
         setFormValues(values);
     }
 
-    // Reviews 
-    const handleReview = (id, event) => {
-        const newInputFields = reviews.map(i => {
-            if (id === i.id) {
-                i[event.target.name] = event.target.value
-            }
-            return i;
-        })
-
-        setReviews(newInputFields);
-    };
-
-    const addReview = () => {
-        setReviews([...reviews,
-        {
-            id: uuidv4(),
-            review: ''
-        }])
-    };
-
-    const removeReview = id => {
-        const values = [...reviews];
-        values.splice(values.findIndex(value => value.id === id), 1);
-        setReviews(values);
-    }
-
-    // More Information 
-    const handleMoreinfo = (id, event) => {
-        const newInputFields = moreInfos.map(i => {
-            if (id === i.id) {
-                i[event.target.name] = event.target.value
-            }
-            return i;
-        })
-
-        setMoreInfo(newInputFields);
-    };
-
-    const addMoreinfo = () => {
-        setMoreInfo([...moreInfos,
-        {
-            id: uuidv4(),
-            info: ''
-        }])
-    };
-
-    const removeMoreinfo = id => {
-        const values = [...moreInfos];
-        values.splice(values.findIndex(value => value.id === id), 1);
-        setMoreInfo(values);
-    }
-
     return (
 
         <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
@@ -117,27 +94,27 @@ const Detail = () => {
                 <div>
                     <div>
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Customer name</label>
-                        <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
+                        <input value={order.customer_name || ''} type="text" id="name" name='name' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
                     </div>
                     <div>
-                        <label htmlFor="brand" className="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
-                        <input type="tel" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
+                        <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
+                        <input value={order.customer_number || ''} type="tel" id="phone" name='phone' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
                     </div>
                     <div>
-                        <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">City</label>
-                        <input type="text" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
+                        <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900">City</label>
+                        <input value={order.city || ''} type="text" id="city" name='city' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
                     </div>
                     <div>
-                        <label htmlFor="code" className="block mb-2 text-sm font-medium text-gray-900 ">Zone</label>
-                        <input type="text" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                        <label htmlFor="zone" className="block mb-2 text-sm font-medium text-gray-900 ">Zone</label>
+                        <input value={order.zone || ''} type="text" id="zone" name='zone' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
                     </div>
+                    {/* <div>
+                        <label htmlFor="area" className="block mb-2 text-sm font-medium text-gray-900">Area</label>
+                        <input type="text" id="area" name='area' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
+                    </div> */}
                     <div>
-                        <label htmlFor="qty" className="block mb-2 text-sm font-medium text-gray-900">Area</label>
-                        <input type="text" id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
-                    </div>
-                    <div>
-                        <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <input type="text" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
+                        <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                        <input value={order.address || ''} type="text" id="address" name='address' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
                     </div>
                 </div>
 
@@ -145,27 +122,28 @@ const Detail = () => {
                 <div>
                     <div>
                         <label htmlFor="qty" className="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
-                        <input type="number" id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
+                        <input value={products.length || ''} type="number" name="qty" id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
                     </div>
                     <div>
-                        <label htmlFor="total" className="block mb-2 text-sm font-medium text-gray-900">Price</label>
-                        <input type="number" id="total" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
+                        <label htmlFor="total" className="block mb-2 text-sm font-medium text-gray-900">Total</label>
+                        <input value={order.total || ''} type="number" name="total" id="total" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
                     </div>
 
                     <div>
                         <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                        <select id="status" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
-                            <option selected>Paid</option>
-                            <option value="US">Shipped</option>
-                            <option value="US">Deleverd</option>
-                            <option value="US">Cancel</option>
+                        <select id="status" name='status' value={order.status || null} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
+                            <option value='paid'>Paid</option>
+                            <option value="pending">Pending</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="deleverd">Deleverd</option>
+                            <option value="cancel">Cancel</option>
                         </select>
                     </div>
                     <div>
-                        <label htmlFor="default" className="block mb-2 text-sm font-medium text-gray-900">Payment</label>
-                        <select id="default" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
-                            <option selected>pay with VISA</option>
-                            <option value="US">Cash on delevary</option>
+                        <label htmlFor="payment" className="block mb-2 text-sm font-medium text-gray-900">Payment</label>
+                        <select value={order.payment_method || ''} id="payment" name='payment' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
+                            <option value='bkash'>BKash</option>
+                            <option value="cash-on-delivery">Cash on delevary</option>
                         </select>
                     </div>
                 </div>
@@ -176,20 +154,20 @@ const Detail = () => {
                 {/* Products  */}
                 <div className='grid items-end gap-2'>
 
-                    {formValues.map((element, index) => (
+                    {products.map((element, index) => (
                         <div className="flex gap-2 items-center" key={index}>
                             <div>
                                 <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Product Name</label>
-                                <input type="text" name="detail" id="detail" value={element.detail || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                <input type="text" name="detail" id="detail" value={element.name || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
                             </div>
                             <div>
                                 <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Qty</label>
-                                <input type="text" name="detail" id="detail" value={element.detail || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                <input type="text" name="detail" id="detail" value={element.quantity || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
                             </div>
                             <div className='flex'>
                                 <div>
                                     <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Price</label>
-                                    <input type="text" name="detail" id="detail" value={element.detail || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                    <input type="text" name="detail" id="detail" value={element.price || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
                                 </div>
                                 {formValues.length != 1 && (
                                     <button type="button" className="items-end flex" onClick={() => removeFormFields(element.id)}>
