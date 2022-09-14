@@ -39,7 +39,8 @@
     @apply focus:outline-none;
   }
 }
-/* .animation-style {
+.animation-style {
   background: black;
   color: black;
-} */
+  z-index: 50;
+}

@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import '../styles/tag.css'
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/router';
+import { CartProvider } from 'react-use-cart';
 
 
 function MyApp({ Component, pageProps }) {
@@ -13,7 +14,7 @@ function MyApp({ Component, pageProps }) {
       clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
     },
     animateState: {
-      clipColor: "#f00",
+      color: "#001451",
       opacity: 1,
       clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
     },
@@ -23,21 +24,24 @@ function MyApp({ Component, pageProps }) {
   }
 
   return (
-    <AnimatePresence exitBeforeEnter>
-      <motion.div
-        key={router.route}
-        initial="initialState"
-        animate="animateState"
-        exit="exitState"
-        transition={{
-          duration: 0.75,
-        }}
-        variants={variants}
-        className="animation-style"
-      >
-        <Component {...pageProps} />
-      </motion.div>
-    </AnimatePresence>
+    <CartProvider>
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+          key={router.route}
+          initial="initialState"
+          animate="animateState"
+          exit="exitState"
+          transition={{
+            background: "#001451",
+            duration: 0.75,
+          }}
+          variants={variants}
+          className="animation-style"
+        >
+          <Component {...pageProps} />
+        </motion.div>
+      </AnimatePresence>
+    </CartProvider>
   );
 
 }

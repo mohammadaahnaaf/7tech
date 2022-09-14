@@ -3,28 +3,53 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { useCart } from 'react-use-cart'
 import Layout from '../layout/Layout'
+import axiosAPI from '../utils/axios-api'
 import Success from './Success'
 // import { products } from '../../data/ProductsData'
 
 
 const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "Srilanka"]
 
-function Checkouts({ handleSubmit }) {
-
-    const [order, setOrder] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        area: '',
-        city: '',
-        address: '',
-        zone: '',
-    })
+function Checkouts({ setSuccess }) {
 
     let { items, cartTotal, removeItem } = useCart()
     let vat = (cartTotal * (7 / 100)).toFixed(2)
     let shipping = items.length * 100
     let total = (+ vat + shipping + cartTotal)
+
+    // post data 
+    const handleSubmit = async (event) => {
+
+        try {
+            event.preventDefault()
+
+            const data = new FormData(event.currentTarget);
+
+            const reqData = {
+                customer_name: data.get('name'),
+                customer_number: data.get('phone'),
+                city: data.get('city'),
+                zone: data.get('zone'),
+                address: data.get('address'),
+                payment_method: data.get('payment'),
+
+                products: items.map(value => (
+                    {
+                        productId: value.id,
+                        quantity: value.quantity
+                    }
+                ))
+            }
+            await axiosAPI.post('/orders', reqData);
+            //   Router.push('/admin/category')
+            setSuccess(true)
+
+        } catch (error) {
+            setIsLoading(false);
+            console.log(error)
+            setError(error.response?.data?.message)
+        }
+    }
 
     // const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
     // const subtotal = countSubtotal(items)
@@ -41,26 +66,27 @@ function Checkouts({ handleSubmit }) {
                             <div className="grid grid-cols-6 gap-6">
                                 <h2 className='text-center col-span-6 text-red-600 font-medium text-2xl'>Checkout</h2>
                                 <div className="col-span-6">
-                                    <label htmlFor="first-name" className="block text-sm font-medium text-red-600">
+                                    <label htmlFor="name" className="block text-sm font-medium text-red-600">
                                         Your name
                                     </label>
                                     <input
                                         type="text"
-                                        name="first-name"
-                                        id="first-name"
+                                        name="name"
+                                        id="name"
                                         autoComplete="given-name"
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
 
                                 <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="email-address" className="block text-sm font-medium text-red-600">
+                                    <label htmlFor="email" className="block text-sm font-medium text-red-600">
                                         Email address
                                     </label>
                                     <input
                                         type="email"
-                                        name="email-address"
-                                        id="email-address"
+                                        name="email"
+                                        id="email"
+                                        disabled
                                         autoComplete="email"
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
@@ -94,13 +120,13 @@ function Checkouts({ handleSubmit }) {
                                 </div>
 
                                 <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                                    <label htmlFor="region" className="block text-sm font-medium text-red-600">
+                                    <label htmlFor="zone" className="block text-sm font-medium text-red-600">
                                         Zone
                                     </label>
                                     <input
                                         type="text"
-                                        name="region"
-                                        id="region"
+                                        name="zone"
+                                        id="zone"
                                         autoComplete="address-level1"
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
@@ -114,6 +140,7 @@ function Checkouts({ handleSubmit }) {
                                         type="text"
                                         name="area"
                                         id="area"
+                                        disabled
                                         autoComplete="postal-code"
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
@@ -127,7 +154,7 @@ function Checkouts({ handleSubmit }) {
                                         name="payment"
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     >
-                                        <option value='cod'>Cash on delevary</option>
+                                        <option value='cash-on-delivery'>Cash on delevary</option>
                                         <option value='bkash'>BKash</option>
                                     </select>
                                 </div>
@@ -238,17 +265,12 @@ function Checkouts({ handleSubmit }) {
 
 export default function Checkout() {
 
-
     const [success, setSuccess] = React.useState(false)
-    function handleSubmit() {
-        setSuccess(true)
-        // emptyCart(true)
-    }
 
     return (
         <Layout>
             {!success ?
-                <Checkouts handleSubmit={handleSubmit} />
+                <Checkouts setSuccess={setSuccess} />
                 :
                 <Success />
             }
