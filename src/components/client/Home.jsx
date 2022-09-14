@@ -4,6 +4,8 @@ import Layout from '../layout/Layout'
 
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { BasicNavbar } from '../shared/Navbar';
+import Footer from '../shared/Footer';
 
 
 export function Banner() {
@@ -42,24 +44,21 @@ export function Banner() {
 
 export function Homes() {
     return (
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="max-w-7xl min-h-screen mx-auto py-6 sm:px-6 lg:px-8">
 
             <div className="grid grid-cols-2 gap-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
 
                 <div className="col-start-1 col-end-3 sm:max-w-2xl lg:pt-40">
                     <h1 className="text-4xl font font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-                        Latest Tech's Arrived
+                        Opss!
                     </h1>
-                    <p className="mt-4 text-xl text-gray-500">
-                        This year, our latest collection will service you from the harsh elements of a world that doesn't care
-                        if you live or die.
-                        This year, our latest collection will service you from the harsh elements of a world that doesn't care
-                        if you live or die.
+                    <p className="mt-4 text-2xl text-gray-500">
+                        The SevenTech website is under maintenance now. Stay connected with our social sites. We shall arrive very soon.
                     </p>
                     <div className='pt-10'>
                         <a
-                            href="/shop"
-                            className="inline-block text-center bg-yellow-400 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-green-500"
+                            href="/"
+                            className="inline-block text-center bg-red-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-green-500"
                         >
                             Shop Collection
                         </a>
@@ -140,8 +139,10 @@ export function Homes() {
 
 export default function Home() {
     return (
-        <Layout>
+        <>
+            <BasicNavbar />
             <Homes />
-        </Layout>
+            <Footer />
+        </>
     )
 }
