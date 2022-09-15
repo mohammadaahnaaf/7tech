@@ -1,15 +1,12 @@
 import React, { Fragment, useState } from 'react'
 import { Dialog, Popover, Disclosure, Tab, Menu, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-// import Layout from './layout/Layout'
-import { categoriesData, subCategories } from '../../data/CategoriesData'
+import { XIcon } from '@heroicons/react/outline'
+import { categoriesData } from '../../data/CategoriesData'
 import { ChevronDoubleRightIcon, ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
-import { Product } from './products/Products'
-import Navbar from '../shared/Navbar'
-import { Footers } from '../shared/Footer'
 import { mouses } from '../../data/ProductsData'
 import Layout from '../layout/Layout'
 import { ProductCard } from './Shop'
+import axiosAPI from '../utils/axios-api'
 
 // import Link from 'next/link'
 
@@ -20,6 +17,16 @@ function classNames(...classes) {
 export function CategoryBar() {
 
     const [open, setOpen] = useState(false)
+    const [categories, setCategories] = useState([])
+
+    //Get Data
+    React.useEffect(() => {
+        async function getCategory() {
+            const res = await axiosAPI.get('/categories');
+            setCategories(res.data)
+        }
+        getCategory()
+    }, []);
 
     return (
         <div>
@@ -65,7 +72,7 @@ export function CategoryBar() {
                                 <Tab.Group as="div" className="mt-2">
                                     <div className="border-b border-gray-200">
                                         <Tab.List className="-mb-px flex px-4 space-x-8">
-                                            {categoriesData.categories.map((category) => (
+                                            {categories.map((category) => (
                                                 <Tab
                                                     key={category.name}
 
@@ -81,11 +88,11 @@ export function CategoryBar() {
                                             ))}
                                         </Tab.List>
                                     </div>
-                                    <Tab.Panels as={Fragment}>
-                                        {categoriesData.categories.map((category) => (
+                                    {/* <Tab.Panels as={Fragment}>
+                                        {categories.map((category) => (
                                             <Tab.Panel key={category.name} className="pt-10 pb-8 px-4 -z-50 space-y-10">
                                                 <div className="grid grid-cols-2 gap-x-4 z-60">
-                                                    {category.featured.map((item) => (
+                                                    {category.subCategories.map((item) => (
                                                         <div key={item.name} className="group z-60 relative text-sm">
                                                             <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                                 <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
@@ -100,7 +107,7 @@ export function CategoryBar() {
                                                         </div>
                                                     ))}
                                                 </div>
-                                                {category.sections.map((section) => (
+                                                {category?.subCategories?.map((section) => (
                                                     <div key={section.name}>
                                                         <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
                                                             {section.name}
@@ -110,7 +117,8 @@ export function CategoryBar() {
                                                             aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
                                                             className="mt-6 flex flex-col space-y-6"
                                                         >
-                                                            {section.items.map((item) => (
+                                                        <li>Hello</li>
+                                                             {category?.subCategories?.map((item) => (
                                                                 <li key={item.name} className="flow-root">
                                                                     <a href={item.href} className="-m-2 p-2 block text-gray-500">
                                                                         {item.name}
@@ -121,8 +129,8 @@ export function CategoryBar() {
                                                     </div>
                                                 ))}
                                             </Tab.Panel>
-                                        ))}
-                                    </Tab.Panels>
+                                        ))} 
+                                    </Tab.Panels> */}
                                 </Tab.Group>
 
 
@@ -150,7 +158,7 @@ export function CategoryBar() {
 
                             <Popover.Group className="hidden lg:ml-0 xl:block lg:self-stretch">
                                 <div className="h-full flex gap-8">
-                                    {categoriesData.categories.map((category) => (
+                                    {categories.slice(0, 9).map((category) => (
                                         <Popover key={category.name} className="flex">
                                             {({ open }) => (
                                                 <>
@@ -181,11 +189,11 @@ export function CategoryBar() {
                                                         <Popover.Panel className="absolute top-full inset-x-0 text-sm text-gray-500">
                                                             <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
-                                                            <div className="relative bg-gradient-to-b from-black via-red-900 to-black z-40">
+                                                            <div className="relative h-[55vh] border-b-2 border-red-600 bg-gradient-to-b from-black via-red-900 to-black z-40">
                                                                 <div className="max-w-7xl mx-auto px-8">
                                                                     <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-8">
                                                                         <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                                                            {category.featured.map((item) => (
+                                                                            {/* {category.subCategories.map((item) => (
                                                                                 <div key={item.name} className="group relative text-base sm:text-sm">
                                                                                     <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                                                                         <img
@@ -202,29 +210,29 @@ export function CategoryBar() {
                                                                                         Shop now
                                                                                     </p>
                                                                                 </div>
-                                                                            ))}
+                                                                            ))} */}
                                                                         </div>
-                                                                        <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
-                                                                            {category.sections.map((section) => (
-                                                                                <div key={section.name}>
-                                                                                    <p id={`${section.name}-heading`} className="font-medium text-gray-200">
-                                                                                        {section.name}
+                                                                        <div className="row-start-1 grid grid-cols-3 gap-y-5 gap-x-5 text-sm">
+                                                                            {/* {category.subCategories.map((section) => ( */}
+                                                                            <div>
+                                                                                <p className="font-medium text-lg text-gray-100">
+                                                                                        {category.name}
                                                                                     </p>
-                                                                                    <ul
-                                                                                        role="list"
-                                                                                        aria-labelledby={`${section.name}-heading`}
-                                                                                        className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                                                                    >
-                                                                                        {section.items.map((item) => (
-                                                                                            <li key={item.name} className="flex">
-                                                                                                <a href={item.href} className="text-gray-400 hover:text-gray-200">
-                                                                                                    {item.name}
-                                                                                                </a>
-                                                                                            </li>
-                                                                                        ))}
-                                                                                    </ul>
-                                                                                </div>
-                                                                            ))}
+                                                                                <ul
+                                                                                    role="list"
+                                                                                    // aria-labelledby={`${section.name}-heading`}
+                                                                                    className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                                                                >
+                                                                                    {category.subCategories.map((item) => (
+                                                                                        <li key={item.name} className="flex">
+                                                                                            <button type='button' className="text-md text-white hover:text-gray-200">
+                                                                                                {item.name}
+                                                                                            </button>
+                                                                                        </li>
+                                                                                    ))}
+                                                                                </ul>
+                                                                            </div>
+                                                                            {/* ))} */}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -299,6 +307,16 @@ export function Example({ term }) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const items = mouses;
     const searchTerm = term
+    const [categories, setCategories] = useState([])
+
+    //Get Data
+    React.useEffect(() => {
+        async function getCategory() {
+            const res = await axiosAPI.get('/categories');
+            setCategories(res.data)
+        }
+        getCategory()
+    }, []);
 
     return (
         <div className="">
@@ -345,7 +363,7 @@ export function Example({ term }) {
                                     <form className="mt-4 border-t border-gray-200">
                                         <h3 className="sr-only">Categories</h3>
                                         <ul role="list" className="font-medium text-gray-900 px-2 py-3">
-                                            {subCategories.map((category) => (
+                                            {categories.map((category) => (
                                                 <li key={category.name}>
                                                     <a href={category.href} className="block px-2 py-3">
                                                         {category.name}
@@ -476,7 +494,7 @@ export function Example({ term }) {
                             <form className="hidden lg:block">
                                 <h3 className="sr-only">Categories</h3>
                                 <ul role="list" className="text-sm font-medium text-red-600 space-y-4 pb-6 border-b border-gray-200">
-                                    {subCategories.map((category) => (
+                                    {categories.map((category) => (
                                         <li key={category.name}>
                                             <a href={category.href}>{category.name}</a>
                                         </li>

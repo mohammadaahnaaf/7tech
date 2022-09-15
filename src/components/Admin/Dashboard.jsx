@@ -1,21 +1,31 @@
 import React from 'react'
 import AdminLayout from '../layout/AdminLayout'
-import axiosRoot from '../utils/axios-root';
 import { ProductsLists } from './products/ProductsList'
-import { orders } from '../../data/OrderList'
+import axiosRoot from '../utils/axios-root';
+import axiosAPI from '../utils/axios-api';
 
 function Dashboards() {
 
   const [products, setProducts] = React.useState([]);
+  const [orders, setOrders] = React.useState([]);
   const total = (items) => items.reduce((acc, curr) => acc + curr.total, 0);
   const totalSell = total(orders)
+  const [stockout, setStockout] = React.useState(0)
 
   React.useEffect(() => {
     async function getProducts() {
       const res = await axiosRoot.get('/products');
       setProducts(res.data)
+      if (res.data.map(i => i.quantity) === 0)
+        setStockout(count => count + 1)
     }
     getProducts()
+
+    async function getOrders() {
+      const res = await axiosAPI.get('/orders');
+      setOrders(res.data)
+    }
+    getOrders()
   }, []);
 
 
@@ -37,7 +47,7 @@ function Dashboards() {
       <div className='p-3 mx-auto grid items-center w-[100%] h-40 rounded-md bg-white'>
         <h1 className='text-2xl text-gray-500'>Out of Stock</h1>
         <p className='text-green-500'>(Last 2 Weeks)</p>
-        <h1 className='text-5xl text-red-500'>0</h1>
+        <h1 className='text-5xl text-red-500'>{stockout}</h1>
       </div>
     </div>
   )

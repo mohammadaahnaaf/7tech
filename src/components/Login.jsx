@@ -1,6 +1,6 @@
-import Navbar, { BasicNavbar } from './shared/Navbar'
+import { BasicNavbar } from './shared/Navbar'
 import Footer from './shared/Footer'
-import { EyeIcon, EyeOffIcon, LockClosedIcon } from '@heroicons/react/solid'
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 import axiosRoot from './utils/axios-root';
 import { useState } from 'react';
 import Router from 'next/router'

@@ -28,12 +28,13 @@ export function Details() {
     const [star, setStar] = useState(0)
     const [selectedColor, setSelectedColor] = useState('')
     const [show, setShow] = useState('details');
-    // const [selectedSize, setSelectedSize] = useState('')
     const [details, setDetails] = useState([])
     const [info, setInfo] = useState([])
     const [moreInfo, setMoreInfo] = useState([])
     const [images, setImages] = useState([])
     const [error, setError] = useState('')
+    
+    // const [selectedSize, setSelectedSize] = useState('')
 
     // get data 
     useEffect(() => {

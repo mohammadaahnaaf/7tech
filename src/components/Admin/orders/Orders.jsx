@@ -20,11 +20,11 @@ export function Order() {
 
   //Get Data
   React.useEffect(() => {
-    async function getCategory() {
+    async function getOrder() {
       const res = await axiosAPI.get('/orders');
       setOrders(res.data)
     }
-    getCategory()
+    getOrder()
   }, []);
 
   function handleAllChecked(event) {
