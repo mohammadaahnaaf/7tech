@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import { dataCategories } from '../../../data/CategoriesData';
 import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
 import Link from 'next/link'
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
+import { Dialog, Transition } from '@headlessui/react';
 
 export function Categories() {
 
@@ -15,7 +16,19 @@ export function Categories() {
     const [selected, setSelected] = React.useState([]);
     const [allSelected, setAllSelected] = React.useState(false)
     const [rows, setRows] = React.useState([]);
-    // console.log(searchTerm)
+    const [isOpen, setIsOpen] = React.useState(false)
+    const [confirm, setConfirm] = React.useState(false)
+
+    function closeModal() {
+        !confirm && (
+            setConfirm(true)
+        )
+        setIsOpen(false)
+    }
+
+    // function openModal() {
+    //     setIsOpen(true)
+    // }
 
     //Get Data
 
@@ -28,10 +41,15 @@ export function Categories() {
     }, []);
 
     // delete category 
-    async function handleDelete() {
-        await axiosAPI.delete('/categories/' + selected);
-        // Router.push('/admin/category')
-        router.reload()
+    function handleDelete() {
+        setIsOpen(true)
+
+        confirm === true && (
+            selected.map((item) =>
+                axiosAPI.delete(`/categories/${item}`)
+            ),
+            router.reload()
+        )
     }
 
 
@@ -68,8 +86,72 @@ export function Categories() {
 
     const isSelected = (name) => selected.indexOf(name) !== -1 || allSelected;
 
+    const modal = (
+        <Transition appear show={isOpen} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-black bg-opacity-25" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-lg font-semibold leading-6 text-red-600"
+                                >
+                                    Delete Category
+                                </Dialog.Title>
+                                <div className="mt-2">
+                                    <p className="text-sm text-gray-500">
+                                        Are you sure you want to deelte selected category?
+                                    </p>
+                                </div>
+
+                                <div className="mt-4 flex justify-end gap-3">
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                                        onClick={closeModal}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition>
+    )
+
     return (
-        <div className="mx-3 mt-3 overflow-x-auto bg-red-100 relative shadow-md sm:rounded-lg">
+        <div className="mx-3 mt-3 relative overflow-x-auto bg-red-100 shadow-md sm:rounded-lg">
+            {modal}
             <div className='flex gap-2 justify-center py-1 bg-black'>
                 <Search setSearchTerm={setSearchTerm} />
                 <Link href='/admin/category/add'>

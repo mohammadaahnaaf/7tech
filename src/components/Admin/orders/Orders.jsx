@@ -30,13 +30,14 @@ export function Order() {
   function handleAllChecked(event) {
     // !checkedAll ? setCheckedAll(true) : setCheckedAll(false)
     if (event.target.checked) {
-      const newSelecteds = orders.map((n) => n.id);
+      const newSelecteds = orders.map((n) => n._id);
       setSelected(newSelecteds);
       setAllSelected(true)
       return;
     }
     setSelected([]);
     setAllSelected(false)
+    // console.log(selected)
   }
 
   const handleChecked = (event, name) => {
@@ -60,10 +61,13 @@ export function Order() {
   };
 
   const isSelected = (name) => selected.indexOf(name) !== -1 || allSelected;
-
-  // function handleChecked() {
-  //   !checked ? setChecked(true) : setChecked(false)
-  // }
+  // delete category 
+  function handleDelete() {
+    selected.map((item) =>
+      axiosAPI.delete(`/orders/${item}`)
+    )
+    router.reload()
+  }
 
   return (
 
@@ -100,7 +104,7 @@ export function Order() {
             </th>
             <th scope="col" className="py-3 px-6">
               {selected != 0 && (
-                <button type='button'>
+                <button type='button' onClick={handleDelete}>
                   <TrashIcon className='h-5 w-5 text-red-600' />
                 </button>
               )}
@@ -121,12 +125,12 @@ export function Order() {
               return row;
             } return ""
           }).map((order, index) => {
-            const isItemSelected = isSelected(order.id);
+            const isItemSelected = isSelected(order._id);
             return (
               <tr key={index} className="bg-white border-b hover:bg-gray-50">
                 <td class="p-4 w-4">
                   <div className="flex items-center">
-                    <input onChange={(event) => handleChecked(event, order.id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
+                    <input onChange={(event) => handleChecked(event, order._id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
                     <label htmlFor="checkbox" className="sr-only">checkbox</label>
                   </div>
                 </td>

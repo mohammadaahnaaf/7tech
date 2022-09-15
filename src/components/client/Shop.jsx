@@ -77,7 +77,7 @@ export function ProductCard({ product, setiCategory }) {
 
   return (
 
-    <div key={product?._id} className="w-full h-[45vh] relative max-w-xs bg-red-600 bg-opacity-10 shadow-md ring-2 ring-opacity-30 ring-red-600">
+    <div key={product?._id} className="w-full min-h-[45vh] relative max-w-xs bg-red-600 bg-opacity-10 shadow-md ring-2 ring-opacity-30 ring-red-600">
       <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 ring-opacity-30 bg-black bg-opacity-30">
         <button type='button' onClick={() => addItem(cartProduct)}>
           <ShoppingCartIcon className='h-7 w-7' />

@@ -3,12 +3,16 @@ import { useRouter } from 'next/router'
 import { SearchIcon } from '@heroicons/react/outline'
 
 function Search({ setSearchTerm }) {
-    
+
     const router = useRouter()
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        const data = (e.target.value)
-        router.push(`/category/${data}`)
+        const data = new FormData(e.currentTarget);
+        const slug = {
+            name: data.get('search')
+          }
+        router.push(`/category/${slug.name}`)
     }
 
     function handleSearch(e) {
@@ -26,7 +30,8 @@ function Search({ setSearchTerm }) {
                         </div>
                         <input
                             type="search"
-                            id="default-search"
+                            id="search"
+                            name="search"
                             onChange={handleSearch}
                             className="block p-3 pl-10 w-full placeholder-red-600 placeholder-opacity-50 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-red-600 border-red-600 border-opacity-25 ring-opacity-25 focus:border-red-600 shadow-sm sm:text-sm"
                             placeholder="Search..."

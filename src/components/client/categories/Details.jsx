@@ -2,11 +2,13 @@ import React, { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
-import { mouses } from '../../../data/ProductsData'
+// import { mouses } from '../../../data/ProductsData'
 import Layout from '../../layout/Layout'
 import { ProductCard } from '../Shop'
 import axiosAPI from '../../utils/axios-api'
 import { useRouter } from 'next/router'
+import None from './None'
+import axiosRoot from '../../utils/axios-root'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -63,11 +65,15 @@ export function Example({ term }) {
 
     const router = useRouter()
     const slug = router.query.id
+    console.log(slug)
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-    const items = mouses;
+    // const items = mouses;
     const searchTerm = term
+    
+    const [iCategory, setiCategory] = useState('')
     const [categories, setCategories] = useState([])
+    const [items, setItems] = useState([])
 
     //Get Data
     React.useEffect(() => {
@@ -76,6 +82,12 @@ export function Example({ term }) {
             setCategories(res.data)
         }
         getCategory()
+
+        async function getProducts() {
+            const res = await axiosRoot.get('/products');
+            setItems(res.data)
+        }
+        getProducts()
     }, []);
 
     return (
@@ -322,9 +334,11 @@ export function Example({ term }) {
                                                 return item;
                                             } return ""
                                         }).map((product) => {
-                                            return slug === product.tags.map(i => i) ? (
-                                                <ProductCard product={product} />) : null
+                                            return slug === product.category ? (
+                                                <ProductCard  setiCategory={setiCategory} product={product} />
+                                            ) : null
                                         })}
+                                        {/* <None /> */}
                                     </div>
                                 </div>
                             </div>

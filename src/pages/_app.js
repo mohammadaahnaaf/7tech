@@ -3,11 +3,15 @@ import '../styles/tag.css'
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from 'next/router';
 import { CartProvider } from 'react-use-cart';
+import { useRef } from 'react';
+import { useState, RefObject, useEffect } from "react";
+
 
 
 function MyApp({ Component, pageProps }) {
-
+  const ref = useRef(null);
   const router = useRouter();
+
   const variants = {
     initialState: {
       opacity: 0,
@@ -32,7 +36,7 @@ function MyApp({ Component, pageProps }) {
           animate="animateState"
           exit="exitState"
           transition={{
-            background: "#001451",
+            backgroundColor: "#001451",
             duration: 0.75,
           }}
           variants={variants}
