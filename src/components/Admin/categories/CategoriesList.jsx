@@ -31,7 +31,6 @@ export function Categories() {
     // }
 
     //Get Data
-
     React.useEffect(() => {
         async function getCategory() {
             const res = await axiosRoot.get('/categories');
