@@ -33,7 +33,8 @@ export function Details() {
     const [moreInfo, setMoreInfo] = useState([])
     const [images, setImages] = useState([])
     const [error, setError] = useState('')
-    
+    const [view, setView] = useState(1)
+
     // const [selectedSize, setSelectedSize] = useState('')
 
     // get data 
@@ -87,10 +88,9 @@ export function Details() {
 
             <div className="grid max-w-5xl col-span-12 gap-4 mx-auto">
 
-                <div className="w-full col-span-12 lg:col-span-3">
-                    {images.map((item, index) => (
+                <div className="w-full grid justify-center col-span-12 lg:col-span-3">
+                    {images.slice(view - 1, view).map((item, index) => (
                         <div key={index}>
-
                             <img
                                 height={500}
                                 width={500}
@@ -100,10 +100,22 @@ export function Details() {
                             />
                         </div>
                     ))}
+                    <div className='flex gap-2 mt-2 mx-auto items-center justify-center'>
+                        {images.map((item, index) => (
+                            <button type='button' onClick={() => setView(index + 1)} key={index}>
+
+                                <img
+                                    src={`${item}`}
+                                    alt='product-images'
+                                    className="w-[10vh] h-[10vh]"
+                                />
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
 
-                <div className="col-span-12 lg:col-span-4">
+                <div className="col-span-12 lg:col-span-2">
                     <h2 className="text-2xl font-extrabold text-gray-900 sm:pr-12">{details.name}</h2>
 
                     <section aria-labelledby="information-heading" className="mt-2">

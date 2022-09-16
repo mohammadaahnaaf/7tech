@@ -84,7 +84,7 @@ export function ProductCard({ product, setiCategory }) {
         </button>
       </div>
       <div className='bg-white h-[32vh]'>
-        {images.map((item, index) => (
+        {images.slice(0, 1).map((item, index) => (
           <button key={index} onClick={() => router.push(`/product/${product?._id}`)}>
             <img className="p-8 rounded-t-lg" src={`${item}` || product?.imageSrc} alt="product image" />
           </button>

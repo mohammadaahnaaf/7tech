@@ -11,29 +11,46 @@ import axiosRoot from '../../utils/axios-root';
 const Detail = () => {
 
     const [formValues, setFormValues] = React.useState([{ id: uuidv4(), title: "" }])
-    // const [details, setDetails] = React.useState([{ title: "" }])
     const [moreInfos, setMoreInfo] = React.useState([{ id: uuidv4(), title: '', description: "" }])
     const [featured, setFeatured] = React.useState(false)
     const [error, setError] = React.useState('')
     const [loading, setIsLoading] = React.useState(false)
-    const [tags, setTags] = useState(["Tech"]);
-    const [selectedFiles, setSelectedFiles] = useState('');
+    const [tags, setTags] = useState([]);
 
-    const [userInfo, setuserInfo] = useState({
-        file: [],
-        filepreview: null,
-    });
+    const [files, setFile] = useState([]);
 
-    const handleSelectImage = async (e) => {
+    const handleSelectImage = (e) => {
+        let file = e.target.files;
 
-        setSelectedFiles(e.target.files);
-        setuserInfo({
-            ...userInfo,
-            file: e.target.files,
-            filepreview: URL.createObjectURL(e.target.files[0]),
-            // filepreview2: URL.createObjectURL(e.target.files[1]),
-        })
+        for (let i = 0; i < file.length; i++) {
+            const fileType = file[i]['type'];
+            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            if (validImageTypes.includes(fileType)) {
+                setFile([...files, file[i]]);
+            } else {
+                setError("only images accepted");
+            }
+        }
+    };
+    const removeImage = (i) => {
+        setFile(files.filter(x => x.name !== i));
     }
+
+    // const [userInfo, setuserInfo] = useState({
+    //     file: [],
+    //     filepreview: null,
+    // });
+
+    // const handleSelectImage = async (e) => {
+
+    //     setSelectedFiles(e.target.files);
+    //     setuserInfo({
+    //         ...userInfo,
+    //         file: e.target.files,
+    //         filepreview: URL.createObjectURL(e.target.files[0]),
+    //         // filepreview2: URL.createObjectURL(e.target.files[1]),
+    //     })
+    // }
 
     // submit form data
     const handleSubmit = async (event) => {
@@ -59,7 +76,7 @@ const Detail = () => {
                 }
             ))))
 
-            Array.from(selectedFiles).forEach(file => {
+            Array.from(files).forEach(file => {
                 data.append('images', file)
             })
 
@@ -143,7 +160,7 @@ const Detail = () => {
         }
         getCategory()
     }, []);
-    console.log(cats.map((i)=> i.name))
+    console.log(cats.map((i) => i.name))
     return (
 
         <div className='grid justify-around grid-cols-1 gap-3 p-5 m-3 bg-white rounded-lg'>
@@ -167,12 +184,9 @@ const Detail = () => {
                             <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div> */}
                         <div>
-                            {/* <input type="text" name='category' id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required /> */}
-                            {/* <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label> */}
-                            
                             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
                             <select id="category" name='category' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required>
-                                {cats.map((cat) => 
+                                {cats.map((cat) =>
                                     <option>{cat.name}</option>
                                 )}
                             </select>
@@ -192,8 +206,6 @@ const Detail = () => {
 
                         <div>
                             <TagsInput
-                                // style={styles}
-                                // className="bg-gray-50 text-clip border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
                                 value={tags}
                                 onChange={setTags}
                                 name="tags"
@@ -240,7 +252,6 @@ const Detail = () => {
                                                 onChange={handleSelectImage}
                                             />
                                         </label>
-                                        {/* <p className="pl-1">or drag and drop</p> */}
                                     </div>
                                     <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                                 </div>
@@ -249,48 +260,18 @@ const Detail = () => {
 
                         {/* Images  */}
                         <div className='grid grid-cols-2 gap-2 mt-5'>
-                            <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
-                                <div className="absolute top-0 right-0 z-10 grid items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
-                                    <button type='button'
-                                    // onClick={}
-                                    >
-                                        <TrashIcon className='w-6 h-6 text-red-600' />
-                                    </button>
+                            {files.map((file) =>
+                                <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
+                                    <div className="absolute top-0 right-0 z-10 grid items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
+                                        <button type='button'
+                                            onClick={() => { removeImage(file.name) }}
+                                        >
+                                            <TrashIcon className='w-6 h-6 text-red-600' />
+                                        </button>
+                                    </div>
+                                    <img alt='product image' src={URL.createObjectURL(file)} className='mx-auto h-36' />
                                 </div>
-                                {userInfo.filepreview && (
-                                    <img alt='product image' src={userInfo.filepreview} className='mx-auto h-36' />
-                                )}
-                            </div>
-                            <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
-                                <div className="absolute top-0 right-0 z-10 grid items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
-                                    <button type='button'
-                                    // onClick={}
-                                    >
-                                        <TrashIcon className='w-6 h-6 text-red-600' />
-                                    </button>
-                                </div>
-                                <img alt='product image' src={userInfo?.filepreview} className='mx-auto h-36 ' />
-                            </div>
-                            <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
-                                <div className="absolute top-0 right-0 z-10 grid items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
-                                    <button type='button'
-                                    // onClick={}
-                                    >
-                                        <TrashIcon className='w-6 h-6 text-red-600' />
-                                    </button>
-                                </div>
-                                {/* <img alt='product image' src={details.imageSrc} className='mx-auto h-36' /> */}
-                            </div>
-                            <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
-                                <div className="absolute top-0 right-0 z-10 grid items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
-                                    <button type='button'
-                                    // onClick={handleDeletePhoto}
-                                    >
-                                        <TrashIcon className='w-6 h-6 text-red-600' />
-                                    </button>
-                                </div>
-                                {/* <img alt='product image' src={details.imageSrc} className='mx-auto h-36' /> */}
-                            </div>
+                            )}
 
                         </div>
                     </div>
