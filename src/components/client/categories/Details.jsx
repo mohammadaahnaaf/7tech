@@ -70,7 +70,7 @@ export function Example({ term }) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     // const items = mouses;
     const searchTerm = term
-    
+
     const [iCategory, setiCategory] = useState('')
     const [categories, setCategories] = useState([])
     const [items, setItems] = useState([])
@@ -334,8 +334,9 @@ export function Example({ term }) {
                                                 return item;
                                             } return ""
                                         }).map((product) => {
-                                            return slug === product.category ? (
-                                                <ProductCard  setiCategory={setiCategory} product={product} />
+                                            return product.category.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ||
+                                                product.name.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ? (
+                                                <ProductCard setiCategory={setiCategory} product={product} />
                                             ) : null
                                         })}
                                         {/* <None /> */}
