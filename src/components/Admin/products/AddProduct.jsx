@@ -161,6 +161,7 @@ const Detail = () => {
         getCategory()
     }, []);
     console.log(cats.map((i) => i.name))
+    
     return (
 
         <div className='grid justify-around grid-cols-1 gap-3 p-5 m-3 bg-white rounded-lg'>

@@ -1,7 +1,9 @@
+import React, { useState } from 'react'
 import { TrashIcon } from '@heroicons/react/solid';
-import React from 'react'
-import { details } from '../../data/ProductsData';
+import { Router, useRouter } from 'next/router';
 import AdminLayout from '../layout/AdminLayout';
+import axiosAPI from '../utils/axios-api';
+import axiosRoot from '../utils/axios-root';
 
 const profile = {
   photo: '/me.png',
@@ -15,7 +17,7 @@ const profile = {
   address: ''
 }
 
-function Settingss() {
+export function Settingss() {
   const [me, setMe] = React.useState(false)
 
   return (
@@ -535,27 +537,100 @@ export function Setting() {
 }
 
 function Others() {
+
+  const router = useRouter()
+  const [files, setFile] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('')
+  const [banners, setBanners] = useState([])
+
+  // get images data 
+  React.useEffect(() => {
+    async function getBanners() {
+      const res = await axiosRoot.get('/banner');
+      setBanners(res.data)
+      console.log(res.data)
+    }
+    getBanners()
+  }, []);
+
+  // Delete Banner
+  async function handleDelete(id) {
+    await axiosAPI.delete(`/banner/${id}`);
+    router.reload()
+  }
+
+  // submit form data
+  const handleSubmit = async (event) => {
+
+    try {
+      event.preventDefault()
+      const data = new FormData(event.currentTarget);
+      data.delete('file-upload')
+
+      Array.from(files).forEach(file => {
+        data.append('images', file)
+      })
+
+      await axiosAPI.post('/banner', data);
+      router.reload()
+    } catch (error) {
+
+      setIsLoading(false);
+      console.log(error)
+      setError(error.response?.data?.message)
+    }
+  }
+
+  // handle image upload 
+  const handleSelectImage = (e) => {
+    let file = e.target.files;
+
+    for (let i = 0; i < file.length; i++) {
+      const fileType = file[i]['type'];
+      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+      if (validImageTypes.includes(fileType)) {
+        setFile([...files, file[i]]);
+      } else {
+        setError("only images accepted");
+      }
+    }
+  };
+  const removeImage = (i) => {
+    setFile(files.filter(x => x.name !== i));
+  }
+
+
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       <div className="md:grid md:grid-cols-1 md:gap-6">
 
         <div className="md:col-span-2">
-          <form action="#" method="POST">
+          {error && (
+            <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
+              <span class="font-medium">Warning!</span> {error}
+            </div>
+          )}
+          <form onSubmit={handleSubmit}>
+            {/* Upload banners  */}
             <div className="shadow overflow-hidden sm:rounded-md">
               <h1 className='py-4 bg-white text-center text-xl'>Banners</h1>
-       
+
               <div className="px-4 py-5 bg-red-50 sm:p-6">
 
-                <div className="grid grid-cols-6 gap-6">
-                  <div className="flex col-span-6 justify-center gap-2">
+                {/* Banners Upload  */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Upload Photos</label>
+                  <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
+                    <div className="space-y-1 text-center">
 
-                    {/* Banners Upload  */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Banner 1</label>
-                      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                        <div className="space-y-1 text-center">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <label
+                          htmlFor="file-upload"
+                          className="relative p-1 font-medium text-red-600 mx-auto cursor-pointer hover:text--500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-gray-300"
+                        >
                           <svg
-                            className="mx-auto h-12 w-12 text-gray-400"
+                            className="w-12 h-12 mx-auto text-gray-400 hover:text-red-600"
                             stroke="currentColor"
                             fill="none"
                             viewBox="0 0 48 48"
@@ -568,132 +643,52 @@ function Others() {
                               strokeLinejoin="round"
                             />
                           </svg>
-                          <div className="flex items-center text-sm text-gray-600">
-                            <label
-                              htmlFor="file-upload"
-                              className="relative cursor-pointer font-medium p-1 rounded-md text-red-600 hover:text--500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-gray-300"
-                            >
-                              <span>Upload a file</span>
-                              <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                            </label>
-                            <p className="pl-1">or drag and drop</p>
-                          </div>
-                          <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                        </div>
+                          <span>Upload New Banners</span>
+                          <input multiple id="file-upload" name="file-upload"
+                            type="file"
+                            className="sr-only"
+                            onChange={handleSelectImage}
+                          />
+                        </label>
                       </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Banner 2</label>
-                      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                        <div className="space-y-1 text-center">
-                          <svg
-                            className="mx-auto h-12 w-12 text-gray-400"
-                            stroke="currentColor"
-                            fill="none"
-                            viewBox="0 0 48 48"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          <div className="flex items-center text-sm text-gray-600">
-                            <label
-                              htmlFor="file-upload"
-                              className="relative cursor-pointer font-medium p-1 rounded-md text-red-600 hover:text--500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-gray-300"
-                            >
-                              <span>Upload a file</span>
-                              <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                            </label>
-                            <p className="pl-1">or drag and drop</p>
-                          </div>
-                          <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Banner 3</label>
-                      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                        <div className="space-y-1 text-center">
-                          <svg
-                            className="mx-auto h-12 w-12 text-gray-400"
-                            stroke="currentColor"
-                            fill="none"
-                            viewBox="0 0 48 48"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                              strokeWidth={2}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          <div className="flex items-center text-sm text-gray-600">
-                            <label
-                              htmlFor="file-upload"
-                              className="relative cursor-pointer font-medium p-1 rounded-md text-red-600 hover:text--500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-gray-300"
-                            >
-                              <span>Upload a file</span>
-                              <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                            </label>
-                            <p className="pl-1">or drag and drop</p>
-                          </div>
-                          <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                        </div>
-                      </div>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
                   </div>
                 </div>
               </div>
-        
+
               {/* Banners Images */}
-              <div className='grid p-4 gap-4 grid-cols-2 bg-white'>
-                <div className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
-                  <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                    <button type='button'
-                    // onClick={}
-                    >
-                      <TrashIcon className='text-red-600 h-6 w-6' />
-                    </button>
-                  </div>
-                  <img alt='product image' src='/banners/banner.jpg' className='h-36 mx-auto' />
+              <div className='grid p-4 bg-white'>
+                <div className='grid grid-cols-2 w-full gap-2'>
+                  {files?.map((file, index) =>
+                    <div key={index} className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
+                      <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
+                        <button type='button'
+                          onClick={() => { removeImage(file.name) }}
+                        >
+                          <TrashIcon className='text-red-600 h-6 w-6' />
+                        </button>
+                      </div>
+                      <img alt='product image' src={URL.createObjectURL(file)} className='h-36 mx-auto' />
+                    </div>
+                  )}
                 </div>
-                <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
-                  <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                    <button type='button'
-                    // onClick={}
-                    >
-                      <TrashIcon className='text-red-600 h-6 w-6' />
-                    </button>
+                {files.length === 0 && (
+                  <div className='grid grid-cols-2 w-full gap-2'>
+                    {banners?.map((item, index) =>
+                      <div key={index} className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
+                        <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
+                          <button type='button'
+                            onClick={() => handleDelete(item._id)}
+                          >
+                            <TrashIcon className='text-red-600 h-6 w-6' />
+                          </button>
+                        </div>
+                        <img alt='product image' src={item.images[index]} className='h-36 mx-auto' />
+                      </div>
+                    )}
                   </div>
-                  <img alt='product image' src='/banners/banner-2.jpg' className='h-36 mx-auto ' />
-                </div>
-                <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
-                  <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                    <button type='button'
-                    // onClick={}
-                    >
-                      <TrashIcon className='text-red-600 h-6 w-6' />
-                    </button>
-                  </div>
-                  <img alt='product image' src='/banners/banner-3.jpg' className='h-36 mx-auto' />
-                </div>
-                <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-not-allowed relative'>
-                  {/* <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                    <button type='button'
-                    // onClick={handleDeletePhoto}
-                    >
-                      <TrashIcon className='text-red-600 h-6 w-6' />
-                    </button>
-                  </div>
-                  <img alt='product image' src={details.imageSrc} className='h-36 mx-auto' /> */}
-                </div>
+                )}
               </div>
 
               <div className="px-4 py-3 bg-red-200 text-right sm:px-6">
