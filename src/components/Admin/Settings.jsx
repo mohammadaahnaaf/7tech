@@ -676,16 +676,20 @@ function Others() {
                 {files.length === 0 && (
                   <div className='grid grid-cols-2 w-full gap-2'>
                     {banners?.map((item, index) =>
-                      <div key={index} className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
-                        <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                          <button type='button'
-                            onClick={() => handleDelete(item._id)}
-                          >
-                            <TrashIcon className='text-red-600 h-6 w-6' />
-                          </button>
-                        </div>
-                        <img alt='product image' src={item.images[index]} className='h-36 mx-auto' />
-                      </div>
+                      <>
+                        {item.images.map((image) =>
+                          <div key={index} className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
+                            <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
+                              <button type='button'
+                                onClick={() => handleDelete(item._id)}
+                              >
+                                <TrashIcon className='text-red-600 h-6 w-6' />
+                              </button>
+                            </div>
+                            <img alt='product image' src={image} className='h-36 mx-auto' />
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
                 )}

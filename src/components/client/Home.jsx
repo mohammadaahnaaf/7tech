@@ -1,31 +1,63 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../layout/Layout'
 
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { BasicNavbar } from '../shared/Navbar';
 import Footer from '../shared/Footer';
+import axiosRoot from '../utils/axios-root';
 
 
 export function Banner() {
+
+    const [banners, setBanners] = useState([])
+
+    // get images data 
+    React.useEffect(() => {
+        async function getBanners() {
+            const res = await axiosRoot.get('/banner');
+            setBanners(res.data)
+            console.log(res.data)
+        }
+        getBanners()
+    }, []);
+
     return (
         <div className="max-w-full border-b-2 border-red-600 mx-auto">
-            <Carousel
-                autoPlay
-                infiniteLoop
-                animationHandler="fade"
-                showStatus={false}
-                showIndicators={false}
-                showThumbs={false}
-                interval={2500}
-                transitionTime={500}
-                swipeable={false}
-                emulateTouch
-                className='z-50'
-            // swipeScrollTolerance
-            >
-                <img
+            {banners?.slice(0, 1).map((item) =>
+                <Carousel
+                    autoPlay
+                    infiniteLoop
+                    animationHandler="fade"
+                    showStatus={false}
+                    showIndicators={false}
+                    showThumbs={false}
+                    interval={2500}
+                    transitionTime={500}
+                    swipeable={false}
+                    emulateTouch
+                    className='z-50'
+                // swipeScrollTolerance
+                >
+                    <img
+                        src={item.images[0]}
+                        className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
+                    />
+
+
+                    <img
+                        src={item.images[2]}
+                        className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
+                    />
+
+
+                    <img
+                        src={item.images[1]}
+                        className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
+                    />
+
+                    {/* <img
                     src='/banners/banner-3.jpg'
                     className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
                 />
@@ -36,8 +68,9 @@ export function Banner() {
                 <img
                     src='/banners/banner-2.jpg'
                     className='object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
-                />
-            </Carousel>
+                /> */}
+                </Carousel>
+            )}
         </div>
     )
 }
