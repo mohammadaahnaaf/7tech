@@ -23,7 +23,7 @@ export function Shop({ items, title, term, filters }) {
 
     <div className='bg-black px-3 py-3'>
       {iCategory === filterI ? (
-        <div className='max-w-7xl mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
+        <div className='max-w-7xl hover:translate-x-6 hover:animate-pulse hover:cursor-pointer duration-700 mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
           <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
         </div>
       ) : null
@@ -67,7 +67,7 @@ export function ProductCard({ product, setiCategory }) {
 
   return (
 
-    <div key={product?._id} className="w-full min-h-[45vh] relative max-w-xs bg-red-600 bg-opacity-5 shadow-md ring-2 ring-opacity-30 ring-red-600">
+    <div key={product?._id} className="hover:scale-90 duration-300 w-full min-h-[45vh] relative max-w-xs bg-red-600 bg-opacity-5 shadow-md ring-2 ring-opacity-30 ring-red-600">
       <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 ring-opacity-30 bg-black bg-opacity-30">
         <button type='button' onClick={() => addItem(cartProduct)}>
           <ShoppingCartIcon className='h-7 w-7' />

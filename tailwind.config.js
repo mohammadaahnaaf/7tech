@@ -24,7 +24,8 @@ module.exports = {
         secondary: '#FEDD6B',
       },
       transitionTimingFunction: {
-        easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+        'in-expo': 'cubic-bezier(0.95, 0.05, 0.795, 0.035)',
+        'out-expo': 'cubic-bezier(0.19, 1, 0.22, 1)',
       },
     },
   },
