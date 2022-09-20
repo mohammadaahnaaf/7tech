@@ -3,8 +3,8 @@
 
 const nextConfig = {
   images: {
-    hostname: ['tailwindui.com'],
-    domains: ['tailwindui.com'],
+    hostname: ['seventech.s3.ap-southeast-1.amazonaws.com', 'tailwindui.com'],
+    domains: ['seventech.s3.ap-southeast-1.amazonaws.com', 'tailwindui.com'],
   },
   reactStrictMode: true,
 }

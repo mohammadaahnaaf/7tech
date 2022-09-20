@@ -148,6 +148,14 @@ export function Categories() {
         </Transition>
     )
 
+    const slugs = ['name', 'subCategories', 'createdAt']
+
+    const search = (data) => {
+        return data.filter((item) =>
+            slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+        )
+    }
+
     return (
         <div className="mx-3 mt-3 relative overflow-x-auto bg-red-100 shadow-md sm:rounded-lg">
             {modal}
@@ -187,15 +195,7 @@ export function Categories() {
                     </tr>
                 </thead>
                 <tbody>
-                    {rows.filter((row) => {
-                        if (searchTerm === "") {
-                            return row;
-                        } else if (row.name.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                            return row;
-                        } else if (row.subCategories.map((item) => item.name.toLowerCase()).includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                            return row;
-                        } return ""
-                    }).map((item, index) => {
+                    {search(rows).map((item, index) => {
                         const isItemSelected = isSelected(item._id);
                         return (
                             <tr key={index} className="bg-white border-b">

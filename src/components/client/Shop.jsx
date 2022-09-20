@@ -3,6 +3,7 @@ import { ShoppingCartIcon } from '@heroicons/react/outline'
 import { useCart } from 'react-use-cart'
 import { useRouter } from 'next/router'
 import axiosRoot from '../utils/axios-root';
+import Image from 'next/image';
 
 export function Shop({ items, title, term, filters }) {
 
@@ -10,19 +11,16 @@ export function Shop({ items, title, term, filters }) {
   const searchTerm = term;
   const filterI = filters;
 
-  // function handleAddCart(product) {
-  //   () => addItem(product)
-  //   console.log("items: " + totalUniqueItems)
-  // }
+  const slugs = ['name', 'category', 'tags', 'price', 'code', 'quantity']
 
-  // function handleRemoveCart(id) {
-  //   () => removeItem(id)
-  //   // console.log(totalUniqueItems)
-  // }
-
-  // const catFilter = items?.map((i) => i.category)
+  const search = (data) => {
+    return data.filter((item) =>
+      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+    )
+  }
 
   return (
+
     <div className='bg-black px-3 py-3'>
       {iCategory === filterI ? (
         <div className='max-w-7xl mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
@@ -32,15 +30,7 @@ export function Shop({ items, title, term, filters }) {
       }
 
       <div className='max-w-7xl items-center justify-center justify-items-center mx-auto mt-3 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
-        {items?.filter((item) => {
-          if (searchTerm === "") {
-            return item;
-          } else if (item.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-            return item;
-          } else if (item.price.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-            return item;
-          } return ""
-        }).map((product) => {
+        {search(items)?.map((product) => {
           return filterI === product.category ? (
             <ProductCard setiCategory={setiCategory} product={product} />
           ) : null
@@ -77,16 +67,21 @@ export function ProductCard({ product, setiCategory }) {
 
   return (
 
-    <div key={product?._id} className="w-full min-h-[45vh] relative max-w-xs bg-red-600 bg-opacity-10 shadow-md ring-2 ring-opacity-30 ring-red-600">
+    <div key={product?._id} className="w-full min-h-[45vh] relative max-w-xs bg-red-600 bg-opacity-5 shadow-md ring-2 ring-opacity-30 ring-red-600">
       <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 ring-opacity-30 bg-black bg-opacity-30">
         <button type='button' onClick={() => addItem(cartProduct)}>
           <ShoppingCartIcon className='h-7 w-7' />
         </button>
       </div>
-      <div className='bg-white h-[32vh]'>
+      <div className='h-auto w-[32vh] mx-auto'>
         {images.slice(0, 1).map((item, index) => (
           <button key={index} onClick={() => router.push(`/product/${product?._id}`)}>
-            <img className="p-8 rounded-t-lg" src={`${item}` || product?.imageSrc} alt="product image" />
+            <Image
+              height={300}
+              width={300}
+              className="p-8 rounded-t-lg"
+              src={`${item}` || product?.imageSrc}
+              alt="product image" />
           </button>
         ))}
         {/* <img className="p-8 rounded-t-lg" src={product?.imageSrc} alt="product image" /> */}

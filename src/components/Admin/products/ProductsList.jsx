@@ -66,6 +66,13 @@ export function ProductsLists() {
   // function handleChecked() {
   //   !checked ? setChecked(true) : setChecked(false)
   // }
+  const slugs = ['name', 'category', 'tags', 'price', 'code', 'quantity']
+
+  const search = (data) => {
+    return data.filter((item) =>
+      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+    )
+  }
 
   return (
 
@@ -109,15 +116,7 @@ export function ProductsLists() {
           </tr>
         </thead>
         <tbody>
-          {rows.filter((row) => {
-            if (searchTerm === "") {
-              return row;
-            } else if (row.category.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-              return row;
-            } else if (row.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-              return row;
-            } return ""
-          }).map((product, index) => {
+          {search(rows).map((product, index) => {
             const isItemSelected = isSelected(product._id);
             return (
               <tr key={index} className="bg-white border-b hover:bg-gray-50">

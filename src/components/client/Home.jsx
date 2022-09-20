@@ -44,31 +44,14 @@ export function Banner() {
                         src={item.images[0]}
                         className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
                     />
-
-
                     <img
                         src={item.images[2]}
                         className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
                     />
-
-
                     <img
                         src={item.images[1]}
                         className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
                     />
-
-                    {/* <img
-                    src='/banners/banner-3.jpg'
-                    className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
-                />
-                <img
-                    src='/banners/banner.jpg'
-                    className='object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
-                />
-                <img
-                    src='/banners/banner-2.jpg'
-                    className='object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
-                /> */}
                 </Carousel>
             )}
         </div>

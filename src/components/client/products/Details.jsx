@@ -12,6 +12,7 @@ import { colors } from '../../../data/ProductsData'
 import Layout from '../../layout/Layout'
 import axiosAPI from '../../utils/axios-api'
 import axiosRoot from '../../utils/axios-root'
+import Image from 'next/image'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -21,21 +22,23 @@ export function Details() {
 
     const router = useRouter()
     const itemId = router.query.id
-    const ratings = 4.00
     const myRef = useRef()
 
+    const [details, setDetails] = useState([])
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [selectedColor, setSelectedColor] = useState('')
-    const [show, setShow] = useState('details');
-    const [details, setDetails] = useState([])
+    const [show, setShow] = useState('info');
     const [info, setInfo] = useState([])
     const [moreInfo, setMoreInfo] = useState([])
     const [images, setImages] = useState([])
     const [error, setError] = useState('')
     const [view, setView] = useState(1)
-
     // const [selectedSize, setSelectedSize] = useState('')
+
+    const ratings = details?.reviews?.reduce((acc, curr) => acc + curr.rating, 0) / details?.reviews?.length
+
+    // const total = (items) => items.reduce((acc, curr) => acc + curr.rating, 0);
 
     // get data 
     useEffect(() => {
@@ -62,7 +65,7 @@ export function Details() {
                 rating: star
             }
             await axiosAPI.post(`/products/${itemId}/review`, reqData);
-            Router.push('/')
+            router.reload()
 
         } catch (error) {
             console.log(error)
@@ -91,9 +94,9 @@ export function Details() {
                 <div className="w-full grid justify-center col-span-12 lg:col-span-3">
                     {images.slice(view - 1, view).map((item, index) => (
                         <div key={index}>
-                            <img
-                                height={500}
-                                width={500}
+                            <Image
+                                height={400}
+                                width={400}
                                 src={`${item}`}
                                 alt='product-images'
                                 className="w-[40vh] h-[40vh]"
@@ -103,8 +106,9 @@ export function Details() {
                     <div className='flex gap-2 mt-2 mx-auto items-center justify-center'>
                         {images.map((item, index) => (
                             <button type='button' onClick={() => setView(index + 1)} key={index}>
-
-                                <img
+                                <Image
+                                    height={100}
+                                    width={100}
                                     src={`${item}`}
                                     alt='product-images'
                                     className="w-[10vh] h-[10vh]"
@@ -233,14 +237,14 @@ export function Details() {
                     <>
                         <div className="sm:hidden">
                             <label htmlFor="tabs" className="sr-only">More Information</label>
-                            <select id="tabs" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5">
-                                <option>
+                            <select value={show || ''} onChange={(e) => setShow(e.target.value)} id="tabs" className="bg-red-50 border border-red-300 text-gray-700 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
+                                <option value='details'>
                                     Details
                                 </option>
-                                <option>
+                                <option value='info'>
                                     More Information
                                 </option>
-                                <option>
+                                <option value='reviews'>
                                     Reviews
                                 </option>
                             </select>
@@ -305,9 +309,9 @@ export function Details() {
                     {/* Reviews  */}
                     {(show === 'reviews') && (
                         <div className='mt-5 rounded-md md:p-5 bg-gray-50'>
-                            <h2 className='text-xl font-medium'>Reviews:</h2>
+                            <h2 className='text-xl py-4 px-2 font-medium'>Reviews:</h2>
                             <div className='grid gap-5'>
-                                <div className='flex '>
+                                <div className='flex px-2'>
                                     <h1 className='text-7xl '>{ratings.toFixed(1)}</h1>
                                     <div className='grid'>
                                         <div className="flex items-center">
@@ -325,7 +329,7 @@ export function Details() {
                                         <h2 className='px-2 py-1 text-gray-500'>{details.reviews?.length} Reviews</h2>
                                     </div>
                                 </div>
-                                <div className='grid gap-3'>
+                                <div className='px-2 grid gap-3'>
                                     {details.reviews?.map((review, index) => (
                                         <div className='grid justify-between col-span-1 gap-3 md:flex'>
                                             <div className='grid w-1/4 gap-0 md:px-5'>
@@ -348,8 +352,10 @@ export function Details() {
                                         </div>
                                     ))}
                                 </div>
+
+                                {/* white a review  */}
                                 <form onSubmit={handleSubmit}>
-                                    <div className='px-5'>
+                                    <div className='px-2 md:px-5'>
                                         <label htmlFor="comment" className="block text-xl font-medium text-gray-700">
                                             Write a Review
                                         </label>

@@ -69,6 +69,14 @@ export function Order() {
     router.reload()
   }
 
+  const slugs = ['customer_name', 'customer_number', 'createdAt', 'total', 'qty']
+
+  const search = (data) => {
+    return data.filter((item) =>
+      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+    )
+  }
+
   return (
 
     <div className="mx-3 mt-3 bg-red-100 overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -114,17 +122,7 @@ export function Order() {
           </tr>
         </thead>
         <tbody>
-          {orders.filter((row) => {
-            if (searchTerm === "") {
-              return row;
-            } else if (row.phone.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-              return row;
-            } else if (row.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-              return row;
-            } else if (row.total === (typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-              return row;
-            } return ""
-          }).map((order, index) => {
+          {search(orders).map((order, index) => {
             const isItemSelected = isSelected(order._id);
             return (
               <tr key={index} className="bg-white border-b hover:bg-gray-50">
@@ -141,7 +139,7 @@ export function Order() {
                   {order.customer_name}
                 </th>
                 <td className="py-4 px-6">
-                  {order.customer_phone}
+                  {order.customer_number}
                 </td>
                 <td className="py-4 px-6">
                   {order.createdAt}
