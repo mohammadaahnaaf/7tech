@@ -32,14 +32,16 @@
     @apply font-roboto;
   }
 }
-
+/* 
 @layer components {
+
   button,
   a {
-    @apply focus:outline-none;
+    @apply focus: outline-none;
   }
-}
-.box {
+} */
+
+.animation-style {
   width: 150px;
   height: 150px;
   border-radius: 50%;

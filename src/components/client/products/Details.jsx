@@ -312,7 +312,7 @@ export function Details() {
                             <h2 className='text-xl py-4 px-2 font-medium'>Reviews:</h2>
                             <div className='grid gap-5'>
                                 <div className='flex px-2'>
-                                    <h1 className='text-7xl '>{ratings.toFixed(1)}</h1>
+                                    <h1 className='text-7xl '>{details.reviews?.length === 0 ? '0.0' : ratings.toFixed(1)}</h1>
                                     <div className='grid'>
                                         <div className="flex items-center">
                                             {[0, 1, 2, 3, 4].map((rating) => (
