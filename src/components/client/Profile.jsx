@@ -16,6 +16,7 @@ const profile = {
 export function Setting() {
 
     const [me, setMe] = React.useState(false)
+    
 
     return (
         <div className="py-6 min-h-screen bg-black sm:px-6 lg:px-8">

@@ -38,6 +38,7 @@ function Main() {
             <Shop term={searchTerm} filters={filterI} items={products.slice(0, 10)} title={'MADE FOR GAMING'} />
             <Shop term={searchTerm} filters={filter2} items={products.slice(0, 10)} title={'BEST FOR GAMING'} />
             <Shop term={searchTerm} filters={filter3} items={products.slice(0, 10)} title={'DEDICATED FOR GAMING'} />
+            <Shop term={searchTerm} items={products.slice(0, 10)} title={'ALL PRODUCTS'} />
         </Layout>
     )
 }

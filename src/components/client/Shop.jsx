@@ -3,6 +3,7 @@ import { ShoppingCartIcon } from '@heroicons/react/outline'
 import { useCart } from 'react-use-cart'
 import { useRouter } from 'next/router'
 import axiosRoot from '../utils/axios-root';
+import axiosAPI from '../utils/axios-api'
 import Image from 'next/image';
 
 export function Shop({ items, title, term, filters }) {
@@ -36,6 +37,11 @@ export function Shop({ items, title, term, filters }) {
           ) : null
         })}
       </div>
+      {/* <div className='max-w-7xl items-center justify-center justify-items-center mx-auto mt-3 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
+        {search(items)?.map((product) => 
+            <ProductCard setiCategory={setiCategory} product={product} />
+        )}
+      </div> */}
     </div>
   )
 }
@@ -43,8 +49,26 @@ export function Shop({ items, title, term, filters }) {
 export function ProductCard({ product, setiCategory }) {
 
   const [images, setImages] = React.useState([]);
+  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  // const [user, setUser] = React.useState({})
   const { addItem } = useCart();
   const router = useRouter()
+
+
+  // React.useEffect(() => {
+  //     if (!isLoggedIn) {
+
+  //         axiosAPI
+  //             .get('/auth/get-me')
+  //             .then(res => {
+  //                 setIsLoggedIn(!!res.data.email);
+  //                 setUser(res.data);
+  //             })
+  //             .catch(error => {
+  //                 console.log(error);
+  //             });
+  //     }
+  // }, [isLoggedIn]);
 
   // get product data 
   React.useEffect(() => {
@@ -57,8 +81,9 @@ export function ProductCard({ product, setiCategory }) {
   }, []);
 
   const cartProduct = {
+    // userId: user._id,
     id: product._id,
-    imageSrc: images.map((i) => i),
+    imageSrc: images[0],
     name: product.name,
     price: product.price,
     category: product.category,
