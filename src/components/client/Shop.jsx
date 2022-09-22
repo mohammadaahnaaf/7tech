@@ -23,7 +23,7 @@ export function Shop({ items, title, term, filters }) {
 
     <div className='bg-black px-3 py-3'>
       {iCategory === filterI ? (
-        <div className='max-w-7xl hover:scale-95 hover:animate-pulse hover:cursor-pointer duration-700 mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
+        <div className='max-w-7xl hover:scale-95 hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
           <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
         </div>
       ) : null
