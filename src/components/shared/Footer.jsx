@@ -3,9 +3,9 @@ import React from 'react'
 
 function Footer() {
   return (
-    <footer className='flex gap-2 align-bottom justify-center text-lg bg-red-100 py-2'>
+    <footer className='flex gap-2 align-bottom justify-center text-lg bg-black py-2'>
       <div className='flex text-sm gap-2 justify-center'>
-        <h1 className='text-red-300'>
+        <h1 className='text-red-600'>
         Copyright © SevenTech 2022.
         </h1>
         {/* <a className='text-gray-800 hover:text-white' href='https://www.ahnafyaes.tech/'>@Ahnaf</a>{' '} & {' '} */}

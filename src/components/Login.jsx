@@ -42,18 +42,18 @@ export function Logins() {
     };
 
     return (
-        <div className="min-h-screen px-1 md:px-0 flex items-center justify-center my-auto">
-            <div className="max-w-md w-full">
+        <div className="min-h-screen bg-opacity-10 bg-[url('/spinner.png')] px-1 md:px-0 flex items-center justify-center my-auto">
+            <div className="bg-black bg-opacity-30 p-3 rounded-lg max-w-md w-full">
                 <div>
                     <img
                         className="mx-auto h-16 w-auto"
                         src="/logo.png"
                         alt="seventech logo"
                     />
-                    <h2 className="mt-6 text-center text-2xl md:text-3xl font-extrabold text-gray-900">Login Here</h2>
-                    <p className="mt-2 text-center text-sm text-gray-600">
+                    <h2 className="mt-6 text-center text-2xl md:text-3xl font-extrabold text-white">Login Here</h2>
+                    <p className="mt-2 text-center text-sm text-red-400">
                         Don't have an account?{' '}
-                        <a href="signin" className="font-medium text-red-400 hover:text-black">
+                        <a href="signin" className="font-medium text-red-200 hover:text-black">
                             Sign Up
                         </a>
                     </p>
@@ -78,7 +78,7 @@ export function Logins() {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none bg-black rounded-none relative block w-full px-3 py-2 border border-red-300 placeholder-red-500 text-red-900 rounded-t-md focus:outline-none focus:ring-red-600 focus:border-red-600 focus:z-10 sm:text-sm"
                                 placeholder="Email address"
                             />
                         </div>
@@ -92,15 +92,15 @@ export function Logins() {
                                 type={showPass}
                                 autoComplete="current-password"
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                className="appearance-none bg-black rounded-none relative block w-full px-3 py-2 border border-red-300 placeholder-red-500 text-red-900 rounded-b-md focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
                                 placeholder="Password"
                             />
                             <span className="absolute px-2 right-0 inset-y-0 flex items-center pl-3">
                                 <button type='button' onClick={handleShowPass} className=''>
                                     {showPass === 'password' ? (
-                                        <EyeIcon className="h-5 w-5 text-gray-700 hover:text-red-500" aria-hidden="true" />
+                                        <EyeIcon className="h-5 w-5 text-red-700 hover:text-red-500" aria-hidden="true" />
                                     ) : (
-                                        <EyeOffIcon className="h-5 w-5 text-gray-700 hover:text-red-500" aria-hidden="true" />
+                                        <EyeOffIcon className="h-5 w-5 text-red-700 hover:text-red-500" aria-hidden="true" />
                                     )}
                                 </button>
                             </span>
@@ -110,7 +110,7 @@ export function Logins() {
                     <div className='grid gap-1'>
                         <div className="text-sm text-center py-2 md:text-right">
                             <Link href='/forgotpassword'>
-                                <a className="font-medium text-red-600 hover:text-green-500">
+                                <a className="font-medium text-red-600 hover:text-red-500">
                                     Forgot your password?
                                 </a>
                             </Link>
@@ -130,7 +130,7 @@ export function Logins() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-opacity-60 bg-opacity-40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                         >
                             Login
                         </button>
