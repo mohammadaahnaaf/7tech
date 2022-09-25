@@ -24,8 +24,6 @@ const navigation = [
 ]
 const userNavigation = [
     { name: 'Home', href: '/', state: true },
-    // { name: 'Your Profile', href: '/profile', state: true },
-    // { name: 'Settings', href: '/settings', state: true },
     { name: 'Sign out', href: '/login', state: false },
 ]
 
@@ -115,7 +113,7 @@ function AdminNavbar() {
                                         <Menu as="div" className="ml-3 relative">
                                             <div>
                                                 {useri && (
-                                                    <Menu.Button  className="text-green-600 bg-green-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-green-800">
+                                                    <Menu.Button className="text-green-600 bg-green-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-green-800">
                                                         <span className="sr-only">Open user menu</span>
                                                         {/* <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" /> */}
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
@@ -161,7 +159,7 @@ function AdminNavbar() {
                                 <div className="-mr-2 flex md:hidden">
 
                                     {/* Mobile menu button */}
-                                    <Disclosure.Button className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200">
+                                    <Disclosure.Button className="focus:bg-opacity-20 bg-opacity-10 bg-red-600 inline-flex items-center justify-center p-2 rounded-md text-gray-100">
                                         <span className="sr-only">Open main menu</span>
                                         {open ? (
                                             <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -172,40 +170,49 @@ function AdminNavbar() {
                                 </div>
                             </div>
                         </div>
-
-                        <Disclosure.Panel className="md:hidden bg-gray-100">
-                            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                                {navigation.map((item) => (
-                                    <Disclosure.Button
-                                        key={item.name}
-                                        as="a"
-                                        href={item.href}
-                                        className={classNames(
-                                            pathname === item.href ? 'bg-white text-gray-800' : '',
-                                            'block px-3 py-2 rounded-md text-base font-medium'
-                                        )}
-                                        aria-current={pathname === item.href ? 'page' : undefined}
-                                    >
-                                        {item.name}
-                                    </Disclosure.Button>
-                                ))}
-                            </div>
-                            <div className="pt-2 pb-3 border-t border-gray-300">
-
-                                <div className="mt-3 px-2 space-y-1">
-                                    {userNavigation.map((item) => (
+                        <Transition.Child
+                            as={Fragment}
+                            enter="transition ease-in-out duration-500 transform"
+                            enterFrom="-translate-x-full"
+                            enterTo="translate-x-0"
+                            leave="transition ease-in-out duration-300 transform"
+                            leaveFrom="translate-x-0"
+                            leaveTo="-translate-x-full"
+                        >
+                            <Disclosure.Panel className="md:hidden bg-black">
+                                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                                    {navigation.map((item) => (
                                         <Disclosure.Button
                                             key={item.name}
                                             as="a"
                                             href={item.href}
-                                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-800"
+                                            className={classNames(
+                                                pathname === item.href ? 'bg-red-600 bg-opacity-10 text-white' : '',
+                                                'block px-3 py-2 text-gray-100 rounded-md text-base font-medium'
+                                            )}
+                                            aria-current={pathname === item.href ? 'page' : undefined}
                                         >
                                             {item.name}
                                         </Disclosure.Button>
                                     ))}
                                 </div>
-                            </div>
-                        </Disclosure.Panel>
+                                <div className="pt-2 px-1 pb-3 border-t border-gray-300">
+
+                                    <div className="mt-3 px-2 space-y-1">
+                                        {userNavigation.map((item) => (
+                                            <Disclosure.Button
+                                                key={item.name}
+                                                as="a"
+                                                href={item.href}
+                                                className="block px-3 py-2 rounded-md text-base font-medium text-gray-100"
+                                            >
+                                                {item.name}
+                                            </Disclosure.Button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </Disclosure.Panel>
+                        </Transition.Child>
                     </>
                 )}
             </Disclosure>

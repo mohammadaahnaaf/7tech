@@ -7,39 +7,50 @@ import Search from './Search'
 import { useCart } from 'react-use-cart'
 import axiosAPI from '../utils/axios-api'
 import Link from 'next/link'
-import { HomeIcon, UserCircleIcon } from '@heroicons/react/solid'
-// import { cartProducts } from '../../data/CartItems'
-// import { products } from '../../data/ProductsData'
-
-const user = {
-    name: 'Ahnaf',
-    email: 'ahnaf1998ff@gmail.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-
+import { HomeIcon, ShieldCheckIcon, UserCircleIcon, UserIcon } from '@heroicons/react/solid'
 
 const navigation = [
-    { name: 'Home', href: '/home', icon: <HomeIcon className='h-5 w-5 mr-1' /> },
+    {
+        name: 'Home', href: '/',
+        icon: <HomeIcon className='h-5 w-5 mr-1' />
+    },
     {
         name: 'Categories', href: '/category',
         icon: <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5 mr-1' fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
         </svg>
     },
-    { name: 'Cart', href: '/cart', icon: <ShoppingCartIcon className='h-5 w-5 mr-1' /> },
+    {
+        name: 'Cart',
+        href: '/cart',
+        icon: <ShoppingCartIcon className='h-5 w-5 mr-1' />
+    },
 ]
 const userNavigation = [
-    { name: 'Admin', href: '/admin', state: true },
-    { name: 'Your Profile', href: '/profile', state: true },
-    { name: 'Settings', href: '/settings', state: true },
-    // { name: 'Sign out', href: '/login', state: false },
+    {
+        name: 'Admin',
+        href: '/admin',
+        icon: <ShieldCheckIcon className='h-5 w-5 mr-1' />,
+        state: true
+    },
+    {
+        name: 'Your Profile',
+        href: '/profile',
+        icon: <UserIcon className='h-5 w-5 mr-1' />,
+        state: true
+    },
 ]
 const basicNavigation = [
-    { name: 'Home', href: '/', state: true },
-    { name: 'Your Profile', href: '/profile', state: true },
-    // { name: 'Settings', href: '/settings', state: true },
-    // { name: 'Sign out', href: '/login', state: false },
+    {
+        name: 'Home',
+        href: '/',
+        state: true
+    },
+    {
+        name: 'Your Profile',
+        href: '/profile',
+        state: true
+    },
 ]
 
 
@@ -133,13 +144,13 @@ function Navbar({ setSearchTerm }) {
                                         <Menu as="div" className="ml-3 relative">
                                             <div>
                                                 {/* {useri && ( */}
-                                                    <Menu.Button className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800">
-                                                        <span className="sr-only">Open user menu</span>
-                                                        <svg className="h-6 w-6 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                                        </svg>
+                                                <Menu.Button className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800">
+                                                    <span className="sr-only">Open user menu</span>
+                                                    <svg className="h-6 w-6 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                                    </svg>
 
-                                                    </Menu.Button>
+                                                </Menu.Button>
                                                 {/* )} */}
                                             </div>
                                             <Transition
@@ -190,7 +201,7 @@ function Navbar({ setSearchTerm }) {
                                 <div className="-mr-2 flex md:hidden">
 
                                     {/* Mobile menu button */}
-                                    <Disclosure.Button className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-200">
+                                    <Disclosure.Button className="inline-flex items-center bg-red-600 focus:bg-opacity-10 bg-opacity-0 justify-center p-2 rounded-md text-red-600 focus:outline-none">
                                         <span className="sr-only">Open main menu</span>
                                         {open ? (
                                             <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -201,40 +212,49 @@ function Navbar({ setSearchTerm }) {
                                 </div>
                             </div>
                         </div>
-
-                        <Disclosure.Panel className="md:hidden bg-gray-100">
-                            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                                {navigation.map((item) => (
-                                    <Disclosure.Button
-                                        key={item.name}
-                                        as="a"
-                                        href={item.href}
-                                        className={classNames(
-                                            pathname === item.href ? 'bg-white text-gray-800' : '',
-                                            'block px-3 py-2 rounded-md text-base font-medium'
-                                        )}
-                                        aria-current={item.current ? 'page' : undefined}
-                                    >
-                                        {item.name}
-                                    </Disclosure.Button>
-                                ))}
-                            </div>
-                            <div className="pt-2 pb-3 border-t border-gray-300">
-
-                                <div className="mt-3 px-2 space-y-1">
-                                    {userNavigation.map((item) => (
+                        <Transition.Child
+                            as={Fragment}
+                            enter="transition ease-in-out duration-500 transform"
+                            enterFrom="-translate-x-full"
+                            enterTo="translate-x-0"
+                            leave="transition ease-in-out duration-300 transform"
+                            leaveFrom="translate-x-0"
+                            leaveTo="-translate-x-full"
+                        >
+                            <Disclosure.Panel className="md:hidden border-t-2 border-gray-600 bg-black">
+                                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                                    {navigation.map((item) => (
                                         <Disclosure.Button
                                             key={item.name}
                                             as="a"
                                             href={item.href}
-                                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-800"
+                                            className={classNames(
+                                                pathname === item.href ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
+                                                'flex px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                            )}
+                                            aria-current={item.current ? 'page' : undefined}
                                         >
-                                            {item.name}
+                                            {item.icon} {item.name}
                                         </Disclosure.Button>
                                     ))}
                                 </div>
-                            </div>
-                        </Disclosure.Panel>
+                                <div className="pt-2 pb-3 border-t-2 border-gray-600">
+
+                                    <div className="mt-3 px-2 space-y-1">
+                                        {userNavigation.map((item) => (
+                                            <Disclosure.Button
+                                                key={item.name}
+                                                as="a"
+                                                href={item.href}
+                                                className="flex px-3 py-2 rounded-md text-base font-medium text-red-600"
+                                            >
+                                                {item.icon} {item.name}
+                                            </Disclosure.Button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </Disclosure.Panel>
+                        </Transition.Child>
                     </>
                 )}
             </Disclosure>
