@@ -1,6 +1,6 @@
 import { TrashIcon } from '@heroicons/react/solid'
-import Link from 'next/link'
-import React, { useState } from 'react'
+// import Link from 'next/link'
+import React from 'react'
 import { useCart } from 'react-use-cart'
 import Layout from '../layout/Layout'
 import axiosAPI from '../utils/axios-api'

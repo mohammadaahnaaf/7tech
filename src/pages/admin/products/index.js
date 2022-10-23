@@ -3,6 +3,7 @@ import React from 'react'
 import ProductsList from '../../../components/Admin/products/ProductsList'
 import { withAuth } from '../../../hoc/withAuth'
 
+
 function ProductsPage() {
     return (
         <>

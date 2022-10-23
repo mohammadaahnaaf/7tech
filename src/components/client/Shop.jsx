@@ -3,7 +3,7 @@ import { ShoppingCartIcon } from '@heroicons/react/outline'
 import { useCart } from 'react-use-cart'
 import { useRouter } from 'next/router'
 import axiosRoot from '../utils/axios-root';
-import axiosAPI from '../utils/axios-api'
+// import axiosAPI from '../utils/axios-api'
 import Image from 'next/image';
 
 export function Shop({ items, title, term, filters }) {

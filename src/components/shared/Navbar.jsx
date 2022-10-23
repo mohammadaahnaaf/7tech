@@ -80,6 +80,7 @@ function Navbar({ setSearchTerm }) {
     }, []);
 
     async function handleLogout(e) {
+        
         e.preventDefault()
         await axiosAPI.delete('/auth/logout');
         setUseri(false);
@@ -293,14 +294,10 @@ export function BasicNavbar() {
                                             </a>
                                         </Link>
                                     </div>
-
-
-
                                 </div>
+                                
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
-
-
 
                                         {/* Cart  */}
                                         <Link href='/cart'>

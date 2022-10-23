@@ -11,7 +11,6 @@ function ProductsPage() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Products />
-            {/* <Modal /> */}
         </>
     )
 }

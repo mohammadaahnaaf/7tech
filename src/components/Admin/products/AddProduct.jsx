@@ -1,12 +1,13 @@
 import { TrashIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import React, { useState } from 'react';
+import { Editor } from 'react-draft-wysiwyg';
 import { TagsInput } from "react-tag-input-component";
 import { v4 as uuidv4 } from 'uuid';
 import AdminLayout from '../../layout/AdminLayout';
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
-// import style from './styles'
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const Detail = () => {
 
@@ -161,7 +162,7 @@ const Detail = () => {
         getCategory()
     }, []);
     console.log(cats.map((i) => i.name))
-    
+
     return (
 
         <div className='grid justify-around grid-cols-1 gap-3 p-5 m-3 bg-white rounded-lg'>
@@ -172,9 +173,8 @@ const Detail = () => {
             )}
             <form onSubmit={handleSubmit}>
                 <h1 className='py-3 mb-5 text-2xl text-center bg-gray-200 rounded-lg'>Add Product</h1>
+                {/* Product Details  */}
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
-
-                    {/* Product Details  */}
                     <div>
                         <div>
                             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
@@ -221,7 +221,6 @@ const Detail = () => {
                     </div>
 
                     <div>
-
                         {/* Upload Product images  */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Upload Photos</label>
@@ -289,16 +288,32 @@ const Detail = () => {
                         {formValues.map((element, index) => (
 
                             <div key={index} className='grid items-end grid-cols-10'>
-                                <div className='col-span-9'>
+                                <div className='col-span-10'>
                                     <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
-                                    <input type="text" name="title" id="title" placeholder="Enter detail" required
+
+                                    <Editor
+                                        type="text" name="title" id="title"
+                                        // editorState={element.title || ''}
+                                        // value={element.title || ''}
+                                        toolbarClassName="toolbarClassName"
+                                        wrapperClassName="wrapperClassName"
+                                        editorClassName="editorClassName"
+                                        // onEditorStateChange={(e) => handleChange(element.id, e)}
+                                        // onChange={(e) => handleChange(element.id, e)}
+                                    />
+                                </div>
+                                {/* <div className='col-span-9'>
+                                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
+                                    <input
+                                        type="text" name="title" id="title"
+                                        placeholder="Enter detail"
+                                        required
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         onChange={(e) => handleChange(element.id, e)}
                                         value={element.title || ""}
-
                                     />
-                                </div>
-                                <div>
+                                </div> */}
+                                <div className='hidden'>
                                     {formValues.length != 1 && (
                                         <button type="button" className="flex items-end" onClick={() => removeFormFields(element.id)}>
                                             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mb-2 ml-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -310,7 +325,7 @@ const Detail = () => {
                             </div>
 
                         ))}
-                        <div>
+                        <div className='hidden'>
                             <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type="button" onClick={addFormFields}>Add</button>
                         </div>
                     </div>
