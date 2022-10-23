@@ -23,15 +23,7 @@ function Main() {
         getProducts()
     }, []);
 
-    // const mouses = products.filter((item) => {
 
-    //     if (item.category === filterI) {
-    //         return item;
-    //     } else if (item.isFeatured === true) {
-    //         return item;
-    //     }
-    //     return ''
-    // })
     return (
         <Layout setSearchTerm={setSearchTerm}>
             <Banner />

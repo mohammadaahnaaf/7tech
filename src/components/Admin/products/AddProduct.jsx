@@ -288,7 +288,7 @@ const Detail = () => {
                         {formValues.map((element, index) => (
 
                             <div key={index} className='grid items-end grid-cols-10'>
-                                <div className='col-span-10'>
+                                {/* <div className='col-span-10'>
                                     <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
 
                                     <Editor
@@ -301,8 +301,8 @@ const Detail = () => {
                                         // onEditorStateChange={(e) => handleChange(element.id, e)}
                                         // onChange={(e) => handleChange(element.id, e)}
                                     />
-                                </div>
-                                {/* <div className='col-span-9'>
+                                </div> */}
+                                <div className='col-span-9'>
                                     <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
                                     <input
                                         type="text" name="title" id="title"
@@ -312,7 +312,7 @@ const Detail = () => {
                                         onChange={(e) => handleChange(element.id, e)}
                                         value={element.title || ""}
                                     />
-                                </div> */}
+                                </div>
                                 <div className='hidden'>
                                     {formValues.length != 1 && (
                                         <button type="button" className="flex items-end" onClick={() => removeFormFields(element.id)}>
@@ -325,7 +325,7 @@ const Detail = () => {
                             </div>
 
                         ))}
-                        <div className='hidden'>
+                        <div>
                             <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type="button" onClick={addFormFields}>Add</button>
                         </div>
                     </div>

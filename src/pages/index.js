@@ -1,27 +1,7 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react';
-import Home from '../components/client/Home';
 import Main from '../components/client/Main'
-import axiosAPI from '../components/utils/axios-api';
 
 function MainPage() {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-
-      axiosAPI.get('/auth/get-me')
-        .then(res => {
-          setIsLoggedIn(!!res.data.email)
-        })
-        .catch(error => {
-          console.log(error);
-          // Router.push('/login')
-        });
-    }
-  }, [isLoggedIn]);
-
 
   return (
     <>
