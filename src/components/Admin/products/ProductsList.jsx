@@ -13,6 +13,7 @@ export function ProductsLists() {
   const [selected, setSelected] = React.useState([]);
   const [allSelected, setAllSelected] = React.useState(false)
   const [rows, setRows] = React.useState([]);
+  const [success, setSuccess] = React.useState('');
 
   // get product data 
   React.useEffect(() => {
@@ -21,12 +22,14 @@ export function ProductsLists() {
       setRows(res.data)
     }
     getProducts()
-  }, []);
+  }, [router, success]);
 
   // Delete Product 
   async function handleDelete() {
     await axiosAPI.delete(`/products/${selected}`);
-    router.reload()
+    // router.reload()
+    setSuccess(`${selected} deleted.`)
+    setTimeout(() => { setSuccess('') }, 2000)
   }
 
   function handleAllChecked(event) {

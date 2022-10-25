@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 // import { details } from '../../../data/ProductsData'
 // import { colors } from '../../../data/ProductsData'
 
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import Layout from '../../layout/Layout'
 import axiosAPI from '../../utils/axios-api'
 import axiosRoot from '../../utils/axios-root'
@@ -26,6 +26,7 @@ export function Details() {
     const myRef = useRef()
 
     const [details, setDetails] = useState([])
+    // const [reviews, setReviews] = useState([])
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [show, setShow] = useState('info');
@@ -51,11 +52,12 @@ export function Details() {
             const res = await axiosRoot.get(`/products/${itemId}`);
             setDetails(res.data)
             setInfo(res.data.details)
+            // setReviews(res.data.reviews)
             setMoreInfo(res.data.information)
             setImages(res.data.images)
         }
         getProduct()
-    }, [success]);
+    }, [router, success]);
 
     // submit review data
     const handleSubmit = async (event) => {
@@ -66,7 +68,7 @@ export function Details() {
 
             const reqData = {
                 comment: data.get('comment'),
-                rating: star
+                rating: +star
             }
             await axiosAPI.post(`/products/${itemId}/review`, reqData);
             // router.reload()
