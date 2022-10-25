@@ -274,7 +274,7 @@ const Detail = () => {
                             </div>
                         </div>
                         <div>
-                            <input onChange={onChange} type="file" name="file" multiple />
+                            <input onChange={onChange} type="file" className='hidden' name="file" multiple />
                             {imgSrc.map((link) => (
                                 <img src={link} />
                             ))}
