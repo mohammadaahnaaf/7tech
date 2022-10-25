@@ -5,6 +5,7 @@ import { TrashIcon } from '@heroicons/react/solid';
 import Router, { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
 import { TagsInput } from 'react-tag-input-component';
+import axiosAPI from '../../utils/axios-api';
 // import { TagsInput } from 'react-tag-input-component';
 
 const Detail = () => {
@@ -14,6 +15,7 @@ const Detail = () => {
 
   const [cats, setCats] = React.useState([]);
   const [images, setImages] = React.useState([]);
+  const [files, setFiles] = React.useState([]);
   const [tags, setTags] = React.useState([]);
   const [loading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState('')
@@ -72,7 +74,7 @@ const Detail = () => {
     }
 
     getProduct()
-  }, []);
+  }, [loading]);
 
   // submit edit 
   const handleSubmit = async (event) => {
@@ -101,15 +103,37 @@ const Detail = () => {
       Array.from(files).forEach(file => {
         data.append('images', file)
       })
-
-      await axiosAPI.post(`/products/${itemId}`, data);
-      Router.push('/admin/products')
+      setIsLoading(true)
+      await axiosAPI.put(`/products/${itemId}`, data);
+      // Router.push('/admin/products')
+      setIsLoading(false)
     } catch (error) {
 
       setIsLoading(false);
       console.log(error)
       setError(error.response?.data?.message)
     }
+  }
+
+  // upload images 
+  const handleSelectImage = (e) => {
+    let file = e.target.files;
+
+    for (let i = 0; i < file.length; i++) {
+      const fileType = file[i]['type'];
+      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+      if (validImageTypes.includes(fileType)) {
+        setFiles([...files, file[i]]);
+        setImages([])
+      } else {
+        setError("only images accepted");
+      }
+    }
+  };
+
+  // remove image 
+  const removeImage = (i) => {
+    setFile(files.filter(x => x.name !== i));
   }
 
   // handle edit product 
@@ -200,10 +224,17 @@ const Detail = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
-        <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Product Details</h1>
-
+    <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
+      <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Product Details</h1>
+      {/* {error && (
+          <p className='mr-3 p-3 bg-yellow-200 rounded-lg text-red-500'>{error}</p>
+        )} */}
+      {error && (
+        <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
+          <span class="font-medium">Warning!</span> {error}
+        </div>
+      )}
+      <form onSubmit={handleSubmit}>
         <div className="grid gap-6 mb-6 md:grid-cols-2">
 
           {/* Details  */}
@@ -246,7 +277,7 @@ const Detail = () => {
 
               <TagsInput
                 value={tags}
-                onChange={setTags}
+                onChange={newValue => setTags(newValue)}
                 name="tags"
                 placeHolder="enter tags"
               />
@@ -286,7 +317,12 @@ const Detail = () => {
                     className="relative cursor-pointer font-medium p-1 rounded-md text-red-600 hover:text--500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-gray-300"
                   >
                     <span>Upload a file</span>
-                    <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                    <input id="file-upload" name="file-upload"
+                      onChange={handleSelectImage}
+                      type="file"
+                      className="sr-only"
+                      multiple
+                    />
                   </label>
                   <p className="pl-1">or drag and drop</p>
                 </div>
@@ -301,7 +337,7 @@ const Detail = () => {
                 <div key={index} className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
                   <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
                     <button type='button'
-                    // onClick={}
+                      onClick={() => { removeImage(item.name) }}
                     >
                       <TrashIcon className='text-red-600 h-6 w-6' />
                     </button>
@@ -310,37 +346,20 @@ const Detail = () => {
                 </div>
 
               ))}
+              {files.map((item, index) => (
 
-              {/* <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
-              <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                <button type='button'
-                // onClick={}
-                >
-                  <TrashIcon className='text-red-600 h-6 w-6' />
-                </button>
-              </div>
-              <img alt='product image' src={details.imageSrc} className='h-36 mx-auto ' />
-            </div> */}
-              {/* <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
-              <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                <button type='button'
-                // onClick={}
-                >
-                  <TrashIcon className='text-red-600 h-6 w-6' />
-                </button>
-              </div>
-              <img alt='product image' src={details.imageSrc} className='h-36 mx-auto' />
-            </div> */}
-              {/* <div className='h-36 ring-1 ring-gray-300 rounded-lg hover:opacity-70 cursor-pointer relative'>
-              <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
-                <button type='button'
-                // onClick={handleDeletePhoto}
-                >
-                  <TrashIcon className='text-red-600 h-6 w-6' />
-                </button>
-              </div>
-              <img alt='product image' src={details.imageSrc} className='h-36 mx-auto' />
-            </div> */}
+                <div key={index} className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
+                  <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
+                    <button type='button'
+                      onClick={() => { removeImage(item.name) }}
+                    >
+                      <TrashIcon className='text-red-600 h-6 w-6' />
+                    </button>
+                  </div>
+                  <img alt='product image' src={URL.createObjectURL(item)} className='h-36 mx-auto' />
+                </div>
+
+              ))}
 
             </div>
           </div>
@@ -357,8 +376,8 @@ const Detail = () => {
 
               <div key={index} className='grid grid-cols-10 items-end'>
                 <div className='col-span-9'>
-                  <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
-                  <input type="text" name="detail" id="detail" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                  <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
+                  <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
                 </div>
                 <div>
                   {formValues.length != 1 && (
@@ -384,8 +403,8 @@ const Detail = () => {
               <div className="flex gap-2 items-center" key={index}>
                 <div className='flex gap-2'>
                   <div>
-                    <label htmlFor="info" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
-                    <input type="text" name="info" id="info" value={element.title || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
+                    <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
                   </div>
                   <div>
                     <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
@@ -439,8 +458,8 @@ const Detail = () => {
           <button className="w-auto px-4 py-2 text-xs text-center text-white bg-red-600 rounded-lg hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Cancel</button>
           <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='submit'>Submit</button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   )
 }
 

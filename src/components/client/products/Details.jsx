@@ -33,6 +33,7 @@ export function Details() {
     const [moreInfo, setMoreInfo] = useState([])
     const [images, setImages] = useState([])
     const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
     const [view, setView] = useState(1)
 
     // const [selectedSize, setSelectedSize] = useState('')
@@ -54,7 +55,7 @@ export function Details() {
             setImages(res.data.images)
         }
         getProduct()
-    }, []);
+    }, [success]);
 
     // submit review data
     const handleSubmit = async (event) => {
@@ -68,7 +69,9 @@ export function Details() {
                 rating: star
             }
             await axiosAPI.post(`/products/${itemId}/review`, reqData);
-            router.reload()
+            // router.reload()
+            setSuccess('Your review added')
+            setTimeout(() => { setSuccess('') }, 2000)
 
         } catch (error) {
             console.log(error)
@@ -76,12 +79,12 @@ export function Details() {
         }
     }
 
-    const incrementQty = () => {
-        setQty(count => count + 1);
-    }
-    const decrementQty = () => {
-        setQty(count => count - 1);
-    }
+    // const incrementQty = () => {
+    //     setQty(count => count + 1);
+    // }
+    // const decrementQty = () => {
+    //     setQty(count => count - 1);
+    // }
 
     function handleScroll(e) {
         e.preventDefault()
@@ -373,6 +376,11 @@ export function Details() {
                                     <div className='px-2 md:px-5'>
                                         {error && (
                                             <p className='mr-3 p-3 bg-yellow-200 rounded-lg text-red-500'>{error}</p>
+                                        )}
+                                        {success && (
+                                            <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+                                                <span class="font-medium">Success!</span> {success}
+                                            </div>
                                         )}
                                         <label htmlFor="comment" className="block text-xl font-medium text-gray-700">
                                             Write a Review
