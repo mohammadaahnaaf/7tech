@@ -1,13 +1,13 @@
 import { TrashIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import React, { useState } from 'react';
-import { Editor } from 'react-draft-wysiwyg';
+// import { Editor } from 'react-draft-wysiwyg';
 import { TagsInput } from "react-tag-input-component";
 import { v4 as uuidv4 } from 'uuid';
 import AdminLayout from '../../layout/AdminLayout';
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const Detail = () => {
 
@@ -19,6 +19,7 @@ const Detail = () => {
     const [tags, setTags] = useState([]);
 
     const [files, setFile] = useState([]);
+    const [imgSrc, setImgSrc] = useState([]);
 
     const handleSelectImage = (e) => {
         let file = e.target.files;
@@ -161,7 +162,22 @@ const Detail = () => {
         }
         getCategory()
     }, []);
-    console.log(cats.map((i) => i.name))
+    // console.log(cats.map((i) => i.name))
+
+    const onChange = (e) => {
+
+        for (const file of e.target.files) {
+            const save = new FileReader();
+            save.readAsDataURL(file);
+            save.onload = () => {
+                setImgSrc((files) => [...files, save.result]);
+            };
+            save.onerror = () => {
+                console.log(save.error);
+            };
+        }
+    };
+    // console.log(files, files.length);
 
     return (
 
@@ -220,8 +236,8 @@ const Detail = () => {
                         </div>
                     </div>
 
+                    {/* Upload Product images  */}
                     <div>
-                        {/* Upload Product images  */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Upload Photos</label>
                             <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
@@ -257,7 +273,12 @@ const Detail = () => {
                                 </div>
                             </div>
                         </div>
-
+                        <div>
+                            <input onChange={onChange} type="file" name="file" multiple />
+                            {imgSrc.map((link) => (
+                                <img src={link} />
+                            ))}
+                        </div>
                         {/* Images  */}
                         <div className='grid grid-cols-2 gap-2 mt-5'>
                             {files.map((file) =>

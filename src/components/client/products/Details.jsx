@@ -1,18 +1,19 @@
-import { RadioGroup } from '@headlessui/react'
 import { StarIcon } from '@heroicons/react/solid'
 import { useEffect, useRef, useState } from 'react'
 
+// import { RadioGroup } from '@headlessui/react'
 // import { XIcon } from '@heroicons/react/outline'
 // import { Shop } from '../Shop'
 // import { Product } from './Products'
 // import { details } from '../../../data/ProductsData'
+// import { colors } from '../../../data/ProductsData'
 
 import Router, { useRouter } from 'next/router'
-import { colors } from '../../../data/ProductsData'
 import Layout from '../../layout/Layout'
 import axiosAPI from '../../utils/axios-api'
 import axiosRoot from '../../utils/axios-root'
 import Image from 'next/image'
+import { useCart } from 'react-use-cart'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -27,24 +28,26 @@ export function Details() {
     const [details, setDetails] = useState([])
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
-    const [selectedColor, setSelectedColor] = useState('')
     const [show, setShow] = useState('info');
     const [info, setInfo] = useState([])
     const [moreInfo, setMoreInfo] = useState([])
     const [images, setImages] = useState([])
     const [error, setError] = useState('')
     const [view, setView] = useState(1)
-    // const [selectedSize, setSelectedSize] = useState('')
 
+    // const [selectedSize, setSelectedSize] = useState('')
+    // const [selectedColor, setSelectedColor] = useState('')
+    // const total = (items) => items.reduce((acc, curr) => acc + curr.rating, 0);
+
+    const { addItem } = useCart();
     const ratings = details?.reviews?.reduce((acc, curr) => acc + curr.rating, 0) / details?.reviews?.length
 
-    // const total = (items) => items.reduce((acc, curr) => acc + curr.rating, 0);
 
     // get data 
     useEffect(() => {
         async function getProduct() {
 
-            const res = await axiosRoot.get('/products/' + itemId);
+            const res = await axiosRoot.get(`/products/${itemId}`);
             setDetails(res.data)
             setInfo(res.data.details)
             setMoreInfo(res.data.information)
@@ -84,6 +87,15 @@ export function Details() {
         e.preventDefault()
         setShow('reviews')
         myRef.current?.scrollIntoView()
+    }
+
+    const cartProduct = {
+        id: details._id,
+        imageSrc: images[0],
+        name: details.name,
+        price: details.price,
+        category: details.category,
+        quantity: 2
     }
 
     return (
@@ -166,9 +178,10 @@ export function Details() {
                         </h3>
 
                         <form>
-                            <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
+                            <div className='grid grid-cols-1 gap-2'>
+
                                 {/* Colors */}
-                                <div>
+                                {/* <div>
                                     <h4 className="text-sm font-medium text-gray-900">Color</h4>
 
                                     <RadioGroup value={selectedColor} onChange={setSelectedColor} className="p-2 mt-1 ring-black ring-2">
@@ -201,26 +214,28 @@ export function Details() {
                                             ))}
                                         </span>
                                     </RadioGroup>
-                                </div>
+                                </div> */}
 
                                 {/* Qty */}
                                 <div>
 
                                     <h4 className="text-sm font-medium text-gray-900">Qty</h4>
                                     <div className="relative flex flex-row w-full h-12 mt-1 bg-transparent ring-black ring-2">
-                                        <button type='button' onClick={decrementQty} data-action="decrement" className="w-20 h-full text-black bg-white cursor-pointer ">
+                                        <button type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full text-black bg-white cursor-pointer ">
                                             <span className="m-auto text-2xl font-semibold">−</span>
                                         </button>
                                         <p className="flex items-center justify-center w-full font-semibold text-center text-black bg-white border-black border-x-2 text-md">{qty}</p>
-                                        <button type='button' onClick={incrementQty} data-action="increment" className="w-20 h-full text-black bg-white cursor-pointer">
+                                        <button type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full text-black bg-white cursor-pointer">
                                             <span className="m-auto text-2xl font-semibold">+</span>
                                         </button>
                                     </div>
                                 </div>
 
+                                {/* Cart Add  */}
                                 <div>
                                     <button
                                         type="button"
+                                        onClick={() => addItem(cartProduct)}
                                         className="flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 ring-2 ring-black"
                                     >
                                         Add to Cart
@@ -356,6 +371,9 @@ export function Details() {
                                 {/* white a review  */}
                                 <form onSubmit={handleSubmit}>
                                     <div className='px-2 md:px-5'>
+                                        {error && (
+                                            <p className='mr-3 p-3 bg-yellow-200 rounded-lg text-red-500'>{error}</p>
+                                        )}
                                         <label htmlFor="comment" className="block text-xl font-medium text-gray-700">
                                             Write a Review
                                         </label>
