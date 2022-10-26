@@ -21,39 +21,39 @@ function Success() {
     }
 
     return (
-        <div className="grid min-h-screen bg-black justify-centerpy-6 sm:px-6 lg:px-8">
-            <div className=' max-w-7xl mx-auto bg-gray-50 my-4 rounded-lg shadow-md px-10'>
+        <div className="grid h-auto overflow-scroll bg-black justify-centerpy-6 sm:px-6 lg:px-8">
+            <div className=' max-w-5xl mx-auto bg-gray-600 bg-opacity-50 my-4 rounded-lg shadow-md px-10'>
                 <div>
                     <CheckIcon className='bg-green-500 mx-auto text-white rounded-full h-20 w-20 my-10' />
                     <h1 className='text-green-500 text-4xl text-center'>Thank you</h1>
-                    <h1 className='text-gray-500 text-sm py-2 text-center'>Your order has been recived</h1>
+                    <h1 className='text-gray-200 text-sm py-2 text-center'>Your order has been recived</h1>
 
                 </div>
                 {/* <Link href='/' className='text-center'>
                     <a className='text-center py-3'>Back to home</a>
                 </Link> */}
                 <div className='grid grid-cols-1 mx-auto mt-3 gap-3 justify-between items-center sm:grid-cols-2 lg:grid-cols-4'>
-                    <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
-                        <h1 className='text-center text-xs text-gray-500'>Order nunmer:</h1>
-                        <h1 className='text-center text-sm'>#1</h1>
+                    <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
+                        <h1 className='text-center text-xs text-gray-200'>Order nunmer:</h1>
+                        <h1 className='text-center text-gray-100 text-sm'>#1</h1>
                     </div>
-                    <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
-                        <h1 className='text-center text-xs text-gray-500'>Created at:</h1>
-                        <h1 className='text-center text-sm'>Just now</h1>
-                    </div>
-
-                    <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
-                        <h1 className='text-center text-xs text-gray-500'>Subtotal:</h1>
-                        <h1 className='text-center text-sm'>৳ {cartTotal}</h1>
+                    <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
+                        <h1 className='text-center text-xs text-gray-200'>Created at:</h1>
+                        <h1 className='text-center text-gray-100 text-sm'>Just now</h1>
                     </div>
 
-                    <div className='p-3 mx-auto w-36 rounded-md bg-gray-200'>
-                        <h1 className='text-center text-xs text-gray-500'>Status:</h1>
-                        <h1 className='text-center text-sm'>Recived</h1>
+                    <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
+                        <h1 className='text-center text-xs text-gray-200'>Subtotal:</h1>
+                        <h1 className='text-center text-gray-100 text-sm'>৳ {cartTotal}</h1>
+                    </div>
+
+                    <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
+                        <h1 className='text-center text-xs text-gray-200'>Status:</h1>
+                        <h1 className='text-center text-gray-100 text-sm'>Recived</h1>
                     </div>
                 </div>
                 <ProductsViews />
-                <div className='py-3 flex items-center justify-center bg-green-100 mx-auto'>
+                <div className='py-3 flex items-center justify-center bg-green-400 bg-opacity-20 mx-auto'>
                     <button className='text-sm hover:text-red-600 text-center text-green-600' type='button' onClick={handleSuccess}>Back to home</button>
                 </div>
             </div>
@@ -68,9 +68,9 @@ const ProductsViews = () => {
     let total = (+ vat + shipping + cartTotal)
 
     return (
-        <div className="overflow-y-scroll max-h-screen relative my-5">
+        <div className="overflow-y-scroll relative my-5">
             <table className="w-full text-sm text-left text-gray-500">
-                <thead className="text-xs text-gray-700 uppercase bg-green-100">
+                <thead className="text-xs text-gray-200 uppercase bg-green-500 bg-opacity-20">
                     <tr>
                         <th scope="col" className="py-3 px-6">
                             Product name
@@ -86,7 +86,7 @@ const ProductsViews = () => {
                 <tbody>
                     {items.map((item, index) => (
                         <tr key={index} className="border-b">
-                            <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                            <th scope="row" className="py-4 px-6 font-medium text-gray-100 whitespace-nowrap">
                                 {index + 1}{'.  '} {item.name}
                             </th>
                             <td className="py-4 px-6">
@@ -97,15 +97,15 @@ const ProductsViews = () => {
                             </td>
                         </tr>
                     ))}
-                    <tr className=' bg-green-100 border-b'>
-                        <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Subtotal:</th>
+                    <tr className=' bg-green-400 text-gray-200 bg-opacity-10 border-b'>
+                        <th className='py-4 px-6 font-medium whitespace-nowrap'>Subtotal:</th>
                         <td className="py-4 px-6">{totalItems}</td>
                         <td className="py-4 px-6">৳ {cartTotal}</td>
                     </tr>
                     <tr>
-                        <th className='py-4 px-6 font-medium text-gray-900 whitespace-nowrap'>Total: (7% VAT and 100 ৳/product shipping cost.)</th>
-                        <td className="py-4 px-6">{''}</td>
-                        <td className="py-4 px-6">৳ {total}</td>
+                        <th className='py-4 px-6 font-medium text-gray-200 whitespace-nowrap'>Total: (7% VAT and 100 ৳/product shipping cost.)</th>
+                        <td className="text-gray-200 py-4 px-6">{''}</td>
+                        <td className="text-gray-200 py-4 px-6">৳ {total}</td>
                     </tr>
                 </tbody>
             </table>

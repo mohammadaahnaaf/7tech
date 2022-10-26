@@ -61,7 +61,7 @@ function Checkouts({ setSuccess }) {
                 <div className='max-w-7xl mx-auto grid md:flex justify-center gap-5'>
 
                     {/* Account and delevary details */}
-                    <div className="shadow h-full bg-red-600 bg-opacity-20 ring-2 ring-red-600">
+                    <div className="shadow h-full ring-2 ring-red-600">
                         <div className="px-4 py-5 sm:p-6">
                             <div className="grid grid-cols-6 gap-6">
                                 <h2 className='text-center col-span-6 text-red-600 font-medium text-2xl'>Checkout</h2>
@@ -176,7 +176,7 @@ function Checkouts({ setSuccess }) {
                         <div className="px-4 py-4 md:rounded-b-lg bg-red-600 bg-opacity-10 text-right sm:px-6">
                             <button
                                 type="submit"
-                                className="inline-flex bg-red-600 bg-opacity-20 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-red-600 hover:bg-opacity-10 focus:outline-none ring-2 ring-red-600"
+                                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-red-600 hover:bg-black focus:outline-none ring-2 ring-red-600"
                             >
                                 Confirm Order
                             </button>
@@ -184,7 +184,7 @@ function Checkouts({ setSuccess }) {
                     </div>
 
                     {/* Cart Products details */}
-                    <div className='md:w-1/3 h-auto shadow bg-red-600 bg-opacity-20 overflow-y-scroll'>
+                    <div className='md:w-1/3 h-auto shadow ring-red-600 ring-2 overflow-y-scroll'>
                         <div className="h-auto py-3 px-2">
                             <div className="mt-8">
                                 <div className="flow-root">
@@ -203,7 +203,7 @@ function Checkouts({ setSuccess }) {
                                                     <div>
                                                         <div className="flex justify-between text-base font-medium text-red-600">
                                                             <button type='button' onClick={() => router.push(`/products/${product.id}`)}>
-                                                                <h3> {product.name} </h3>
+                                                                <h3 className='text-left'> {product.name.substring(0, 35)} </h3>
                                                             </button>
                                                             <button
                                                                 type="button"

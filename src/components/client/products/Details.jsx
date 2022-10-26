@@ -1,13 +1,6 @@
 import { StarIcon } from '@heroicons/react/solid'
 import { useEffect, useRef, useState } from 'react'
 
-// import { RadioGroup } from '@headlessui/react'
-// import { XIcon } from '@heroicons/react/outline'
-// import { Shop } from '../Shop'
-// import { Product } from './Products'
-// import { details } from '../../../data/ProductsData'
-// import { colors } from '../../../data/ProductsData'
-
 import { useRouter } from 'next/router'
 import Layout from '../../layout/Layout'
 import axiosAPI from '../../utils/axios-api'
@@ -43,7 +36,6 @@ export function Details() {
 
     const { addItem } = useCart();
     const ratings = details?.reviews?.reduce((acc, curr) => acc + curr.rating, 0) / details?.reviews?.length
-
 
     // get data 
     useEffect(() => {
