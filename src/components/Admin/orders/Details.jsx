@@ -49,37 +49,28 @@ const Detail = () => {
         }
         getOrder()
 
-    }, []);
+    }, [router]);
 
     // get all products data
     useEffect(() => {
-
         async function getProduct() {
             const res = await axiosRoot.get('/products');
             res.data.map((product) => {
-
                 return orderedProduct.find((element) => {
-                    return element.productId === product._id ?
-                        setProducts([...products, {
+                    return element.productId === product._id &&
+                        setProducts(result => [...result, {
                             name: product.name,
                             price: product.price,
                             productId: element.productId,
                             _id: element._id,
-                            quantity: element.quantity
-                        }]) : null
+                            quantity: +element.quantity
+                        }])
                 })
             })
-            setProducts([
-                {
-                    name: res.data.name,
-                    price: res.data.price,
-                    quantity: productId.map(i => i.quantity)
-                }
-            ])
         }
         getProduct()
 
-    }, []);
+    }, [router]);
 
     // Details 
     const handleChange = (id, event) => {
@@ -89,7 +80,6 @@ const Detail = () => {
             }
             return i;
         })
-
         setFormValues(newInputFields);
     };
 
