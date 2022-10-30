@@ -32,8 +32,8 @@ export function Shop({ items, title, term, filters }) {
       }
       <div>
         <div className="mx-auto mt-4 max-w-7xl">
+          {/* <Product /> */}
           <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-
             {search(items)?.map((product) => {
               return filterI === product.category ? (
                 <Product setiCategory={setiCategory} product={product} />
@@ -43,20 +43,6 @@ export function Shop({ items, title, term, filters }) {
         </div>
       </div>
 
-      {/* <Product /> */}
-      
-      {/* <div className='max-w-7xl items-center justify-center justify-items-center mx-auto mt-3 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
-        {search(items)?.map((product) => {
-          return filterI === product.category ? (
-            <ProductCard setiCategory={setiCategory} product={product} />
-          ) : null
-        })}
-      </div> */}
-      {/* <div className='max-w-7xl items-center justify-center justify-items-center mx-auto mt-3 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5'>
-        {search(items)?.map((product) => 
-            <ProductCard setiCategory={setiCategory} product={product} />
-        )}
-      </div> */}
     </div>
   )
 }
