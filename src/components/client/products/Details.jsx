@@ -92,7 +92,7 @@ export function Details() {
         name: details.name,
         price: details.price,
         category: details.category,
-        quantity: 2
+        quantity: 1
     }
 
     return (
@@ -164,7 +164,7 @@ export function Details() {
                             </div>
                             <div className='grid gap-1 py-2'>
                                 {/* <h5 className='text-xs'>Brand: <a href='#' className='text-red-500'>{details.brand}</a></h5> */}
-                                <h5 className='text-sm'>Sold By: <a href='#' className='text-red-500'>7Tech</a></h5>
+                                <h5 className='text-sm'>Brand: <a href='#' className='text-red-500'>Redragon</a></h5>
                             </div>
                         </div>
                     </section>
@@ -232,7 +232,7 @@ export function Details() {
                                 <div>
                                     <button
                                         type="button"
-                                        onClick={() => addItem(cartProduct)}
+                                        onClick={() => addItem(cartProduct, qty)}
                                         className="flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 ring-2 ring-black"
                                     >
                                         Add to Cart

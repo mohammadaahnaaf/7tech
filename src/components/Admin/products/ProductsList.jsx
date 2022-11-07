@@ -142,7 +142,7 @@ export function ProductsLists() {
                   {product.category}
                 </td>
                 <td className="py-4 px-6">
-                  ${product.price}
+                  Tk {product.price}
                 </td>
                 <td className="py-4 px-6 text-right">
                   <button type='button' onClick={() => router.push(`/admin/products/${product._id}`)}>

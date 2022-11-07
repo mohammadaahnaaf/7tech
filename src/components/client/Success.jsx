@@ -5,7 +5,7 @@ import Router from 'next/router'
 // import { products } from '../../data/ProductsData'
 
 
-function Success() {
+function Success({order}) {
 
     const { emptyCart, cartTotal } = useCart();
     // const cartTotal = 172300;
@@ -21,7 +21,7 @@ function Success() {
     }
 
     return (
-        <div className="grid h-auto overflow-scroll bg-black justify-centerpy-6 sm:px-6 lg:px-8">
+        <div className="grid min-h-screen overflow-scroll bg-black justify-centerpy-6 sm:px-6 lg:px-8">
             <div className=' max-w-5xl mx-auto bg-gray-600 bg-opacity-50 my-4 rounded-lg shadow-md px-10'>
                 <div>
                     <CheckIcon className='bg-green-500 mx-auto text-white rounded-full h-20 w-20 my-10' />
@@ -35,7 +35,7 @@ function Success() {
                 <div className='grid grid-cols-1 mx-auto mt-3 gap-3 justify-between items-center sm:grid-cols-2 lg:grid-cols-4'>
                     <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
                         <h1 className='text-center text-xs text-gray-200'>Order nunmer:</h1>
-                        <h1 className='text-center text-gray-100 text-sm'>#1</h1>
+                        <h1 className='text-center text-gray-100 text-sm'>{order._id}</h1>
                     </div>
                     <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
                         <h1 className='text-center text-xs text-gray-200'>Created at:</h1>
@@ -49,7 +49,7 @@ function Success() {
 
                     <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
                         <h1 className='text-center text-xs text-gray-200'>Status:</h1>
-                        <h1 className='text-center text-gray-100 text-sm'>Recived</h1>
+                        <h1 className='text-center text-gray-100 text-sm'>Pending</h1>
                     </div>
                 </div>
                 <ProductsViews />
@@ -103,7 +103,7 @@ const ProductsViews = () => {
                         <td className="py-4 px-6">৳ {cartTotal}</td>
                     </tr>
                     <tr>
-                        <th className='py-4 px-6 font-medium text-gray-200 whitespace-nowrap'>Total: (7% VAT and 100 ৳/product shipping cost.)</th>
+                        <th className='py-4 px-6 font-medium text-gray-200 whitespace-nowrap'>Total: (with shipping cost)</th>
                         <td className="text-gray-200 py-4 px-6">{''}</td>
                         <td className="text-gray-200 py-4 px-6">৳ {total}</td>
                     </tr>

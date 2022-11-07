@@ -8,14 +8,26 @@ import Success from './Success'
 // import { products } from '../../data/ProductsData'
 
 
-const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "Srilanka"]
+// const countries = ['Afghanistan', 'Bangladesh', "India", "Pakistan", "Nepal", "Srilanka"]
 
-function Checkouts({ setSuccess }) {
+function Checkouts({ setSuccess, setOrder }) {
+
+    const [city, setCity] = React.useState('')
+    const [error, setError] = React.useState('')
+    const [shipment, setShipment] = React.useState(0)
 
     let { items, cartTotal, removeItem } = useCart()
     let vat = (cartTotal * (7 / 100)).toFixed(2)
-    let shipping = items.length * 100
+    let shipping = items.length * shipment
     let total = (+ vat + shipping + cartTotal)
+
+    React.useEffect(() => {
+        if (city === 'Dhaka') {
+            setShipment(60)
+        } else {
+            setShipment(160)
+        }
+    }, [city])
 
     // post data 
     const handleSubmit = async (event) => {
@@ -24,7 +36,6 @@ function Checkouts({ setSuccess }) {
             event.preventDefault()
 
             const data = new FormData(event.currentTarget);
-
             const reqData = {
                 customer_name: data.get('name'),
                 customer_number: data.get('phone'),
@@ -40,12 +51,12 @@ function Checkouts({ setSuccess }) {
                     }
                 ))
             }
-            await axiosAPI.post('/orders', reqData);
-            //   Router.push('/admin/category')
+            const order = await axiosAPI.post('/orders', reqData);
             setSuccess(true)
+            setOrder(order.data)
 
         } catch (error) {
-            setIsLoading(false);
+            // setIsLoading(false);
             console.log(error)
             setError(error.response?.data?.message)
         }
@@ -78,7 +89,7 @@ function Checkouts({ setSuccess }) {
                                     />
                                 </div>
 
-                                <div className="col-span-6 sm:col-span-3">
+                                <div className="col-span-6 sm:col-span-3 hidden">
                                     <label htmlFor="email" className="block text-sm font-medium text-red-600">
                                         Email address
                                     </label>
@@ -91,7 +102,7 @@ function Checkouts({ setSuccess }) {
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
-                                <div className="col-span-6 sm:col-span-3">
+                                <div className="col-span-6 sm:col-span-6">
                                     <label htmlFor="phone" className="block text-sm font-medium text-red-600">
                                         Phone number
                                     </label>
@@ -106,7 +117,7 @@ function Checkouts({ setSuccess }) {
                                     />
                                 </div>
 
-                                <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div className="col-span-6 sm:col-span-3">
                                     <label htmlFor="city" className="block text-sm font-medium text-red-600">
                                         City
                                     </label>
@@ -114,12 +125,14 @@ function Checkouts({ setSuccess }) {
                                         type="text"
                                         name="city"
                                         id="city"
+                                        onChange={(e) => setCity(e.target.value)}
+                                        value={city || ''}
                                         autoComplete="address-level2"
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
 
-                                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                                <div className="col-span-6 sm:col-span-3">
                                     <label htmlFor="zone" className="block text-sm font-medium text-red-600">
                                         Zone
                                     </label>
@@ -132,7 +145,7 @@ function Checkouts({ setSuccess }) {
                                     />
                                 </div>
 
-                                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                                <div className="col-span-6 sm:col-span-3 lg:col-span-2 hidden">
                                     <label htmlFor="area" className="block text-sm font-medium text-red-600">
                                         Area
                                     </label>
@@ -147,14 +160,14 @@ function Checkouts({ setSuccess }) {
                                 </div>
                                 <div className="col-span-6">
                                     <label htmlFor="payment" className="block text-sm font-medium text-red-600">
-                                        Payment Mathod
+                                        Payment Method
                                     </label>
                                     <select
                                         id="payment"
                                         name="payment"
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     >
-                                        <option value='cash-on-delivery'>Cash on delevary</option>
+                                        <option value='cash-on-delivery'>Cash on Delivery</option>
                                         <option value='bkash'>BKash</option>
                                     </select>
                                 </div>
@@ -245,15 +258,11 @@ function Checkouts({ setSuccess }) {
                                 <p>Shipping :</p>
                                 <p className='text-green-500'>৳ {shipping}</p>
                             </div>
-                            <div className="flex py-1 justify-between text-base font-medium text-red-700">
-                                <p>VAT (7%) :</p>
-                                <p className='text-green-500'>৳ {vat}</p>
-                            </div>
+
                             <div className="flex border-t-2 py-1 justify-between text-base font-medium text-red-700">
                                 <p>Total :</p>
                                 <p className='text-green-500'>৳ {total}</p>
                             </div>
-                            <p className="mt-0.5 text-sm text-red-500">Shipping and taxes are included</p>
                         </div>
                     </div>
                 </div>
@@ -266,13 +275,14 @@ function Checkouts({ setSuccess }) {
 export default function Checkout() {
 
     const [success, setSuccess] = React.useState(false)
+    const [order, setOrder] = React.useState({})
 
     return (
         <Layout>
             {!success ?
-                <Checkouts setSuccess={setSuccess} />
+                <Checkouts setOrder={setOrder} setSuccess={setSuccess} />
                 :
-                <Success />
+                <Success order={order} />
             }
         </Layout>
     )
