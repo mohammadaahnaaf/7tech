@@ -17,18 +17,11 @@ export function Categories() {
     const [allSelected, setAllSelected] = React.useState(false)
     const [rows, setRows] = React.useState([]);
     const [isOpen, setIsOpen] = React.useState(false)
-    const [confirm, setConfirm] = React.useState(false)
+    const [success, setSuccess] = React.useState('')
 
     function closeModal() {
-        !confirm && (
-            setConfirm(true)
-        )
         setIsOpen(false)
     }
-
-    // function openModal() {
-    //     setIsOpen(true)
-    // }
 
     //Get Data
     React.useEffect(() => {
@@ -37,18 +30,19 @@ export function Categories() {
             setRows(res.data)
         }
         getCategory()
-    }, []);
+    }, [success]);
 
     // delete category 
-    function handleDelete() {
-        setIsOpen(true)
-
-        confirm === true && (
-            selected.map((item) =>
-                axiosAPI.delete(`/categories/${item}`)
-            ),
-            router.reload()
+    function handleDelete(e) {
+        e.preventDefault()
+        setIsOpen(false)
+        selected.map((item) =>
+            axiosAPI.delete(`/categories/${item}`)
         )
+        setSuccess('Category Deleted')
+        setTimeout(() => {
+            setSuccess('')
+        }, 2000)
     }
 
 
@@ -120,7 +114,7 @@ export function Categories() {
                                 </Dialog.Title>
                                 <div className="mt-2">
                                     <p className="text-sm text-gray-500">
-                                        Are you sure you want to deelte selected category?
+                                        Are you sure you want to delete selected category?
                                     </p>
                                 </div>
 
@@ -135,7 +129,7 @@ export function Categories() {
                                     <button
                                         type="button"
                                         className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                                        onClick={closeModal}
+                                        onClick={handleDelete}
                                     >
                                         Delete
                                     </button>
@@ -159,6 +153,11 @@ export function Categories() {
     return (
         <div className="mx-3 mt-3 relative overflow-x-auto bg-red-100 shadow-md sm:rounded-lg">
             {modal}
+            {success && (
+                <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+                    <span class="font-medium">Deleted!</span> {success}
+                </div>
+            )}
             <div className='flex gap-2 justify-center py-1 bg-black'>
                 <Search setSearchTerm={setSearchTerm} />
                 <Link href='/admin/category/add'>
@@ -186,7 +185,7 @@ export function Categories() {
                         <th scope="col" className="py-3 px-6">
                             {selected != 0 && (
                                 <>
-                                    <button type='button' onClick={handleDelete}>
+                                    <button type='button' onClick={() => setIsOpen(true)}>
                                         <TrashIcon className='h-5 w-5 text-red-600' />
                                     </button>
                                 </>

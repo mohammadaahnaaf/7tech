@@ -47,7 +47,8 @@ const Detail = () => {
   const [reviews, setReviews] = React.useState([
     {
       id: uuidv4(),
-      review: ""
+      name: "",
+      comment: ""
     }
   ]);
 
@@ -66,6 +67,7 @@ const Detail = () => {
     async function getProduct() {
       const res = await axiosRoot.get(`/products/${itemId}`);
       setDetails(res.data)
+      setReviews(res.data.reviews)
       setTags(res.data.tags)
       setIsFeatured(res.data.isFeatured)
       setFormValues(res.data.details)
@@ -191,7 +193,7 @@ const Detail = () => {
   //   }])
   // };
 
-  const removeReview = id => {
+  function removeReview(id) {
     const values = [...reviews];
     values.splice(values.findIndex(value => value._id === id), 1);
     setReviews(values);
@@ -428,18 +430,18 @@ const Detail = () => {
           {/* Reviews  */}
           <div className='grid items-end gap-2'>
             <h1>Reviews</h1>
-            {details.reviews?.map((element, index) => (
+            {reviews?.map((element, index) => (
               <div className="flex gap-2 items-center" key={index}>
                 <div>
-                  <label htmlFor="review" className="block mb-2 text-xs font-medium text-gray-900">Reviewed by</label>
-                  <input type="text" name="review" id="review" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                  <label htmlFor="name" className="block mb-2 text-xs font-medium text-gray-900">Reviewed by</label>
+                  <input type="text" name="name" id="name" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
                 </div>
                 <div className='flex'>
                   <div>
-                    <label htmlFor="review" className="block mb-2 text-xs font-medium text-gray-900">Comment</label>
-                    <input type="text" name="review" id="review" value={element.comment || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
+                    <label htmlFor="comment" className="block mb-2 text-xs font-medium text-gray-900">Comment</label>
+                    <input type="text" name="comment" id="comment" value={element.comment || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter details" required />
                   </div>
-                  {details.reviews.length != 1 && (
+                  {reviews.length != 1 && (
                     <button type="button" className="items-end flex" onClick={() => removeReview(element._id)}>
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

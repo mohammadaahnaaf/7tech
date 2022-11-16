@@ -7,7 +7,7 @@ import Layout from '../../layout/Layout'
 import { ProductCard } from '../Shop'
 import axiosAPI from '../../utils/axios-api'
 import { useRouter } from 'next/router'
-import None from './None'
+// import None from './None'
 import axiosRoot from '../../utils/axios-root'
 
 function classNames(...classes) {

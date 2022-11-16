@@ -4,11 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 // import { dataCategories } from '../../../data/CategoriesData';
 import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
+import axiosAPI from '../../utils/axios-api';
 
 export function Detail() {
 
   const router = useRouter()
   const itemId = router.query.id
+  const [error, setError] = React.useState('')
+  const [success, setSuccess] = React.useState('')
   const [itemo, setItemo] = useState({
     _id: '',
     name: ''
@@ -16,33 +19,53 @@ export function Detail() {
   const [formValues, setFormValues] = useState([
     {
       _id: '',
-      name: ''
+      names: ''
     }
   ])
 
   useEffect(() => {
 
     async function getCategory() {
-      const res = await axiosRoot.get('/categories/' + itemId);
+      const res = await axiosRoot.get(`/categories/${itemId}`);
       setItemo(res.data)
-      setFormValues(res.data.subCategories)
+      let childs = res.data.subCategories.map((x) => ({
+        _id: x._id,
+        names: x.name
+      }))
+      setFormValues(childs)
     }
-    
+
     getCategory()
   }, []);
 
-  // useEffect(() => {
-  //   setItemId(router.query.id)
-  //   const data = dataCategories.find(i => i.id === 1)
-  //   async function getProduct() {
-  //     // const res = await axiosAPI.get('/products/' + itemId);
-  //     // setOrder(res.data)
-  //     setItemo(data)
-  //     setFormValues(data?.childs)
-  //   }
-  //   console.log("itemo: ", itemo)
-  //   getProduct()
-  // }, []);
+  // submit edited data
+
+  async function handleSubmit(event) {
+
+    try {
+      event.preventDefault()
+
+      const data = new FormData(event.currentTarget);
+
+      const reqData = {
+        name: itemo.name,
+        subCategories: formValues.map(value => (
+          {
+            name: value.names,
+          }
+        ))
+      }
+      await axiosAPI.put(`/categories/${itemId}`, reqData);
+      setSuccess('Category Edited.')
+      setTimeout(() => {
+        setSuccess('')
+      }, 2000)
+
+    } catch (error) {
+      console.log(error)
+      setError(error.response?.data?.message)
+    }
+  }
 
   const handleChange = (id, event) => {
     const newInputFields = formValues.map(i => {
@@ -67,7 +90,7 @@ export function Detail() {
     setFormValues([...formValues,
     {
       _id: uuidv4(),
-      name: ''
+      names: ''
     }])
   };
 
@@ -80,9 +103,22 @@ export function Detail() {
 
   return (
     <div className='p-5 min-h-screen bg-white rounded-lg m-3'>
-      <form>
-        <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Category Details</h1>
-        <div className="grid gap-2 mx-auto max-w-4xl bg-gray-100 shadow rounded-lg ring-2 ring-gray-300 mb-6">
+
+      <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Category Details</h1>
+
+      {error && (
+        <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
+          <span class="font-medium">Warning!</span> {error}
+        </div>
+      )}
+      {success && (
+        <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+          <span class="font-medium">success!</span> {success}
+        </div>
+      )}
+
+      <div className="grid gap-2 mx-auto max-w-4xl bg-gray-100 shadow rounded-lg ring-2 ring-gray-300 mb-6">
+        <form onSubmit={handleSubmit}>
 
           <div className='w-full px-4'>
             <label htmlFor="name" className="block my-2 text-xs font-medium text-gray-900">Category name</label>
@@ -99,9 +135,9 @@ export function Detail() {
             {formValues?.map((element, index) => (
               <div className='grid grid-cols-10 w-full' key={index}>
                 <div className='col-span-9'>
-                  <label htmlFor="child" className="block mb-2 text-xs text-gray-900">Subcategories</label>
+                  <label htmlFor="names" className="block mb-2 text-xs text-gray-900">Subcategories</label>
                   <input
-                    type="text" name="name" id="child" value={element.name || ""}
+                    type="text" name="names" id="names" value={element.names || ""}
                     onChange={(e) => handleChange(element._id, e)}
                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Enter a child" required />
                 </div>
@@ -122,8 +158,8 @@ export function Detail() {
           <div className='py-2 px-4 border-t-2 border-t-gray-300 rounded-b-lg mt-2 bg-gray-300 flex justify-end'>
             <button type='submit' className='rounded-lg hover:bg-red-600 bg-black text-xs text-white px-4 py-2'>Done</button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   )
 }
