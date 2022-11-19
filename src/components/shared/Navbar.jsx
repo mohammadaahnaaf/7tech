@@ -84,6 +84,8 @@ function Navbar({ setSearchTerm }) {
         e.preventDefault()
         await axiosAPI.delete('/auth/logout');
         setUseri(false);
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
         Router.push('/login')
     }
 

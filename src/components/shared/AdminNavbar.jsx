@@ -2,16 +2,17 @@ import React, { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Link from 'next/link'
+import axiosAPI from '../utils/axios-api'
 
 
-const user = {
-    name: 'Ahnaf',
-    email: 'ahnaf1998ff@gmail.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+// const user = {
+//     name: 'Ahnaf',
+//     email: 'ahnaf1998ff@gmail.com',
+//     imageUrl:
+//         'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+// }
 
 
 const navigation = [
@@ -21,10 +22,11 @@ const navigation = [
     { name: 'Orders', href: '/admin/orders' },
     { name: 'Subscribers', href: '#' },
     { name: 'Settings', href: '#' },
+    { name: 'Home', href: '/' },
 ]
 const userNavigation = [
     { name: 'Home', href: '/', state: true },
-    { name: 'Sign out', href: '/login', state: false },
+    // { name: 'Sign out', href: '/login', state: false },
 ]
 
 
@@ -38,6 +40,16 @@ function AdminNavbar() {
     const [useri, setUseri] = React.useState(true);
     const { pathname } = useRouter();
     // console.log(pathname);
+
+    async function handleLogout(e) {
+
+        e.preventDefault()
+        await axiosAPI.delete('/auth/logout');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        setUseri(false);
+        Router.push('/login')
+    }
 
     return (
         <div className="min-h-full">
@@ -151,6 +163,19 @@ function AdminNavbar() {
                                                             )}
                                                         </Menu.Item>
                                                     ))}
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <button
+                                                                onClick={handleLogout}
+                                                                className={classNames(
+                                                                    active ? 'bg-red-600' : '',
+                                                                    'block w-full text-left px-4 py-2 text-sm text-gray-100 hover:bg-red-600 hover:text-white'
+                                                                )}
+                                                            >
+                                                                Sign out
+                                                            </button>
+                                                        )}
+                                                    </Menu.Item>
                                                 </Menu.Items>
                                             </Transition>
                                         </Menu>
@@ -195,8 +220,20 @@ function AdminNavbar() {
                                             {item.name}
                                         </Disclosure.Button>
                                     ))}
+                                    <Disclosure.Button
+                                            as="button"
+                                            // href={item.href}
+                                            onClick={handleLogout}
+                                            className={classNames(
+                                                pathname === null ? 'bg-red-600 bg-opacity-10 text-white' : '',
+                                                'block w-full text-left px-3 py-2 text-gray-100 rounded-md text-base font-medium'
+                                            )}
+                                            aria-current={ pathname === null ? 'page' : undefined}
+                                        >
+                                        Sign out
+                                        </Disclosure.Button>
                                 </div>
-                                <div className="pt-2 px-1 pb-3 border-t border-gray-300">
+                                {/* <div className="pt-2 px-1 pb-3 border-t border-gray-300">
 
                                     <div className="mt-3 px-2 space-y-1">
                                         {userNavigation.map((item) => (
@@ -210,7 +247,7 @@ function AdminNavbar() {
                                             </Disclosure.Button>
                                         ))}
                                     </div>
-                                </div>
+                                </div> */}
                             </Disclosure.Panel>
                         </Transition.Child>
                     </>

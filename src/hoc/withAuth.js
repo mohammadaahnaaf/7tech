@@ -1,27 +1,66 @@
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import axiosAPI from '../components/utils/axios-api';
+import AdminLayout from '../components/layout/AdminLayout';
+// import axiosAPI from '../components/utils/axios-api';
 
-export const withAuth = (Component) => {
+// export const withAuth = (Component) => {
+//     const AuthComponent = () => {
+//         // const { pathname } = useRouter();
+//         const [isLoggedIn, setIsLoggedIn] = useState(false);
+//         useEffect(() => {
+//             if (!isLoggedIn) {
+
+//                 axiosAPI
+//                     .get('/auth/get-me')
+//                     .then(res => {
+//                         setIsLoggedIn(!!res.data.email);
+//                     })
+//                     .catch(error => {
+//                         console.log(error);
+//                         Router.push('/login')
+//                     });
+//             }
+//         }, [isLoggedIn]);
+
+//         return isLoggedIn && <Component />;
+//     }
+
+//     return AuthComponent;
+// }
+
+
+function Loading() {
+
+    return (
+        <AdminLayout>
+            <div sx={{
+                height: '100vh', bgcolor: (theme) =>
+                    theme.palette.mode === 'light'
+                        ? theme.palette.grey[100]
+                        : theme.palette.grey[900],
+                width: '100%', display: 'grid', justifyContent: 'center', alignItems: 'center'
+            }}>
+                <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
+            </div>
+        </AdminLayout>
+    )
+}
+
+export const withAuth = (Component, pageProps) => {
+
     const AuthComponent = () => {
-        // const { pathname } = useRouter();
+        const router = useRouter()
         const [isLoggedIn, setIsLoggedIn] = useState(false);
         useEffect(() => {
-            if (!isLoggedIn) {
-
-                axiosAPI
-                    .get('/auth/get-me')
-                    .then(res => {
-                        setIsLoggedIn(!!res.data.email);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        Router.push('/login')
-                    });
+            const token = localStorage.getItem("access_token");
+            setIsLoggedIn(!!token)
+            if (!token) {
+                setTimeout(() => { Router.push('/login') }, 500)
             }
-        }, [isLoggedIn]);
 
-        return isLoggedIn && <Component />;
+        }, [router, isLoggedIn]);
+
+        return !isLoggedIn ? <Loading /> : <Component {...pageProps} />
     }
 
     return AuthComponent;
