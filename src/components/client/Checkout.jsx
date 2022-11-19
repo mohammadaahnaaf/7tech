@@ -17,15 +17,15 @@ function Checkouts({ setSuccess, setOrder }) {
     const [shipment, setShipment] = React.useState(0)
 
     let { items, cartTotal, removeItem } = useCart()
-    let vat = (cartTotal * (7 / 100)).toFixed(2)
-    let shipping = items.length * shipment
-    let total = (+ vat + shipping + cartTotal)
+    // let vat = (cartTotal * (7 / 100)).toFixed(2)
+    // let shipping = items.length * shipment
+    let total = (+ shipment + cartTotal)
 
     React.useEffect(() => {
         if (city === 'Dhaka') {
             setShipment(60)
         } else {
-            setShipment(160)
+            setShipment(120)
         }
     }, [city])
 
@@ -256,7 +256,7 @@ function Checkouts({ setSuccess, setOrder }) {
                             </div>
                             <div className="flex py-1 justify-between text-base font-medium text-red-700">
                                 <p>Shipping :</p>
-                                <p className='text-green-500'>৳ {shipping}</p>
+                                <p className='text-green-500'>৳ {shipment}</p>
                             </div>
 
                             <div className="flex border-t-2 py-1 justify-between text-base font-medium text-red-700">

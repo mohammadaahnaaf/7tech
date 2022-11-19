@@ -47,14 +47,14 @@ const Detail = () => {
 
     }, [router, itemId]);
 
-    // get all products data
+    // get all products
     useEffect(() => {
         async function getProduct() {
             const res = await axiosAPI.get('/products');
-            // setAllProducts(res.data)
+
             res.data.map(x => test(x))
             function test(item) {
-                const newInputFields = products.map(i => {
+                const newProducts = products.map(i => {
                     if (i.productId === item._id) {
                         i.name = item.name
                         i.quantity = i.quantity
@@ -63,7 +63,7 @@ const Detail = () => {
                     }
                     return i;
                 })
-                setProducts(newInputFields);
+                setProducts(newProducts);
             }
         }
         getProduct()

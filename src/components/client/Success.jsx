@@ -5,10 +5,9 @@ import Router from 'next/router'
 // import { products } from '../../data/ProductsData'
 
 
-function Success({order}) {
+function Success({ order }) {
 
     const { emptyCart, cartTotal } = useCart();
-    // const cartTotal = 172300;
 
     function handleSuccess() {
 
@@ -21,7 +20,7 @@ function Success({order}) {
     }
 
     return (
-        <div className="grid min-h-screen overflow-scroll bg-black justify-centerpy-6 sm:px-6 lg:px-8">
+        <div className="grid min-h-screen bg-black justify-centerpy-6 sm:px-6 lg:px-8">
             <div className=' max-w-5xl mx-auto bg-gray-600 bg-opacity-50 my-4 rounded-lg shadow-md px-10'>
                 <div>
                     <CheckIcon className='bg-green-500 mx-auto text-white rounded-full h-20 w-20 my-10' />
@@ -35,7 +34,7 @@ function Success({order}) {
                 <div className='grid grid-cols-1 mx-auto mt-3 gap-3 justify-between items-center sm:grid-cols-2 lg:grid-cols-4'>
                     <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
                         <h1 className='text-center text-xs text-gray-200'>Order nunmer:</h1>
-                        <h1 className='text-center text-gray-100 text-sm'>{order._id}</h1>
+                        <h1 className='text-center text-gray-100 text-sm'>{`#${(order._id).slice(0, 10)}`}</h1>
                     </div>
                     <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
                         <h1 className='text-center text-xs text-gray-200'>Created at:</h1>
@@ -52,7 +51,7 @@ function Success({order}) {
                         <h1 className='text-center text-gray-100 text-sm'>Pending</h1>
                     </div>
                 </div>
-                <ProductsViews />
+                <ProductsViews order={order} />
                 <div className='py-3 flex items-center justify-center bg-green-400 bg-opacity-20 mx-auto'>
                     <button className='text-sm hover:text-red-600 text-center text-green-600' type='button' onClick={handleSuccess}>Back to home</button>
                 </div>
@@ -61,11 +60,19 @@ function Success({order}) {
     )
 }
 
-const ProductsViews = () => {
+function ProductsViews ({order}) {
     const { items, cartTotal, totalItems } = useCart()
-    let vat = (cartTotal * (7 / 100)).toFixed(2)
-    let shipping = items.length * 100
-    let total = (+ vat + shipping + cartTotal)
+    const [ship, setShip] = React.useState(0)
+    React.useEffect(() => {
+        if (order.city === 'Dhaka') {
+            setShip(60)
+        } else {
+            setShip(120)
+        }
+    }, [order])
+
+    // let shipping = items.length * ship
+    // let total = (shipping + cartTotal)
 
     return (
         <div className="overflow-y-scroll relative my-5">
@@ -105,7 +112,7 @@ const ProductsViews = () => {
                     <tr>
                         <th className='py-4 px-6 font-medium text-gray-200 whitespace-nowrap'>Total: (with shipping cost)</th>
                         <td className="text-gray-200 py-4 px-6">{''}</td>
-                        <td className="text-gray-200 py-4 px-6">৳ {total}</td>
+                        <td className="text-gray-200 py-4 px-6">৳ {+cartTotal + ship}</td>
                     </tr>
                 </tbody>
             </table>
