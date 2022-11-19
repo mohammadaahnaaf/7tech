@@ -11,6 +11,7 @@ const Detail = () => {
 
     const [formValues, setFormValues] = React.useState([{ id: uuidv4(), detail: "" }])
     const [status, setStatus] = React.useState('')
+    // const [allProducts, setAllProducts] = React.useState([])
     const [products, setProducts] = React.useState([
         {
             _id: '',
@@ -20,23 +21,17 @@ const Detail = () => {
             quantity: ''
         }
     ])
-    const [orderedProduct, setOrderedProduct] = React.useState([
-        {
-            _id: '',
-            productId: '',
-            quantity: ''
-        }
-    ])
 
     const [order, setOrder] = React.useState({
         customer_name: '',
-        customer_phone: '',
+        customer_number: '',
         city: '',
         zone: '',
         address: '',
         status: '',
         payment_method: '',
-        total: ''
+        total: '',
+        products: []
     })
 
     // get order data
@@ -44,33 +39,36 @@ const Detail = () => {
         async function getOrder() {
             const res = await axiosAPI.get(`/orders/${itemId}`);
             setOrder(res.data)
-            setOrderedProduct(res.data.products)
             setStatus(res.data.status)
+            setProducts(res.data.products)
         }
+
         getOrder()
 
-    }, [router]);
+    }, [router, itemId]);
 
     // get all products data
     useEffect(() => {
         async function getProduct() {
-            const res = await axiosRoot.get('/products');
-            res.data.map((product) => {
-                return orderedProduct.find((element) => {
-                    return element.productId === product._id &&
-                        setProducts(result => [...result, {
-                            name: product.name,
-                            price: product.price,
-                            productId: element.productId,
-                            _id: element._id,
-                            quantity: +element.quantity
-                        }])
+            const res = await axiosAPI.get('/products');
+            // setAllProducts(res.data)
+            res.data.map(x => test(x))
+            function test(item) {
+                const newInputFields = products.map(i => {
+                    if (i.productId === item._id) {
+                        i.name = item.name
+                        i.quantity = i.quantity
+                        i.price = item.price
+                        i.productId = item._id
+                    }
+                    return i;
                 })
-            })
+                setProducts(newInputFields);
+            }
         }
         getProduct()
 
-    }, [router]);
+    }, [order]);
 
     // Details 
     const handleChange = (id, event) => {
@@ -100,7 +98,7 @@ const Detail = () => {
     return (
 
         <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
-            <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Edit Order</h1>
+            <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Order Details</h1>
             <div className="grid gap-6 mb-6 md:grid-cols-2">
 
                 {/* Details  */}
@@ -167,20 +165,20 @@ const Detail = () => {
                 {/* Products  */}
                 <div className='grid items-end gap-2'>
 
-                    {products?.map((element, index) => (
+                    {products.map((element, index) => (
                         <div className="flex gap-2 items-center" key={index}>
                             <div>
-                                <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Product Name</label>
-                                <input type="text" name="detail" id="detail" value={element.name || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                <label htmlFor="name" className="block mb-2 text-xs font-medium text-gray-900">Product Name</label>
+                                <input type="text" name="name" id="name" value={element.name || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
                             </div>
                             <div>
-                                <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Qty</label>
-                                <input type="text" name="detail" id="detail" value={element.quantity || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                <label htmlFor="quantity" className="block mb-2 text-xs font-medium text-gray-900">Qty</label>
+                                <input type="number" name="quantity" id="quantity" value={element.quantity || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
                             </div>
                             <div className='flex'>
                                 <div>
-                                    <label htmlFor="detail" className="block mb-2 text-xs font-medium text-gray-900">Price</label>
-                                    <input type="text" name="detail" id="detail" value={element.price || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                    <label htmlFor="price" className="block mb-2 text-xs font-medium text-gray-900">Price</label>
+                                    <input type="number" name="price" id="price" value={element.price || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
                                 </div>
                                 {formValues.length != 1 && (
                                     <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>
@@ -193,7 +191,7 @@ const Detail = () => {
                         </div>
                     ))}
                     <div>
-                        <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
+                        <button className="hidden w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
                     </div>
                 </div>
             </div>

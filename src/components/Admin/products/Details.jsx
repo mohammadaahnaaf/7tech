@@ -135,7 +135,7 @@ const Detail = () => {
 
   // remove image 
   const removeImage = (i) => {
-    setFile(files.filter(x => x.name !== i));
+    setFiles(files.filter(x => x.name !== i));
   }
 
   // handle edit product 
