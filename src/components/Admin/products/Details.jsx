@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { TrashIcon } from '@heroicons/react/solid';
 import Router, { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
-import { TagsInput } from 'react-tag-input-component';
-import axiosAPI from '../../utils/axios-api';
 // import { TagsInput } from 'react-tag-input-component';
+import axiosAPI from '../../utils/axios-api';
+import { TagsInput } from 'react-tag-input-component';
 
 const Detail = () => {
 
@@ -14,9 +14,9 @@ const Detail = () => {
   const itemId = router.query.id
 
   const [cats, setCats] = React.useState([]);
+  const [tags, setTags] = React.useState([]);
   const [images, setImages] = React.useState([]);
   const [files, setFiles] = React.useState([]);
-  const [tags, setTags] = React.useState([]);
   const [loading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState('')
   const [isFeatured, setIsFeatured] = React.useState(false)
@@ -67,8 +67,8 @@ const Detail = () => {
     async function getProduct() {
       const res = await axiosRoot.get(`/products/${itemId}`);
       setDetails(res.data)
-      setReviews(res.data.reviews)
       setTags(res.data.tags)
+      setReviews(res.data.reviews)
       setIsFeatured(res.data.isFeatured)
       setFormValues(res.data.details)
       setMoreInfo(res.data.information)
@@ -76,7 +76,7 @@ const Detail = () => {
     }
 
     getProduct()
-  }, [loading]);
+  }, [router, itemId, loading]);
 
   // submit edit 
   const handleSubmit = async (event) => {
@@ -279,8 +279,9 @@ const Detail = () => {
 
               <TagsInput
                 value={tags}
-                onChange={newValue => setTags(newValue)}
-                name="tags"
+                onChange={setTags}
+                // name="tags"
+                // id="tags"
                 placeHolder="enter tags"
               />
 
