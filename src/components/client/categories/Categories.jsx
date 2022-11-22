@@ -6,6 +6,7 @@ import { mouses } from '../../../data/ProductsData'
 import Layout from '../../layout/Layout'
 import { ProductCard } from '../Shop'
 import axiosAPI from '../../utils/axios-api'
+import Link from 'next/link'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -75,7 +76,7 @@ export function Example({ term }) {
     }, []);
 
     return (
-        <div className="">
+        <div>
             <div>
                 {/* Mobile filter dialog */}
                 <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -116,14 +117,16 @@ export function Example({ term }) {
                                     </div>
 
                                     {/* Filters */}
-                                    <form className="mt-4 border-t border-gray-200">
+                                    <div className="mt-4 border-t border-gray-200">
                                         <h3 className="sr-only">Categories</h3>
                                         <ul role="list" className="font-medium text-gray-900 px-2 py-3">
                                             {categories.map((category) => (
                                                 <li key={category.name}>
-                                                    <a href={category.href} className="block px-2 py-3">
-                                                        {category.name}
-                                                    </a>
+                                                    <Link href={`/category/${category.name}`}>
+                                                        <a className="block px-2 py-3">
+                                                            {category.name}
+                                                        </a>
+                                                    </Link>
                                                 </li>
                                             ))}
                                         </ul>
@@ -170,7 +173,7 @@ export function Example({ term }) {
                                                 )}
                                             </Disclosure>
                                         ))}
-                                    </form>
+                                    </div>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
@@ -207,16 +210,17 @@ export function Example({ term }) {
                                             {sortOptions.map((option) => (
                                                 <Menu.Item key={option.name}>
                                                     {({ active }) => (
-                                                        <a
-                                                            href={option.href}
-                                                            className={classNames(
-                                                                option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                                                active ? 'bg-red-100' : '',
-                                                                'block px-4 py-2 text-sm'
-                                                            )}
-                                                        >
-                                                            {option.name}
-                                                        </a>
+                                                        <Link href={option.href}>
+                                                            <a
+                                                                className={classNames(
+                                                                    option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                                                                    active ? 'bg-red-100' : '',
+                                                                    'block px-4 py-2 text-sm'
+                                                                )}
+                                                            >
+                                                                {option.name}
+                                                            </a>
+                                                        </Link>
                                                     )}
                                                 </Menu.Item>
                                             ))}
@@ -247,12 +251,14 @@ export function Example({ term }) {
 
                         <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-10">
                             {/* Filters */}
-                            <form className="hidden lg:block">
+                           
                                 <h3 className="sr-only">Categories</h3>
-                                <ul role="list" className="text-sm font-medium text-red-600 space-y-4 pb-6 border-b border-gray-200">
+                                <ul className="text-sm font-medium text-red-600 space-y-4 pb-6 border-b border-gray-200">
                                     {categories.map((category) => (
                                         <li key={category.name}>
-                                            <a href={category.href}>{category.name}</a>
+                                            <Link href={`/category/${category.name}`}>
+                                                <a>{category.name}</a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -299,7 +305,7 @@ export function Example({ term }) {
                                         )}
                                     </Disclosure>
                                 ))}
-                            </form>
+                            
 
                             {/* Product grid */}
 

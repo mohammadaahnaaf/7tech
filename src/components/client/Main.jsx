@@ -12,6 +12,7 @@ function Main() {
 
     const filterI = 'Mouse';
     const filter2 = 'Keyboard';
+    const filter21 = 'Keyboards';
     const filter3 = 'Headset';
 
     // get product data 
@@ -28,7 +29,7 @@ function Main() {
         <Layout setSearchTerm={setSearchTerm}>
             <Banner />
             <Shop term={searchTerm} filters={filterI} items={products.slice(0, 10)} title={'MADE FOR GAMING'} />
-            <Shop term={searchTerm} filters={filter2} items={products.slice(0, 10)} title={'BEST FOR GAMING'} />
+            <Shop term={searchTerm} filters={filter21} items={products.slice(0, 10)} title={'BEST FOR GAMING'} />
             <Shop term={searchTerm} filters={filter3} items={products.slice(0, 10)} title={'DEDICATED FOR GAMING'} />
             <Shop term={searchTerm} items={products.slice(0, 10)} title={'ALL PRODUCTS'} />
         </Layout>

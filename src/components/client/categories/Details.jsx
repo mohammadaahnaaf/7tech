@@ -9,6 +9,7 @@ import axiosAPI from '../../utils/axios-api'
 import { useRouter } from 'next/router'
 // import None from './None'
 import axiosRoot from '../../utils/axios-root'
+import Link from 'next/link'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -137,9 +138,11 @@ export function Example({ term }) {
                                         <ul role="list" className="font-medium text-gray-900 px-2 py-3">
                                             {categories.map((category) => (
                                                 <li key={category.name}>
-                                                    <a href={category.href} className="block px-2 py-3">
-                                                        {category.name}
-                                                    </a>
+                                                    <Link href={`/category/${category.name}`}>
+                                                        <a className="block px-2 py-3">
+                                                            {category.name}
+                                                        </a>
+                                                    </Link>
                                                 </li>
                                             ))}
                                         </ul>
@@ -268,7 +271,9 @@ export function Example({ term }) {
                                 <ul role="list" className="text-sm font-medium text-red-600 space-y-4 pb-6 border-b border-gray-200">
                                     {categories.map((category) => (
                                         <li key={category.name}>
-                                            <a href={category.href}>{category.name}</a>
+                                            <Link href={`/category/${category.name}`}>
+                                                <a>{category.name}</a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
