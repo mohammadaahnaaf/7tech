@@ -5,7 +5,7 @@ import Layout from '../layout/Layout'
 import { Shop } from './Shop'
 import axiosRoot from '../utils/axios-root'
 
-function Main() {
+function Main({setIntro}) {
 
     const [searchTerm, setSearchTerm] = React.useState('')
     const [products, setProducts] = React.useState([]);
@@ -20,6 +20,7 @@ function Main() {
         async function getProducts() {
             const res = await axiosRoot.get('/products');
             setProducts(res.data)
+            setIntro(false)
         }
         getProducts()
     }, []);

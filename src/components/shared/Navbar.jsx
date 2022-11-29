@@ -9,6 +9,7 @@ import axiosAPI from '../utils/axios-api'
 import Link from 'next/link'
 import { HomeIcon, ShieldCheckIcon, UserCircleIcon, UserIcon } from '@heroicons/react/solid'
 
+
 const navigation = [
     {
         name: 'Home', href: '/',
@@ -62,7 +63,7 @@ function classNames(...classes) {
 function Navbar({ setSearchTerm }) {
 
     const [useri, setUseri] = useState(false);
-    const { pathname } = useRouter();
+    const { pathname, router } = useRouter();
     const { totalUniqueItems } = useCart()
 
     useEffect(() => {
@@ -80,12 +81,12 @@ function Navbar({ setSearchTerm }) {
     }, []);
 
     async function handleLogout(e) {
-        
+
         e.preventDefault()
         await axiosAPI.delete('/auth/logout');
-        setUseri(false);
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        setUseri(false);
         Router.push('/login')
     }
 
@@ -100,7 +101,7 @@ function Navbar({ setSearchTerm }) {
                                     <div className="hidden md:block h-8">
                                         <Link href='/'>
                                             <a className='h-20 w-full'>
-                                                <Image src="/logo.png" srcset="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
+                                                <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
                                             </a>
                                         </Link>
                                     </div>
@@ -112,23 +113,19 @@ function Navbar({ setSearchTerm }) {
                                     <div className="ml-4 flex items-center md:ml-6">
 
                                         {/* Cart  */}
+                                        <button
+                                            type='button'
+                                            onClick={() => Router.push('/cart')}
+                                            className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800"
+                                        >
+                                            <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
 
-                                        <Link href='/cart'>
-                                            <a>
-                                                <button
-                                                    type='button'
-                                                    // onClick={}
-                                                    className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800"
-                                                >
-                                                    <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
+                                            <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-50 justify-center">
+                                                <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
+                                                <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
+                                            </span>
+                                        </button>
 
-                                                    <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-50 justify-center">
-                                                        <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
-                                                        <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
-                                                    </span>
-                                                </button>
-                                            </a>
-                                        </Link>
 
 
                                         {/* {!useri && (
@@ -247,7 +244,7 @@ function Navbar({ setSearchTerm }) {
                                         {userNavigation.map((item) => (
                                             <Disclosure.Button
                                                 key={item.name}
-                                                as="a"
+                                                as='a'
                                                 href={item.href}
                                                 className="flex px-3 py-2 rounded-md text-base font-medium text-red-600"
                                             >
@@ -297,7 +294,7 @@ export function BasicNavbar() {
                                         </Link>
                                     </div>
                                 </div>
-                                
+
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
 
