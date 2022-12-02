@@ -1,3 +1,4 @@
+import { Dialog, Transition } from '@headlessui/react';
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import Router, { useRouter } from 'next/router';
 import React from 'react'
@@ -14,6 +15,7 @@ export function ProductsLists() {
   const [allSelected, setAllSelected] = React.useState(false)
   const [rows, setRows] = React.useState([]);
   const [success, setSuccess] = React.useState('');
+  const [isOpen, setIsOpen] = React.useState(false)
   const [page, setPage] = React.useState(0)
 
   // get product data 
@@ -26,10 +28,14 @@ export function ProductsLists() {
   }, [router, success]);
 
   // Delete Product 
-  async function handleDelete() {
-    await axiosAPI.delete(`/products/${selected}`);
-    // router.reload()
-    setSuccess(`${selected} deleted.`)
+  function handleDelete(e) {
+    e.preventDefault()
+    setIsOpen(false)
+    // await axiosAPI.delete(`/products/${selected}`);
+    selected.map((item) =>
+      axiosAPI.delete(`/products/${item}`)
+    )
+    setSuccess('Product deleted.')
     setTimeout(() => { setSuccess('') }, 2000)
   }
 
@@ -78,6 +84,69 @@ export function ProductsLists() {
     )
   }
 
+  const modal = (
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-semibold leading-6 text-red-600"
+                >
+                  Delete Category
+                </Dialog.Title>
+                <div className="mt-2">
+                  <p className="text-sm text-gray-500">
+                    Are you sure you want to delete selected category?
+                  </p>
+                </div>
+
+                <div className="mt-4 flex justify-end gap-3">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
+  )
+
   return (
 
     <div className="mx-3 mt-3 overflow-x-auto bg-red-100 relative shadow-md sm:rounded-lg">
@@ -110,7 +179,7 @@ export function ProductsLists() {
             </th>
             <th scope="col" className="py-3 px-6">
               {selected != 0 && (
-                <button type='submit' onClick={handleDelete}>
+                <button type='submit' onClick={() => setIsOpen(true)}>
                   <TrashIcon className='h-5 w-5 text-red-600' />
                 </button>
               )}

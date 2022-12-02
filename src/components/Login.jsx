@@ -35,9 +35,11 @@ export function Logins() {
             localStorage.setItem('refresh_token', refresh_token);
             Router.push('/admin')
         } catch (error) {
-            console.log(error.response);
-            setError(error.response.data.message ? error.response.data.message : 'loading')
-            // Router.push('/login')
+            if(error.response){
+                console.log(error.response.data);
+                setError(error.response?.data?.message)
+                // Router.push('/login')
+            }
         }
     };
 
