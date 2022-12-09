@@ -4,7 +4,7 @@ import Main from '../components/client/Main'
 
 const Loading = () => (
   <div className='bg-black w-full min-h-[100vh] grid justify-center items-center'>
-    <h1 className='text-red-600 text-3xl'>Please Wait!</h1>
+    <h1 className='text-red-600 text-3xl'>Sorry! Server Down</h1>
   </div>
 )
 
@@ -21,7 +21,9 @@ function MainPage() {
       {intro && (
         <Loading />
       )}
-      <Main setIntro={setIntro} />
+      {!intro &&
+        <Main setIntro={setIntro} />
+      }
     </>
   )
 }
