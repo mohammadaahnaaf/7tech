@@ -4,7 +4,8 @@ import Main from '../components/client/Main'
 
 const Loading = () => (
   <div className='bg-black w-full min-h-[100vh] grid justify-center items-center'>
-    <h1 className='text-red-600 text-3xl'>Sorry! Server Down</h1>
+    <h1 className='text-red-600 text-3xl'>Opss! No Items to show</h1>
+    <h1 className='text-red-700 text-xl'>You've deleted everything</h1>
   </div>
 )
 
