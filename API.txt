@@ -1,0 +1,2 @@
+NEXT_PUBLIC_API_URL = https://seven-tech-api.herokuapp.com [old]
+NEXT_PUBLIC_API_URL = https://seven-tech-backend.onrender.com [new]

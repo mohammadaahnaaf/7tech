@@ -20,10 +20,8 @@ function MainPage() {
       </Head>
       {intro && (
         <Loading />
-      )}
-      {!intro &&
+      )}     
         <Main setIntro={setIntro} />
-      }
     </>
   )
 }

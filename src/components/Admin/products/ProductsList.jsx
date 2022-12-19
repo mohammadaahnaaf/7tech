@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
-import Router, { useRouter } from 'next/router';
-import React from 'react'
+import { useRouter } from 'next/router';
+import React, { Fragment } from 'react'
 import { products } from '../../../data/ProductsData'
 import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
@@ -83,6 +83,9 @@ export function ProductsLists() {
       slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
     )
   }
+  function closeModal() {
+    setIsOpen(false)
+  }
 
   const modal = (
     <Transition appear show={isOpen} as={Fragment}>
@@ -119,7 +122,7 @@ export function ProductsLists() {
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
-                    Are you sure you want to delete selected category?
+                    Are you sure you want to delete selected product?
                   </p>
                 </div>
 
@@ -150,6 +153,7 @@ export function ProductsLists() {
   return (
 
     <div className="mx-3 mt-3 overflow-x-auto bg-red-100 relative shadow-md sm:rounded-lg">
+      {isOpen && modal}
       <div className='flex justify-center py-1 bg-black'>
         <Search setSearchTerm={setSearchTerm} />
       </div>
