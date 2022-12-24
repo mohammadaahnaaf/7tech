@@ -1,7 +1,7 @@
 import { StarIcon } from '@heroicons/react/solid'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Layout from '../../layout/Layout'
 import axiosAPI from '../../utils/axios-api'
 import axiosRoot from '../../utils/axios-root'
@@ -32,6 +32,7 @@ export function Details() {
     const [view, setView] = useState(1)
     const [openImage, setOpenImage] = useState(false)
     const [viewImage, setViewImage] = useState()
+    const [isUser, setIsUser] = useState(false)
 
     // const [selectedSize, setSelectedSize] = useState('')
     // const [selectedColor, setSelectedColor] = useState('')
@@ -43,13 +44,14 @@ export function Details() {
     // get data 
     useEffect(() => {
         async function getProduct() {
-
+            let token = localStorage.getItem("access_token");
+            setIsUser(!!token)
             const res = await axiosRoot.get(`/products/${itemId}`);
             setDetails(res.data)
             setInfo(res.data.details)
-            // setReviews(res.data.reviews)
             setMoreInfo(res.data.information)
             setImages(res.data.images)
+            // setReviews(res.data.reviews)
         }
         getProduct()
     }, [router, success]);
@@ -57,22 +59,26 @@ export function Details() {
     // submit review data
     const handleSubmit = async (event) => {
 
-        try {
-            event.preventDefault()
-            const data = new FormData(event.currentTarget);
+        if (isUser) {
+            try {
+                event.preventDefault()
+                const data = new FormData(event.currentTarget);
 
-            const reqData = {
-                comment: data.get('comment'),
-                rating: +star
+                const reqData = {
+                    comment: data.get('comment'),
+                    rating: +star
+                }
+                await axiosAPI.post(`/products/${itemId}/review`, reqData);
+                // router.reload()
+                setSuccess('Your review added')
+                setTimeout(() => { setSuccess('') }, 2000)
+
+            } catch (error) {
+                console.log(error)
+                setError(error.response?.data?.message)
             }
-            await axiosAPI.post(`/products/${itemId}/review`, reqData);
-            // router.reload()
-            setSuccess('Your review added')
-            setTimeout(() => { setSuccess('') }, 2000)
-
-        } catch (error) {
-            console.log(error)
-            setError(error.response?.data?.message)
+        } else {
+            Router.push('/login')
         }
     }
 
