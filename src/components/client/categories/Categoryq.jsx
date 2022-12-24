@@ -1,8 +1,9 @@
 
 import React, { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import { XIcon } from '@heroicons/react/outline'
+import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
+
 import axiosRoot from '../../utils/axios-root'
 import { useRouter } from 'next/router'
 import { ProductCard } from '../Shop'
@@ -126,7 +127,7 @@ export default function Categoryq({ term }) {
                       onClick={() => setMobileFiltersOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
-                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                      <XIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                   </div>
 
@@ -152,9 +153,9 @@ export default function Categoryq({ term }) {
                                 <span className="font-medium text-gray-900">{section.name}</span>
                                 <span className="ml-6 flex items-center">
                                   {open ? (
-                                    <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                                    <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
                                   ) : (
-                                    <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                                    <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
                                   )}
                                 </span>
                               </Disclosure.Button>
@@ -243,7 +244,7 @@ export default function Categoryq({ term }) {
 
               <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
                 <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+                <ViewGridIcon className="h-5 w-5" aria-hidden="true" />
               </button>
               <button
                 type="button"
@@ -251,7 +252,7 @@ export default function Categoryq({ term }) {
                 onClick={() => setMobileFiltersOpen(true)}
               >
                 <span className="sr-only">Filters</span>
-                <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+                <FilterIcon className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -284,9 +285,9 @@ export default function Categoryq({ term }) {
                             <span className="font-medium text-gray-300">{section.name}</span>
                             <span className="ml-6 flex items-center">
                               {open ? (
-                                <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                                <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
                               ) : (
-                                <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                                <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
                               )}
                             </span>
                           </Disclosure.Button>
