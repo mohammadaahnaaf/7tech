@@ -5,8 +5,8 @@ import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } fr
 import { mouses } from '../../../data/ProductsData'
 import Layout from '../../layout/Layout'
 import { ProductCard } from '../Shop'
-import axiosAPI from '../../utils/axios-api'
 import Link from 'next/link'
+import axiosRoot from '../../utils/axios-root'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -69,7 +69,7 @@ export function Example({ term }) {
     //Get Data
     React.useEffect(() => {
         async function getCategory() {
-            const res = await axiosAPI.get('/categories');
+            const res = await axiosRoot.get('/categories');
             setCategories(res.data)
         }
         getCategory()
@@ -251,61 +251,61 @@ export function Example({ term }) {
 
                         <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-10">
                             {/* Filters */}
-                           
-                                <h3 className="sr-only">Categories</h3>
-                                <ul className="text-sm font-medium text-red-600 space-y-4 pb-6 border-b border-gray-200">
-                                    {categories.map((category) => (
-                                        <li key={category.name}>
-                                            <Link href={`/category/${category.name}`}>
-                                                <a>{category.name}</a>
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
 
-                                {filters.map((section) => (
-                                    <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
-                                        {({ open }) => (
-                                            <>
-                                                <h3 className="-my-3 flow-root">
-                                                    <Disclosure.Button className="py-3 bg-red-600 px-3 w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
-                                                        <span className="font-medium text-gray-900">{section.name}</span>
-                                                        <span className="ml-6 flex items-center">
-                                                            {open ? (
-                                                                <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
-                                                            ) : (
-                                                                <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
-                                                            )}
-                                                        </span>
-                                                    </Disclosure.Button>
-                                                </h3>
-                                                <Disclosure.Panel className="pt-6">
-                                                    <div className="space-y-4">
-                                                        {section.options.map((option, optionIdx) => (
-                                                            <div key={option.value} className="flex items-center">
-                                                                <input
-                                                                    id={`filter-${section.id}-${optionIdx}`}
-                                                                    name={`${section.id}[]`}
-                                                                    defaultValue={option.value}
-                                                                    type="checkbox"
-                                                                    defaultChecked={option.checked}
-                                                                    className="h-4 w-4 border-gray-300 rounded text-red-600 focus:ring-red-500"
-                                                                />
-                                                                <label
-                                                                    htmlFor={`filter-${section.id}-${optionIdx}`}
-                                                                    className="ml-3 text-sm text-gray-600"
-                                                                >
-                                                                    {option.label}
-                                                                </label>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </Disclosure.Panel>
-                                            </>
-                                        )}
-                                    </Disclosure>
+                            <h3 className="sr-only">Categories</h3>
+                            <ul className="text-sm font-medium text-red-600 space-y-4 pb-6 border-b border-gray-200">
+                                {categories.map((category) => (
+                                    <li key={category.name}>
+                                        <Link href={`/category/${category.name}`}>
+                                            <a>{category.name}</a>
+                                        </Link>
+                                    </li>
                                 ))}
-                            
+                            </ul>
+
+                            {filters.map((section) => (
+                                <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
+                                    {({ open }) => (
+                                        <>
+                                            <h3 className="-my-3 flow-root">
+                                                <Disclosure.Button className="py-3 bg-red-600 px-3 w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
+                                                    <span className="font-medium text-gray-900">{section.name}</span>
+                                                    <span className="ml-6 flex items-center">
+                                                        {open ? (
+                                                            <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                                        ) : (
+                                                            <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                                        )}
+                                                    </span>
+                                                </Disclosure.Button>
+                                            </h3>
+                                            <Disclosure.Panel className="pt-6">
+                                                <div className="space-y-4">
+                                                    {section.options.map((option, optionIdx) => (
+                                                        <div key={option.value} className="flex items-center">
+                                                            <input
+                                                                id={`filter-${section.id}-${optionIdx}`}
+                                                                name={`${section.id}[]`}
+                                                                defaultValue={option.value}
+                                                                type="checkbox"
+                                                                defaultChecked={option.checked}
+                                                                className="h-4 w-4 border-gray-300 rounded text-red-600 focus:ring-red-500"
+                                                            />
+                                                            <label
+                                                                htmlFor={`filter-${section.id}-${optionIdx}`}
+                                                                className="ml-3 text-sm text-gray-600"
+                                                            >
+                                                                {option.label}
+                                                            </label>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </Disclosure.Panel>
+                                        </>
+                                    )}
+                                </Disclosure>
+                            ))}
+
 
                             {/* Product grid */}
 

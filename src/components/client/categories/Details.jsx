@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 // import None from './None'
 import axiosRoot from '../../utils/axios-root'
 import Link from 'next/link'
+import Categoryq from './Categoryq'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -365,7 +366,8 @@ export default function Details() {
     return (
         <Layout setSearchTerm={setSearchTerm}>
             <div className='bg-black'>
-                <Example term={searchTerm} />
+                {/* <Example term={searchTerm} /> */}
+                <Categoryq term={searchTerm} />
             </div>
         </Layout>
     )

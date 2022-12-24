@@ -30,7 +30,7 @@ export function Footers() {
         <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <div>
 
-            <h2 className="mb-6 text-sm font-semibold uppercase text-white">Call Us</h2>
+            <h2 className="mb-6 text-sm font-semibold uppercase text-red-600">Call Us</h2>
             <ul className="text-gray-200">
               <li className="mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">

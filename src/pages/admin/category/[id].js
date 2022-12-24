@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import React from 'react'
-// import { AddCategory } from '../../../components'
 import Details from '../../../components/Admin/categories/Details'
 import { withAuth } from '../../../hoc/withAuth'
 
