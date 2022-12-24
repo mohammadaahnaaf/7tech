@@ -130,14 +130,14 @@ export function CategoryBar() {
                 </Dialog>
             </Transition.Root>
 
-            <header className="relative bg-red-600">
+            <header className="relative max-h-10 bg-red-600">
 
-                <nav area-position='fixed' aria-label="Top" className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
+                <div area-position='fixed' aria-label="Top" className="max-w-7xl max-h-10 mx-auto px-4 sm:px-6 xl:px-8">
                     <div>
                         <div className="h-16 flex items-center">
                             <button
                                 type="button"
-                                className="bg-red-600 py-1 px-2 flex items-center ring-2 ring-gray-200 text-white xl:hidden"
+                                className="bg-red-600 px-2 flex items-center ring-2 ring-gray-200 text-white xl:hidden"
                                 onClick={() => setOpen(true)}
                             >
                                 <span className="sr-only">Open menu</span>
@@ -147,7 +147,7 @@ export function CategoryBar() {
                             </button>
 
                             <Popover.Group className="hidden lg:ml-0 xl:block lg:self-stretch">
-                                <div className="h-full flex gap-8">
+                                <div className="h-10 flex gap-8">
                                     {categories.slice(0, 9).map((category) => (
                                         <Popover key={category.name} className="flex">
                                             {({ open }) => (
@@ -239,7 +239,7 @@ export function CategoryBar() {
 
                         </div>
                     </div>
-                </nav>
+                </div>
             </header>
         </div>
     )
