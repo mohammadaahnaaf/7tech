@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
-    "@heroicons/react": "^2.0.13",
+    "@heroicons/react": "v1",
     "@reduxjs/toolkit": "^1.9.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "autoprefixer": "^10.4.7",
