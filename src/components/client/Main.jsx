@@ -11,7 +11,7 @@ function Main({ setIntro }) {
     const [products, setProducts] = React.useState([]);
     const [category, setCategory] = React.useState([]);
 
-    const filterI = 'Mouse';
+    const filterI = 'Webcam';
     const filter2 = 'Keyboard';
     const filter21 = 'Keyboards';
     const filter3 = 'Headset';

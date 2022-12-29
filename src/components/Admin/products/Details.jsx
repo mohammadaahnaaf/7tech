@@ -25,6 +25,7 @@ const Detail = () => {
       _id: '',
       name: '',
       category: '',
+      descriptions: '',
       code: '',
       quantity: '',
       price: "",
@@ -245,10 +246,7 @@ const Detail = () => {
               <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
               <input type="text" onChange={(event) => handleAllChange(event)} value={details.name || ""} id="name" name='name' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
             </div>
-            {/* <div>
-            <label htmlFor="brand" className="block mb-2 text-sm font-medium text-gray-900 ">Brand</label>
-            <input type="text" value={details.brand || ""} id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
-          </div> */}
+
             <div>
               <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
               <select id="category" name='category'
@@ -276,7 +274,11 @@ const Detail = () => {
               <input type="number" onChange={(event) => handleAllChange(event)} value={details.price || null} name="price" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
             </div>
             <div>
+              <label htmlFor="descriptions" className="block mb-2 text-sm font-medium text-gray-900">Product description</label>
+              <textarea type="text" rows={3} onChange={(event) => handleAllChange(event)} value={details.descriptions || ""} id="descriptions" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="enter description" required />
+            </div>
 
+            <div>
               <TagsInput
                 value={tags}
                 onChange={setTags}
@@ -284,10 +286,6 @@ const Detail = () => {
                 // id="tags"
                 placeHolder="enter tags"
               />
-
-              {/* <label htmlFor="tag" className="block mb-2 text-sm font-medium text-gray-900">Tag</label> */}
-              {/* <input type="text" value={tags.join(', ') || null} id="tag" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required /> */}
-
             </div>
             <div className="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
               <input id="bordered-checkbox-1" type="checkbox" onClick={() => isFeatured ? setIsFeatured(false) : setIsFeatured(true)} checked={isFeatured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
@@ -402,7 +400,7 @@ const Detail = () => {
           {/* More Information  */}
           <div className='grid items-end gap-2'>
             <h1>More Information</h1>
-            {moreInfos.map((element, index) => (
+            {moreInfos?.map((element, index) => (
               <div className="flex gap-2 items-center" key={index}>
                 <div className='flex gap-2'>
                   <div>
@@ -422,7 +420,8 @@ const Detail = () => {
                   )}
                 </div>
               </div>
-            ))}
+            ))
+            }
             <div>
               <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addMoreinfo}>Add</button>
             </div>
