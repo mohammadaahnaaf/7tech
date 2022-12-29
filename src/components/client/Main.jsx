@@ -5,10 +5,11 @@ import Layout from '../layout/Layout'
 import { Shop } from './Shop'
 import axiosRoot from '../utils/axios-root'
 
-function Main({setIntro}) {
+function Main({ setIntro }) {
 
     const [searchTerm, setSearchTerm] = React.useState('')
     const [products, setProducts] = React.useState([]);
+    const [category, setCategory] = React.useState([]);
 
     const filterI = 'Mouse';
     const filter2 = 'Keyboard';
@@ -23,6 +24,20 @@ function Main({setIntro}) {
             setIntro(false)
         }
         getProducts()
+    }, []);
+
+    // get filter category 
+    React.useEffect(() => {
+        async function getCategory() {
+            const res = await axiosRoot.get('/categories');
+            res.data.map((x) => {
+                if (x.featured === true) {
+                    setCategory(...category, x)
+                } return
+            })
+            console.log(category)
+        }
+        getCategory()
     }, []);
 
 
