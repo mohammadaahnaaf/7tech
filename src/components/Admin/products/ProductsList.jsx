@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Fragment } from 'react'
 import { products } from '../../../data/ProductsData'
@@ -154,8 +155,11 @@ export function ProductsLists() {
 
     <div className="mx-3 mt-3 overflow-x-auto bg-red-100 relative shadow-md sm:rounded-lg">
       {isOpen && modal}
-      <div className='flex justify-center py-1 bg-black'>
+      <div className='flex gap-2 justify-center py-1 bg-black'>
         <Search setSearchTerm={setSearchTerm} />
+        <Link href='/admin/products/add'>
+          <a className='bg-black ml-4 text-sm font-medium text-red-600 ring-1 ring-red-600 hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Product</a>
+        </Link>
       </div>
       <table className="w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">

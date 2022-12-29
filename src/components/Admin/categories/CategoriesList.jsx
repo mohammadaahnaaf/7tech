@@ -161,7 +161,7 @@ export function Categories() {
             <div className='flex gap-2 justify-center py-1 bg-black'>
                 <Search setSearchTerm={setSearchTerm} />
                 <Link href='/admin/category/add'>
-                    <a className='bg-white ml-4 text-sm font-medium text-black hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Category</a>
+                    <a className='bg-black ml-4 text-sm font-medium text-red-600 ring-1 ring-red-600 hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Category</a>
                 </Link>
             </div>
             <table className="w-full text-sm text-left text-red-600">
