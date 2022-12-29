@@ -12,6 +12,7 @@ export function Detail() {
   const itemId = router.query.id
   const [error, setError] = React.useState('')
   const [success, setSuccess] = React.useState('')
+  const [featured, setFeatured] = React.useState(false)
   const [itemo, setItemo] = useState({
     _id: '',
     name: ''
@@ -23,11 +24,13 @@ export function Detail() {
     }
   ])
 
+  // get data
   useEffect(() => {
 
     async function getCategory() {
       const res = await axiosRoot.get(`/categories/${itemId}`);
       setItemo(res.data)
+      setFeatured(res.data.isFeatured)
       let childs = res.data.subCategories.map((x) => ({
         _id: x._id,
         names: x.name
@@ -37,6 +40,7 @@ export function Detail() {
 
     getCategory()
   }, []);
+
 
   // submit edited data
 
@@ -49,6 +53,7 @@ export function Detail() {
 
       const reqData = {
         name: itemo.name,
+        isFeatured: featured,
         subCategories: formValues.map(value => (
           {
             name: value.names,
@@ -100,8 +105,17 @@ export function Detail() {
     setFormValues(values);
   }
 
+  // Featured? 
+  const handleFeature = () => {
+    if (featured === false) {
+      setFeatured(true)
+    } else {
+      setFeatured(false)
+    }
+  }
 
   return (
+
     <div className='p-5 min-h-screen bg-white rounded-lg m-3'>
 
       <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Category Details</h1>
@@ -156,6 +170,10 @@ export function Detail() {
           </div>
 
           <div className='py-2 px-4 border-t-2 border-t-gray-300 rounded-b-lg mt-2 bg-gray-300 flex justify-end'>
+            <div className='w-full'>
+              <input id="bordered-checkbox-1" type="checkbox" onClick={handleFeature} checked={featured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-600" />
+              <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
+            </div>
             <button type='submit' className='rounded-lg hover:bg-red-600 bg-black text-xs text-white px-4 py-2'>Done</button>
           </div>
         </form>
