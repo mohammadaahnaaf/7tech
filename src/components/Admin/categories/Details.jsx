@@ -23,6 +23,7 @@ export function Detail() {
   const [error, setError] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
   const [featured, setFeatured] = React.useState(false)
+  const [indexing, setIndexing] = React.useState(0)
   const [success, setSuccess] = React.useState('')
 
   //Get Data
@@ -110,9 +111,14 @@ export function Detail() {
         </div>
       )}
       <form onSubmit={handleSubmit}>
-        <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Add Category</h1>
+        <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Edit Category</h1>
         <div className="grid gap-2 max-w-4xl mx-auto bg-gray-100 shadow rounded-lg ring-2 ring-gray-300 mb-6">
-
+          {featured && (
+            <div className='w-full px-4 pt-2'>
+              <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>
+              <input type="number" name='indexing' id="indexing" onChange={(e) => setIndexing(e.target.value)} value={indexing} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Index" />
+            </div>
+          )}
           <div className='w-full px-4'>
             <label htmlFor="categoryName" className="block my-2 text-xs font-medium text-gray-900">Category name</label>
             <input type="text" name='categoryName' id="categoryName"
@@ -124,8 +130,8 @@ export function Detail() {
           <div className='px-4 grid items-center w-full gap-2'>
 
             {formValues?.map((value, index) => (
-              <div className='grid grid-cols-11 w-full' key={index}>
-                <div className='col-span-10'>
+              <div className='flex w-full' key={index}>
+                <div className='w-[96%]'>
                   <label htmlFor="name" className="block mb-2 text-xs text-gray-900">childs</label>
                   <input
                     type="text" name="name" id="name" value={value.name || ""}
