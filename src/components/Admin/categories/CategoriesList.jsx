@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
 import { Dialog, Transition } from '@headlessui/react';
+import { fDate } from '../../utils/formatTime';
 
 export function Categories() {
 
@@ -211,7 +212,7 @@ export function Categories() {
                                     {item.subCategories.length}
                                 </td>
                                 <td className="py-4 px-6">
-                                    {item.createdAt}
+                                    {fDate(item.createdAt)}
                                 </td>
                                 <td className="py-4 px-6">
                                     <button type='button' onClick={() => router.push('/admin/category/' + item._id)}>

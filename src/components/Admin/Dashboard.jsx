@@ -1,8 +1,9 @@
 import React from 'react'
 import AdminLayout from '../layout/AdminLayout'
-import { ProductsLists } from './products/ProductsList'
+// import { ProductsLists } from './products/ProductsList'
 import axiosRoot from '../utils/axios-root';
 import axiosAPI from '../utils/axios-api';
+import { Order } from './orders/Orders';
 
 function Dashboards() {
 
@@ -57,7 +58,8 @@ export default function Dashboard() {
   return (
     <AdminLayout>
       <Dashboards />
-      <ProductsLists />
+      <Order />
+      {/* <ProductsLists /> */}
     </AdminLayout>
   )
 }

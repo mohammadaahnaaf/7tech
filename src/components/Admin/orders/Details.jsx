@@ -68,7 +68,7 @@ const Detail = () => {
         }
         getProduct()
 
-    }, [order]);
+    }, [order, router, itemId]);
 
     // Details 
     const handleChange = (id, event) => {
@@ -169,16 +169,16 @@ const Detail = () => {
                         <div className="flex gap-2 items-center" key={index}>
                             <div>
                                 <label htmlFor="name" className="block mb-2 text-xs font-medium text-gray-900">Product Name</label>
-                                <input type="text" name="name" id="name" value={element.name || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                <input type="text" name="name" id="name" value={element.name || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Name" required />
                             </div>
                             <div>
                                 <label htmlFor="quantity" className="block mb-2 text-xs font-medium text-gray-900">Qty</label>
-                                <input type="number" name="quantity" id="quantity" value={element.quantity || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                <input type="number" name="quantity" id="quantity" value={element.quantity || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="qty" required />
                             </div>
                             <div className='flex'>
                                 <div>
                                     <label htmlFor="price" className="block mb-2 text-xs font-medium text-gray-900">Price</label>
-                                    <input type="number" name="price" id="price" value={element.price || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Enter details" required />
+                                    <input type="number" name="price" id="price" value={element.price || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Price" required />
                                 </div>
                                 {formValues.length != 1 && (
                                     <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>

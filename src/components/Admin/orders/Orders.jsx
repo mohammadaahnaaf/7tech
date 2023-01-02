@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api'
+import { fDate } from '../../utils/formatTime';
 
 // import { orders } from '../../../data/OrderList';
 
@@ -141,7 +142,7 @@ export function Order() {
                     </div>
                   </td>
                   <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                    #{order._id}
+                    #STEO{index}
                   </td>
                   <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                     {order.customer_name}
@@ -150,13 +151,13 @@ export function Order() {
                     {order.customer_number}
                   </td>
                   <td className="py-4 px-6">
-                    {order.createdAt}
+                    {fDate(order.createdAt)}
                   </td>
                   <td className="py-4 px-6">
                     {order.products.length || 0}
                   </td>
                   <td className="py-4 px-6">
-                    ${order.total}
+                    ৳ {order.total}
                   </td>
                   <td className="py-4 px-6 text-right">
                     <button
