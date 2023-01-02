@@ -17,25 +17,39 @@ const Detail = () => {
     const [error, setError] = React.useState('')
     const [loading, setIsLoading] = React.useState(false)
     const [tags, setTags] = useState([]);
-
-    const [files, setFile] = useState([]);
+    const [cats, setCats] = React.useState([]);
+    const [files, setFiles] = useState([]);
     const [imgSrc, setImgSrc] = useState([]);
 
+    // select images 
     const handleSelectImage = (e) => {
-        let file = e.target.files;
 
-        for (let i = 0; i < file.length; i++) {
-            const fileType = file[i]['type'];
-            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-            if (validImageTypes.includes(fileType)) {
-                setFile([...files, file[i]]);
-            } else {
-                setError("only images accepted");
-            }
-        }
+        let file = e.target.files;
+        const selectedFilesArray = Array.from(file);
+
+        const imagesArray = selectedFilesArray.map((file) => {
+            return file;
+          });
+      
+          setFiles((previousImages) => previousImages.concat(imagesArray));
+
+        // for (let i = 0; i < file.length; i++) {
+        //     let fileType = file[i]['type'];
+        //     const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg'];
+        //     if (validImageTypes.includes(fileType)) {
+        //         setFiles([...files, file[i]]);
+        //     } else {
+        //         setError("only images accepted");
+        //     }
+        // }
+
+        // console.log(file)
+        // console.log(files)
     };
+
+    // remove selected images 
     const removeImage = (i) => {
-        setFile(files.filter(x => x.name !== i));
+        setFiles(files.filter(x => x.name !== i));
     }
 
     // const [userInfo, setuserInfo] = useState({
@@ -55,6 +69,8 @@ const Detail = () => {
     // }
 
     // submit form data
+
+
     const handleSubmit = async (event) => {
 
         try {
@@ -153,8 +169,7 @@ const Detail = () => {
         }
     }
 
-    const [cats, setCats] = React.useState([]);
-
+    // get category
     React.useEffect(() => {
         async function getCategory() {
             const res = await axiosRoot.get('/categories');
@@ -164,7 +179,8 @@ const Detail = () => {
     }, []);
     // console.log(cats.map((i) => i.name))
 
-    const onChange = (e) => {
+    // preview images 
+    const onChanges = (e) => {
 
         for (const file of e.target.files) {
             const save = new FileReader();
@@ -177,7 +193,6 @@ const Detail = () => {
             };
         }
     };
-    // console.log(files, files.length);
 
     return (
 
@@ -189,15 +204,16 @@ const Detail = () => {
             )}
             <form onSubmit={handleSubmit}>
                 <h1 className='py-3 mb-5 text-2xl text-center bg-gray-200 rounded-lg'>Add Product</h1>
-                {/* Product Details  */}
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
+
+                    {/* Product Details  */}
                     <div>
                         <div>
                             <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
                             <input type="text" name='name' id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         {/* <div>
-                            <label htmlFor="brand" className="block mb-2 text-sm font-medium text-gray-900 ">Brand</label>
+                            <label htmlFor="brand" className="block mt-2 mb-1 text-sm font-medium text-gray-900 ">Brand</label>
                             <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div> */}
                         <div>
@@ -209,28 +225,33 @@ const Detail = () => {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="code" className="block mb-2 text-sm font-medium text-gray-900 ">Product code</label>
+                            <label htmlFor="code" className="block mt-2 mb-1 text-sm font-medium text-gray-900 ">Product code</label>
                             <input type="text" name='code' id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="enter code" required />
                         </div>
                         <div>
-                            <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
+                            <label htmlFor="quantity" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Quantity</label>
                             <input type="number" name='quantity' id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         <div>
-                            <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">Price</label>
+                            <label htmlFor="price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Price</label>
                             <input type="number" name='price' id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
-
                         <div>
+                            <label htmlFor="specifications" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Specification</label>
+                            <textarea type="text" rows={3} id="specifications" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="enter specifications" />
+                        </div>
+                        <div>
+                            {/* <label className=" ml-2 w-full text-sm font-medium text-gray-900">Tags</label> */}
+
                             <TagsInput
                                 value={tags}
                                 onChange={setTags}
                                 name="tags"
-                                placeHolder="enter tags"
+                                placeHolder="Enter tags"
                             />
 
                         </div>
-                        <div class="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
+                        <div class="flex items-center pl-2.5 mt-3.5 mb-1 rounded-lg border border-gray-300">
                             <input id="bordered-checkbox-1" type="checkbox" onClick={handleFeature} checked={featured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-600" />
                             <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
                         </div>
@@ -265,7 +286,7 @@ const Detail = () => {
                                             <input multiple id="file-upload" name="file-upload"
                                                 type="file"
                                                 className="sr-only"
-                                                onChange={handleSelectImage}
+                                                onChange={(e) => handleSelectImage(e)}
                                             />
                                         </label>
                                     </div>
@@ -273,13 +294,15 @@ const Detail = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <input onChange={onChange} type="file" className='hidden' name="file" multiple />
+
+                        {/* <div>
+                            <input onChange={onChanges} type="file" className='hidden' name="file" multiple />
                             {imgSrc.map((link) => (
                                 <img src={link} />
                             ))}
-                        </div>
-                        {/* Images  */}
+                        </div> */}
+
+                        {/* Preview Images  */}
                         <div className='grid grid-cols-2 gap-2 mt-5'>
                             {files.map((file) =>
                                 <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
@@ -329,7 +352,7 @@ const Detail = () => {
                                         type="text" name="title" id="title"
                                         placeholder="Enter detail"
                                         required
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
                                         onChange={(e) => handleChange(element.id, e)}
                                         value={element.title || ""}
                                     />
@@ -386,7 +409,7 @@ const Detail = () => {
                                     <div>
                                         <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
                                         <input type="text" name="title" id="title" placeholder="Enter title" required
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
                                             value={element.title || ""}
                                             onChange={(e) => handleMoreinfo(element.id, e)}
                                         />
@@ -394,7 +417,7 @@ const Detail = () => {
                                     <div>
                                         <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
                                         <input type="text" name="description" id="description" placeholder="Enter description" required
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
                                             value={element.description || ""}
                                             onChange={(e) => handleMoreinfo(element.id, e)}
                                         />
