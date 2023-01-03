@@ -180,19 +180,19 @@ const Detail = () => {
     // console.log(cats.map((i) => i.name))
 
     // preview images 
-    const onChanges = (e) => {
+    // const onChanges = (e) => {
 
-        for (const file of e.target.files) {
-            const save = new FileReader();
-            save.readAsDataURL(file);
-            save.onload = () => {
-                setImgSrc((files) => [...files, save.result]);
-            };
-            save.onerror = () => {
-                console.log(save.error);
-            };
-        }
-    };
+    //     for (const file of e.target.files) {
+    //         const save = new FileReader();
+    //         save.readAsDataURL(file);
+    //         save.onload = () => {
+    //             setImgSrc((files) => [...files, save.result]);
+    //         };
+    //         save.onerror = () => {
+    //             console.log(save.error);
+    //         };
+    //     }
+    // };
 
     return (
 

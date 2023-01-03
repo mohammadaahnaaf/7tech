@@ -31,6 +31,8 @@ export function Detail() {
     async function getCategory() {
       const res = await axiosRoot.get(`/categories/${itemId}`);
       setCategory(res.data)
+      setFeatured(res.data.isFeatured)
+      setIndexing(res.data.index)
       setFormValues(res.data.subCategories)
     }
     getCategory()
@@ -48,6 +50,7 @@ export function Detail() {
         name: data.get('categoryName'),
         subCategories: JSON.stringify(formValues),
         isFeatured: featured,
+        index: +indexing
       }
       await axiosAPI.put(`/categories/${itemId}`, reqData);
       setSuccess('Category Edited.')

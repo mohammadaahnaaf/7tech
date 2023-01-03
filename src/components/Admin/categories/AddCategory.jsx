@@ -9,7 +9,7 @@ export function AddCategorys() {
   const [formValues, setFormValues] = React.useState([{ id: uuidv4(), names: "" }])
   const [error, setError] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
-  const [indexing, setIndexing] = React.useState('')
+  const [indexing, setIndexing] = React.useState(0)
   const [featured, setFeatured] = React.useState(false)
 
   // submit form data
@@ -23,6 +23,7 @@ export function AddCategorys() {
       const reqData = {
         name: data.get('categoryName'),
         isFeatured: featured,
+        index: +indexing,
         subCategories: formValues.map(value => (
           {
             name: value.names,

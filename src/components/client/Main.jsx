@@ -10,11 +10,11 @@ function Main({ setIntro }) {
     const [searchTerm, setSearchTerm] = React.useState('')
     const [products, setProducts] = React.useState([]);
     const [category, setCategory] = React.useState([]);
-
-    const filterI = 'Webcam';
-    const filter2 = 'Keyboard';
-    const filter21 = 'Keyboards';
-    const filter3 = 'Headset';
+ 
+    const filter21 = category[0]?.name;
+    const filterI = category[1]?.name;
+    const filter3 = category[2]?.name;
+    const filter31 = category[3]?.name;
 
     // get product data 
     React.useEffect(() => {
@@ -30,12 +30,20 @@ function Main({ setIntro }) {
     React.useEffect(() => {
         async function getCategory() {
             const res = await axiosRoot.get('/categories');
-            res.data.map((x) => {
-                if (x.featured === true) {
-                    setCategory(...category, x)
-                } return
+
+            const cats = res.data.filter(cat => cat.isFeatured === true).map((i) => {
+                return i
             })
-            console.log(category)
+            setCategory(cats);
+
+            // setCategory([...category, i]);
+
+            // res.data.map((x) => {
+            //     if (x.isFeatured === true) {
+            //         setCategory([...category, x])
+            //         console.log(x)
+            //     } return
+            // })
         }
         getCategory()
     }, []);
@@ -47,6 +55,7 @@ function Main({ setIntro }) {
             <Shop term={searchTerm} filters={filterI} items={products.slice(0, 10)} title={'MADE FOR GAMING'} />
             <Shop term={searchTerm} filters={filter21} items={products.slice(0, 10)} title={'BEST FOR GAMING'} />
             <Shop term={searchTerm} filters={filter3} items={products.slice(0, 10)} title={'DEDICATED FOR GAMING'} />
+            <Shop term={searchTerm} filters={filter31} items={products.slice(0, 10)} title={'DEDICATED FOR GAMING'} />
             <Shop term={searchTerm} items={products.slice(0, 10)} title={'ALL PRODUCTS'} />
         </Layout>
     )
