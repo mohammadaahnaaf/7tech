@@ -3,7 +3,7 @@ import AdminLayout from '../../layout/AdminLayout'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import axiosAPI from '../../utils/axios-api';
-import axiosRoot from '../../utils/axios-root';
+// import axiosRoot from '../../utils/axios-root';
 
 const Detail = () => {
     const router = useRouter()
@@ -11,6 +11,7 @@ const Detail = () => {
 
     const [formValues, setFormValues] = React.useState([{ id: uuidv4(), detail: "" }])
     const [status, setStatus] = React.useState('')
+    const [payment, setPayment] = React.useState('')
     // const [allProducts, setAllProducts] = React.useState([])
     const [products, setProducts] = React.useState([
         {
@@ -40,6 +41,7 @@ const Detail = () => {
             const res = await axiosAPI.get(`/orders/${itemId}`);
             setOrder(res.data)
             setStatus(res.data.status)
+            setPayment(res.data.payment_method)
             setProducts(res.data.products)
         }
 
@@ -52,9 +54,8 @@ const Detail = () => {
         async function getProduct() {
             const res = await axiosAPI.get('/products');
 
-            res.data.map(x => test(x))
             function test(item) {
-                const newProducts = products.map(i => {
+                const newProducts = order.products.map(i => {
                     if (i.productId === item._id) {
                         i.name = item.name
                         i.quantity = i.quantity
@@ -65,6 +66,7 @@ const Detail = () => {
                 })
                 setProducts(newProducts);
             }
+            res.data.map(x => test(x))
         }
         getProduct()
 
@@ -142,7 +144,7 @@ const Detail = () => {
 
                     <div>
                         <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                        <select id="status" name='status' value={order.status || status} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
+                        <select id="status" name='status' value={status || ''} onChange={(e) => setStatus(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
                             <option value='paid'>Paid</option>
                             <option value="pending">Pending</option>
                             <option value="shipped">Shipped</option>
@@ -152,7 +154,7 @@ const Detail = () => {
                     </div>
                     <div>
                         <label htmlFor="payment" className="block mb-2 text-sm font-medium text-gray-900">Payment</label>
-                        <select value={order.payment_method || ''} id="payment" name='payment' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
+                        <select value={payment || ''} onChange={(e) => setPayment(e.target.value)}  id="payment" name='payment' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
                             <option value='bkash'>BKash</option>
                             <option value="cash-on-delivery">Cash on delevary</option>
                         </select>
