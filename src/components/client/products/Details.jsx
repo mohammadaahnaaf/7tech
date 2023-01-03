@@ -23,7 +23,7 @@ export function Details() {
     // const [reviews, setReviews] = useState([])
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
-    const [show, setShow] = useState('info');
+    const [show, setShow] = useState('details');
     const [info, setInfo] = useState([])
     const [moreInfo, setMoreInfo] = useState([])
     const [images, setImages] = useState([])

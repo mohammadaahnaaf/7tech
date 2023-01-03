@@ -21,10 +21,10 @@ export function Detail() {
     }
   ])
   const [error, setError] = React.useState('')
+  const [success, setSuccess] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
   const [featured, setFeatured] = React.useState(false)
   const [indexing, setIndexing] = React.useState(0)
-  const [success, setSuccess] = React.useState('')
 
   //Get Data
   React.useEffect(() => {

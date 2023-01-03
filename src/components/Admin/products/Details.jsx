@@ -19,6 +19,7 @@ const Detail = () => {
   const [files, setFiles] = React.useState([]);
   const [loading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState('')
+  const [success, setSuccess] = React.useState('')
   const [isFeatured, setIsFeatured] = React.useState(false)
   const [details, setDetails] = React.useState(
     {
@@ -78,7 +79,7 @@ const Detail = () => {
 
     getProduct()
   }, [router, itemId, loading]);
-  console.log(formValues)
+  
   // submit edit 
   const handleSubmit = async (event) => {
 
@@ -93,22 +94,26 @@ const Detail = () => {
       data.delete('description')
       data.set('tags', JSON.stringify(tags))
       data.set('isFeatured', isFeatured)
-      data.set('details', JSON.stringify(formValues.map(value => (
-        { title: value.title }
-      ))))
-      data.set('information', JSON.stringify(moreInfos.map(info => (
-        {
-          title: info.title,
-          description: info.description
-        }
-      ))))
+
+      // data.set('details', JSON.stringify(formValues.map(value => (
+      //   { title: value.title }
+      // ))))
+      // data.set('information', JSON.stringify(moreInfos.map(info => (
+      //   {
+      //     title: info.title,
+      //     description: info.description
+      //   }
+      // ))))
 
       Array.from(files).forEach(file => {
         data.append('images', file)
       })
       setIsLoading(true)
       await axiosAPI.put(`/products/${itemId}`, data);
-      // Router.push('/admin/products')
+      setSuccess('Category Edited.')
+      setTimeout(() => {
+        setSuccess('')
+      }, 2000)
       setIsLoading(false)
     } catch (error) {
 
@@ -229,9 +234,11 @@ const Detail = () => {
   return (
     <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
       <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Product Details</h1>
-      {/* {error && (
-          <p className='mr-3 p-3 bg-yellow-200 rounded-lg text-red-500'>{error}</p>
-        )} */}
+      {success && (
+        <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+          <span class="font-medium">Success</span> {success}
+        </div>
+      )}
       {error && (
         <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
           <span class="font-medium">Warning!</span> {error}

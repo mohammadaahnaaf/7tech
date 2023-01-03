@@ -10,7 +10,7 @@ function Main({ setIntro }) {
     const [searchTerm, setSearchTerm] = React.useState('')
     const [products, setProducts] = React.useState([]);
     const [category, setCategory] = React.useState([]);
- 
+
     const filter21 = category[0]?.name;
     const filterI = category[1]?.name;
     const filter3 = category[2]?.name;
@@ -48,15 +48,15 @@ function Main({ setIntro }) {
         getCategory()
     }, []);
 
+    const titles = ['MADE FOR GAMING', 'BEST FOR GAMING', 'DEDICATED FOR GAMING', 'BUILD FOR GAMING', 'ALL PRODUCTS']
+    //filter((x, index) => x.index === index + 1)
 
     return (
         <Layout setSearchTerm={setSearchTerm}>
             <Banner />
-            <Shop term={searchTerm} filters={filterI} items={products.slice(0, 10)} title={'MADE FOR GAMING'} />
-            <Shop term={searchTerm} filters={filter21} items={products.slice(0, 10)} title={'BEST FOR GAMING'} />
-            <Shop term={searchTerm} filters={filter3} items={products.slice(0, 10)} title={'DEDICATED FOR GAMING'} />
-            <Shop term={searchTerm} filters={filter31} items={products.slice(0, 10)} title={'DEDICATED FOR GAMING'} />
-            <Shop term={searchTerm} items={products.slice(0, 10)} title={'ALL PRODUCTS'} />
+            {category.slice(0, 4).map((s, index) => (
+                <Shop term={searchTerm} filters={s.name} items={products.slice(0, 12)} title={titles[index]} />
+            ))}
         </Layout>
     )
 }
