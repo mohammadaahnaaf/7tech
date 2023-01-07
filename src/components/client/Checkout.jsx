@@ -272,7 +272,7 @@ function Checkouts({ setSuccess, setOrder }) {
     )
 }
 
-export default function Checkout() {
+export function Checkout() {
 
     const [success, setSuccess] = React.useState(false)
     const [order, setOrder] = React.useState({})

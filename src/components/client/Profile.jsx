@@ -16,7 +16,7 @@ const profile = {
 export function Setting() {
 
     const [me, setMe] = React.useState(false)
-    
+
 
     return (
         <div className="py-6 min-h-screen bg-black sm:px-6 lg:px-8">
@@ -29,23 +29,26 @@ export function Setting() {
                             <div className="grid grid-cols-6 gap-6">
 
                                 <div className="col-span-6 mx-auto justify-center block">
-                                    <label className="block text-sm font-medium text-center text-red-700">Your Photo</label>
+                                    <label className="block text-md font-medium text-center text-red-700">Your Photo</label>
                                     <div className="mt-1 grid gap-2 justify-items-center items-center">
-                                        <span className="inline-block h-24 w-24 overflow-hidden bg-opacity-20 bg-red-600">
+                                        <div className="inline-block ring-2 ring-red-600 h-24 w-24 overflow-hidden">
                                             {me === false ? (
+                                                <button
+                                            type="button">
                                                 <svg className="h-full w-full text-red-600" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                                                 </svg>
+                                            </button>
                                             ) : (
                                                 <img alt='profile image' src={profile.photo} />
                                             )}
-                                        </span>
-                                        <button
+                                        </div>
+                                        {/* <button
                                             type="button"
-                                            className="px-3 py-2 w-full border-2 border-red-600 hover:border-white hover:text-white shadow-sm text-sm leading-4 font-medium text-red-600 bg-red-600 bg-opacity-20 hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600"
+                                            className="px-5 py-2 w-full border-2 border-red-600 hover:border-white hover:text-white shadow-sm text-sm leading-4 font-medium text-red-600 bg-black hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600"
                                         >
                                             Change
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
 
@@ -162,10 +165,10 @@ export function Setting() {
                                 </div>
                             </div>
                         </div>
-                        <div className="px-4 py-3 bg-red-600 bg-opacity-10 text-right sm:px-6">
+                        <div className="px-4 py-6 bg-red-600 bg-opacity-10 text-right sm:px-6">
                             <button
                                 type="submit"
-                                className="inline-flex bg-red-600 bg-opacity-20 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-red-600 hover:bg-opacity-10 focus:outline-none ring-2 ring-red-600"
+                                className="inline-flex bg-black justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-red-600 hover:text-red-100 hover:ring-red-100 focus:outline-none ring-2 ring-red-600"
                             >
                                 Save
                             </button>
@@ -572,7 +575,7 @@ export function Profiles() {
     )
 }
 
-export default function Profile() {
+export function Profile() {
     return (
         <Layout>
             <Setting />

@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ShoppingCartIcon } from '@heroicons/react/outline'
 import { useCart } from 'react-use-cart'
-// import { useRouter } from 'next/router'
 import axiosRoot from '../utils/axios-root';
-// import axiosAPI from '../utils/axios-api'
-// import Image from 'next/image';
 import Product from './products/Product';
 import Link from 'next/link';
 

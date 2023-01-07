@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import Layout from '../layout/Layout'
+// import Layout from '../layout/Layout'
 
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { BasicNavbar } from '../shared/Navbar';
 import Footer from '../shared/Footer';
 import axiosRoot from '../utils/axios-root';
+import Link from 'next/link';
 
 
 export function Banner() {
@@ -72,12 +73,11 @@ export function Homes() {
                         The SevenTech website is under maintenance now. Stay connected with our social sites. We shall arrive very soon.
                     </p>
                     <div className='pt-10'>
-                        <a
-                            href="/"
-                            className="inline-block text-center bg-red-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-green-500"
-                        >
-                            Shop Collection
-                        </a>
+                        <Link href='/'>
+                            <a className="inline-block text-center bg-red-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-green-500">
+                                Home
+                            </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -153,7 +153,7 @@ export function Homes() {
     )
 }
 
-export default function Home() {
+export function Home() {
     return (
         <>
             <BasicNavbar />

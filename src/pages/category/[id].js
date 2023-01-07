@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import Details from '../../components/client/categories/Details'
+import { Details } from '../../components/client/categories/Details'
 
 function CategoryOne() {
   return (

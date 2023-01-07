@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-// import { CartProvider } from 'react-use-cart';
-import Cart from '../components/client/Cart'
+import { Cart } from '../components';
 
 function CartPage() {
     return (

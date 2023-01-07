@@ -19,8 +19,8 @@ export function Details() {
     const itemId = router.query.id
     const myRef = useRef()
 
-    const [details, setDetails] = useState([])
     // const [reviews, setReviews] = useState([])
+    const [details, setDetails] = useState([])
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [show, setShow] = useState('details');
@@ -523,7 +523,7 @@ export function Details() {
     )
 }
 
-export default function Detail() {
+export function Detail() {
     return (
         <Layout>
             <Details />

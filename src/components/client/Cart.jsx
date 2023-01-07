@@ -106,7 +106,7 @@ export function Carts() {
     )
 }
 
-export default function Cart() {
+export function Cart() {
     return (
         <Layout>
             <Carts />

@@ -359,7 +359,7 @@ export function Example({ term }) {
 
 
 
-export default function Details() {
+export function Details() {
 
     const [searchTerm, setSearchTerm] = React.useState('')
 
