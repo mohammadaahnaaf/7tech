@@ -238,7 +238,7 @@ const Detail = () => {
                         </div>
                         <div>
                             <label htmlFor="specifications" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Specification</label>
-                            <textarea type="text" rows={3} id="specifications" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="enter specifications" />
+                            <textarea type="text" rows={5} id="specifications" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="enter specifications" />
                         </div>
                         <div>
                             {/* <label className=" ml-2 w-full text-sm font-medium text-gray-900">Tags</label> */}
@@ -357,7 +357,7 @@ const Detail = () => {
                                         value={element.title || ""}
                                     />
                                 </div>
-                                <div className='hidden'>
+                                <div className='col-span-1'>
                                     {formValues.length != 1 && (
                                         <button type="button" className="flex items-end" onClick={() => removeFormFields(element.id)}>
                                             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mb-2 ml-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

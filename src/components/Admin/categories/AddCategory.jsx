@@ -92,10 +92,23 @@ export function AddCategorys() {
         <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Add Category</h1>
         <div className="grid gap-2 max-w-4xl mx-auto bg-gray-100 shadow rounded-lg ring-2 ring-gray-300 mb-6">
           {featured && (
-            <div className='w-full px-4 pt-2'>
-              <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>
-              <input type="number" name='indexing' id="indexing" onChange={(e) => setIndexing(e.target.value)} value={indexing || ""} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Index" />
-            </div>
+            <>
+              {/* <div className='w-full px-4 pt-2'>
+                <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>
+                <input type="number" name='indexing' id="indexing" onChange={(e) => setIndexing(e.target.value)} value={indexing || ""} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Index" />
+              </div> */}
+
+              <div className='w-full px-4 pt-2'>
+                <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>
+                <select id="indexing" onChange={(e) => setIndexing(e.target.value)} value={indexing || ""} name='indexing' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Category Index">
+                  <option value='1'>1st</option>
+                  <option value='2'>2nd</option>
+                  <option value='3'>3rd</option>
+                  <option value='4'>4th</option>
+                  <option value='5'>5th</option>
+                </select>
+              </div>
+            </>
           )}
           <div className='w-full px-4'>
             <label htmlFor="categoryName" className="block my-2 text-xs font-medium text-gray-900">Category name</label>
