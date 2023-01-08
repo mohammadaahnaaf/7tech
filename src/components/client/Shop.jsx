@@ -84,7 +84,7 @@ export function ProductCard({ setiCategory, product }) {
                   <img
                       src={`${item}` || product?.imageSrc}
                       alt='product image'
-                      className="h-full w-full z-20 object-cover object-center lg:h-full lg:w-full"
+                      className="h-full w-full z-10 object-cover object-center lg:h-full lg:w-full"
                   />
               </div>
           ))}

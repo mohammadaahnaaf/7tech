@@ -1,6 +1,7 @@
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { ChevronDoubleRightIcon } from "@heroicons/react/solid";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
 import axiosAPI from "../../utils/axios-api";
@@ -22,7 +23,7 @@ export function CategoryBar() {
             setCategories(res.data)
         }
         getCategory()
-    }, []);
+    }, [router]);
 
     return (
 
@@ -52,7 +53,7 @@ export function CategoryBar() {
                             leaveFrom="translate-x-0"
                             leaveTo="-translate-x-full"
                         >
-                            <Dialog.Panel className="relative max-w-xs w-full bg-black ring-gray-300 ring-2 shadow-xl pb-12 flex flex-col overflow-y-auto">
+                            <Dialog.Panel className="relative z-40 max-w-full w-full bg-black ring-gray-300 ring-2 shadow-xl pb-12 flex flex-col overflow-y-auto">
                                 <div className="px-4 pt-5 pb-2 flex">
                                     <button
                                         type="button"
@@ -86,23 +87,7 @@ export function CategoryBar() {
                                     <Tab.Panels as={Fragment}>
                                         {categories.map((category) => (
                                             <Tab.Panel key={category.name} className="pt-5 pb-5 bg-black px-4 -z-50 space-y-5">
-                                                {/* <div className="grid grid-cols-2 gap-x-4 z-60">
-                                                    {category.subCategories.map((item) => (
-                                                        <div key={item.name} className="group z-60 relative text-sm">
-                                                            <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                                                <img src={item.imageSrc} alt={item.imageAlt} className="object-center object-cover" />
-                                                            </div> 
-                                                            <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                                                <span className="absolute z-60 inset-0" aria-hidden="true" />
-                                                                {item.name}
-                                                            </a>
-                                                            <p aria-hidden="true" className="mt-1">
-                                                                Shop now
-                                                            </p>
-                                                        </div>
-                                                    ))}
-                                                </div> */}
-
+                                      
                                                 <div>
                                                     <ul
                                                         role="list"
@@ -130,14 +115,15 @@ export function CategoryBar() {
                 </Dialog>
             </Transition.Root>
 
+            {/* PC menu view  */}
             <header className="relative max-h-10 bg-red-600">
 
                 <div area-position='fixed' aria-label="Top" className="max-w-7xl max-h-10 mx-auto px-4 sm:px-6 xl:px-8">
                     <div>
-                        <div className="h-16 flex items-center">
+                        <div className="h-10 flex items-center">
                             <button
                                 type="button"
-                                className="bg-red-600 px-2 flex items-center ring-2 ring-gray-200 text-white xl:hidden"
+                                className="px-2 ml-3 py-1 flex items-center ring-0 bg-black ring-gray-200 text-red-600 xl:hidden"
                                 onClick={() => setOpen(true)}
                             >
                                 <span className="sr-only">Open menu</span>
@@ -154,8 +140,6 @@ export function CategoryBar() {
                                                 <>
                                                     <div className="relative flex">
                                                         <Popover.Button
-                                                            // onClick={() => setHeight(true)}
-                                                            // href='/category'
                                                             className={classNames(
                                                                 open
                                                                     ? 'border-gray-900 text-white border-b-white border-b-4'
@@ -182,41 +166,23 @@ export function CategoryBar() {
                                                             <div className="relative h-[55vh] border-b-2 border-red-600 bg-gradient-to-b from-black via-red-900 to-black z-40">
                                                                 <div className="max-w-7xl mx-auto px-8">
                                                                     <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-8">
-                                                                        <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                                                            {/* {category.subCategories.map((item) => (
-                                                                                <div key={item.name} className="group relative text-base sm:text-sm">
-                                                                                    <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
-                                                                                        <img
-                                                                                            src={item.imageSrc}
-                                                                                            alt={item.imageAlt}
-                                                                                            className="object-center object-cover"
-                                                                                        />
-                                                                                    </div>
-                                                                                    <a href={item.href} className="mt-6 block font-medium text-gray-200">
-                                                                                        <span className="absolute z-10 inset-0" aria-hidden="true" />
-                                                                                        {item.name}
-                                                                                    </a>
-                                                                                    <p aria-hidden="true" className="mt-1 text-gray-400">
-                                                                                        Shop now
-                                                                                    </p>
-                                                                                </div>
-                                                                            ))} */}
-                                                                        </div>
+
                                                                         <div className="row-start-1 grid grid-cols-3 gap-y-5 gap-x-5 text-sm">
                                                                             {/* {category.subCategories.map((section) => ( */}
                                                                             <div>
-                                                                                <p className="font-medium text-lg text-gray-100">
-                                                                                    {category.name}
-                                                                                </p>
+                                                                                <Link href={`/category/${category.name}`}>
+                                                                                    <a className="font-medium text-lg text-gray-100">
+                                                                                        {category.name}
+                                                                                    </a>
+                                                                                </Link>
                                                                                 <ul
                                                                                     role="list"
-                                                                                    // aria-labelledby={`${section.name}-heading`}
                                                                                     className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                                                                 >
-                                                                                    {category.subCategories.map((item) => (
+                                                                                    {category.subCategories.map((item, index) => (
                                                                                         <li key={item.name} className="flex">
                                                                                             <button type="button" onClick={() => router.push(`/category/${item.name}`)} className="text-md text-white hover:text-gray-200">
-                                                                                                {item.name}
+                                                                                                {index + 1}. {item.name}
                                                                                             </button>
                                                                                         </li>
                                                                                     ))}
