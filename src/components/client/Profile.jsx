@@ -1,21 +1,20 @@
 import Layout from "../layout/Layout"
 import React from 'react'
-
-const profile = {
-    photo: '/me.png',
-    name: 'Mohammed Ahnaf',
-    phone: '01633312573',
-    email: 'ahnaf1998ff@gmail.com',
-    city: 'Dhaka',
-    state: '',
-    zone: '',
-    country: '',
-    address: ''
-}
+import axiosAPI from "../utils/axios-api";
 
 export function Setting() {
 
-    const [me, setMe] = React.useState(false)
+    const [me, setMe] = React.useState({})
+
+    // get filter category 
+    React.useEffect(() => {
+        async function getProfile() {
+            const res = await axiosAPI.get('/auth/get-me');
+
+            setMe(res.data);
+        }
+        getProfile()
+    }, []);
 
 
     return (
@@ -32,23 +31,17 @@ export function Setting() {
                                     <label className="block text-md font-medium text-center text-red-700">Your Photo</label>
                                     <div className="mt-1 grid gap-2 justify-items-center items-center">
                                         <div className="inline-block ring-2 ring-red-600 h-24 w-24 overflow-hidden">
-                                            {me === false ? (
+                                            {!me.image ? (
                                                 <button
-                                            type="button">
-                                                <svg className="h-full w-full text-red-600" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                                </svg>
-                                            </button>
+                                                    type="button">
+                                                    <svg className="h-full w-full text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                    </svg>
+                                                </button>
                                             ) : (
-                                                <img alt='profile image' src={profile.photo} />
+                                                <img alt='profile image' src={me.image} />
                                             )}
                                         </div>
-                                        {/* <button
-                                            type="button"
-                                            className="px-5 py-2 w-full border-2 border-red-600 hover:border-white hover:text-white shadow-sm text-sm leading-4 font-medium text-red-600 bg-black hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600"
-                                        >
-                                            Change
-                                        </button> */}
                                     </div>
                                 </div>
 
@@ -58,9 +51,9 @@ export function Setting() {
                                     </label>
                                     <input
                                         type="text"
-                                        name="first-name"
-                                        id="first-name"
-                                        autoComplete="given-name"
+                                        name="name"
+                                        id="name"
+                                        value={me.fullName || ''}
                                         className="mt-1 focus:ring-red-600 bg-red-600 bg-opacity-20 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
@@ -71,9 +64,9 @@ export function Setting() {
                                     </label>
                                     <input
                                         type="email"
-                                        name="email-address"
-                                        id="email-address"
-                                        autoComplete="email"
+                                        name="email"
+                                        id="email"
+                                        value={me.email || ''}
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
@@ -85,7 +78,7 @@ export function Setting() {
                                         type="tel"
                                         name="phone"
                                         id="phone"
-                                        autoComplete="tel"
+                                        value={me.phoneNumber || ''}
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
@@ -100,7 +93,7 @@ export function Setting() {
                                         autoComplete="country-name"
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     >
-                                        <option>Bangladesh</option>
+                                        <option value='bangladesh'>Bangladesh</option>
                                         <option>India</option>
                                         <option>Pakistan</option>
                                         <option>Nepal</option>
@@ -110,7 +103,7 @@ export function Setting() {
                                     </select>
                                 </div>
 
-                                <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div className="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <label htmlFor="city" className="block text-sm font-medium text-red-700">
                                         City
                                     </label>
@@ -118,48 +111,48 @@ export function Setting() {
                                         type="text"
                                         name="city"
                                         id="city"
-                                        autoComplete="address-level2"
+                                        value={me.city || ''}
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
 
-                                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                                    <label htmlFor="region" className="block text-sm font-medium text-red-700">
-                                        State / Province
+                                <div className="col-span-6 sm:col-span-6 lg:col-span-3">
+                                    <label htmlFor="zone" className="block text-sm font-medium text-red-700">
+                                        Zone
                                     </label>
                                     <input
                                         type="text"
-                                        name="region"
-                                        id="region"
-                                        autoComplete="address-level1"
+                                        name="zone"
+                                        id="zone"
+                                        value={me.zone || ''}
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
 
-                                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                                    <label htmlFor="postal-code" className="block text-sm font-medium text-red-700">
-                                        ZIP / Postal code
+                                {/* <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                                    <label htmlFor="area" className="block text-sm font-medium text-red-700">
+                                        Area
                                     </label>
                                     <input
                                         type="text"
-                                        name="postal-code"
-                                        id="postal-code"
-                                        autoComplete="postal-code"
+                                        name="area"
+                                        id="area"
+                                        value={me.area || ''}
                                         className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     />
-                                </div>
+                                </div> */}
                                 <div className="col-span-6">
                                     <label htmlFor="about" className="block text-sm font-medium text-red-700">
-                                        About
+                                        Address
                                     </label>
                                     <div className="mt-1">
                                         <textarea
-                                            id="about"
-                                            name="about"
-                                            rows={3}
+                                            id="address"
+                                            name="address"
+                                            rows={4}
                                             placeholder="Write details of your address"
-                                            defaultValue={''}
-                                            className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
+                                            value={me.address || ''}
+                                            className="mt-1 bg-red-600 bg-opacity-20 placeholder-red-400 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                         />
                                     </div>
                                 </div>
