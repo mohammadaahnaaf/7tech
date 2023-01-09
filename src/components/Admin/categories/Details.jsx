@@ -20,12 +20,11 @@ export function Detail() {
       name: ""
     }
   ])
-  // const [sub, setSub] = React.useState([
-  //   {
-  //     _id: '',
-  //     name: ""
-  //   }
-  // ])
+  const [sub, setSub] = React.useState(
+    {
+      _id: '',
+      name: ""
+    })
   const [error, setError] = React.useState('')
   const [success, setSuccess] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
@@ -42,7 +41,7 @@ export function Detail() {
       setFormValues(res.data.subCategories)
     }
     getCategory()
-  }, []);
+  }, [success, itemId]);
 
   // submit form data
   const handleSubmit = async (event) => {
@@ -64,7 +63,7 @@ export function Detail() {
       //   name: sub.name,
       // }
 
-      // !!sub.name && (
+      // sub.name !== null && (
       //   await axiosAPI.post(`/categories/${itemId}/sub-category`, reqSubData)
       // )
 
@@ -91,14 +90,14 @@ export function Detail() {
     setFormValues(newInputFields);
   };
 
-  function addFormFields() {
-    setFormValues([...formValues,
-    {
-      _id: uuidv4(),
-      name: ''
-    }])
+  async function addFormFields() {
+    const reqSubData = {
+      name: sub.name,
+    }
+    await axiosAPI.post(`/categories/${itemId}/sub-category`, reqSubData)
+    setSuccess('subcategory added')
 
-    // setSub([...formValues,
+    // setFormValues([...formValues,
     // {
     //   _id: uuidv4(),
     //   name: ''
@@ -175,6 +174,7 @@ export function Detail() {
                     onChange={(e) => handleChange(value._id, e)}
                     className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5" placeholder="Enter a subcategory" required />
                 </div>
+
                 {formValues.length != 0 ? (
                   <button type="button" className="col-span-1 items-end flex" onClick={() => removeFormFields(value._id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -190,6 +190,17 @@ export function Detail() {
                 )}
               </div>
             ))}
+
+            <div>
+              <div className='w-[96%]'>
+                <label htmlFor="name" className="block mb-2 text-xs text-gray-900">New child</label>
+                <input
+                  type="text" name="name" id="name"
+                  value={sub.name || ""}
+                  onChange={(e) => setSub({ name: e.target.value })}
+                  className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5" placeholder="Enter a subcategory" required />
+              </div>
+            </div>
             <div>
               <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add Child</button>
             </div>
@@ -205,7 +216,7 @@ export function Detail() {
           </div>
         </div>
       </form>
-    </div>
+    </div >
   )
 }
 
