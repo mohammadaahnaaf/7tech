@@ -96,6 +96,7 @@ export function Detail() {
     }
     await axiosAPI.post(`/categories/${itemId}/sub-category`, reqSubData)
     setSuccess('subcategory added')
+    setTimeout(() => { setSuccess('') }, 2000)
 
     // setFormValues([...formValues,
     // {
@@ -106,9 +107,12 @@ export function Detail() {
 
   function removeFormFields(id) {
     axiosAPI.delete(`/categories/${itemId}/sub-category/${id}`)
+    
     const values = [...formValues];
     values.splice(values.findIndex(value => value.id === id), 1);
     setFormValues(values);
+    setSuccess('Subcategory vanished')
+    setTimeout(() => { setSuccess('') }, 2000)
   }
 
   // Featured? 
