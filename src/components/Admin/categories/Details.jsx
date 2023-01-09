@@ -58,9 +58,7 @@ export function Detail() {
         isFeatured: featured,
         index: +indexing
       }
-      !!reqData.name && (
-        await axiosAPI.put(`/categories/${itemId}`, reqData)
-      );
+      await axiosAPI.put(`/categories/${itemId}`, reqData)
 
       // const reqSubData = {
       //   name: sub.name,
@@ -118,7 +116,7 @@ export function Detail() {
   function handleFeature() {
     if (featured === false) {
       setFeatured(true)
-    } else {
+    } else if (featured === true) {
       setFeatured(false)
     }
   }
