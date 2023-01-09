@@ -202,7 +202,7 @@ export function Detail() {
                   type="text" name="name" id="name"
                   value={sub.name || ""}
                   onChange={(e) => setSub({ name: e.target.value })}
-                  className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5" placeholder="Enter a subcategory" required />
+                  className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5" placeholder="Enter a subcategory" />
               </div>
             </div>
             <div>

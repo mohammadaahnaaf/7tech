@@ -78,8 +78,8 @@ const Detail = () => {
     }
 
     getProduct()
-  }, [router, itemId, loading]);
-  
+  }, [router, itemId, loading, success]);
+
   // submit edit 
   const handleSubmit = async (event) => {
 
@@ -165,18 +165,34 @@ const Detail = () => {
     setFormValues(newInputFields);
   };
 
-  const addFormFields = () => {
-    setFormValues([...formValues,
-    {
-      id: uuidv4(),
-      detail: ''
-    }])
-  };
+  const [newDetails, setNewDetails] = React.useState({
+    _id: '',
+    title: ''
+  })
 
-  const removeFormFields = id => {
+  // Add new details 
+  async function addFormFields() {
+    const reqDetailsData = {
+      title: newDetails.title
+    }
+    await axiosAPI.post(`/products/${itemId}/details`, reqDetailsData);
+
+    // setFormValues([...formValues,
+    // {
+    //   id: uuidv4(),
+    //   detail: ''
+    // }])
+  };
+  // delete details 
+  function removeFormFields(id) {
+    axiosAPI.delete(`/products/${itemId}/details/${id}`);
+
     const values = [...formValues];
-    values.splice(values.findIndex(value => value._id === id), 1);
+    values.splice(values.findIndex((value) => value._id === id), 1);
     setFormValues(values);
+
+    setSuccess('Product details vanished.')
+    setTimeout(() => { setSuccess('') }, 2000)
   }
 
   // Reviews 
@@ -200,9 +216,14 @@ const Detail = () => {
   // };
 
   function removeReview(id) {
+    axiosAPI.delete(`/products/${itemId}/review/${id}`);
+
     const values = [...reviews];
     values.splice(values.findIndex(value => value._id === id), 1);
     setReviews(values);
+
+    setSuccess('Product review vanished.')
+    setTimeout(() => { setSuccess('') }, 2000)
   }
 
   // More Information 
@@ -216,19 +237,46 @@ const Detail = () => {
 
     setMoreInfo(newInputFields);
   };
+  
+  const [newMoreinfo, setNewMoreinfo] = React.useState({
+    _id: '',
+    title: '',
+    description: ''
+  })
 
-  const addMoreinfo = () => {
-    setMoreInfo([...moreInfos,
-    {
-      _id: uuidv4(),
-      info: ''
-    }])
+  const handleNewMoreinfo = (event) => {
+    const { name, value } = event.target;
+    setNewMoreinfo((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+  async function addMoreinfo() {
+    const reqInfoData = {
+      title: newMoreinfo.title,
+      description: newMoreinfo.description
+    }
+    await axiosAPI.post(`/products/${itemId}/information`, reqInfoData);
+    setSuccess('Product information added.')
+    setTimeout(() => { setSuccess('') }, 2000)
+
+    // setMoreInfo([...moreInfos,
+    // {
+    //   _id: uuidv4(),
+    //   info: ''
+    // }])
   };
 
-  const removeMoreinfo = id => {
+  function removeMoreinfo(id) {
+    axiosAPI.delete(`/products/${itemId}/information/${id}`);
+
     const values = [...moreInfos];
     values.splice(values.findIndex(value => value._id === id), 1);
     setMoreInfo(values);
+    setSuccess('Product information vanished.')
+    setTimeout(() => { setSuccess('') }, 2000)
   }
 
   return (
@@ -247,7 +295,7 @@ const Detail = () => {
       <form onSubmit={handleSubmit}>
         <div className="grid gap-6 mb-6 md:grid-cols-2">
 
-          {/* Details  */}
+          {/* Product Informations  */}
           <div>
             <div>
               <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
@@ -390,7 +438,7 @@ const Detail = () => {
                   </div>
                   <div>
                     {formValues.length != 1 && (
-                      <button type="button" className="items-end flex" onClick={() => removeFormFields(element.id)}>
+                      <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -400,6 +448,15 @@ const Detail = () => {
                 </div>
 
               ))}
+              <div className='grid grid-cols-10 items-end'>
+                <div className='col-span-9'>
+                  <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">New Details</label>
+                  <input type="text" name="title" id="title"
+                    value={newDetails.title || ""}
+                    onChange={(e) => setNewDetails({ title: e.target.value })}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                </div>
+              </div>
               <div>
                 <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
               </div>
@@ -430,8 +487,33 @@ const Detail = () => {
                     )}
                   </div>
                 </div>
-              ))
-              }
+              ))}
+
+              <div className="flex gap-2 items-center">
+                <div className='flex gap-2'>
+                  <div>
+                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">New Title</label>
+                    <input type="text" name="title" id="title"
+                      value={newMoreinfo.title || ""}
+                      onChange={(e) => handleNewMoreinfo(e)}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                  </div>
+                  <div>
+                    <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">New Description</label>
+                    <input type="text" name="description" id="description"
+                      value={newMoreinfo.description || ""}
+                      onChange={(e) => handleNewMoreinfo(e)}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                  </div>
+
+                  <div className="items-end flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </div>
+
+                </div>
+              </div>
               <div>
                 <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addMoreinfo}>Add</button>
               </div>
