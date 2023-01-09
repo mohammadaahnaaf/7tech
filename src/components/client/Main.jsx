@@ -29,27 +29,14 @@ export function Main({ setIntro }) {
     // get filter category 
     React.useEffect(() => {
         async function getCategory() {
-            const res = await axiosRoot.get('/categories');
 
-            // const cats = res.data.filter(cat => cat.isFeatured === true).map((i) => {
-            //     return i
-            // })
-            
+            const res = await axiosRoot.get('/categories');
             const cats = res.data.filter(cat => !!cat.isFeatured).sort((a, b) => a.index - b.index)
 
             setCategory(cats);
-            // console.log(cats)
-
-            // setCategory([...category, i]);
-
-            // res.data.map((x) => {
-            //     if (x.isFeatured === true) {
-            //         setCategory([...category, x])
-            //         console.log(x)
-            //     } return
-            // })
         }
         getCategory()
+        
     }, []);
 
     const titles = ['MADE FOR GAMING', 'BEST FOR GAMING', 'DEDICATED FOR GAMING', 'BUILD FOR GAMING', 'ALL PRODUCTS']

@@ -20,6 +20,12 @@ export function Detail() {
       name: ""
     }
   ])
+  // const [sub, setSub] = React.useState([
+  //   {
+  //     _id: '',
+  //     name: ""
+  //   }
+  // ])
   const [error, setError] = React.useState('')
   const [success, setSuccess] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
@@ -47,17 +53,27 @@ export function Detail() {
       const data = new FormData(event.currentTarget);
 
       const reqData = {
+        // subCategories: JSON.stringify(formValues),
         name: data.get('categoryName'),
-        subCategories: JSON.stringify(formValues),
         isFeatured: featured,
         index: +indexing
       }
-      await axiosAPI.put(`/categories/${itemId}`, reqData);
+      !!reqData.name && (
+        await axiosAPI.put(`/categories/${itemId}`, reqData)
+      );
+
+      // const reqSubData = {
+      //   name: sub.name,
+      // }
+
+      // !!sub.name && (
+      //   await axiosAPI.post(`/categories/${itemId}/sub-category`, reqSubData)
+      // )
+
       setSuccess('Category Edited.')
       setTimeout(() => {
         setSuccess('')
       }, 2000)
-      // Router.push('/admin/category')
 
     } catch (error) {
       setIsLoading(false);
@@ -83,9 +99,16 @@ export function Detail() {
       _id: uuidv4(),
       name: ''
     }])
+
+    // setSub([...formValues,
+    // {
+    //   _id: uuidv4(),
+    //   name: ''
+    // }])
   };
 
   function removeFormFields(id) {
+    axiosAPI.delete(`/categories/${itemId}/sub-category/${id}`)
     const values = [...formValues];
     values.splice(values.findIndex(value => value.id === id), 1);
     setFormValues(values);
@@ -154,8 +177,8 @@ export function Detail() {
                     onChange={(e) => handleChange(value._id, e)}
                     className="bg-gray-50 w-full border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5" placeholder="Enter a subcategory" required />
                 </div>
-                {formValues.length != 1 ? (
-                  <button type="button" className="col-span-1 items-end flex" onClick={() => removeFormFields(value.id)}>
+                {formValues.length != 0 ? (
+                  <button type="button" className="col-span-1 items-end flex" onClick={() => removeFormFields(value._id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
