@@ -11,8 +11,9 @@ const Detail = () => {
 
     const [formValues, setFormValues] = React.useState([{ id: uuidv4(), detail: "" }])
     const [status, setStatus] = React.useState('')
+    const [error, setError] = React.useState('')
+    const [success, setSuccess] = React.useState('')
     const [payment, setPayment] = React.useState('')
-    // const [allProducts, setAllProducts] = React.useState([])
     const [products, setProducts] = React.useState([
         {
             _id: '',
@@ -20,7 +21,7 @@ const Detail = () => {
             price: '',
             productId: '',
             quantity: ''
-        }
+        },
     ])
 
     const [order, setOrder] = React.useState({
@@ -47,7 +48,7 @@ const Detail = () => {
 
         getOrder()
 
-    }, [router, itemId]);
+    }, [router, itemId, success]);
 
     // get all products
     useEffect(() => {
@@ -97,106 +98,147 @@ const Detail = () => {
         setFormValues(values);
     }
 
+    // submit edited data
+    async function handleSubmit(event) {
+        try {
+            event.preventDefault()
+            // const data = new FormData(event.currentTarget);
+
+            const reqData = {
+                status: status
+            }
+            await axiosAPI.put(`/orders/${itemId}`, reqData);
+            setSuccess('Status Edited')
+            setTimeout(() => {
+                setSuccess('')
+            }, 2000)
+
+        } catch (error) {
+            console.log(error)
+            setError(error.response?.data?.message)
+            setTimeout(() => { setError('') }, 6000)
+        }
+    }
+
     return (
 
         <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
             <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Order Details</h1>
-            <div className="grid gap-6 mb-6 md:grid-cols-2">
-
-                {/* Details  */}
-                <div>
-                    <div>
-                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Customer name</label>
-                        <input value={order.customer_name || ''} type="text" id="name" name='name' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
-                    </div>
-                    <div>
-                        <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
-                        <input value={order.customer_number || ''} type="tel" id="phone" name='phone' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
-                    </div>
-                    <div>
-                        <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900">City</label>
-                        <input value={order.city || ''} type="text" id="city" name='city' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
-                    </div>
-                    <div>
-                        <label htmlFor="zone" className="block mb-2 text-sm font-medium text-gray-900 ">Zone</label>
-                        <input value={order.zone || ''} type="text" id="zone" name='zone' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
-                    </div>
-                    {/* <div>
-                        <label htmlFor="area" className="block mb-2 text-sm font-medium text-gray-900">Area</label>
-                        <input type="text" id="area" name='area' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
-                    </div> */}
-                    <div>
-                        <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">Address</label>
-                        <input value={order.address || ''} type="text" id="address" name='address' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
-                    </div>
+            {success && (
+                <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+                    <span class="font-medium">Success</span> {success}
                 </div>
-
-                {/* Payment  */}
-                <div>
-                    <div>
-                        <label htmlFor="qty" className="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
-                        <input value={products.length || ''} type="number" name="qty" id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
-                    </div>
-                    <div>
-                        <label htmlFor="total" className="block mb-2 text-sm font-medium text-gray-900">Total</label>
-                        <input value={order.total || ''} type="number" name="total" id="total" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" required />
-                    </div>
-
-                    <div>
-                        <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900">Status</label>
-                        <select id="status" name='status' value={status || ''} onChange={(e) => setStatus(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
-                            <option value='paid'>Paid</option>
-                            <option value="pending">Pending</option>
-                            <option value="shipped">Shipped</option>
-                            <option value="deleverd">Deleverd</option>
-                            <option value="cancel">Cancel</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="payment" className="block mb-2 text-sm font-medium text-gray-900">Payment</label>
-                        <select value={payment || ''} onChange={(e) => setPayment(e.target.value)}  id="payment" name='payment' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
-                            <option value='bkash'>BKash</option>
-                            <option value="cash-on-delivery">Cash on delevary</option>
-                        </select>
-                    </div>
+            )}
+            {error && (
+                <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
+                    <span class="font-medium">Warning!</span> {error}
                 </div>
-            </div>
+            )}
+            <form onSubmit={handleSubmit}>
+                <div className="grid gap-6 mb-6 md:grid-cols-2">
 
-            {/* Dynamic Input  */}
-            <div className='grid grid-cols-1 items-start gap-2'>
-                {/* Products  */}
-                <div className='grid items-end gap-2'>
-
-                    {products.map((element, index) => (
-                        <div className="flex gap-2 items-center" key={index}>
-                            <div>
-                                <label htmlFor="name" className="block mb-2 text-xs font-medium text-gray-900">Product Name</label>
-                                <input type="text" name="name" id="name" value={element.name || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Name" required />
-                            </div>
-                            <div>
-                                <label htmlFor="quantity" className="block mb-2 text-xs font-medium text-gray-900">Qty</label>
-                                <input type="number" name="quantity" id="quantity" value={element.quantity || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="qty" required />
-                            </div>
-                            <div className='flex'>
-                                <div>
-                                    <label htmlFor="price" className="block mb-2 text-xs font-medium text-gray-900">Price</label>
-                                    <input type="number" name="price" id="price" value={element.price || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Price" required />
-                                </div>
-                                {formValues.length != 1 && (
-                                    <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
-                                )}
-                            </div>
+                    {/* Details  */}
+                    <div className='grid grid-cols-2 gap-x-3 gap-y-1'>
+                        <div className='col-span-2'>
+                            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Customer name</label>
+                            <input value={order.customer_name || ''} type="text" id="name" name='name' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Name" />
                         </div>
-                    ))}
-                    <div>
-                        <button className="hidden w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
+                        <div className='col-span-2'>
+                            <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
+                            <input value={order.customer_number || ''} type="tel" id="phone" name='phone' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Phone number" />
+                        </div>
+                        <div className='col-span-1'>
+                            <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900">City</label>
+                            <input value={order.city || ''} type="text" id="city" name='city' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="City" />
+                        </div>
+                        <div className='col-span-1'>
+                            <label htmlFor="zone" className="block mb-2 text-sm font-medium text-gray-900 ">Zone</label>
+                            <input value={order.zone || ''} type="text" id="zone" name='zone' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Zone" />
+                        </div>
+                        {/* <div>
+                        <label htmlFor="area" className="block mb-2 text-sm font-medium text-gray-900">Area</label>
+                        <input type="text" id="area" name='area' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder=""   />
+                    </div> */}
+                        <div className='col-span-2'>
+                            <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                            <input value={order.address || ''} type="text" id="address" name='address' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Address" />
+                        </div>
+                    </div>
+
+                    {/* Payment  */}
+                    <div className='grid gap-y-1'>
+                        <div>
+                            <label htmlFor="qty" className="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
+                            <input value={products.length || ''} type="number" name="qty" id="qty" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" />
+                        </div>
+                        <div>
+                            <label htmlFor="total" className="block mb-2 text-sm font-medium text-gray-900">Total</label>
+                            <input value={order.total || ''} type="number" name="total" id="total" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="" />
+                        </div>
+
+                        <div>
+                            <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900">Status</label>
+                            <select id="status" name='status' value={status || ''} onChange={(e) => setStatus(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
+                                <option value="pending">Pending</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancel</option>
+                                {/* <option value='paid'>Paid</option> 
+                                 <option value="shipped">Shipped</option> */}
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="payment" className="block mb-2 text-sm font-medium text-gray-900">Payment</label>
+                            <select value={payment || ''} onChange={(e) => setPayment(e.target.value)} id="payment" name='payment' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
+                                <option value='bkash'>BKash</option>
+                                <option value="cash-on-delivery">Cash on delevary</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                {/* Dynamic Input  */}
+                {/* Products  */}
+                <div className='grid w-full items-start gap-2'>
+                    <h1 className='text-start px-4 py-3 mb-5 rounded-lg bg-gray-200 text-xl'>Ordered Products List</h1>
+                    <div className='grid w-full items-end gap-2'>
+
+                        {products.map((element, index) => (
+                            <div className="grid gap-2 grid-cols-10 w-full items-center" key={index}>
+                                <div className='col-span-4'>
+                                    <label htmlFor="name" className="block mb-2 text-xs font-medium text-gray-900">Product Name</label>
+                                    <input type="text" name="name" id="name" value={element.name || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Name" />
+                                </div>
+                                <div className='col-span-3'>
+                                    <label htmlFor="quantity" className="block mb-2 text-xs font-medium text-gray-900">Qty</label>
+                                    <input type="number" name="quantity" id="quantity" value={element.quantity || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="qty" />
+                                </div>
+                                <div className='col-span-3'>
+                                    <label htmlFor="price" className="w-full mb-2 text-xs font-medium text-gray-900">Price</label>
+                                    <input type="number" name="price" id="price" value={element.price || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Price" />
+                                </div>
+                                <div className='flex'>
+
+                                    {formValues.length != 1 && (
+                                        <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                        <div>
+                            <button className="hidden w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div className='flex items-end justify-end gap-2 p-2 mt-2 bg-gray-200 rounded-lg'>
+                    <button className="w-auto px-4 py-2 text-xs text-center text-white bg-red-600 rounded-lg hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Cancel</button>
+                    <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='submit'>Done</button>
+                </div>
+
+            </form>
         </div>
     )
 }

@@ -1,12 +1,12 @@
 import React from 'react'
 import AdminLayout from '../../layout/AdminLayout'
-import { v4 as uuidv4 } from 'uuid';
 import { TrashIcon } from '@heroicons/react/solid';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
-// import { TagsInput } from 'react-tag-input-component';
 import axiosAPI from '../../utils/axios-api';
 import { TagsInput } from 'react-tag-input-component';
+// import { v4 as uuidv4 } from 'uuid';
+
 
 const Detail = () => {
 
@@ -30,7 +30,6 @@ const Detail = () => {
       code: '',
       quantity: '',
       price: "",
-
     }
   );
   const [formValues, setFormValues] = React.useState([
@@ -38,14 +37,14 @@ const Detail = () => {
       _id: '',
       title: ""
     }
-  ])
+  ]);
   const [moreInfos, setMoreInfo] = React.useState([
     {
       _id: '',
       title: "",
       description: ''
     }
-  ])
+  ]);
   const [reviews, setReviews] = React.useState([
     {
       _id: "",
@@ -53,6 +52,7 @@ const Detail = () => {
       comment: ""
     }
   ]);
+
 
   // get category options
   React.useEffect(() => {
@@ -62,6 +62,7 @@ const Detail = () => {
     }
     getCategory()
   }, []);
+
 
   // get data 
   React.useEffect(() => {
@@ -80,8 +81,9 @@ const Detail = () => {
     getProduct()
   }, [router, itemId, loading, success]);
 
+
   // submit edit 
-  const handleSubmit = async (event) => {
+  async function handleSubmit(event) {
 
     try {
       event.preventDefault()
@@ -139,7 +141,7 @@ const Detail = () => {
     }
   };
 
-  // remove image 
+  // remove uploaded image 
   const removeImage = (i) => {
     setFiles(files.filter(x => x.name !== i));
   }
@@ -153,7 +155,7 @@ const Detail = () => {
     }));
   }
 
-  // Details 
+  // Product Details 
   const handleChange = (id, event) => {
     const newInputFields = formValues.map(i => {
       if (id === i.id) {
@@ -170,20 +172,21 @@ const Detail = () => {
     title: ''
   })
 
-  // Add new details 
+
   async function addFormFields() {
     const reqDetailsData = {
       title: newDetails.title
     }
     await axiosAPI.post(`/products/${itemId}/details`, reqDetailsData);
-
+    setSuccess('Product details added.')
+    setTimeout(() => { setSuccess('') }, 2000)
     // setFormValues([...formValues,
     // {
     //   id: uuidv4(),
     //   detail: ''
     // }])
   };
-  // delete details 
+
   function removeFormFields(id) {
     axiosAPI.delete(`/products/${itemId}/details/${id}`);
 
@@ -195,7 +198,8 @@ const Detail = () => {
     setTimeout(() => { setSuccess('') }, 2000)
   }
 
-  // Reviews 
+
+  // Product Reviews 
   const handleReview = (id, event) => {
     const newInputFields = reviews.map(i => {
       if (id === i._id) {
@@ -226,6 +230,7 @@ const Detail = () => {
     setTimeout(() => { setSuccess('') }, 2000)
   }
 
+
   // More Information 
   const handleMoreinfo = (id, event) => {
     const newInputFields = moreInfos.map(i => {
@@ -237,7 +242,7 @@ const Detail = () => {
 
     setMoreInfo(newInputFields);
   };
-  
+
   const [newMoreinfo, setNewMoreinfo] = React.useState({
     _id: '',
     title: '',
@@ -278,6 +283,7 @@ const Detail = () => {
     setSuccess('Product information vanished.')
     setTimeout(() => { setSuccess('') }, 2000)
   }
+
 
   return (
     <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
@@ -425,7 +431,7 @@ const Detail = () => {
         {/* Dynamic Input  */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-2'>
 
-          {/* Details  */}
+          {/* Product Details  */}
           {formValues && (
             <div className='grid items-end gap-2'>
               <h1>Product Details</h1>
@@ -437,7 +443,7 @@ const Detail = () => {
                     <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
                   </div>
                   <div>
-                    {formValues.length != 1 && (
+                    {formValues.length != 0 && (
                       <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -478,7 +484,7 @@ const Detail = () => {
                       <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
                       <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
                     </div>
-                    {moreInfos.length != 1 && (
+                    {moreInfos.length != 0 && (
                       <button type="button" className="items-end flex" onClick={() => removeMoreinfo(element._id)}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

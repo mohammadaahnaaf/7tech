@@ -216,7 +216,7 @@ export function Categories() {
                                 </td>
                                 <td className="py-4 px-6">
                                     <button type='button' onClick={() => router.push('/admin/category/' + item._id)}>
-                                        <p className="font-medium text-gray-400 hover:underline">
+                                        <p className="font-medium text-gray-400 hover:text-red-600">
                                             <PencilAltIcon className='h-5 w-5' />
                                         </p>
                                     </button>

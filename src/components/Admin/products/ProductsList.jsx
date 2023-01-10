@@ -77,7 +77,7 @@ export function ProductsLists() {
   // function handleChecked() {
   //   !checked ? setChecked(true) : setChecked(false)
   // }
-  const slugs = ['name', 'category', 'tags', 'price', 'code', 'quantity']
+  const slugs = ['code', 'name', 'category', 'tags', 'price']
 
   const search = (data) => {
     return data.filter((item) =>
@@ -224,7 +224,7 @@ export function ProductsLists() {
                 </td>
                 <td className="py-4 px-6 text-right">
                   <button type='button' onClick={() => router.push(`/admin/products/${product._id}`)}>
-                    <p className="font-medium text-gray-400 hover:underline">
+                    <p className="font-medium text-gray-400 hover:text-red-600">
                       <PencilAltIcon className='h-5 w-5' />
                     </p>
                   </button>

@@ -5,6 +5,7 @@ import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api'
 import { fDate } from '../../utils/formatTime';
+import Link from 'next/link';
 
 // import { orders } from '../../../data/OrderList';
 
@@ -73,7 +74,7 @@ export function Order() {
     setTimeout(() => { setSuccess('') }, 2000)
   }
 
-  const slugs = ['customer_name', 'customer_number', 'createdAt', 'total', 'qty']
+  const slugs = ['customer_name', 'customer_number', 'createdAt', 'total', '_id', 'status']
 
   const search = (data) => {
     return data.filter((item) =>
@@ -114,7 +115,7 @@ export function Order() {
                 Date
               </th>
               <th scope="col" className="py-3 px-6">
-                Quantity
+                Status
               </th>
               <th scope="col" className="py-3 px-6">
                 Price
@@ -147,14 +148,18 @@ export function Order() {
                   <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                     {order.customer_name}
                   </th>
-                  <td className="py-4 px-6">
-                    {order.customer_number}
+                  <td className="py-4 px-6 hover:text-red-600">
+                    <Link href={"tel:" + order.customer_number}>
+                      <a>
+                        {order.customer_number}
+                      </a>
+                    </Link>
                   </td>
                   <td className="py-4 px-6">
                     {fDate(order.createdAt)}
                   </td>
-                  <td className="py-4 px-6">
-                    {order.products.length || 0}
+                  <td className="capitalize py-4 px-6">
+                    {order.status || 0}
                   </td>
                   <td className="py-4 px-6">
                     ৳ {order.total}
@@ -162,7 +167,7 @@ export function Order() {
                   <td className="py-4 px-6 text-right">
                     <button
                       type='button'
-                      className="font-medium text-gray-400 hover:underline"
+                      className="font-medium hover:text-red-600 text-gray-400 hover:underline"
                       onClick={() => router.push(`/admin/orders/${order._id}`)}
                     >
                       <PencilAltIcon className='h-5 w-5' />
