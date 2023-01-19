@@ -251,20 +251,6 @@ const Detail = () => {
                             <input type="number" name='quantity' id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         <div>
-                            <label htmlFor="price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Online Price</label>
-                            <input type="number" name='price' id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
-                        </div>
-                        <div className='grid grid-cols-2 gap-3'>
-                            <div>
-                                <label htmlFor="regular-price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Regular Price</label>
-                                <input type="number" name='regular-price' id="regular-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
-                            </div>
-                            <div>
-                                <label htmlFor="special-price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Special Price</label>
-                                <input type="number" name='special-price' id="special-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
-                            </div>
-                        </div>
-                        <div>
                             <label htmlFor="short-desciption" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Short description</label>
                             <textarea type="text" rows={3} name='short-desciption' id="short-desciption" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="write a short desciption" />
                         </div>
@@ -280,9 +266,38 @@ const Detail = () => {
                             />
 
                         </div>
-                        <div class="flex items-center pl-2.5 mt-3.5 mb-1 rounded-lg border border-gray-300">
+                        <div class="flex  mt-3.5 mb-1 items-center pl-2.5 rounded-lg border border-gray-300">
                             <input id="bordered-checkbox-1" type="checkbox" onClick={handleFeature} checked={featured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-600" />
                             <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
+                        </div>
+
+                        <div className='grid grid-cols-2 gap-3'>
+                            <div>
+                                <label htmlFor="regular-price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Regular Price</label>
+                                <input type="number" name='regular-price' placeHolder='Regular price' id="regular-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            </div>
+                            <div>
+                                <label htmlFor="price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Online Price</label>
+                                <input type="number" name='price' id="price" placeHolder='Online Price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            </div>
+                        </div>
+                        <div className='grid grid-cols-2 gap-3 mt-3.5 mb-1'>
+                            <div>
+                                <label htmlFor="special-price" className="mb-1 text-sm font-medium text-gray-900">Special Price</label>
+                                <input type="number" name='special-price' id="special-price" placeHolder='Special price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            </div>
+
+                            <div>
+                                <label htmlFor="timer" className="mb-1 text-sm font-medium text-gray-900">Timer</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
+                                    </div>
+
+                                    <input datepicker id='timer' name='timer' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10 p-2.5" placeholder="Select date" />
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
