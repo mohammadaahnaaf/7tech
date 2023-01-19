@@ -1,7 +1,7 @@
-import { Switch } from '@headlessui/react';
+import { Dialog, Switch, Transition } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 // import { Editor } from 'react-draft-wysiwyg';
 import { TagsInput } from "react-tag-input-component";
 import { v4 as uuidv4 } from 'uuid';
@@ -196,6 +196,75 @@ const Detail = () => {
     //     }
     // };
 
+    let [isOpen, setIsOpen] = useState(false)
+
+    function closeModal() {
+        setIsOpen(false)
+        setEnabled(false)
+    }
+
+    function openModal() {
+        setIsOpen(true)
+    }
+
+    const related = (
+        <>
+            <Transition appear show={enabled} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-medium leading-6 text-gray-900"
+                                    >
+                                        Payment successful
+                                    </Dialog.Title>
+                                    <div className="mt-2">
+                                        <p className="text-sm text-gray-500">
+                                            Your payment has been successfully submitted. We’ve sent
+                                            you an email with all of the details of your order.
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-4">
+                                        <button
+                                            type="button"
+                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            onClick={closeModal}
+                                        >
+                                            Got it, thanks!
+                                        </button>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
+        </>
+    )
     return (
 
         <div className='grid justify-around grid-cols-1 gap-3 p-5 m-3 bg-white rounded-lg'>
@@ -204,6 +273,7 @@ const Detail = () => {
                     <span class="font-medium">Warning!</span> {error}
                 </div>
             )}
+            {related}
             <div className='relative py-3 flex items-center justify-center mb-5 text-center bg-gray-200 rounded-lg'>
 
                 <Switch
@@ -227,74 +297,74 @@ const Detail = () => {
                     {/* Product Details  */}
                     <div>
                         <div>
-                            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
-                            <input type="text" name='name' id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-900">Product name</label>
+                            <input type="text" name='name' id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Name" required />
                         </div>
                         {/* <div>
                             <label htmlFor="brand" className="block mt-2 mb-1 text-sm font-medium text-gray-900 ">Brand</label>
-                            <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            <input type="text" id="brand" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full  " placeholder="" required />
                         </div> */}
                         <div>
-                            <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
-                            <select id="category" name='category' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required>
+                            <label htmlFor="category" className="block mb-1 text-sm font-medium text-gray-900">Category</label>
+                            <select id="category" name='category' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Category" required>
                                 {cats.map((cat) =>
                                     <option>{cat.name}</option>
                                 )}
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="code" className="block mt-2 mb-1 text-sm font-medium text-gray-900 ">Product code</label>
-                            <input type="text" name='code' id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="enter code" required />
+                            <label htmlFor="code" className="block mb-1 text-sm font-medium text-gray-900 ">Product code</label>
+                            <input type="text" name='code' id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Code" required />
                         </div>
                         <div>
-                            <label htmlFor="quantity" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Quantity</label>
-                            <input type="number" name='quantity' id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            <label htmlFor="quantity" className="block mb-1 text-sm font-medium text-gray-900">Quantity</label>
+                            <input type="number" name='quantity' id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Stock" required />
                         </div>
                         <div>
-                            <label htmlFor="short-desciption" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Short description</label>
-                            <textarea type="text" rows={3} name='short-desciption' id="short-desciption" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="write a short desciption" />
+                            <label htmlFor="short-desciption" className="block mb-1 text-sm font-medium text-gray-900">Short description</label>
+                            <textarea type="text" rows={3} name='short-desciption' id="short-desciption" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="Write a short desciption" />
                         </div>
                         <div>
-                            {/* <label className=" ml-2 w-full text-sm font-medium text-gray-900">Tags</label> */}
+                            <label htmlFor='tags' className="w-full text-sm font-medium text-gray-900">Tags</label>
 
                             <TagsInput
                                 value={tags}
                                 onChange={setTags}
                                 name="tags"
                                 placeHolder="Enter tags"
-                                classNames=''
                             />
 
                         </div>
-                        <div class="flex  mt-3.5 mb-1 items-center pl-2.5 rounded-lg border border-gray-300">
+                        <p className='text-sm mt-1'>Featured</p>
+                        <div class="flex mb-1 items-center pl-2.5 rounded-lg border border-gray-300">
                             <input id="bordered-checkbox-1" type="checkbox" onClick={handleFeature} checked={featured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-600" />
                             <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
                         </div>
 
                         <div className='grid grid-cols-2 gap-3'>
                             <div>
-                                <label htmlFor="regular-price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Regular Price</label>
-                                <input type="number" name='regular-price' placeHolder='Regular price' id="regular-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                                <label htmlFor="regular-price" className="block mb-1 text-sm font-medium text-gray-900">Regular Price</label>
+                                <input type="number" name='regular-price' placeHolder='Regular price' id="regular-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" required />
                             </div>
                             <div>
-                                <label htmlFor="price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Online Price</label>
-                                <input type="number" name='price' id="price" placeHolder='Online Price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                                <label htmlFor="price" className="block mb-1 text-sm font-medium text-gray-900">Online Price</label>
+                                <input type="number" name='price' id="price" placeHolder='Online Price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Price" required />
                             </div>
                         </div>
-                        <div className='grid grid-cols-2 gap-3 mt-3.5 mb-1'>
+                        <div className='grid grid-cols-2 gap-2 bg-teal-100 rounded-md px-2 mt-3 py-2'>
                             <div>
-                                <label htmlFor="special-price" className="mb-1 text-sm font-medium text-gray-900">Special Price</label>
-                                <input type="number" name='special-price' id="special-price" placeHolder='Special price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                                <label htmlFor="special-price" className="mb-1 text-sm font-medium text-gray-900">Special Price/ Offer</label>
+                                <input type="number" name='special-price' id="special-price" placeHolder='Special price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Offers" />
                             </div>
 
                             <div>
-                                <label htmlFor="timer" className="mb-1 text-sm font-medium text-gray-900">Timer</label>
+                                <label htmlFor="timer" className="mb-1 text-sm font-medium text-gray-900">Offer Ends</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                         <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
                                     </div>
 
-                                    <input datepicker id='timer' name='timer' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10 p-2.5" placeholder="Select date" />
+                                    <input datepicker id='timer' name='timer' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10  " placeholder="Select date" />
                                 </div>
                             </div>
 
@@ -364,7 +434,7 @@ const Detail = () => {
                         </div>
                         {files.length === 0 && (
                             <div className='grid grid-cols-2 gap-2'>
-                                {[0, 1, 2, 3].map(x => (
+                                {[0, 1, 2, 3, 4, 5].map(x => (
 
                                     <div key={x} className='relative flex items-center rounded-lg cursor-not-allowed h-36 border-dashed border-2 border-gray-300 hover:opacity-70'>
                                         <div className="absolute hidden top-0 right-0 z-10 items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
@@ -412,7 +482,7 @@ const Detail = () => {
                                         type="text" name="title" id="title"
                                         placeholder="Enter detail"
                                         required
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full  "
                                         onChange={(e) => handleChange(element.id, e)}
                                         value={element.title || ""}
                                     />
@@ -423,7 +493,7 @@ const Detail = () => {
                                         type="text" name="specification" id="specification"
                                         placeholder="Enter specification"
                                         required
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full  "
                                     // onChange={(e) => handleChange(element.id, e)}
                                     // value={element.specification || ""}
                                     />
@@ -455,7 +525,7 @@ const Detail = () => {
                                     <div>
                                         <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
                                         <input type="text" name="title" id="title" placeholder="Enter title" required
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full  "
                                             value={element.title || ""}
                                             onChange={(e) => handleMoreinfo(element.id, e)}
                                         />
@@ -463,7 +533,7 @@ const Detail = () => {
                                     <div>
                                         <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
                                         <input type="text" name="description" id="description" placeholder="Enter description" required
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full  "
                                             value={element.description || ""}
                                             onChange={(e) => handleMoreinfo(element.id, e)}
                                         />
