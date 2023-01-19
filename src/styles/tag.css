@@ -8,23 +8,25 @@
     --rti-tag-remove: #e53e3e;
     /* --rti-tag-padding: 0.15rem 0.25rem; */
     max-width: 100%;
-    /* height: 80px; */
+    /* height: 50px; */
     margin-top: 0px;
     padding: 0%;
-    border:#e53e3e;
+    border: #e53e3e;
     justify-items: baseline;
     align-items: center;
 }
 
 .rti--input {
-    outline: none;
+    outline: 0px;
     height: 35px;
+    border: 0px
 }
+
 .ReactTags__tag {
     background-color: red;
-  }
+}
+
 .rti--input:focus {
-    outline: none;
     outline: 0px;
     border: 0px;
 }
