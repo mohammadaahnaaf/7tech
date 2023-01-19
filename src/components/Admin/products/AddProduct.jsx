@@ -1,3 +1,4 @@
+import { Switch } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/solid';
 import Router from 'next/router';
 import React, { useState } from 'react';
@@ -19,7 +20,8 @@ const Detail = () => {
     const [tags, setTags] = useState([]);
     const [cats, setCats] = React.useState([]);
     const [files, setFiles] = useState([]);
-    const [imgSrc, setImgSrc] = useState([]);
+    // const [imgSrc, setImgSrc] = useState([]);
+    const [enabled, setEnabled] = useState(false)
 
     // select images 
     const handleSelectImage = (e) => {
@@ -202,8 +204,24 @@ const Detail = () => {
                     <span class="font-medium">Warning!</span> {error}
                 </div>
             )}
+            <div className='relative py-3 flex items-center justify-center mb-5 text-center bg-gray-200 rounded-lg'>
+
+                <Switch
+                    checked={enabled}
+                    onChange={setEnabled}
+                    className={`${enabled ? 'bg-teal-300' : 'bg-red-600'}
+                     absolute right-2 inline-flex h-[28px] w-[64px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+                >
+                    <span className="sr-only">Use setting</span>
+                    <span
+                        aria-hidden="true"
+                        className={`${enabled ? 'translate-x-7' : 'translate-x-0'}
+                        pointer-events-none z-10 inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                    />
+                </Switch>
+                <h1 className='text-2xl text-center bg-gray-200'>Add Product</h1>
+            </div>
             <form onSubmit={handleSubmit}>
-                <h1 className='py-3 mb-5 text-2xl text-center bg-gray-200 rounded-lg'>Add Product</h1>
                 <div className="grid gap-3 mb-6 md:grid-cols-2">
 
                     {/* Product Details  */}
@@ -330,7 +348,7 @@ const Detail = () => {
 
                         </div>
                         {files.length === 0 && (
-                            <div className='grid grid-cols-2 gap-2 mt-5'>
+                            <div className='grid grid-cols-2 gap-2'>
                                 {[0, 1, 2, 3].map(x => (
 
                                     <div key={x} className='relative flex items-center rounded-lg cursor-not-allowed h-36 border-dashed border-2 border-gray-300 hover:opacity-70'>
@@ -347,7 +365,6 @@ const Detail = () => {
                             </div>
                         )}
                     </div>
-
                 </div>
 
 
