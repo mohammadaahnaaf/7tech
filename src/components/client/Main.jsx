@@ -36,7 +36,7 @@ export function Main({ setIntro }) {
             setCategory(cats);
         }
         getCategory()
-        
+
     }, []);
 
     const titles = ['MADE FOR GAMING', 'BEST FOR GAMING', 'DEDICATED FOR GAMING', 'BUILD FOR GAMING', 'ALL PRODUCTS']
@@ -51,3 +51,45 @@ export function Main({ setIntro }) {
         </Layout>
     )
 }
+
+// const homeItems = [
+//     {
+//         id: 1,
+//         title: 'BEST FOR GAMING',
+//         category: 'Mouse',
+//         products: [
+//             {
+//                 averageRating: 5,
+//                 category: "Webcam",
+//                 code: "s",
+//                 createdAt: "2023-01-07T20:36:54.071Z",
+//                 details: [{ title: "this is a test", _id: "63bdcae5b03711589e834564" }],
+//                 imageAlt: "Product",
+//                 images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/shirazi-%282%29-1673123813648.png"],
+//                 information: [{ title: "title", description: "description", _id: "63bdcaf8b03711589e83456a" }],
+//                 isFeatured: true,
+//                 keys: ["shirazi-(2)-1673123813648.png"],
+//                 name: "s",
+//                 price: 2,
+//                 quantity: 2,
+//                 reviewCount: 1,
+//                 reviews: [{ userId: "630ce91d6148e81158f33c1a", name: "Ahnaf", comment: "hi", rating: 5 }],
+//                 subCategory: "unknown",
+//                 tags: ["f", "h"],
+//                 _id: "63b9d7e6773fe6a9283a2294",
+//             }
+//         ]
+//     },
+//     {
+//         id: 2,
+//         title: 'DEDICATED FOR GAMING',
+//         category: 'Keyboard',
+//         products: []
+//     },
+//     {
+//         id: 3,
+//         title: 'BUILD FOR GAMING',
+//         category: 'Gamming chair',
+//         products: []
+//     },
+// ]

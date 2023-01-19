@@ -29,9 +29,9 @@ const Detail = () => {
 
         const imagesArray = selectedFilesArray.map((file) => {
             return file;
-          });
-      
-          setFiles((previousImages) => previousImages.concat(imagesArray));
+        });
+
+        setFiles((previousImages) => previousImages.concat(imagesArray));
 
         // for (let i = 0; i < file.length; i++) {
         //     let fileType = file[i]['type'];
@@ -204,7 +204,7 @@ const Detail = () => {
             )}
             <form onSubmit={handleSubmit}>
                 <h1 className='py-3 mb-5 text-2xl text-center bg-gray-200 rounded-lg'>Add Product</h1>
-                <div className="grid gap-6 mb-6 md:grid-cols-2">
+                <div className="grid gap-3 mb-6 md:grid-cols-2">
 
                     {/* Product Details  */}
                     <div>
@@ -233,12 +233,22 @@ const Detail = () => {
                             <input type="number" name='quantity' id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
                         <div>
-                            <label htmlFor="price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Price</label>
+                            <label htmlFor="price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Online Price</label>
                             <input type="number" name='price' id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
                         </div>
+                        <div className='grid grid-cols-2 gap-3'>
+                            <div>
+                                <label htmlFor="regular-price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Regular Price</label>
+                                <input type="number" name='regular-price' id="regular-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            </div>
+                            <div>
+                                <label htmlFor="special-price" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Special Price</label>
+                                <input type="number" name='special-price' id="special-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+                            </div>
+                        </div>
                         <div>
-                            <label htmlFor="specifications" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Specification</label>
-                            <textarea type="text" rows={5} id="specifications" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="enter specifications" />
+                            <label htmlFor="short-desciption" className="block mt-2 mb-1 text-sm font-medium text-gray-900">Short description</label>
+                            <textarea type="text" rows={3} name='short-desciption' id="short-desciption" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="write a short desciption" />
                         </div>
                         <div>
                             {/* <label className=" ml-2 w-full text-sm font-medium text-gray-900">Tags</label> */}
@@ -248,6 +258,7 @@ const Detail = () => {
                                 onChange={setTags}
                                 name="tags"
                                 placeHolder="Enter tags"
+                                classNames=''
                             />
 
                         </div>
@@ -304,8 +315,8 @@ const Detail = () => {
 
                         {/* Preview Images  */}
                         <div className='grid grid-cols-2 gap-2 mt-5'>
-                            {files.map((file) =>
-                                <div className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
+                            {files.map((file, index) =>
+                                <div key={index} className='relative rounded-lg cursor-pointer h-36 ring-1 ring-gray-300 hover:opacity-70'>
                                     <div className="absolute top-0 right-0 z-10 grid items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
                                         <button type='button'
                                             onClick={() => { removeImage(file.name) }}
@@ -318,20 +329,37 @@ const Detail = () => {
                             )}
 
                         </div>
+                        {files.length === 0 && (
+                            <div className='grid grid-cols-2 gap-2 mt-5'>
+                                {[0, 1, 2, 3].map(x => (
+
+                                    <div key={x} className='relative flex items-center rounded-lg cursor-not-allowed h-36 border-dashed border-2 border-gray-300 hover:opacity-70'>
+                                        <div className="absolute hidden top-0 right-0 z-10 items-center w-8 h-8 m-1 text-white bg-red-600 bg-opacity-25 rounded-lg justify-items-center hover:bg-opacity-50">
+
+                                        </div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-20 h-20 mx-auto text-gray-200">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                        </svg>
+
+                                        {/* <img alt='product image' src={URL.createObjectURL(file)} className='mx-auto h-36' /> */}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                 </div>
 
 
                 {/* Dynamic Input  */}
-                <div className='grid items-start grid-cols-1 gap-2 md:grid-cols-2'>
+                <div className='grid items-start grid-cols-1 gap-3 md:grid-cols-2'>
 
                     {/* Details  */}
                     <div className='grid items-end gap-2'>
-                        <h1>Product Details</h1>
+                        <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Product Specifications</h1>
                         {formValues.map((element, index) => (
 
-                            <div key={index} className='grid items-end grid-cols-10'>
+                            <div key={index} className='grid items-end gap-2 grid-cols-9'>
                                 {/* <div className='col-span-10'>
                                     <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
 
@@ -346,8 +374,8 @@ const Detail = () => {
                                         // onChange={(e) => handleChange(element.id, e)}
                                     />
                                 </div> */}
-                                <div className='col-span-9'>
-                                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
+                                <div className='col-span-4'>
+                                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
                                     <input
                                         type="text" name="title" id="title"
                                         placeholder="Enter detail"
@@ -357,6 +385,18 @@ const Detail = () => {
                                         value={element.title || ""}
                                     />
                                 </div>
+                                <div className='col-span-4'>
+                                    <label htmlFor="specification" className="block mb-2 text-xs font-medium text-gray-900">Specification</label>
+                                    <input
+                                        type="text" name="specification" id="specification"
+                                        placeholder="Enter specification"
+                                        required
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5"
+                                    // onChange={(e) => handleChange(element.id, e)}
+                                    // value={element.specification || ""}
+                                    />
+                                </div>
+
                                 <div className='col-span-1'>
                                     {formValues.length != 1 && (
                                         <button type="button" className="flex items-end" onClick={() => removeFormFields(element.id)}>
@@ -373,36 +413,10 @@ const Detail = () => {
                             <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type="button" onClick={addFormFields}>Add</button>
                         </div>
                     </div>
-                    {/* <div className='grid items-end gap-2'>
-
-                        {formValues.map((element, index) => (
-                            <div className="flex items-center gap-2" key={index}>
-                                <div className='flex w-full'>
-                                    <div>
-                                        <label htmlFor="detail" className="block mb-2 text-xs text-gray-900">Details</label>
-                                        <input
-                                            type="text" name="detail" id="detail" value={element.detail || ""}
-                                            onChange={(e) => handleChange(element.id, e)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block p-2.5" placeholder="Enter a detail" required />
-                                    </div>
-                                    {formValues.length != 1 && (
-                                        <button type="button" className="flex items-end" onClick={() => removeFormFields(element.id)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mb-2 ml-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                        <div>
-                            <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type="button" onClick={addFormFields}>Add</button>
-                        </div>
-                    </div> */}
 
                     {/* More Information  */}
                     <div className='grid items-end gap-2'>
-                        <h1>More Information</h1>
+                        <h1 className='p-2 text-center bg-slate-200 rounded-lg'>More Information</h1>
                         {moreInfos.map((element, index) => (
                             <div className='grid items-end grid-cols-10' key={index}>
                                 <div className='grid grid-cols-2 col-span-9 gap-2'>

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import { AddProduct } from '../../../components/Admin/products/AddProduct'
 import { withAuth } from '../../../hoc/withAuth'
-
+// import '../../../styles/tag.css'
 function AddProductPage() {
     return (
         <>
