@@ -11,7 +11,7 @@ function Search({ setSearchTerm }) {
         const data = new FormData(e.currentTarget);
         const slug = {
             name: data.get('search')
-          }
+        }
         router.push(`/category/${slug.name}`)
     }
 
@@ -21,8 +21,8 @@ function Search({ setSearchTerm }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="md:w-[50vh]">
-                <div className="md:ml-4 w-full px-3 md:px-0 flex items-baseline">
+            <div className="">
+                <div className="mx-2 flex items-baseline">
                     <label htmlFor="search" className="mb-2 text-sm font-medium sr-only">Search</label>
                     <div className="relative w-full">
                         <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">

@@ -97,7 +97,7 @@ function Navbar({ setSearchTerm }) {
                     <>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
-                                <div className="flex items-center">
+                                <div className="grid items-center grid-cols-12 w-full">
                                     <div className="hidden md:block h-8">
                                         <Link href='/'>
                                             <a className='h-20 w-full'>
@@ -107,7 +107,9 @@ function Navbar({ setSearchTerm }) {
                                     </div>
 
                                     {/* Search Bar  */}
+                                    <div className='col-span-11 mx-auto md:w-[40%]'>
                                     <Search setSearchTerm={setSearchTerm} />
+                                    </div>
                                 </div>
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
@@ -125,20 +127,6 @@ function Navbar({ setSearchTerm }) {
                                                 <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
                                             </span>
                                         </button>
-
-
-
-                                        {/* {!useri && (
-                                            <div className='flex justify-between gap-2 ml-3'>
-                                                <Link href='/signin'>
-                                                    <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Signup</a>
-                                                </Link>
-                                                <Link href='/login'>
-                                                    <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Login</a>
-                                                </Link>
-                                            </div>
-                                        )} */}
-
 
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="ml-3 relative">

@@ -1,16 +1,20 @@
 import { Dialog, Switch, Transition } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/solid';
-import Router from 'next/router';
+import Link from 'next/link';
+import Router, { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
 // import { Editor } from 'react-draft-wysiwyg';
 import { TagsInput } from "react-tag-input-component";
 import { v4 as uuidv4 } from 'uuid';
 import AdminLayout from '../../layout/AdminLayout';
+import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const Detail = () => {
+
+    const router = useRouter()
 
     const [formValues, setFormValues] = React.useState([{ id: uuidv4(), title: "" }])
     const [moreInfos, setMoreInfo] = React.useState([{ id: uuidv4(), title: '', description: "" }])
@@ -21,6 +25,7 @@ const Detail = () => {
     const [cats, setCats] = React.useState([]);
     const [files, setFiles] = useState([]);
     // const [imgSrc, setImgSrc] = useState([]);
+    const [products, setProducts] = useState([])
     const [enabled, setEnabled] = useState(false)
 
     // select images 
@@ -207,6 +212,25 @@ const Detail = () => {
         setIsOpen(true)
     }
 
+    // get product data 
+    React.useEffect(() => {
+        async function getProducts() {
+            const res = await axiosRoot.get('/products');
+            setProducts(res.data)
+        }
+        getProducts()
+    }, [router]);
+
+    function handleAdd(product) {
+        console.log(product)
+    }
+    const [searchTerm, setSearchTerm] = useState()
+    const slugs = ['code', 'name', 'category']
+    const search = (data) => {
+        return data.filter((item) =>
+          slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+        )
+      }
     const related = (
         <>
             <Transition appear show={enabled} as={Fragment}>
@@ -234,17 +258,22 @@ const Detail = () => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-6xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full ml-[25vh] max-w-5xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-medium leading-6 text-gray-900"
+                                        className="text-lg text-center font-medium leading-6 text-gray-900"
                                     >
                                         Related Products
                                     </Dialog.Title>
                                     <div className="mt-2">
-                                        <p className="text-sm text-red-600">
-                                           Select related roducts
-                                        </p>
+                                        <div className='my-2'>
+                                            <Search setSearchTerm={setSearchTerm} />
+                                        </div>
+                                        <div className="w-full gap-2 mx-auto grid grid-cols-5">
+                                            {search(products).slice(0, 5).map((product) => (
+                                                <ProductCard product={product} add={() => handleAdd(product)} />
+                                            ))}
+                                        </div>
                                     </div>
 
                                     <div className="mt-4 flex justify-end">
@@ -269,8 +298,8 @@ const Detail = () => {
 
         <div className='grid justify-around grid-cols-1 gap-3 p-5 m-3 bg-white rounded-lg'>
             {error && (
-                <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-                    <span class="font-medium">Warning!</span> {error}
+                <div className="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
+                    <span className="font-medium">Warning!</span> {error}
                 </div>
             )}
             {related}
@@ -336,7 +365,7 @@ const Detail = () => {
 
                         </div>
                         <p className='text-sm mt-1'>Featured</p>
-                        <div class="flex mb-1 items-center pl-2.5 rounded-lg border border-gray-300">
+                        <div className="flex mb-1 items-center pl-2.5 rounded-lg border border-gray-300">
                             <input id="bordered-checkbox-1" type="checkbox" onClick={handleFeature} checked={featured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-600" />
                             <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
                         </div>
@@ -359,8 +388,8 @@ const Detail = () => {
 
                             <div>
                                 <label htmlFor="timer" className="mb-1 text-sm font-medium text-gray-900">Offer Ends</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                         <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
                                     </div>
 
@@ -570,5 +599,30 @@ export function AddProduct() {
         <AdminLayout>
             <Detail />
         </AdminLayout>
+    )
+}
+
+function ProductCard({ product, add }) {
+
+    return (
+        <div className="bg-white shadow-md border border-gray-200 rounded-lg">
+            <Link href={`/product/${product._id}`}>
+                <a>
+                    <img className="rounded-t-lg h-40 w-full"
+                        src={product.images[0]}
+                        // src="https://flowbite.com/docs/images/blog/image-1.jpg"
+                        alt="image of product"
+                    />
+                </a>
+            </Link>
+            <div className="p-2 h-28 grid grid-cols-1 gap-2 items-center content-between">
+                <Link href={`/product/${product._id}`}>
+                    <a className="text-gray-900 font-bold text-md tracking-tight">{product.name}</a>
+                </Link>
+                <button onClick={() => add(product)} type='button' className="items-center text-sm text-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg px-3 py-2 flex">
+                    Add
+                </button>
+            </div>
+        </div>
     )
 }
