@@ -1,62 +1,50 @@
+import React, { useRef, useState } from 'react'
 import { StarIcon } from '@heroicons/react/solid'
-import { Fragment, useEffect, useRef, useState } from 'react'
-
-import Router, { useRouter } from 'next/router'
-import Layout from '../../layout/Layout'
-import axiosAPI from '../../utils/axios-api'
-import axiosRoot from '../../utils/axios-root'
 import Image from 'next/image'
-import { useCart } from 'react-use-cart'
-import { Dialog, Transition } from '@headlessui/react'
-import Product from './Product'
-// import { ProductCard } from '../Shop'
+import Layout from '../components/layout/Layout'
+import Router, { useRouter } from 'next/router'
+import axiosAPI from '../components/utils/axios-api'
+import { fToNow } from '../components/utils/formatTime'
+import { relatedProducts } from '../components/client/products/Details'
+import Product from '../components/client/products/Product'
+
+const product = {
+    "_id": "63b9d7e6773fe6a9283a2294", "name": "ReDragon Keyboard", "code": "s", "price": 2, "averageRating": 3.5, "reviewCount": 2, "quantity": 2, "category": "Webcam", "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/shirazi-%282%29-1673123813648.png"], "keys": ["shirazi-(2)-1673123813648.png"], "tags": ["f", "h"], "isFeatured": true, "imageAlt": "Product", "details": [{ "title": "this is a test", "_id": "63bdcae5b03711589e834564" }, { "title": "test", "_id": "63bdcb4cb03711589e8345b5" }], "information": [{ "title": "title", "description": "description", "_id": "63bdcaf8b03711589e83456a" }, { "title": "quality", "description": "good", "_id": "63bdcb5eb03711589e8345c7" }], "reviews": [{ "userId": "630ce91d6148e81158f33c1a", "name": "Ahnaf", "comment": "hi", "rating": 5, "_id": "63bc87d6c53f2446e3d443b1", "date": "1673299926525" }, { "userId": "630ce91d6148e81158f33c1a", "name": "Ahnaf", "comment": "okk", "rating": 2, "_id": "63d0dfe6cf18371b3cd05c09", "date": "1674633190118" }], "createdAt": "2023-01-07T20:36:54.071Z", "updatedAt": "2023-01-25T07:53:10.121Z", "__v": 8, "subCategory": "unknown"
+}
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export function Details() {
+function DetailsPage() {
 
     const router = useRouter()
     const itemId = router.query.id
     const myRef = useRef()
 
-    // const [reviews, setReviews] = useState([])
-    const [product, setProduct] = useState([])
+    const [isUser, setIsUser] = useState(true)
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [show, setShow] = useState('details');
+    const [images, setImages] = useState([])
+
+    const [details, setDetails] = useState([])
     const [info, setInfo] = useState([])
     const [moreInfo, setMoreInfo] = useState([])
-    const [images, setImages] = useState([])
+
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
+
     const [view, setView] = useState(1)
     const [openImage, setOpenImage] = useState(false)
     const [viewImage, setViewImage] = useState()
-    const [isUser, setIsUser] = useState(false)
+    const [iCategory, setiCategory] = useState('')
 
-    // const [selectedSize, setSelectedSize] = useState('')
-    // const [selectedColor, setSelectedColor] = useState('')
-    // const total = (items) => items.reduce((acc, curr) => acc + curr.rating, 0);
-
-    const { addItem } = useCart();
-    const ratings = product?.reviews?.reduce((acc, curr) => acc + curr.rating, 0) / product?.reviewCount
-
-    // get data 
-    useEffect(() => {
-        async function getProduct() {
-            let token = localStorage.getItem("access_token");
-            setIsUser(!!token)
-            const res = await axiosRoot.get(`/products/${itemId}`);
-            setProduct(res.data)
-            setInfo(res.data.details)
-            setMoreInfo(res.data.information)
-            setImages(res.data.images)
-            // setReviews(res.data.reviews)
-        }
-        getProduct()
-    }, [router, success]);
+    function handleScroll(e) {
+        e.preventDefault()
+        setShow('reviews')
+        myRef.current?.scrollIntoView()
+    }
 
     // submit review data
     const handleSubmit = async (event) => {
@@ -84,132 +72,15 @@ export function Details() {
         }
     }
 
-    // const incrementQty = () => {
-    //     setQty(count => count + 1);
-    // }
-    // const decrementQty = () => {
-    //     setQty(count => count - 1);
-    // }
-
-    function handleScroll(e) {
-        e.preventDefault()
-        setShow('reviews')
-        myRef.current?.scrollIntoView()
-    }
-
-    const cartProduct = {
-        id: product._id,
-        imageSrc: images[0],
-        name: product.name,
-        price: product.price,
-        category: product.category,
-        quantity: 1
-    }
-
-    function handleViewImage(item) {
-        setOpenImage(true)
-        setViewImage(item)
-    }
-
-    function nextImage() {
-        images.map((item, index) => {
-            if (item === viewImage && 1 + index !== images.length) {
-                setViewImage(images[index + 1])
-            }
-        })
-    }
-
-    function prevImage() {
-        images.map((item, index) => {
-            if (item === viewImage && index !== 0) {
-                setViewImage(images[index - 1])
-            }
-        })
-    }
-
-    const overview = (
-        <Transition appear show={openImage} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={() => setOpenImage(false)}>
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-50"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                >
-                    <div className="fixed inset-0 bg-black bg-opacity-25" />
-                </Transition.Child>
-
-                <div className="fixed inset-0 overflow-y-auto">
-                    <div className="flex min-h-full items-center justify-center p-4 text-center">
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0 scale-95"
-                            enterTo="opacity-100 scale-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100 scale-100"
-                            leaveTo="opacity-0 scale-95"
-                        >
-                            <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all">
-                                <Dialog.Title
-                                    as="h3"
-                                    className="text-lg font-medium leading-6 text-gray-900"
-                                >
-                                    Image Preview
-                                </Dialog.Title>
-                                <div className="mt-2 mx-auto">
-                                    <div className='mx-auto cursor-pointer '>
-                                        {viewImage && (
-                                            <Image
-                                                height={640}
-                                                width={640}
-                                                src={`${viewImage}`}
-                                                alt='product-images'
-                                                className="mx-auto w-[40vh] rounded-lg h-[40vh]"
-                                            />
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="mt-2 flex justify-between ">
-                                    <button
-                                        type="button"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                        onClick={prevImage}
-                                    >
-                                        Back
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                        onClick={nextImage}
-                                    >
-                                        Next
-                                    </button>
-                                </div>
-                            </Dialog.Panel>
-                        </Transition.Child>
-                    </div>
-                </div>
-            </Dialog>
-        </Transition>
-    )
-
-    const [iCategory, setiCategory] = useState('')
-
     return (
-        <>
-            {overview}
+        <Layout>
             <div className='md:p-8 grid w-full md:max-w-7xl mx-auto gap-4'>
                 <div className='grid grid-cols-5 gap-4 w-full'>
 
                     <div className='rounded-lg ring-2 ring-gray-200 col-span-5 lg:col-span-2'>
 
                         <div className='grid p-4 gap-1 mt-2 items-center'>
-                            {images.slice(view - 1, view).map((item, index) => (
+                            {product.images.slice(view - 1, view).map((item, index) => (
                                 <div className='relative cursor-pointer flex items-center mx-auto' key={index}>
                                     <Image
                                         height={500}
@@ -226,7 +97,7 @@ export function Details() {
                                 </div>
                             ))}
                             <div className='flex gap-3 mt-2 items-center mx-auto justify-center'>
-                                {images.map((item, index) => (
+                                {product.images.map((item, index) => (
                                     <button type='button' className='ring-2 items-center flex ring-gray-200 rounded-md w-full' onClick={() => setView(index + 1)} key={index}>
                                         <Image
                                             height={120}
@@ -373,7 +244,7 @@ export function Details() {
                                         type='button'
                                         className="inline-block w-full p-4 text-gray-900 rounded-l-lg bg-gray-50 focus:bg-gray-100 focus:ring-2 focus:ring-gray-300 active focus:outline-none"
                                     >
-                                        Specifications
+                                        Details
                                     </button>
                                 </li>
                                 <li className="w-full">
@@ -401,7 +272,7 @@ export function Details() {
                         {(show === 'details') && (
                             <>
                                 <div div className='mt-5 rounded-md md:p-5 bg-gray-50'>
-                                    <h2 className='text-xl font-medium'>{product.name}</h2>
+                                    <h2 className='text-xl font-medium'>{details.name}</h2>
                                     {product.details?.map((detail, index) => (
                                         <p key={index} className='py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {detail.title}</p>
                                     ))}
@@ -412,7 +283,7 @@ export function Details() {
                         {/* More Information  */}
                         {(show === 'info') && (
                             <div className='mt-5 rounded-md md:p-5 bg-gray-50'>
-                                <h2 className='text-xl font-medium'>{product.name}</h2>
+                                <h2 className='text-xl font-medium'>{details.name}</h2>
                                 {product.information.map((info, index) => (
                                     <div key={index} className='flex justify-items-start md:w-4/5'>
                                         <p className='w-56 py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {info.title}:</p>
@@ -534,43 +405,8 @@ export function Details() {
                     </div>
                 </div>
             </div>
-        </>
-
-    )
-}
-
-export function Detail() {
-    return (
-        <Layout>
-            <Details />
         </Layout>
     )
 }
 
-export const relatedProducts = [
-    {
-        name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
-    },
-    {
-        name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
-    },
-    {
-        name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
-    },
-    {
-        name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
-    },
-    {
-        name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
-    },
-]
+export default DetailsPage
