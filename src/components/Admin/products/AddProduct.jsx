@@ -27,6 +27,7 @@ const Detail = () => {
     // const [imgSrc, setImgSrc] = useState([]);
     const [products, setProducts] = useState([])
     const [enabled, setEnabled] = useState(false)
+    const [relatedProducts, setRelatedProducts] = useState([])
 
     // select images 
     const handleSelectImage = (e) => {
@@ -223,14 +224,18 @@ const Detail = () => {
 
     function handleAdd(product) {
         console.log(product)
+        setRelatedProducts((current) => [...current, {product}])
+        // setRelatedProducts([product, ...relatedProducts]);
+        setTimeout(() => { console.log(relatedProducts) }, 1000)
     }
+
     const [searchTerm, setSearchTerm] = useState()
     const slugs = ['code', 'name', 'category']
     const search = (data) => {
         return data.filter((item) =>
-          slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+            slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
         )
-      }
+    }
     const related = (
         <>
             <Transition appear show={enabled} as={Fragment}>
@@ -270,8 +275,8 @@ const Detail = () => {
                                             <Search setSearchTerm={setSearchTerm} />
                                         </div>
                                         <div className="w-full gap-2 mx-auto grid grid-cols-5">
-                                            {search(products).slice(0, 5).map((product) => (
-                                                <ProductCard product={product} add={() => handleAdd(product)} />
+                                            {search(products).slice(0, 5).map((product, index) => (
+                                                <ProductCard key={index} product={product} add={() => handleAdd(product)} />
                                             ))}
                                         </div>
                                     </div>
@@ -373,17 +378,17 @@ const Detail = () => {
                         <div className='grid grid-cols-2 gap-3'>
                             <div>
                                 <label htmlFor="regular-price" className="block mb-1 text-sm font-medium text-gray-900">Regular Price</label>
-                                <input type="number" name='regular-price' placeHolder='Regular price' id="regular-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" required />
+                                <input type="number" name='regular-price' placeholder='Regular price' id="regular-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" />
                             </div>
                             <div>
                                 <label htmlFor="price" className="block mb-1 text-sm font-medium text-gray-900">Online Price</label>
-                                <input type="number" name='price' id="price" placeHolder='Online Price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Price" required />
+                                <input type="number" name='price' id="price" placeholder='Online Price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" required />
                             </div>
                         </div>
                         <div className='grid grid-cols-2 gap-2 bg-teal-100 rounded-md px-2 mt-3 py-2'>
                             <div>
                                 <label htmlFor="special-price" className="mb-1 text-sm font-medium text-gray-900">Special Price/ Offer</label>
-                                <input type="number" name='special-price' id="special-price" placeHolder='Special price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Offers" />
+                                <input type="number" name='special-price' id="special-price" placeholder='Special price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" />
                             </div>
 
                             <div>
@@ -393,7 +398,7 @@ const Detail = () => {
                                         <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
                                     </div>
 
-                                    <input datepicker id='timer' name='timer' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10  " placeholder="Select date" />
+                                    <input datepicker="true" id='timer' name='timer' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10  " placeholder="Select date" />
                                 </div>
                             </div>
 
@@ -461,6 +466,7 @@ const Detail = () => {
                             )}
 
                         </div>
+
                         {files.length === 0 && (
                             <div className='grid grid-cols-2 gap-2'>
                                 {[0, 1, 2, 3, 4, 5].map(x => (
@@ -531,8 +537,8 @@ const Detail = () => {
                                 <div className='col-span-1'>
                                     {formValues.length != 1 && (
                                         <button type="button" className="flex items-end" onClick={() => removeFormFields(element.id)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mb-2 ml-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mb-2 ml-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
                                         </button>
                                     )}
@@ -571,8 +577,8 @@ const Detail = () => {
                                 <div className='col-span-1'>
                                     {moreInfos.length != 1 && (
                                         <button type="button" className="flex items-end" onClick={() => removeMoreinfo(element.id)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mb-2 ml-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mb-2 ml-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
                                         </button>
                                     )}
@@ -602,10 +608,10 @@ export function AddProduct() {
     )
 }
 
-function ProductCard({ product, add }) {
+function ProductCard({ product, add, key }) {
 
     return (
-        <div className="bg-white shadow-md border border-gray-200 rounded-lg">
+        <div key={key} className="bg-white shadow-md border border-gray-200 rounded-lg">
             <Link href={`/product/${product._id}`}>
                 <a>
                     <img className="rounded-t-lg h-40 w-full"
@@ -615,11 +621,11 @@ function ProductCard({ product, add }) {
                     />
                 </a>
             </Link>
-            <div className="p-2 h-28 grid grid-cols-1 gap-2 items-center content-between">
+            <div className="p-2 h-28 grid gap-2 items-center content-between">
                 <Link href={`/product/${product._id}`}>
                     <a className="text-gray-900 font-bold text-md tracking-tight">{product.name}</a>
                 </Link>
-                <button onClick={() => add(product)} type='button' className="items-center text-sm text-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg px-3 py-2 flex">
+                <button onClick={() => add(product)} type='button' className="w-full items-center text-sm !text-center text-red-600 hover:text-white bg-white hover:bg-red-600 ring-2 ring-red-600 focus:ring-red-300 font-medium rounded-md px-3 py-2">
                     Add
                 </button>
             </div>

@@ -90,7 +90,7 @@ function AdminNavbar() {
                                                         <span className="sr-only">Open user menu</span>
                                                         {/* <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" /> */}
                                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
-                                                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                                         </svg>
                                                     </Menu.Button>
                                                 )}
@@ -182,17 +182,17 @@ function AdminNavbar() {
                                         </Disclosure.Button>
                                     ))}
                                     <Disclosure.Button
-                                            as="button"
-                                            // href={item.href}
-                                            onClick={handleLogout}
-                                            className={classNames(
-                                                pathname === null ? 'bg-red-600 bg-opacity-10 text-white' : '',
-                                                'block w-full text-left px-3 py-2 text-gray-100 rounded-md text-base font-medium'
-                                            )}
-                                            aria-current={ pathname === null ? 'page' : undefined}
-                                        >
+                                        as="button"
+                                        // href={item.href}
+                                        onClick={handleLogout}
+                                        className={classNames(
+                                            pathname === null ? 'bg-red-600 bg-opacity-10 text-white' : '',
+                                            'block w-full text-left px-3 py-2 text-gray-100 rounded-md text-base font-medium'
+                                        )}
+                                        aria-current={pathname === null ? 'page' : undefined}
+                                    >
                                         Sign out
-                                        </Disclosure.Button>
+                                    </Disclosure.Button>
                                 </div>
                                 {/* <div className="pt-2 px-1 pb-3 border-t border-gray-300">
 

@@ -8,6 +8,8 @@ import axiosRoot from '../../utils/axios-root'
 import Image from 'next/image'
 import { useCart } from 'react-use-cart'
 import { Dialog, Transition } from '@headlessui/react'
+import Product from './Product'
+import { ProductCard } from '../Shop'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -125,90 +127,96 @@ export function Details() {
         })
     }
 
+    const overview = (
+        <Transition appear show={openImage} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={() => setOpenImage(false)}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-50"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-black bg-opacity-25" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all">
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-lg font-medium leading-6 text-gray-900"
+                                >
+                                    Image Preview
+                                </Dialog.Title>
+                                <div className="mt-2 mx-auto">
+                                    <div className='mx-auto cursor-pointer '>
+                                        {viewImage && (
+                                            <Image
+                                                height={640}
+                                                width={640}
+                                                src={`${viewImage}`}
+                                                alt='product-images'
+                                                className="mx-auto w-[40vh] rounded-lg h-[40vh]"
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="mt-2 flex justify-between ">
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        onClick={prevImage}
+                                    >
+                                        Back
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        onClick={nextImage}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition>
+    )
+
+    const [iCategory, setiCategory] = useState('')
+
     return (
         <>
-
-            <Transition appear show={openImage} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => setOpenImage(false)}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-50"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
-                    </Transition.Child>
-
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="text-lg font-medium leading-6 text-gray-900"
-                                    >
-                                        Image Preview
-                                    </Dialog.Title>
-                                    <div className="mt-2 mx-auto">
-                                        <div className='mx-auto cursor-pointer'>
-                                            {viewImage && (
-                                                <Image
-                                                    height={480}
-                                                    width={480}
-                                                    src={`${viewImage}`}
-                                                    alt='product-images'
-                                                    className="mx-auto w-[40vh] h-[40vh]"
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    <div className="mt-2 flex justify-between ">
-                                        <button
-                                            type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                            onClick={prevImage}
-                                        >
-                                            Back
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                            onClick={nextImage}
-                                        >
-                                            Next
-                                        </button>
-                                    </div>
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition>
+            {overview}
             <div className="px-3 mx-auto bg-gray-100 shadow md:py-8 md:px-8">
+                <div className="grid md:max-w-5xl col-span-12 gap-4 mx-auto">
 
-                <div className="grid max-w-5xl col-span-12 gap-4 mx-auto">
-
-                    <div className="w-full grid justify-center col-span-12 lg:col-span-3">
+                    {/* Images  */}
+                    <div className="w-full grid justify-center col-span-12 lg:col-span-6">
                         {images.slice(view - 1, view).map((item, index) => (
                             <div className='relative mx-auto cursor-pointer' key={index}>
                                 <Image
                                     height={400}
                                     width={400}
+                                    layout='fixed'
                                     src={`${item}`}
                                     alt='product-images'
-                                    className="mx-auto w-[40vh] h-[40vh]"
+                                    className="mx-auto rounded-md"
                                 />
                                 <button onClick={() => handleViewImage(item)} className="opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 flex justify-center items-center text-2xl text-red-500 font-semibold">
                                     View Image
@@ -217,21 +225,21 @@ export function Details() {
                         ))}
                         <div className='flex gap-2 mt-2 mx-auto items-center justify-center'>
                             {images.map((item, index) => (
-                                <button type='button' onClick={() => setView(index + 1)} key={index}>
+                                <button type='button' className='w-full' onClick={() => setView(index + 1)} key={index}>
                                     <Image
                                         height={100}
                                         width={100}
                                         src={`${item}`}
                                         alt='product-images'
-                                        className="w-[10vh] h-[10vh] "
+                                        className="min-w-full h-[10vh] rounded-md"
                                     />
                                 </button>
                             ))}
                         </div>
                     </div>
 
-
-                    <div className="col-span-12 lg:col-span-2">
+                    {/* Side Informations  */}
+                    <div className="col-span-12 lg:col-span-6">
                         <h2 className="text-2xl font-extrabold text-gray-900 sm:pr-12">{details.name}</h2>
 
                         <section aria-labelledby="information-heading" className="mt-2">
@@ -276,7 +284,6 @@ export function Details() {
                             <h3 id="options-heading" className="sr-only">
                                 Product options
                             </h3>
-
 
                             <div className='grid grid-cols-1 gap-2'>
 
@@ -345,6 +352,7 @@ export function Details() {
                         </section>
                     </div>
 
+                    {/* Specifications more info n review  */}
                     <div ref={myRef} className='w-auto col-span-12 rounded-md min-h-44'>
 
                         <>
@@ -399,7 +407,7 @@ export function Details() {
                                 <div div className='mt-5 rounded-md md:p-5 bg-gray-50'>
                                     <h2 className='text-xl font-medium'>{details.name}</h2>
                                     {info?.map((detail, index) => (
-                                        <p className='py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {detail.title}</p>
+                                        <p key={index} className='py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {detail.title}</p>
                                     ))}
                                 </div>
                             </>
@@ -515,8 +523,20 @@ export function Details() {
                             </div>
                         )}
                     </div>
-                </div>
 
+
+                </div>
+                {/* Realted Products  */}
+                <div className='ring-2 ring-gray-300 bg-white rounded-md p-3 mt-2 max-w-7xl mx-auto w-full'>
+                    <h1 className='py-4 text-center font-bold text-2xl text-black'>Related Products</h1>
+                    <div className='flex w-full gap-2 p-3'>
+                        {relatedProducts.map((product, index) =>
+                            <div className=''>
+                                <Product product={product} setiCategory={setiCategory} />
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
         </>
 
@@ -530,3 +550,31 @@ export function Detail() {
         </Layout>
     )
 }
+
+const relatedProducts = [
+    {
+        name: 'ReDragon Keyboard',
+        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
+        _id: '63ad9063fdd77cbc1875421e',
+    },
+    {
+        name: 'ReDragon Keyboard',
+        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
+        _id: '63ad9063fdd77cbc1875421e',
+    },
+    {
+        name: 'ReDragon Keyboard',
+        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
+        _id: '63ad9063fdd77cbc1875421e',
+    },
+    {
+        name: 'ReDragon Keyboard',
+        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
+        _id: '63ad9063fdd77cbc1875421e',
+    },
+    {
+        name: 'ReDragon Keyboard',
+        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
+        _id: '63ad9063fdd77cbc1875421e',
+    },
+]
