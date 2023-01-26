@@ -279,11 +279,14 @@ export function Checkout() {
 
     return (
         <Layout>
-            {!success ?
-                <Checkouts setOrder={setOrder} setSuccess={setSuccess} />
-                :
-                <Success order={order} />
-            }
+            <div className='min-h-screen'>
+                {!success ?
+                    <Checkouts setOrder={setOrder} setSuccess={setSuccess} />
+                    :
+
+                    <Success order={order} />
+                }
+            </div>
         </Layout>
     )
 }

@@ -20,8 +20,8 @@ function Success({ order }) {
     }
 
     return (
-        <div className="grid min-h-screen bg-black justify-centerpy-6 sm:px-6 lg:px-8">
-            <div className=' max-w-5xl mx-auto bg-gray-600 bg-opacity-50 my-4 rounded-lg shadow-md px-10'>
+        <div className="grid bg-black justify-centerpy-6 sm:px-6 lg:px-8">
+            <div className='max-w-5xl h-full mx-auto bg-gray-600 bg-opacity-50 my-4 rounded-lg shadow-md px-10'>
                 <div>
                     <CheckIcon className='bg-green-500 mx-auto text-white rounded-full h-20 w-20 my-10' />
                     <h1 className='text-green-500 text-4xl text-center'>Thank you</h1>
@@ -75,7 +75,7 @@ function ProductsViews ({order}) {
     // let total = (shipping + cartTotal)
 
     return (
-        <div className="overflow-y-scroll relative my-5">
+        <div className="overflow-y-auto overflow-auto relative my-5">
             <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-200 uppercase bg-green-500 bg-opacity-20">
                     <tr>

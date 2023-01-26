@@ -251,7 +251,7 @@ export function Details() {
                                 <table className="w-full text-sm text-left p-3">
 
                                     <tbody>
-                                        <tr className="bg-white w-1/3 border-gray-100 border-b">
+                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
                                             <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Product Price:
                                             </th>
@@ -259,7 +259,7 @@ export function Details() {
                                                 {product.price}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/3 border-gray-100 border-b">
+                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
                                             <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Offer Price:
                                             </th>
@@ -267,7 +267,7 @@ export function Details() {
                                                 {product.price}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/3 border-gray-100 border-b">
+                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
                                             <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Stock Status:
                                             </th>
@@ -275,7 +275,7 @@ export function Details() {
                                                 {product.quantity === 0 ? 'Stock Out' : 'In Stock'}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/3 border-gray-100 border-b">
+                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
                                             <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Brand:
                                             </th>
@@ -284,11 +284,11 @@ export function Details() {
                                                 {product.brand || 'Unknown'}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/3 border-gray-100 border-b">
+                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
                                             <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Total Reviews:
                                             </th>
-                                            <td className="flex py-2">
+                                            <td className="grid md:flex py-2">
                                                 {[0, 1, 2, 3, 4].map((rating) => (
                                                     <StarIcon
                                                         key={rating}
@@ -321,7 +321,7 @@ export function Details() {
                                 <div>
                                     <h4 className="text-sm font-medium text-gray-900">Qty</h4>
                                     <div className="relative flex flex-row w-full h-12 mt-1 bg-transparent ring-black ring-2">
-                                        <button type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full hover:text-white hover:bg-black text-black bg-white cursor-pointer ">
+                                        <button disabled={qty === 1} type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full hover:text-white hover:bg-black text-black bg-white cursor-pointer ">
                                             <span className="m-auto text-2xl font-semibold">−</span>
                                         </button>
                                         <p className="flex items-center justify-center w-full font-semibold text-center text-black bg-white border-black border-x-2 text-md">{qty}</p>
