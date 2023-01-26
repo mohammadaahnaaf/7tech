@@ -103,6 +103,7 @@ export function Details() {
         name: product.name,
         price: product.price,
         category: product.category,
+        stock: product.quantity,
         quantity: 1
     }
 
@@ -325,7 +326,7 @@ export function Details() {
                                             <span className="m-auto text-2xl font-semibold">−</span>
                                         </button>
                                         <p className="flex items-center justify-center w-full font-semibold text-center text-black bg-white border-black border-x-2 text-md">{qty}</p>
-                                        <button type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full hover:bg-black hover:text-white text-black bg-white cursor-pointer">
+                                        <button disabled={qty === cartProduct.stock} type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full hover:bg-black hover:text-white text-black bg-white cursor-pointer">
                                             <span className="m-auto text-2xl font-semibold">+</span>
                                         </button>
                                     </div>
