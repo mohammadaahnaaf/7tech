@@ -48,7 +48,7 @@ const Detail = () => {
   const [reviews, setReviews] = React.useState([
     {
       _id: "",
-      name: "",
+      userName: "",
       comment: ""
     }
   ]);
@@ -78,8 +78,9 @@ const Detail = () => {
       setImages(res.data.images)
     }
 
-    getProduct()
-  }, [router, itemId, loading, success]);
+    itemId && getProduct()
+    
+  }, [itemId]);
 
 
   // submit edit 
@@ -110,6 +111,10 @@ const Detail = () => {
       Array.from(files).forEach(file => {
         data.append('images', file)
       })
+      const formDataObj = {};
+      data.forEach((value, key) => (formDataObj[key] = value));
+      console.log('edit data', formDataObj)
+
       setIsLoading(true)
       await axiosAPI.put(`/products/${itemId}`, data);
       setSuccess('Category Edited.')
@@ -180,6 +185,7 @@ const Detail = () => {
     await axiosAPI.post(`/products/${itemId}/details`, reqDetailsData);
     setSuccess('Product details added.')
     setTimeout(() => { setSuccess('') }, 2000)
+
     // setFormValues([...formValues,
     // {
     //   id: uuidv4(),
@@ -440,7 +446,7 @@ const Detail = () => {
                 <div key={index} className='grid grid-cols-10 items-end'>
                   <div className='col-span-9'>
                     <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
-                    <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                    <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
                   </div>
                   <div>
                     {formValues.length != 0 && (
@@ -460,7 +466,7 @@ const Detail = () => {
                   <input type="text" name="title" id="title"
                     value={newDetails.title || ""}
                     onChange={(e) => setNewDetails({ title: e.target.value })}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
                 </div>
               </div>
               <div>
@@ -478,11 +484,11 @@ const Detail = () => {
                   <div className='flex gap-2'>
                     <div>
                       <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
-                      <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                      <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
                     </div>
                     <div>
                       <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
-                      <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                      <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
                     </div>
                     {moreInfos.length != 0 && (
                       <button type="button" className="items-end flex" onClick={() => removeMoreinfo(element._id)}>
@@ -502,14 +508,14 @@ const Detail = () => {
                     <input type="text" name="title" id="title"
                       value={newMoreinfo.title || ""}
                       onChange={(e) => handleNewMoreinfo(e)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
                   </div>
                   <div>
                     <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">New Description</label>
                     <input type="text" name="description" id="description"
                       value={newMoreinfo.description || ""}
                       onChange={(e) => handleNewMoreinfo(e)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
                   </div>
 
                   <div className="items-end flex">
@@ -533,8 +539,8 @@ const Detail = () => {
               {reviews?.map((element, index) => (
                 <div className="flex gap-2 items-center" key={index}>
                   <div>
-                    <label htmlFor="name" className="block mb-2 text-xs font-medium text-gray-900">Reviewed by</label>
-                    <input type="text" name="name" id="name" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                    <label htmlFor="userName" className="block mb-2 text-xs font-medium text-gray-900">Reviewed by</label>
+                    <input type="text" name="userName" id="userName" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
                   </div>
                   <div className='flex'>
                     <div>

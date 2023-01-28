@@ -551,27 +551,36 @@ export function Detail() {
 export const relatedProducts = [
     {
         name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
+        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
+        price: 100,
+        _id: '63d4aaa2950803a7a4c6403d',
     },
     {
         name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
+        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"], 
+        _id: '63d4aaa2950803a7a4c6403d',
+        price: 100,
+
     },
     {
         name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
+        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"], 
+        price: 100,
+        _id: '63d4aaa2950803a7a4c6403d',
+
     },
     {
         name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
+        price: 100,
+
+        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"], 
+        _id: '63d4aaa2950803a7a4c6403d',
     },
     {
         name: 'ReDragon Keyboard',
-        images: ["https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-1-500x500-1672319074783.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-2-500x500-1672319075077.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-3-500x500-1672319075161.jpg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gw900-apex-4-500x500-1672319075251.jpg"], price: 100,
-        _id: '63ad9063fdd77cbc1875421e',
+        price: 100,
+
+        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
+         _id: '63d4aaa2950803a7a4c6403d',
     },
 ]
