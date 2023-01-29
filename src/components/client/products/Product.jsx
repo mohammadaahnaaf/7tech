@@ -5,7 +5,7 @@ import React from 'react'
 import { useCart } from 'react-use-cart';
 import axiosRoot from '../../utils/axios-root';
 
-function Product({ setiCategory, product }) {
+function Product({ product }) {
 
     const [images, setImages] = React.useState([]);
     const { addItem } = useCart();
@@ -16,10 +16,10 @@ function Product({ setiCategory, product }) {
         async function getImages() {
             const res = await axiosRoot.get(`/products/${product._id}`);
             setImages(res.data.images)
-            setiCategory(product.category)
+            // setiCategory(product.category)
             console.log(product)
         }
-        getImages()
+        product._id && getImages()
     }, []);
 
     const cartProduct = {

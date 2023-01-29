@@ -20,14 +20,12 @@ export function Details() {
     const router = useRouter()
     const itemId = router.query.id
     const myRef = useRef()
+    const { addItem } = useCart();
 
-    // const [reviews, setReviews] = useState([])
     const [product, setProduct] = useState([])
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [show, setShow] = useState('details');
-    const [info, setInfo] = useState([])
-    const [moreInfo, setMoreInfo] = useState([])
     const [images, setImages] = useState([])
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
@@ -35,13 +33,15 @@ export function Details() {
     const [openImage, setOpenImage] = useState(false)
     const [viewImage, setViewImage] = useState()
     const [isUser, setIsUser] = useState(false)
-
+    
+    // const [moreInfo, setMoreInfo] = useState([])
+    // const [info, setInfo] = useState([])
+    // const [reviews, setReviews] = useState([])
     // const [selectedSize, setSelectedSize] = useState('')
     // const [selectedColor, setSelectedColor] = useState('')
     // const total = (items) => items.reduce((acc, curr) => acc + curr.rating, 0);
 
-    const { addItem } = useCart();
-    const ratings = product?.reviews?.reduce((acc, curr) => acc + curr.rating, 0) / product?.reviewCount
+    // const ratings = product?.reviews?.reduce((acc, curr) => acc + curr.rating, 0) / product?.reviewCount
 
     // get data 
     useEffect(() => {
@@ -50,12 +50,13 @@ export function Details() {
             setIsUser(!!token)
             const res = await axiosRoot.get(`/products/${itemId}`);
             setProduct(res.data)
-            setInfo(res.data.details)
-            setMoreInfo(res.data.information)
             setImages(res.data.images)
+
+            // setInfo(res.data.details)
+            // setMoreInfo(res.data.information)
             // setReviews(res.data.reviews)
         }
-        getProduct()
+        itemId && getProduct()
     }, [router, success]);
 
     // submit review data
@@ -71,7 +72,6 @@ export function Details() {
                     rating: +star
                 }
                 await axiosAPI.post(`/products/${itemId}/review`, reqData);
-                // router.reload()
                 setSuccess('Your review added')
                 setTimeout(() => { setSuccess('') }, 2000)
 
@@ -198,8 +198,6 @@ export function Details() {
             </Dialog>
         </Transition>
     )
-
-    const [iCategory, setiCategory] = useState('')
 
     return (
         <>
@@ -351,7 +349,6 @@ export function Details() {
                 {/* Specifications More info Reviews  */}
                 <div ref={myRef} className='rounded-lg w-full'>
                     <div className='w-auto col-span-12 rounded-md'>
-
                         <>
                             <div className="sm:hidden">
                                 <label htmlFor="tabs" className="sr-only">More Information</label>
@@ -528,8 +525,8 @@ export function Details() {
                     <h1 className='py-4 text-center font-bold text-2xl text-black'>Related Products</h1>
                     <div className='grid grid-cols-10 w-full gap-2 p-3'>
                         {relatedProducts.map((product, index) =>
-                            <div className='col-span-5 sm:col-span-3 md:col-span-2 '>
-                                <Product product={product} setiCategory={setiCategory} />
+                            <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
+                                <Product product={product} />
                             </div>
                         )}
                     </div>
@@ -557,14 +554,14 @@ export const relatedProducts = [
     },
     {
         name: 'ReDragon Keyboard',
-        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"], 
+        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
         _id: '63d4aaa2950803a7a4c6403d',
         price: 100,
 
     },
     {
         name: 'ReDragon Keyboard',
-        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"], 
+        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
         price: 100,
         _id: '63d4aaa2950803a7a4c6403d',
 
@@ -573,7 +570,7 @@ export const relatedProducts = [
         name: 'ReDragon Keyboard',
         price: 100,
 
-        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"], 
+        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
         _id: '63d4aaa2950803a7a4c6403d',
     },
     {
@@ -581,6 +578,6 @@ export const relatedProducts = [
         price: 100,
 
         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-         _id: '63d4aaa2950803a7a4c6403d',
+        _id: '63d4aaa2950803a7a4c6403d',
     },
 ]
