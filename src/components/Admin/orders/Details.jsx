@@ -46,9 +46,9 @@ const Detail = () => {
             setProducts(res.data.products)
         }
 
-        getOrder()
+        itemId && getOrder()
 
-    }, [router, itemId, success]);
+    }, [router, success]);
 
     // get all products
     useEffect(() => {
@@ -69,9 +69,9 @@ const Detail = () => {
             }
             res.data.map(x => test(x))
         }
-        getProduct()
+        itemId && getProduct()
 
-    }, [order, router, itemId]);
+    }, [order]);
 
     // Details 
     const handleChange = (id, event) => {

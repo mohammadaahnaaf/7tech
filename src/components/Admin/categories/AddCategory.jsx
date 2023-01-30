@@ -22,6 +22,7 @@ export function AddCategorys() {
 
       const reqData = {
         name: data.get('categoryName'),
+        tagline: data.get('tagline'),
         isFeatured: featured,
         index: +indexing,
         subCategories: formValues.map(value => (
@@ -93,10 +94,10 @@ export function AddCategorys() {
         <div className="grid gap-2 max-w-4xl mx-auto bg-gray-100 shadow rounded-lg ring-2 ring-gray-300 mb-6">
           {featured && (
             <>
-              {/* <div className='w-full px-4 pt-2'>
-                <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>
-                <input type="number" name='indexing' id="indexing" onChange={(e) => setIndexing(e.target.value)} value={indexing || ""} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Index" />
-              </div> */}
+              <div className='w-full px-4 pt-2'>
+                <label htmlFor="tagline" className="block my-2 text-xs font-medium text-gray-900">Tagline</label>
+                <input type="text" name='tagline' id="tagline" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Title" />
+              </div>
 
               <div className='w-full px-4 pt-2'>
                 <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>

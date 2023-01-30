@@ -40,7 +40,7 @@ export function Detail() {
       setIndexing(res.data.index)
       setFormValues(res.data.subCategories)
     }
-    getCategory()
+    itemId && getCategory()
   }, [success, itemId]);
 
   // submit form data
@@ -54,6 +54,7 @@ export function Detail() {
       const reqData = {
         // subCategories: JSON.stringify(formValues),
         name: data.get('categoryName'),
+        tagline: data.get('tagline'),
         isFeatured: featured,
         index: +indexing
       }
@@ -124,6 +125,16 @@ export function Detail() {
     }
   }
 
+  const handleCatChange = (event) => {
+    const { name, value } = event.target;
+    setCategory((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+
   return (
 
     <div className='p-5 min-h-screen bg-white rounded-lg m-3'>
@@ -142,10 +153,11 @@ export function Detail() {
         <div className="grid gap-2 max-w-4xl mx-auto bg-gray-100 shadow rounded-lg ring-2 ring-gray-300 mb-6">
           {featured && (
             <>
-              {/* <div className='w-full px-4 pt-2'>
-              <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>
-              <input type="number" name='indexing' id="indexing" onChange={(e) => setIndexing(e.target.value)} value={indexing} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Index" />
-            </div> */}
+              <div className='w-full px-4 pt-2'>
+                <label htmlFor="tagline" className="block my-2 text-xs font-medium text-gray-900">Tagline</label>
+                <input type="text" value={category.tagline || ''} onChange={(e) => handleCatChange(e)} name='tagline' id="tagline" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Title" />
+              </div>
+
 
               <div className='w-full px-4 pt-2'>
                 <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>
@@ -162,8 +174,8 @@ export function Detail() {
           <div className='w-full px-4'>
             <label htmlFor="categoryName" className="block my-2 text-xs font-medium text-gray-900">Category name</label>
             <input type="text" name='categoryName' id="categoryName"
-              value={category.name}
-              onChange={(e) => setCategory({ name: e.target.value })}
+              value={category.name || ''}
+              onChange={(e) => handleCatChange(e)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Name" required />
           </div>
 
@@ -212,7 +224,7 @@ export function Detail() {
 
           <div className='py-2 px-4 border-t-2 border-t-gray-300 rounded-b-lg mt-2 bg-gray-300 flex justify-end'>
             <div className='w-full'>
-              <input id="bordered-checkbox-1" type="checkbox" onClick={handleFeature} checked={featured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-600" />
+              <input id="bordered-checkbox-1" type="checkbox" onClick={() => setFeatured(!featured)} checked={featured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-600" />
               <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
             </div>
             <button type='submit' className='rounded-lg hover:bg-red-600 bg-black text-xs text-white px-4 py-2'>Done</button>
@@ -220,7 +232,7 @@ export function Detail() {
           </div>
         </div>
       </form>
-    </div >
+    </div>
   )
 }
 

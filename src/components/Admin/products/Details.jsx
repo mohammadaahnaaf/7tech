@@ -115,13 +115,13 @@ const Detail = () => {
       data.forEach((value, key) => (formDataObj[key] = value));
       console.log('edit data', formDataObj)
 
-      setIsLoading(true)
+      // setIsLoading(true)
       await axiosAPI.put(`/products/${itemId}`, data);
       setSuccess('Category Edited.')
       setTimeout(() => {
         setSuccess('')
       }, 2000)
-      setIsLoading(false)
+      // setIsLoading(false)
     } catch (error) {
 
       setIsLoading(false);
@@ -264,6 +264,7 @@ const Detail = () => {
       };
     });
   };
+  
   async function addMoreinfo() {
     const reqInfoData = {
       title: newMoreinfo.title,
