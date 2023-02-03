@@ -5,7 +5,7 @@ import React from 'react'
 import { useCart } from 'react-use-cart';
 import axiosRoot from '../../utils/axios-root';
 
-function Product({ product }) {
+function Product({ product, key }) {
 
     const [images, setImages] = React.useState([]);
     const { addItem } = useCart();
@@ -33,7 +33,7 @@ function Product({ product }) {
     }
 
     return (
-        <div key={product.id} className="group hover:scale-90 duration-300 bg-black relative hover:ring-white ring-red-600 ring-2">
+        <div key={key} className="group hover:scale-90 duration-300 bg-black relative hover:ring-white ring-red-600 ring-2">
             <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 ring-opacity-30 bg-black bg-opacity-30">
                 <button
                     type='button'

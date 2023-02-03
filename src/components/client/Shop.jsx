@@ -7,7 +7,6 @@ import Link from 'next/link';
 
 export function Shop({ items, title, term, key }) {
 
-  // const [iCategory, setiCategory] = useState('')
   let searchTerm = term;
 
   const slugs = ['name', 'category', 'tags', 'price', 'code', 'quantity']
@@ -32,13 +31,9 @@ export function Shop({ items, title, term, key }) {
         <div className="mx-auto mt-4 max-w-7xl">
           {/* <Products /> */}
           <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {search(items)?.map((product) => {
+            {search(items)?.map((product, index) => {
               return (
-                <>
-                  <Product product={product} />
-                  {/* filterI === product.category ? */}
-                  {/* <Product setiCategory={setiCategory} product={product} /> */}
-                </>
+                <Product key={index} product={product} />
               )
             })}
           </div>
