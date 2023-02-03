@@ -15,7 +15,6 @@ export function Main({ setIntro }) {
             const res = await axiosRoot.get('/products/featured-on-home');
             setHome(res.data)
             // setProducts(res.data)
-            console.log(res.data)
             setIntro(false)
         }
         getProducts()

@@ -8,10 +8,11 @@ import Link from 'next/link';
 export function Shop({ items, title, term, key }) {
 
   // const [iCategory, setiCategory] = useState('')
-  const searchTerm = term;
+  let searchTerm = term;
 
   const slugs = ['name', 'category', 'tags', 'price', 'code', 'quantity']
 
+  // Search filter 
   const search = (data) => {
     return data.filter((item) =>
       slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))

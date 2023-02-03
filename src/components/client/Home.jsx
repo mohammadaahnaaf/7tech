@@ -19,7 +19,6 @@ export function Banner() {
         async function getBanners() {
             const res = await axiosRoot.get('/banner');
             setBanners(res.data)
-            console.log(res.data)
         }
         getBanners()
     }, []);
