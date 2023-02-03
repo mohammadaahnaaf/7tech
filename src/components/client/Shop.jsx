@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ShoppingCartIcon } from '@heroicons/react/outline'
 import { useCart } from 'react-use-cart'
 import axiosRoot from '../utils/axios-root';
