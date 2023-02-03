@@ -5,7 +5,7 @@ import axiosRoot from '../utils/axios-root';
 import Product from './products/Product';
 import Link from 'next/link';
 
-export function Shop({ items, title, term }) {
+export function Shop({ items, title, term, key }) {
 
   // const [iCategory, setiCategory] = useState('')
   const searchTerm = term;
@@ -20,7 +20,7 @@ export function Shop({ items, title, term }) {
 
   return items.length >= 1 ? (
 
-    <div className='bg-black px-3 py-3'>
+    <div key={key} className='bg-black px-3 py-3'>
       {/* Title  */}
       <div className='max-w-7xl hover:scale-95 hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
         <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>

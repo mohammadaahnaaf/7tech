@@ -21,27 +21,15 @@ export function Main({ setIntro }) {
         getProducts()
     }, []);
 
-    // get filter category 
-    // React.useEffect(() => {
-    //     async function getCategory() {
-
-    //         const res = await axiosRoot.get('/categories');
-    //         const cats = res.data.filter(cat => !!cat.isFeatured).sort((a, b) => a.index - b.index)
-
-    //         setCategory(cats);
-    //     }
-    //     getCategory()
-
-    // }, []);
-
-    const titles = ['MADE FOR GAMING', 'BEST FOR GAMING', 'DEDICATED FOR GAMING', 'BUILD FOR GAMING', 'ALL PRODUCTS']
+  
+    // const titles = ['MADE FOR GAMING', 'BEST FOR GAMING', 'DEDICATED FOR GAMING', 'BUILD FOR GAMING', 'ALL PRODUCTS']
     //filter((x, index) => x.index === index + 1)
 
     return (
         <Layout setSearchTerm={setSearchTerm}>
             <Banner />
             {home?.map((item, index) => (
-                <Shop term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
+                <Shop key={index} term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
             ))}
         </Layout>
     )

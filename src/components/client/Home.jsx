@@ -41,18 +41,13 @@ export function Banner() {
                     className='z-50'
                 // swipeScrollTolerance
                 >
-                    <img
-                        src={item.images[0]}
-                        className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
-                    />
-                    <img
-                        src={item.images[2]}
-                        className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
-                    />
-                    <img
-                        src={item.images[1]}
-                        className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
-                    />
+                    {item.images.map((image, index) => (
+                        <img
+                            key={index}
+                            src={image}
+                            className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
+                        />
+                    ))}
                 </Carousel>
             )}
         </div>
