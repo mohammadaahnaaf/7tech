@@ -90,8 +90,10 @@ export function Order() {
         </div>
       )}
       <div className="mx-3 mt-3 bg-red-100 overflow-x-auto relative shadow-md sm:rounded-lg">
-        <div className='flex justify-center py-1 bg-black'>
-          <Search setSearchTerm={setSearchTerm} />
+        <div className='flex justify-center w-full py-1 bg-black'>
+          <div className='md:w-1/3'>
+            <Search setSearchTerm={setSearchTerm} />
+          </div>
         </div>
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">

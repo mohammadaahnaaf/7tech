@@ -5,6 +5,7 @@ import AdminLayout from '../../layout/AdminLayout'
 import Search from '../../shared/Search';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import { useDebounce } from 'use-debounce';
 import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
 import { Dialog, Transition } from '@headlessui/react';
@@ -19,6 +20,10 @@ export function Categories() {
     const [rows, setRows] = React.useState([]);
     const [isOpen, setIsOpen] = React.useState(false)
     const [success, setSuccess] = React.useState('')
+    const [pageSize, setPageSize] = React.useState(10)
+    const [page, setPage] = React.useState(0)
+
+    const [searchedName] = useDebounce(searchTerm, 400);
 
     function closeModal() {
         setIsOpen(false)
@@ -27,11 +32,11 @@ export function Categories() {
     //Get Data
     React.useEffect(() => {
         async function getCategory() {
-            const res = await axiosRoot.get('/categories');
+            const res = await axiosRoot.get(`/categories?page=${page + 1}&size=${pageSize}&categoryName=${searchedName}`);
             setRows(res.data)
         }
         getCategory()
-    }, [success]);
+    }, [success, page, pageSize, searchedName]);
 
     // delete category 
     function handleDelete(e) {
@@ -159,8 +164,10 @@ export function Categories() {
                     <span class="font-medium">Deleted!</span> {success}
                 </div>
             )}
-            <div className='flex gap-2 justify-center py-1 bg-black'>
-                <Search setSearchTerm={setSearchTerm} />
+            <div className='flex justify-center w-full py-1 bg-black'>
+                <div className='md:w-1/3'>
+                    <Search setSearchTerm={setSearchTerm} />
+                </div>
                 <Link href='/admin/category/add'>
                     <a className='bg-black ml-4 text-sm font-medium text-red-600 ring-1 ring-red-600 hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Category</a>
                 </Link>

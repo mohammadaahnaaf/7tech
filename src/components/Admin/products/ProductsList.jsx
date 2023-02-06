@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useDebounce } from 'use-debounce';
 import React, { Fragment } from 'react'
 import { products } from '../../../data/ProductsData'
 import AdminLayout from '../../layout/AdminLayout'
@@ -17,16 +18,18 @@ export function ProductsLists() {
   const [rows, setRows] = React.useState([]);
   const [success, setSuccess] = React.useState('');
   const [isOpen, setIsOpen] = React.useState(false)
+  const [pageSize, setPageSize] = React.useState(10)
   const [page, setPage] = React.useState(0)
 
+  const [searchedName] = useDebounce(searchTerm, 400);
   // get product data 
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get('/products');
+      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&categoryName=${searchedName}`);
       setRows(res.data)
     }
     getProducts()
-  }, [router, success]);
+  }, [router, success, page, pageSize, searchedName]);
 
   // Delete Product 
   function handleDelete(e) {
@@ -155,8 +158,10 @@ export function ProductsLists() {
 
     <div className="mx-3 mt-3 overflow-x-auto bg-red-100 relative shadow-md sm:rounded-lg">
       {isOpen && modal}
-      <div className='flex gap-2 justify-center py-1 bg-black'>
-        <Search setSearchTerm={setSearchTerm} />
+      <div className='flex justify-center w-full py-1 bg-black'>
+        <div className='md:w-1/3'>
+          <Search setSearchTerm={setSearchTerm} />
+        </div>
         <Link href='/admin/products/add'>
           <a className='bg-black ml-4 text-sm font-medium text-red-600 ring-1 ring-red-600 hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Product</a>
         </Link>
@@ -257,7 +262,7 @@ function Pagenation({ page, setPage }) {
         {total > 24 && (
           [0, 1, 2, 3].map((pages) => (
             <li key={pages}>
-              <button onClick={() => setPage(pages + 1)} type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">{pages + 1}</button>
+              <button onClick={() => setPage(pages)} type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">{pages + 1}</button>
             </li>
           ))
         )}
