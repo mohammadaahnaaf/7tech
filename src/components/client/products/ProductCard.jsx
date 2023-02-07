@@ -60,7 +60,7 @@ export function ProductCards({ product, key }) {
                             </a>
                         </Link>
                     </h3>
-                    <p className="mt-1 text-end text-md text-green-500">৳ {product.price}</p>
+                    <p className="mt-1 text-end text-md text-green-500">৳ {product.onlinePrice}</p>
                 </div>
             </div>
         </div>
