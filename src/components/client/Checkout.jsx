@@ -4,7 +4,7 @@ import React from 'react'
 import { useCart } from 'react-use-cart'
 import { cities } from '../../data/placeNames'
 import Layout from '../layout/Layout'
-import axiosAPI from '../utils/axios-api'
+import axiosRoot from '../utils/axios-root'
 import Success from './Success'
 // import { products } from '../../data/ProductsData'
 
@@ -60,7 +60,7 @@ function Checkouts({ setSuccess, setOrder }) {
                     }
                 ))
             }
-            const order = await axiosAPI.post('/orders', reqData);
+            const order = await axiosRoot.post('/orders', reqData);
             setSuccess(true)
             setOrder(order.data)
 
@@ -273,7 +273,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                                                 <TrashIcon className="h-6 w-6 text-red-600 hover:text-red-500" aria-hidden="true" />
                                                             </button>
                                                         </div>
-                                                        <p className="mt-1 text-sm text-red-500">{product.color}</p>
+                                                        {/* <p className="mt-1 text-sm text-red-500">{product.color}</p> */}
                                                     </div>
                                                     <div className="flex items-end flex-1 justify-between">
                                                         <p className="text-red-500 text-sm">Qty {product.quantity}</p>

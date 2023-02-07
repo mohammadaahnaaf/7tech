@@ -24,7 +24,7 @@ export function ProductCards({ product, key }) {
         id: product?._id,
         imageSrc: images[0],
         name: product.name,
-        price: product.price,
+        price: product.onlinePrice,
         category: product.category,
         stock: product.quantity,
         quantity: 1
