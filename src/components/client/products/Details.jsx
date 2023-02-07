@@ -33,12 +33,8 @@ export function Details() {
     const [openImage, setOpenImage] = useState(false)
     const [viewImage, setViewImage] = useState()
     const [isUser, setIsUser] = useState(false)
+    const [relatedProductsId, setRelatedProductsId] = useState([])
     
-    // const [moreInfo, setMoreInfo] = useState([])
-    // const [info, setInfo] = useState([])
-    // const [reviews, setReviews] = useState([])
-    // const [selectedSize, setSelectedSize] = useState('')
-    // const [selectedColor, setSelectedColor] = useState('')
     // const total = (items) => items.reduce((acc, curr) => acc + curr.rating, 0);
 
     // const ratings = product?.reviews?.reduce((acc, curr) => acc + curr.rating, 0) / product?.reviewCount
@@ -51,12 +47,10 @@ export function Details() {
             const res = await axiosRoot.get(`/products/${itemId}`);
             setProduct(res.data)
             setImages(res.data.images)
-
-            // setInfo(res.data.details)
-            // setMoreInfo(res.data.information)
-            // setReviews(res.data.reviews)
+            setRelatedProductsId(res.data.relatedProducts)
         }
         itemId && getProduct()
+        
     }, [router, success]);
 
     // submit review data
@@ -98,7 +92,7 @@ export function Details() {
     }
 
     const cartProduct = {
-        id: product._id,
+        id: product?._id,
         imageSrc: images[0],
         name: product.name,
         price: product.price,
@@ -252,10 +246,18 @@ export function Details() {
                                     <tbody>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
                                             <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                                Regular Price:
+                                            </th>
+                                            <td className=" py-2">
+                                                {product.regularPrice}
+                                            </td>
+                                        </tr>
+                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
+                                            <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Product Price:
                                             </th>
                                             <td className=" py-2">
-                                                {product.price}
+                                                {product.onlinePrice}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -263,7 +265,7 @@ export function Details() {
                                                 Offer Price:
                                             </th>
                                             <td className=" py-2">
-                                                {product.price}
+                                                {product.offerPrice}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -426,7 +428,7 @@ export function Details() {
                                 <h2 className='text-xl py-4 px-2 font-medium'>Reviews:</h2>
                                 <div className='grid gap-5'>
                                     <div className='flex px-2'>
-                                        <h1 className='text-7xl '>{product.averageRating.toFixed(1) || '0.0'}</h1>
+                                        <h1 className='text-7xl '>{product?.averageRating?.toFixed(1) || '0.0'}</h1>
                                         <div className='grid'>
                                             <div className="flex items-center">
                                                 {[0, 1, 2, 3, 4].map((rating) => (
@@ -524,9 +526,9 @@ export function Details() {
                 <div className='ring-2 ring-gray-300 bg-white rounded-md p-3 mt-2 md:max-w-7xl mx-auto w-full'>
                     <h1 className='py-4 text-center font-bold text-2xl text-black'>Related Products</h1>
                     <div className='grid grid-cols-10 w-full gap-2 p-3'>
-                        {relatedProducts.map((product, index) =>
+                        {relatedProductsId.map((id, index) =>
                             <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
-                                <Product product={product} />
+                                <Product productId={id} />
                             </div>
                         )}
                     </div>
@@ -545,39 +547,39 @@ export function Detail() {
     )
 }
 
-export const relatedProducts = [
-    {
-        name: 'ReDragon Keyboard',
-        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-        price: 100,
-        _id: '63d4aaa2950803a7a4c6403d',
-    },
-    {
-        name: 'ReDragon Keyboard',
-        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-        _id: '63d4aaa2950803a7a4c6403d',
-        price: 100,
+// export const relatedProducts = [
+//     {
+//         name: 'ReDragon Keyboard',
+//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
+//         price: 100,
+//         _id: '63d4aaa2950803a7a4c6403d',
+//     },
+//     {
+//         name: 'ReDragon Keyboard',
+//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
+//         _id: '63d4aaa2950803a7a4c6403d',
+//         price: 100,
 
-    },
-    {
-        name: 'ReDragon Keyboard',
-        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-        price: 100,
-        _id: '63d4aaa2950803a7a4c6403d',
+//     },
+//     {
+//         name: 'ReDragon Keyboard',
+//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
+//         price: 100,
+//         _id: '63d4aaa2950803a7a4c6403d',
 
-    },
-    {
-        name: 'ReDragon Keyboard',
-        price: 100,
+//     },
+//     {
+//         name: 'ReDragon Keyboard',
+//         price: 100,
 
-        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-        _id: '63d4aaa2950803a7a4c6403d',
-    },
-    {
-        name: 'ReDragon Keyboard',
-        price: 100,
+//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
+//         _id: '63d4aaa2950803a7a4c6403d',
+//     },
+//     {
+//         name: 'ReDragon Keyboard',
+//         price: 100,
 
-        "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-        _id: '63d4aaa2950803a7a4c6403d',
-    },
-]
+//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
+//         _id: '63d4aaa2950803a7a4c6403d',
+//     },
+// ]

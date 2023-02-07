@@ -16,9 +16,10 @@ const Detail = () => {
 
     const router = useRouter()
 
-    const [formValues, setFormValues] = React.useState([{ id: uuidv4(), title: "" }])
+    const [formValues, setFormValues] = React.useState([{ id: uuidv4(), title: "", specification: "" }])
     const [moreInfos, setMoreInfo] = React.useState([{ id: uuidv4(), title: '', description: "" }])
     const [featured, setFeatured] = React.useState(false)
+    const [active, setActive] = React.useState(false)
     const [error, setError] = React.useState('')
     const [loading, setIsLoading] = React.useState(false)
     const [tags, setTags] = useState([]);
@@ -87,13 +88,19 @@ const Detail = () => {
 
             data.delete('bordered-checkbox')
             data.delete('file-upload')
+            data.delete('specification')
             data.delete('detail')
             data.delete('title')
             data.delete('description')
             data.set('tags', JSON.stringify(tags))
+            data.set('relatedProducts', JSON.stringify(relatedProducts))
             data.set('isFeatured', featured)
+            data.set('isActive', active)
             data.set('details', JSON.stringify(formValues.map(value => (
-                { title: value.title }
+                {
+                    title: value.title,
+                    description: value.specification
+                }
             ))))
             data.set('information', JSON.stringify(moreInfos.map(info => (
                 {
@@ -223,11 +230,26 @@ const Detail = () => {
     }, [router]);
 
     function handleAdd(product) {
-        console.log(product)
-        setRelatedProducts((current) => [...current, {product}])
-        // setRelatedProducts([product, ...relatedProducts]);
-        setTimeout(() => { console.log(relatedProducts) }, 1000)
+        const selectedIndex = relatedProducts.indexOf(product._id);
+        let newSelected = [];
+
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(relatedProducts, product._id);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(relatedProducts.slice(1));
+        } else if (selectedIndex === relatedProducts.length - 1) {
+            newSelected = newSelected.concat(relatedProducts.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(
+                relatedProducts.slice(0, selectedIndex),
+                relatedProducts.slice(selectedIndex + 1),
+            );
+        }
+
+        setRelatedProducts(newSelected);
+        console.log(relatedProducts)
     }
+    const isSelected = (name) => relatedProducts.indexOf(name) !== -1
 
     const [searchTerm, setSearchTerm] = useState()
     const slugs = ['code', 'name', 'category']
@@ -274,9 +296,14 @@ const Detail = () => {
                                         <div className='my-2'>
                                             <Search setSearchTerm={setSearchTerm} />
                                         </div>
+                                        {/* <div className="w-full gap-2 mx-auto grid grid-cols-5">
+                                            {relatedProducts?.map((product, index) => (
+                                                <ProductCard key={index} product={product} add={() => handleAdd(product._id)} />
+                                            ))}
+                                        </div> */}
                                         <div className="w-full gap-2 mx-auto grid grid-cols-5">
                                             {search(products).slice(0, 5).map((product, index) => (
-                                                <ProductCard key={index} product={product} add={() => handleAdd(product)} />
+                                                <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                                             ))}
                                         </div>
                                     </div>
@@ -355,8 +382,8 @@ const Detail = () => {
                             <input type="number" name='quantity' id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Stock" required />
                         </div>
                         <div>
-                            <label htmlFor="short-desciption" className="block mb-1 text-sm font-medium text-gray-900">Short description</label>
-                            <textarea type="text" rows={3} name='short-desciption' id="short-desciption" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="Write a short desciption" />
+                            <label htmlFor="shortDescription" className="block mb-1 text-sm font-medium text-gray-900">Short description</label>
+                            <textarea type="text" rows={3} name='shortDescription' id="shortDescription" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="Write a short desciption" />
                         </div>
                         <div>
                             <label htmlFor='tags' className="w-full text-sm font-medium text-gray-900">Tags</label>
@@ -377,28 +404,28 @@ const Detail = () => {
 
                         <div className='grid grid-cols-2 gap-3'>
                             <div>
-                                <label htmlFor="regular-price" className="block mb-1 text-sm font-medium text-gray-900">Regular Price</label>
-                                <input type="number" name='regular-price' placeholder='Regular price' id="regular-price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" />
+                                <label htmlFor="regularPrice" className="block mb-1 text-sm font-medium text-gray-900">Regular Price</label>
+                                <input type="number" name='regularPrice' placeholder='Regular price' id="regularPrice" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" />
                             </div>
                             <div>
-                                <label htmlFor="price" className="block mb-1 text-sm font-medium text-gray-900">Online Price</label>
-                                <input type="number" name='price' id="price" placeholder='Online Price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" required />
+                                <label htmlFor="onlinePrice" className="block mb-1 text-sm font-medium text-gray-900">Online Price</label>
+                                <input type="number" name='onlinePrice' id="onlinePrice" placeholder='Online Price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" required />
                             </div>
                         </div>
                         <div className='grid grid-cols-2 gap-2 bg-teal-100 rounded-md px-2 mt-3 py-2'>
                             <div>
-                                <label htmlFor="special-price" className="mb-1 text-sm font-medium text-gray-900">Special Price/ Offer</label>
-                                <input type="number" name='special-price' id="special-price" placeholder='Special price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" />
+                                <label htmlFor="offerPrice" className="mb-1 text-sm font-medium text-gray-900">Special Price/ Offer</label>
+                                <input type="number" name='offerPrice' id="offerPrice" placeholder='Special price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" />
                             </div>
 
                             <div>
-                                <label htmlFor="timer" className="mb-1 text-sm font-medium text-gray-900">Offer Ends</label>
+                                <label htmlFor="offerEndDate" className="mb-1 text-sm font-medium text-gray-900">Offer Ends</label>
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                         <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
                                     </div>
 
-                                    <input datepicker="true" id='timer' name='timer' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10  " placeholder="Select date" />
+                                    <input datepicker="true" id='offerEndDate' name='offerEndDate' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10" placeholder="Select date" />
                                 </div>
                             </div>
 
@@ -529,8 +556,8 @@ const Detail = () => {
                                         placeholder="Enter specification"
                                         required
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full  "
-                                    // onChange={(e) => handleChange(element.id, e)}
-                                    // value={element.specification || ""}
+                                        onChange={(e) => handleChange(element.id, e)}
+                                        value={element.specification || ""}
                                     />
                                 </div>
 
@@ -608,7 +635,7 @@ export function AddProduct() {
     )
 }
 
-function ProductCard({ product, add, key }) {
+function ProductCard({ product, add, key, isItemSelected }) {
 
     return (
         <div key={key} className="bg-white shadow-md border border-gray-200 rounded-lg">
@@ -625,9 +652,13 @@ function ProductCard({ product, add, key }) {
                 <Link href={`/product/${product._id}`}>
                     <a className="text-gray-900 font-bold text-md tracking-tight">{product.name}</a>
                 </Link>
-                <button onClick={() => add(product)} type='button' className="w-full items-center text-sm !text-center text-red-600 hover:text-white bg-white hover:bg-red-600 ring-2 ring-red-600 focus:ring-red-300 font-medium rounded-md px-3 py-2">
+                <div>
+                    <input onChange={add} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
+                    <label htmlFor="checkbox" className="sr-only">checkbox</label>
+                </div>
+                {/* <button onClick={() => add(product)} type='button' className="w-full items-center text-sm !text-center text-red-600 hover:text-white bg-white hover:bg-red-600 ring-2 ring-red-600 focus:ring-red-300 font-medium rounded-md px-3 py-2">
                     Add
-                </button>
+                </button> */}
             </div>
         </div>
     )

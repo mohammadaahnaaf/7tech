@@ -5,23 +5,19 @@ import React from 'react'
 import { useCart } from 'react-use-cart';
 import axiosRoot from '../../utils/axios-root';
 
-function Product({ productId, key }) {
+export function ProductCards({ product, key }) {
 
-    const [images, setImages] = React.useState([]);
-    const [product, setProduct] = React.useState({});
     const { addItem } = useCart();
-    // const router = useRouter()
+    const [images, setImages] = React.useState([]);
 
     // get product data 
     React.useEffect(() => {
         async function getImages() {
-            const res = await axiosRoot.get(`/products/${productId}`);
+            const res = await axiosRoot.get(`/products/${product._id}`);
             setImages(res.data.images)
-            setProduct(res.data)
-            // setiCategory(product.category)
-            console.log(product)
+           
         }
-        productId && getImages()
+        product._id && getImages()
     }, []);
 
     const cartProduct = {
@@ -70,5 +66,3 @@ function Product({ productId, key }) {
         </div>
     )
 }
-
-export default Product

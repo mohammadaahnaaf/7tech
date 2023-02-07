@@ -83,7 +83,7 @@ function Checkouts({ setSuccess, setOrder }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="min-h-auto bg-black py-6 sm:px-6 lg:px-8">
+            <div className="min-h-full bg-black py-6 sm:px-6 lg:px-8">
                 <div className='max-w-7xl mx-auto grid md:flex justify-center gap-5'>
 
                     {/* Account and delevary details */}
@@ -325,15 +325,16 @@ export function Checkout() {
     const [order, setOrder] = React.useState({})
 
     return (
-        <Layout>
-            <div className='min-h-screen'>
-                {!success ?
+        <>
+            {!success ?
+                <Layout>
                     <Checkouts setOrder={setOrder} setSuccess={setSuccess} />
-                    :
-
+                </Layout>
+                :
+                <Layout>
                     <Success order={order} />
-                }
-            </div>
-        </Layout>
+                </Layout>
+            }
+        </>
     )
 }

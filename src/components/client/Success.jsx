@@ -20,39 +20,41 @@ function Success({ order }) {
     }
 
     return (
-        <div className="grid bg-black justify-centerpy-6 sm:px-6 lg:px-8">
-            <div className='max-w-5xl h-full mx-auto bg-gray-600 bg-opacity-50 my-4 rounded-lg shadow-md px-10'>
-                <div>
-                    <CheckIcon className='bg-green-500 mx-auto text-white rounded-full h-20 w-20 my-10' />
-                    <h1 className='text-green-500 text-4xl text-center'>Thank you</h1>
+        <div className='min-h-screen py-6 bg-black'>
+            <div className='bg-red-600 mx-auto rounded-lg bg-opacity-10 max-w-5xl h-full p-2 md:p-6'>
+                <div className='grid gap-2 items-center'>
+                    <CheckIcon className='bg-green-500 justify-self-center text-white rounded-full h-20 w-20' />
+                    <h1 className='text-green-500 text-4xl text-center'>Thank You</h1>
                     <h1 className='text-gray-200 text-sm py-2 text-center'>Your order has been recived</h1>
 
                 </div>
-                {/* <Link href='/' className='text-center'>
-                    <a className='text-center py-3'>Back to home</a>
-                </Link> */}
-                <div className='grid grid-cols-1 mx-auto mt-3 gap-3 justify-between items-center sm:grid-cols-2 lg:grid-cols-4'>
-                    <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
-                        <h1 className='text-center text-xs text-gray-200'>Order nunmer:</h1>
-                        <h1 className='text-center text-gray-100 text-sm'>{`#${(order._id).slice(0, 10)}`}</h1>
-                    </div>
-                    <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
-                        <h1 className='text-center text-xs text-gray-200'>Created at:</h1>
-                        <h1 className='text-center text-gray-100 text-sm'>Just now</h1>
-                    </div>
 
-                    <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
-                        <h1 className='text-center text-xs text-gray-200'>Subtotal:</h1>
-                        <h1 className='text-center text-gray-100 text-sm'>৳ {cartTotal}</h1>
+                <div className='grid gap-4 items-center grid-cols-2 p-4 lg:grid-cols-5'>
+                    <div className='cols-span-1 text-center text-gray-100 bg-green-500 bg-opacity-20 items-center grid rounded-lg p-3'>
+                        <h2>Order ID</h2>
+                        <h2>#01</h2>
                     </div>
-
-                    <div className='p-3 mx-auto w-36 rounded-md bg-green-500 bg-opacity-20'>
-                        <h1 className='text-center text-xs text-gray-200'>Status:</h1>
-                        <h1 className='text-center text-gray-100 text-sm'>Pending</h1>
+                    <div className='cols-span-1 text-center text-gray-100 bg-green-500 bg-opacity-20 items-center grid rounded-lg p-3'>
+                        <h2>Total Price</h2>
+                        <h2>TK 24,000</h2>
+                    </div>
+                    <div className='cols-span-1 text-center text-gray-100 bg-green-500 bg-opacity-20 items-center grid rounded-lg p-3'>
+                        <h2>Ordered At</h2>
+                        <h2>Just Now</h2>
+                    </div>
+                    <div className='cols-span-1 text-center text-gray-100 bg-green-500 bg-opacity-20 items-center grid rounded-lg p-3'>
+                        <h2>Order Status</h2>
+                        <h2>Pending</h2>
+                    </div>
+                    <div className='cols-span-1 text-center text-gray-100 bg-green-500 bg-opacity-20 items-center grid rounded-lg p-3'>
+                        <h2>Total Products</h2>
+                        <h2>1</h2>
                     </div>
                 </div>
+
                 <ProductsViews order={order} />
-                <div className='py-3 flex items-center justify-center bg-green-400 bg-opacity-20 mx-auto'>
+
+                <div className='p-4 mx-4 flex items-center justify-center bg-green-400 bg-opacity-20'>
                     <button className='text-sm hover:text-red-600 text-center text-green-600' type='button' onClick={handleSuccess}>Back to home</button>
                 </div>
             </div>
@@ -60,7 +62,7 @@ function Success({ order }) {
     )
 }
 
-function ProductsViews ({order}) {
+function ProductsViews({ order }) {
     const { items, cartTotal, totalItems } = useCart()
     const [ship, setShip] = React.useState(0)
     React.useEffect(() => {
@@ -75,7 +77,7 @@ function ProductsViews ({order}) {
     // let total = (shipping + cartTotal)
 
     return (
-        <div className="overflow-y-auto overflow-auto relative my-5">
+        <div className="overflow-y-auto relative p-4">
             <table className="w-full text-sm text-left text-gray-500">
                 <thead className="text-xs text-gray-200 uppercase bg-green-500 bg-opacity-20">
                     <tr>
@@ -110,7 +112,7 @@ function ProductsViews ({order}) {
                         <td className="py-4 px-6">৳ {cartTotal}</td>
                     </tr>
                     <tr>
-                        <th className='py-4 px-6 font-medium text-gray-200 whitespace-nowrap'>Total: (with shipping cost)</th>
+                        <th className='py-4 px-6 font-medium text-gray-200 '>Total: (with shipping cost)</th>
                         <td className="text-gray-200 py-4 px-6">{''}</td>
                         <td className="text-gray-200 py-4 px-6">৳ {+cartTotal + ship}</td>
                     </tr>

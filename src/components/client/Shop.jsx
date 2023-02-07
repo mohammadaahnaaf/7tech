@@ -4,6 +4,8 @@ import { useCart } from 'react-use-cart'
 import axiosRoot from '../utils/axios-root';
 import Product from './products/Product';
 import Link from 'next/link';
+import Products from './products/Products';
+import { ProductCards } from './products/ProductCard';
 
 export function Shop({ items, title, term, key }) {
 
@@ -33,7 +35,7 @@ export function Shop({ items, title, term, key }) {
           <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {search(items)?.map((product, index) => {
               return (
-                <Product key={index} product={product} />
+                <ProductCards key={index} product={product} />
               )
             })}
           </div>
