@@ -21,11 +21,9 @@ const Detail = () => {
     const [featured, setFeatured] = React.useState(false)
     const [active, setActive] = React.useState(false)
     const [error, setError] = React.useState('')
-    const [loading, setIsLoading] = React.useState(false)
     const [tags, setTags] = useState([]);
     const [cats, setCats] = React.useState([]);
     const [files, setFiles] = useState([]);
-    // const [imgSrc, setImgSrc] = useState([]);
     const [products, setProducts] = useState([])
     const [enabled, setEnabled] = useState(false)
     const [relatedProducts, setRelatedProducts] = useState([])
@@ -117,7 +115,6 @@ const Detail = () => {
             Router.push('/admin/products')
         } catch (error) {
 
-            setIsLoading(false);
             console.log(error)
             setError(error.response?.data?.message)
         }
@@ -192,7 +189,6 @@ const Detail = () => {
         }
         getCategory()
     }, []);
-    // console.log(cats.map((i) => i.name))
 
     // preview images 
     // const onChanges = (e) => {
@@ -209,15 +205,9 @@ const Detail = () => {
     //     }
     // };
 
-    let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
-        setIsOpen(false)
         setEnabled(false)
-    }
-
-    function openModal() {
-        setIsOpen(true)
     }
 
     // get product data 
@@ -259,71 +249,69 @@ const Detail = () => {
         )
     }
     const related = (
-        <>
-            <Transition appear show={enabled} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModal}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
-                    </Transition.Child>
+        <Transition appear show={enabled} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-black bg-opacity-25" />
+                </Transition.Child>
 
-                    <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full ml-[25vh] max-w-5xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="text-lg text-center font-medium leading-6 text-gray-900"
-                                    >
-                                        Related Products
-                                    </Dialog.Title>
-                                    <div className="mt-2">
-                                        <div className='my-2'>
-                                            <Search setSearchTerm={setSearchTerm} />
-                                        </div>
-                                        {/* <div className="w-full gap-2 mx-auto grid grid-cols-5">
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <Dialog.Panel className="w-full ml-[25vh] max-w-5xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-lg text-center font-medium leading-6 text-gray-900"
+                                >
+                                    Add Related Products
+                                </Dialog.Title>
+                                <div className="mt-2">
+                                    <div className='my-2'>
+                                        <Search setSearchTerm={setSearchTerm} />
+                                    </div>
+                                    {/* <div className="w-full gap-2 mx-auto grid grid-cols-5">
                                             {relatedProducts?.map((product, index) => (
                                                 <ProductCard key={index} product={product} add={() => handleAdd(product._id)} />
                                             ))}
                                         </div> */}
-                                        <div className="w-full gap-2 mx-auto grid grid-cols-5">
-                                            {search(products).slice(0, 5).map((product, index) => (
-                                                <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
-                                            ))}
-                                        </div>
+                                    <div className="w-full gap-2 mx-auto grid grid-cols-5">
+                                        {search(products).slice(0, 5).map((product, index) => (
+                                            <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
+                                        ))}
                                     </div>
+                                </div>
 
-                                    <div className="mt-4 flex justify-end">
-                                        <button
-                                            type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                                            onClick={closeModal}
-                                        >
-                                            Done
-                                        </button>
-                                    </div>
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
+                                <div className="mt-4 flex justify-end">
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                                        onClick={closeModal}
+                                    >
+                                        Done
+                                    </button>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
                     </div>
-                </Dialog>
-            </Transition>
-        </>
+                </div>
+            </Dialog>
+        </Transition>
     );
 
     return (
@@ -338,15 +326,15 @@ const Detail = () => {
             <div className='relative py-3 flex items-center justify-center mb-5 text-center bg-gray-200 rounded-lg'>
 
                 <Switch
-                    checked={enabled}
-                    onChange={setEnabled}
-                    className={`${enabled ? 'bg-teal-300' : 'bg-red-600'}
+                    checked={active}
+                    onChange={setActive}
+                    className={`${active ? 'bg-teal-300' : 'bg-red-600'}
                      absolute right-2 inline-flex h-[28px] w-[64px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                 >
                     <span className="sr-only">Use setting</span>
                     <span
                         aria-hidden="true"
-                        className={`${enabled ? 'translate-x-7' : 'translate-x-0'}
+                        className={`${active ? 'translate-x-7' : 'translate-x-0'}
                         pointer-events-none z-10 inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
                     />
                 </Switch>
@@ -387,14 +375,12 @@ const Detail = () => {
                         </div>
                         <div>
                             <label htmlFor='tags' className="w-full text-sm font-medium text-gray-900">Tags</label>
-
                             <TagsInput
                                 value={tags}
                                 onChange={setTags}
                                 name="tags"
                                 placeHolder="Enter tags"
                             />
-
                         </div>
                         <p className='text-sm mt-1'>Featured</p>
                         <div className="flex mb-1 items-center pl-2.5 rounded-lg border border-gray-300">
@@ -428,7 +414,6 @@ const Detail = () => {
                                     <input datepicker="true" id='offerEndDate' name='offerEndDate' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10" placeholder="Select date" />
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -524,20 +509,7 @@ const Detail = () => {
                         {formValues.map((element, index) => (
 
                             <div key={index} className='grid items-end gap-2 grid-cols-9'>
-                                {/* <div className='col-span-10'>
-                                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
 
-                                    <Editor
-                                        type="text" name="title" id="title"
-                                        // editorState={element.title || ''}
-                                        // value={element.title || ''}
-                                        toolbarClassName="toolbarClassName"
-                                        wrapperClassName="wrapperClassName"
-                                        editorClassName="editorClassName"
-                                        // onEditorStateChange={(e) => handleChange(element.id, e)}
-                                        // onChange={(e) => handleChange(element.id, e)}
-                                    />
-                                </div> */}
                                 <div className='col-span-4'>
                                     <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
                                     <input
@@ -618,9 +590,14 @@ const Detail = () => {
                     </div>
 
                 </div>
-                <div className='flex items-end justify-end gap-2 p-2 mt-2 bg-gray-200 rounded-lg'>
-                    <button className="w-auto px-4 py-2 text-xs text-center text-white bg-red-600 rounded-lg hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Cancel</button>
-                    <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='submit'>Submit</button>
+                <div className='flex items-center justify-between gap-2 p-4 mt-2 bg-gray-200 rounded-lg'>
+                    <div className='flex items-center justify-self-end gap-2'>
+                        <button onClick={() => setEnabled(!enabled)} className="w-auto px-4 py-2 text-xs text-center bg-white text-black ring-2 ring-black hover:ring-red-600 rounded-lg hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Add Related Products</button>
+                    </div>
+                    <div className='flex items-center justify-self-end gap-2'>
+                        <button className="w-auto px-4 py-2 text-xs text-center text-white bg-red-600 rounded-lg hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Cancel</button>
+                        <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='submit'>Submit</button>
+                    </div>
                 </div>
             </form>
         </div>

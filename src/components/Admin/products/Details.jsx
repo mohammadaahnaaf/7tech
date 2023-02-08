@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
 import { TagsInput } from 'react-tag-input-component';
+import { Switch } from '@headlessui/react';
 // import { v4 as uuidv4 } from 'uuid';
 
 
@@ -17,10 +18,11 @@ const Detail = () => {
   const [tags, setTags] = React.useState([]);
   const [images, setImages] = React.useState([]);
   const [files, setFiles] = React.useState([]);
-  const [loading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState('')
   const [success, setSuccess] = React.useState('')
   const [isFeatured, setIsFeatured] = React.useState(false)
+  const [active, setActive] = React.useState(false)
+  const [enabled, setEnabled] = React.useState(false)
   const [details, setDetails] = React.useState(
     {
       _id: '',
@@ -79,7 +81,7 @@ const Detail = () => {
     }
 
     itemId && getProduct()
-    
+
   }, [itemId]);
 
 
@@ -115,16 +117,13 @@ const Detail = () => {
       data.forEach((value, key) => (formDataObj[key] = value));
       console.log('edit data', formDataObj)
 
-      // setIsLoading(true)
       await axiosAPI.put(`/products/${itemId}`, data);
       setSuccess('Category Edited.')
       setTimeout(() => {
         setSuccess('')
       }, 2000)
-      // setIsLoading(false)
     } catch (error) {
 
-      setIsLoading(false);
       console.log(error)
       setError(error.response?.data?.message)
     }
@@ -264,7 +263,7 @@ const Detail = () => {
       };
     });
   };
-  
+
   async function addMoreinfo() {
     const reqInfoData = {
       title: newMoreinfo.title,
@@ -294,7 +293,6 @@ const Detail = () => {
 
   return (
     <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
-      <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Product Details</h1>
       {success && (
         <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
           <span class="font-medium">Success</span> {success}
@@ -305,21 +303,38 @@ const Detail = () => {
           <span class="font-medium">Warning!</span> {error}
         </div>
       )}
+      <div className='relative py-3 flex items-center justify-center mb-5 text-center bg-gray-200 rounded-lg'>
+
+        <Switch
+          checked={active}
+          onChange={setActive}
+          className={`${active ? 'bg-teal-300' : 'bg-red-600'}
+            absolute right-2 inline-flex h-[28px] w-[64px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+        >
+          <span className="sr-only">Use setting</span>
+          <span
+            aria-hidden="true"
+            className={`${active ? 'translate-x-7' : 'translate-x-0'}
+              pointer-events-none z-10 inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+          />
+        </Switch>
+        <h1 className='text-2xl text-center bg-gray-200'>Edit Product</h1>
+      </div>
       <form onSubmit={handleSubmit}>
-        <div className="grid gap-6 mb-6 md:grid-cols-2">
+        <div className="grid gap-3 mb-6 md:grid-cols-2">
 
           {/* Product Informations  */}
           <div>
             <div>
-              <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Product name</label>
-              <input type="text" onChange={(event) => handleAllChange(event)} value={details.name || ""} id="name" name='name' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
+              <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-900">Product name</label>
+              <input type="text" onChange={(event) => handleAllChange(event)} value={details.name || ""} id="name" name='name' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" required />
             </div>
 
             <div>
-              <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
+              <label htmlFor="category" className="block mb-1 text-sm font-medium text-gray-900">Category</label>
               <select id="category" name='category'
                 onChange={(event) => handleAllChange(event)} value={details.category || ""}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required>
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" required>
                 {cats.map((cat) =>
                   <option>{cat.name}</option>
                 )}
@@ -330,34 +345,59 @@ const Detail = () => {
               <input type="text" onChange={(event) => handleAllChange(event)} value={details.category || ""} name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
             </div> */}
             <div>
-              <label htmlFor="code" className="block mb-2 text-sm font-medium text-gray-900 ">Product code</label>
-              <input type="text" onChange={(event) => handleAllChange(event)} value={details.code || ""} name="code" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" />
+              <label htmlFor="code" className="block mb-1 text-sm font-medium text-gray-900 ">Product code</label>
+              <input type="text" onChange={(event) => handleAllChange(event)} value={details.code || ""} name="code" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" />
             </div>
             <div>
-              <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
-              <input type="number" onChange={(event) => handleAllChange(event)} value={details.quantity || ""} name="quantity" id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" />
-            </div>
-            <div>
-              <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">Price</label>
-              <input type="number" onChange={(event) => handleAllChange(event)} value={details.price || null} name="price" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
-            </div>
-            <div>
-              <label htmlFor="specifications" className="block mb-2 text-sm font-medium text-gray-900">Product specifications</label>
-              <textarea type="text" rows={3} onChange={(event) => handleAllChange(event)} value={details.specifications || ""} id="specifications" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="enter specifications" />
+              <label htmlFor="quantity" className="block mb-1 text-sm font-medium text-gray-900">Quantity</label>
+              <input type="number" onChange={(event) => handleAllChange(event)} value={details.quantity || ""} name="quantity" id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" />
             </div>
 
             <div>
+              <label htmlFor="shortDescription" className="block mb-1 text-sm font-medium text-gray-900">Product specifications</label>
+              <textarea type="text" name='shortDescription' rows={3} onChange={(event) => handleAllChange(event)} value={details.shortDescription || ""} id="shortDescription" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="enter specifications" />
+            </div>
+            <div>
+              <label htmlFor='tags' className="w-full text-sm font-medium text-gray-900">Tags</label>
               <TagsInput
                 value={tags}
                 onChange={setTags}
-                // name="tags"
-                // id="tags"
-                placeHolder="enter tags"
+                name="tags"
+                placeHolder="Enter tags"
               />
             </div>
-            <div className="flex items-center pl-2.5 mt-2 rounded-lg border border-gray-300">
+            <p className='text-sm mt-1'>Featured</p>
+            <div className="flex items-center pl-2.5 mt-1 rounded-lg border border-gray-300">
               <input id="bordered-checkbox-1" type="checkbox" onClick={() => isFeatured ? setIsFeatured(false) : setIsFeatured(true)} checked={isFeatured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
               <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
+            </div>
+
+            <div className='grid grid-cols-2 gap-3'>
+              <div>
+                <label htmlFor="regularPrice" className="block mb-1 text-sm font-medium text-gray-900">Regular Price</label>
+                <input type="number" onChange={(event) => handleAllChange(event)} value={details.regularPrice || ""} name='regularPrice' placeholder='Regular price' id="regularPrice" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" />
+              </div>
+              <div>
+                <label htmlFor="onlinePrice" className="block mb-1 text-sm font-medium text-gray-900">Online Price</label>
+                <input type="number" onChange={(event) => handleAllChange(event)} value={details.onlinePrice || ""} name='onlinePrice' id="onlinePrice" placeholder='Online Price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" required />
+              </div>
+            </div>
+            <div className='grid grid-cols-2 gap-2 bg-teal-100 rounded-md px-2 mt-3 py-2'>
+              <div>
+                <label htmlFor="offerPrice" className="mb-1 text-sm font-medium text-gray-900">Special Price/ Offer</label>
+                <input type="number" onChange={(event) => handleAllChange(event)} value={details.offerPrice || ""} name='offerPrice' id="offerPrice" placeholder='Special price' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" />
+              </div>
+
+              <div>
+                <label htmlFor="offerEndDate" className="mb-1 text-sm font-medium text-gray-900">Offer Ends</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" className="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
+                  </div>
+
+                  <input datepicker="true" id='offerEndDate' onChange={(event) => handleAllChange(event)} value={details.offerEndDate || ""} name='offerEndDate' type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-500 block w-full pl-10" placeholder="Select date" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -436,18 +476,18 @@ const Detail = () => {
         </div>
 
         {/* Dynamic Input  */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-2'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-start gap-2'>
 
           {/* Product Details  */}
           {formValues && (
             <div className='grid items-end gap-2'>
-              <h1>Product Details</h1>
+              <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Product Specifications</h1>
               {formValues?.map((element, index) => (
 
                 <div key={index} className='grid grid-cols-10 items-end'>
                   <div className='col-span-9'>
                     <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
-                    <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
+                    <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                   </div>
                   <div>
                     {formValues.length != 0 && (
@@ -467,7 +507,7 @@ const Detail = () => {
                   <input type="text" name="title" id="title"
                     value={newDetails.title || ""}
                     onChange={(e) => setNewDetails({ title: e.target.value })}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                 </div>
               </div>
               <div>
@@ -479,17 +519,17 @@ const Detail = () => {
           {/* More Information  */}
           {moreInfos && (
             <div className='grid items-end gap-2'>
-              <h1>More Information</h1>
+            <h1 className='p-2 text-center bg-slate-200 rounded-lg'>More Informations</h1>
               {moreInfos?.map((element, index) => (
                 <div className="flex gap-2 items-center" key={index}>
                   <div className='flex gap-2'>
                     <div>
                       <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
-                      <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
+                      <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border w-full border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block" placeholder="Enter details" />
                     </div>
                     <div>
                       <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
-                      <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
+                      <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                     </div>
                     {moreInfos.length != 0 && (
                       <button type="button" className="items-end flex" onClick={() => removeMoreinfo(element._id)}>
@@ -509,14 +549,14 @@ const Detail = () => {
                     <input type="text" name="title" id="title"
                       value={newMoreinfo.title || ""}
                       onChange={(e) => handleNewMoreinfo(e)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                   </div>
                   <div>
                     <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">New Description</label>
                     <input type="text" name="description" id="description"
                       value={newMoreinfo.description || ""}
                       onChange={(e) => handleNewMoreinfo(e)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" />
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                   </div>
 
                   <div className="items-end flex">
@@ -535,8 +575,8 @@ const Detail = () => {
 
           {/* Reviews  */}
           {reviews && (
-            <div className='grid items-end gap-2'>
-              <h1>Reviews</h1>
+            <div className='grid items-end col-span-2 gap-2'>
+            <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Reviews</h1>
               {reviews?.map((element, index) => (
                 <div className="flex gap-2 items-center" key={index}>
                   <div>
@@ -565,9 +605,14 @@ const Detail = () => {
           )}
 
         </div>
-        <div className='flex items-end justify-end gap-2 p-2 mt-2 bg-gray-200 rounded-lg'>
-          <button className="w-auto px-4 py-2 text-xs text-center text-white bg-red-600 rounded-lg hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Cancel</button>
-          <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='submit'>Submit</button>
+        <div className='flex items-center justify-between gap-2 p-4 mt-2 bg-gray-200 rounded-lg'>
+          <div className='flex items-center justify-self-end gap-2'>
+            <button onClick={() => setEnabled(!enabled)} className="w-auto px-4 py-2 text-xs text-center bg-white text-black ring-2 ring-black hover:ring-red-600 rounded-lg hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Add Related Products</button>
+          </div>
+          <div className='flex items-center justify-self-end gap-2'>
+            <button className="w-auto px-4 py-2 text-xs text-center text-white bg-red-600 rounded-lg hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Cancel</button>
+            <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='submit'>Submit</button>
+          </div>
         </div>
       </form>
     </div>
