@@ -131,24 +131,23 @@ function Navbar({ setSearchTerm }) {
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="ml-3 relative">
                                             <div>
-                                                {useri ? (
-                                                    <Menu.Button className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800">
-                                                        <span className="sr-only">Open user menu</span>
-                                                        <svg className="h-6 w-6 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                                        </svg>
-
-                                                    </Menu.Button>
-                                                ) : (
-                                                    <div className='flex justify-between gap-2 mx-3'>
+                                                {/* {useri ? ( */}
+                                                <Menu.Button className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800">
+                                                    <span className="sr-only">Open user menu</span>
+                                                    <svg className="h-6 w-6 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                                    </svg>
+                                                </Menu.Button>
+                                                {/* ) : ( */}
+                                                {/* <div className='flex justify-between gap-2 mx-3'>
                                                         <Link href='/signin'>
                                                             <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Signup</a>
                                                         </Link>
                                                         <Link href='/login'>
                                                             <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Login</a>
                                                         </Link>
-                                                    </div>
-                                                )}
+                                                    </div> */}
+                                                {/* )} */}
                                             </div>
                                             <Transition
                                                 as={Fragment}
@@ -177,18 +176,29 @@ function Navbar({ setSearchTerm }) {
                                                         </Menu.Item>
                                                     ))}
                                                     <Menu.Item>
-                                                        {({ active }) => (
-                                                            <button
-                                                                type='button'
-                                                                onClick={handleLogout}
-                                                                className={classNames(
-                                                                    active ? 'bg-red-600' : '',
-                                                                    'w-full text-left block px-4 py-2 text-sm text-gray-100 hover:text-white hover:bg-red-600'
-                                                                )}
-                                                            >
-                                                                Signout
-                                                            </button>
-                                                        )}
+                                                        {({ active }) => {
+                                                            return useri ? (
+                                                                <button
+                                                                    type='button'
+                                                                    onClick={handleLogout}
+                                                                    className={classNames(
+                                                                        active ? 'bg-red-600' : '',
+                                                                        'w-full text-left block px-4 py-2 text-sm text-gray-100 hover:text-white hover:bg-red-600'
+                                                                    )}
+                                                                >
+                                                                    Signout
+                                                                </button>
+                                                            ) : (
+                                                                <Link href='/login'>
+                                                                    <a className={classNames(
+                                                                        active ? 'bg-red-600' : '',
+                                                                        'w-full text-left block px-4 py-2 text-sm text-gray-100 hover:text-white hover:bg-red-600'
+                                                                    )}
+                                                                    >Login</a>
+                                                                </Link>
+                                                            )
+                                                        }
+                                                        }
                                                     </Menu.Item>
                                                 </Menu.Items>
                                             </Transition>
@@ -255,7 +265,7 @@ function Navbar({ setSearchTerm }) {
                     </>
                 )}
             </Disclosure>
-        </div>
+        </div >
     )
 }
 

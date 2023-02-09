@@ -134,8 +134,8 @@ export function CategoryBar() {
 
                             <Popover.Group className="hidden lg:ml-0 xl:block lg:self-stretch">
                                 <div className="h-10 flex gap-8">
-                                    {categories.slice(0, 9).map((category) => (
-                                        <Popover key={category.name} className="flex">
+                                    {categories.slice(0, 9).map((category, index) => (
+                                        <Popover key={index} className="flex">
                                             {({ open }) => (
                                                 <>
                                                     <div className="relative flex">
@@ -143,7 +143,7 @@ export function CategoryBar() {
                                                             className={classNames(
                                                                 open
                                                                     ? 'border-gray-900 text-white border-b-white border-b-4'
-                                                                    : 'border-transparent text-gray-900 hover:border-b-white hover:border-b-4 hover:text-white',
+                                                                    : 'border-transparent text-gray-900 hover:border-white border-b-4 hover:text-white',
                                                                 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-semibold -mb-px pt-px'
                                                             )}
                                                         >
