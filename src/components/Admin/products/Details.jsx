@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import AdminLayout from '../../layout/AdminLayout'
 import { TrashIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
 import { TagsInput } from 'react-tag-input-component';
-import { Switch } from '@headlessui/react';
+import { Dialog, Switch, Transition } from '@headlessui/react';
 import { fDate } from '../../utils/formatTime';
+import Search from '../../shared/Search';
+import { ProductCard } from './AddProduct';
 // import { v4 as uuidv4 } from 'uuid';
 
 
@@ -15,6 +17,7 @@ const Detail = () => {
   const router = useRouter()
   const itemId = router.query.id
 
+  const [products, setProducts] = React.useState([]);
   const [cats, setCats] = React.useState([]);
   const [tags, setTags] = React.useState([]);
   const [images, setImages] = React.useState([]);
@@ -24,6 +27,8 @@ const Detail = () => {
   const [isFeatured, setIsFeatured] = React.useState(false)
   const [active, setActive] = React.useState(false)
   const [enabled, setEnabled] = React.useState(false)
+  const [relatedProducts, setRelatedProducts] = React.useState([])
+
   const [details, setDetails] = React.useState(
     {
       _id: '',
@@ -80,6 +85,7 @@ const Detail = () => {
       setFormValues(res.data.details)
       setMoreInfo(res.data.information)
       setImages(res.data.images)
+      setRelatedProducts(res.data.relatedProducts)
     }
 
     itemId && getProduct()
@@ -100,7 +106,9 @@ const Detail = () => {
       data.delete('title')
       data.delete('description')
       data.set('tags', JSON.stringify(tags))
+      data.set('relatedProducts', JSON.stringify(relatedProducts))
       data.set('isFeatured', isFeatured)
+      // data.set('isActive', active)
 
       // data.set('details', JSON.stringify(formValues.map(value => (
       //   { title: value.title }
@@ -179,7 +187,7 @@ const Detail = () => {
     description: ''
   })
 
-
+  // Submit More Info 
   async function addFormFields() {
     const reqDetailsData = {
       title: newDetails.title,
@@ -188,12 +196,6 @@ const Detail = () => {
     await axiosAPI.post(`/products/${itemId}/details`, reqDetailsData);
     setSuccess('Product details added.')
     setTimeout(() => { setSuccess('') }, 2000)
-
-    // setFormValues([...formValues,
-    // {
-    //   id: uuidv4(),
-    //   detail: ''
-    // }])
   };
 
   function removeFormFields(id) {
@@ -206,7 +208,6 @@ const Detail = () => {
     setSuccess('Product details vanished.')
     setTimeout(() => { setSuccess('') }, 2000)
   }
-
 
   // Product Reviews 
   const handleReview = (id, event) => {
@@ -238,7 +239,6 @@ const Detail = () => {
     setSuccess('Product review vanished.')
     setTimeout(() => { setSuccess('') }, 2000)
   }
-
 
   // More Information 
   const handleMoreinfo = (id, event) => {
@@ -278,6 +278,7 @@ const Detail = () => {
     });
   };
 
+  // submit specifications 
   async function addMoreinfo() {
     const reqInfoData = {
       title: newMoreinfo.title,
@@ -286,12 +287,6 @@ const Detail = () => {
     await axiosAPI.post(`/products/${itemId}/information`, reqInfoData);
     setSuccess('Product information added.')
     setTimeout(() => { setSuccess('') }, 2000)
-
-    // setMoreInfo([...moreInfos,
-    // {
-    //   _id: uuidv4(),
-    //   info: ''
-    // }])
   };
 
   function removeMoreinfo(id) {
@@ -304,6 +299,115 @@ const Detail = () => {
     setTimeout(() => { setSuccess('') }, 2000)
   }
 
+  function closeModal() {
+    setEnabled(false)
+  }
+
+  // get product data 
+  React.useEffect(() => {
+    async function getProducts() {
+      const res = await axiosRoot.get('/products');
+      setProducts(res.data)
+    }
+    getProducts()
+  }, [router]);
+
+  function handleAdd(product) {
+    const selectedIndex = relatedProducts.indexOf(product._id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(relatedProducts, product._id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(relatedProducts.slice(1));
+    } else if (selectedIndex === relatedProducts.length - 1) {
+      newSelected = newSelected.concat(relatedProducts.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        relatedProducts.slice(0, selectedIndex),
+        relatedProducts.slice(selectedIndex + 1),
+      );
+    }
+
+    setRelatedProducts(newSelected);
+    // console.log(relatedProducts)
+  }
+
+  const isSelected = (name) => relatedProducts.indexOf(name) !== -1
+
+  const [searchTerm, setSearchTerm] = React.useState()
+  const slugs = ['code', 'name', 'category']
+  const search = (data) => {
+    return data.filter((item) =>
+      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+    )
+  }
+
+  const related = (
+    <Transition appear show={enabled} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel className="w-full ml-[25vh] max-w-5xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg text-center font-medium leading-6 text-gray-900"
+                >
+                  Add Related Products
+                </Dialog.Title>
+                <div className="mt-2">
+                  <div className='my-2'>
+                    <Search setSearchTerm={setSearchTerm} />
+                  </div>
+                  {/* <div className="w-full gap-2 mx-auto grid grid-cols-5">
+                                        {relatedProducts?.map((product, index) => (
+                                            <ProductCard key={index} product={product} add={() => handleAdd(product._id)} />
+                                        ))}
+                                    </div> */}
+                  <div className="w-full gap-2 mx-auto grid grid-cols-5">
+                    {search(products).slice(0, 5).map((product, index) => (
+                      <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-4 flex justify-end">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                    onClick={closeModal}
+                  >
+                    Done
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
+  );
 
   return (
     <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
@@ -317,6 +421,7 @@ const Detail = () => {
           <span class="font-medium">Warning!</span> {error}
         </div>
       )}
+      {related}
       <div className='relative py-3 flex items-center justify-center mb-5 text-center bg-gray-200 rounded-lg'>
 
         <Switch
@@ -495,7 +600,7 @@ const Detail = () => {
           {/* Product Details  */}
           {formValues && (
             <div className='grid col-span-2 lg:col-span-1 items-end gap-2'>
-              <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Product Specifications</h1>
+              <h1 className='p-2 text-center bg-slate-200 rounded-lg'>More Informations</h1>
               {formValues?.map((element, index) => (
 
                 <div className='grid items-end grid-cols-10' key={index}>
@@ -550,7 +655,7 @@ const Detail = () => {
           {/* More Information  */}
           {moreInfos && (
             <div className='grid col-span-2 lg:col-span-1 items-end gap-2'>
-              <h1 className='p-2 text-center bg-slate-200 rounded-lg'>More Informations</h1>
+              <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Product Specifications</h1>
               {moreInfos?.map((element, index) => (
                 <div className='grid items-end grid-cols-10' key={index}>
                   <div className='grid grid-cols-2 col-span-9 gap-2'>

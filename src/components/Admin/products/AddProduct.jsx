@@ -76,8 +76,8 @@ const Detail = () => {
     // }
 
     // submit form data
-
-
+  
+  
     const handleSubmit = async (event) => {
 
         try {
@@ -237,8 +237,9 @@ const Detail = () => {
         }
 
         setRelatedProducts(newSelected);
-        console.log(relatedProducts)
+        // console.log(relatedProducts)
     }
+
     const isSelected = (name) => relatedProducts.indexOf(name) !== -1
 
     const [searchTerm, setSearchTerm] = useState()
@@ -248,6 +249,7 @@ const Detail = () => {
             slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
         )
     }
+
     const related = (
         <Transition appear show={enabled} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -505,7 +507,7 @@ const Detail = () => {
 
                     {/* Details  */}
                     <div className='grid items-end gap-2'>
-                        <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Product Specifications</h1>
+                        <h1 className='p-2 text-center bg-slate-200 rounded-lg'>More Informations</h1>
                         {formValues.map((element, index) => (
 
                             <div key={index} className='grid items-end gap-2 grid-cols-9'>
@@ -522,10 +524,10 @@ const Detail = () => {
                                     />
                                 </div>
                                 <div className='col-span-4'>
-                                    <label htmlFor="specification" className="block mb-2 text-xs font-medium text-gray-900">Specification</label>
+                                    <label htmlFor="specification" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
                                     <input
                                         type="text" name="specification" id="specification"
-                                        placeholder="Enter specification"
+                                        placeholder="Enter description"
                                         required
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full  "
                                         onChange={(e) => handleChange(element.id, e)}
@@ -550,9 +552,9 @@ const Detail = () => {
                         </div>
                     </div>
 
-                    {/* More Information  */}
+                    {/* Specifications  */}
                     <div className='grid items-end gap-2'>
-                        <h1 className='p-2 text-center bg-slate-200 rounded-lg'>More Information</h1>
+                        <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Product Specifications</h1>
                         {moreInfos.map((element, index) => (
                             <div className='grid items-end grid-cols-10' key={index}>
                                 <div className='grid grid-cols-2 col-span-9 gap-2'>
@@ -565,8 +567,8 @@ const Detail = () => {
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
-                                        <input type="text" name="description" id="description" placeholder="Enter description" required
+                                        <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Specification</label>
+                                        <input type="text" name="description" id="description" placeholder="Enter specification" required
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full  "
                                             value={element.description || ""}
                                             onChange={(e) => handleMoreinfo(element.id, e)}
@@ -612,7 +614,7 @@ export function AddProduct() {
     )
 }
 
-function ProductCard({ product, add, key, isItemSelected }) {
+export function ProductCard({ product, add, key, isItemSelected }) {
 
     return (
         <div key={key} className="bg-white shadow-md border border-gray-200 rounded-lg">

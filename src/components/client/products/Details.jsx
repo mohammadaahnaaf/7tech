@@ -34,7 +34,7 @@ export function Details() {
     const [viewImage, setViewImage] = useState()
     const [isUser, setIsUser] = useState(false)
     const [relatedProductsId, setRelatedProductsId] = useState([])
-    
+
     // const total = (items) => items.reduce((acc, curr) => acc + curr.rating, 0);
 
     // const ratings = product?.reviews?.reduce((acc, curr) => acc + curr.rating, 0) / product?.reviewCount
@@ -50,7 +50,7 @@ export function Details() {
             setRelatedProductsId(res.data.relatedProducts)
         }
         itemId && getProduct()
-        
+
     }, [router, success]);
 
     // submit review data
@@ -398,27 +398,45 @@ export function Details() {
                         </>
 
                         {/* Details */}
-                        {(show === 'details') && (
+                        {(show === 'info') && (
                             <>
                                 <div div className='mt-5 rounded-md md:p-5 bg-gray-50'>
-                                    <h2 className='text-xl font-medium'>{product.name}</h2>
+                                    <h2 className='text-xl mb-3 font-medium'>More Informations</h2>
                                     {product.details?.map((detail, index) => (
-                                        <p key={index} className='py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {detail.title}</p>
+                                        <div className='my-2' key={index}>
+                                            <h2 className='pl-10 text-md font-bold text-gray-700'>{index + 1}. {detail.title}</h2>
+                                            <p className='py-1 px-16 text-sm font-normal text-gray-600'> {detail.description}</p>
+                                        </div>
                                     ))}
                                 </div>
                             </>
                         )}
 
-                        {/* More Information  */}
-                        {(show === 'info') && (
-                            <div className='mt-5 rounded-md md:p-5 bg-gray-50'>
-                                <h2 className='text-xl font-medium'>{product.name}</h2>
-                                {product.information.map((info, index) => (
-                                    <div key={index} className='flex justify-items-start md:w-4/5'>
-                                        <p className='w-56 py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {info.title}:</p>
-                                        <p className='py-1 pl-10 text-sm font-normal text-gray-500'>{info.description}</p>
-                                    </div>
-                                ))}
+                        {/* Details  */}
+                        {(show === 'details') && (
+                            <div className='mt-5 rounded-md md:p-5'>
+                                <h2 className='text-xl mb-3 font-medium'>Specifications</h2>
+
+                                <table className="w-full text-sm text-left p-3">
+                                    <tbody>
+                                        {product?.information?.map((info, index) => (
+
+                                            <tr key={index} className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
+                                                <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                                    {index + 1}. {info.title} :
+                                                </th>
+                                                <td className=" py-2">
+                                                    {info.description}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+
+                                {/* <div key={index} className='flex justify-items-start md:w-4/5'>
+                                    <p className='w-56 py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {info.title}:</p>
+                                    <p className='py-1 pl-10 text-sm font-normal text-gray-500'>{info.description}</p>
+                                </div> */}
                             </div>
                         )}
 
