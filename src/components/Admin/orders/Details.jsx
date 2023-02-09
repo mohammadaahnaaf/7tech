@@ -189,7 +189,7 @@ const Detail = () => {
                         <div>
                             <label htmlFor="payment" className="block mb-2 text-sm font-medium text-gray-900">Payment</label>
                             <select value={payment || ''} onChange={(e) => setPayment(e.target.value)} id="payment" name='payment' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
-                                <option value='bkash'>BKash</option>
+                                <option value='online'>BKash</option>
                                 <option value="cash-on-delivery">Cash on delevary</option>
                             </select>
                         </div>

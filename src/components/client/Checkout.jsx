@@ -215,7 +215,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                         className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                     >
                                         <option value='cash-on-delivery'>Cash on Delivery</option>
-                                        <option value='bkash'>BKash</option>
+                                        <option value='online'>BKash</option>
                                     </select>
                                 </div>
 

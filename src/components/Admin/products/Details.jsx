@@ -6,6 +6,7 @@ import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
 import { TagsInput } from 'react-tag-input-component';
 import { Switch } from '@headlessui/react';
+import { fDate } from '../../utils/formatTime';
 // import { v4 as uuidv4 } from 'uuid';
 
 
@@ -51,7 +52,8 @@ const Detail = () => {
     {
       _id: "",
       userName: "",
-      comment: ""
+      comment: "",
+      date: ''
     }
   ]);
 
@@ -173,13 +175,15 @@ const Detail = () => {
 
   const [newDetails, setNewDetails] = React.useState({
     _id: '',
-    title: ''
+    title: '',
+    description: ''
   })
 
 
   async function addFormFields() {
     const reqDetailsData = {
-      title: newDetails.title
+      title: newDetails.title,
+      description: newDetails.description
     }
     await axiosAPI.post(`/products/${itemId}/details`, reqDetailsData);
     setSuccess('Product details added.')
@@ -264,6 +268,16 @@ const Detail = () => {
     });
   };
 
+  const handleNewDetails = (event) => {
+    const { name, value } = event.target;
+    setNewDetails((prevState) => {
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
+  };
+
   async function addMoreinfo() {
     const reqInfoData = {
       title: newMoreinfo.title,
@@ -321,7 +335,7 @@ const Detail = () => {
         <h1 className='text-2xl text-center bg-gray-200'>Edit Product</h1>
       </div>
       <form onSubmit={handleSubmit}>
-        <div className="grid gap-3 mb-6 md:grid-cols-2">
+        <div className="grid gap-3 mb-6 lg:grid-cols-2">
 
           {/* Product Informations  */}
           <div>
@@ -476,53 +490,70 @@ const Detail = () => {
         </div>
 
         {/* Dynamic Input  */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-start gap-2'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 items-start gap-2'>
 
           {/* Product Details  */}
           {formValues && (
-            <div className='grid items-end gap-2'>
+            <div className='grid col-span-2 lg:col-span-1 items-end gap-2'>
               <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Product Specifications</h1>
               {formValues?.map((element, index) => (
 
-                <div key={index} className='grid grid-cols-10 items-end'>
-                  <div className='col-span-9'>
-                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
-                    <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+                <div className='grid items-end grid-cols-10' key={index}>
+                  <div className='grid grid-cols-2 col-span-9 gap-2'>
+                    <div>
+                      <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
+                      <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter title" />
+                    </div>
+                    <div>
+                      <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Details</label>
+                      <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleChange(element.id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+                    </div>
                   </div>
                   <div>
                     {formValues.length != 0 && (
-                      <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <button type="button" className="items-center mb-1 ml-2 flex" onClick={() => removeFormFields(element._id)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-600 rounded-sm bg-red-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                       </button>
                     )}
                   </div>
                 </div>
-
               ))}
-              <div className='grid grid-cols-10 items-end'>
-                <div className='col-span-9'>
-                  <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">New Details</label>
-                  <input type="text" name="title" id="title"
-                    value={newDetails.title || ""}
-                    onChange={(e) => setNewDetails({ title: e.target.value })}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+
+              {/* add new details */}
+              <div className='grid items-end grid-cols-10'>
+                <div className='grid grid-cols-2 col-span-9 gap-2'>
+                  <div>
+                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">New Details</label>
+                    <input type="text" name="title" id="title"
+                      value={newDetails.title || ""}
+                      onChange={(e) => handleNewDetails(e)}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+                  </div>
+                  <div>
+                    <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">New Description</label>
+                    <input type="text" name="description" id="description" value={newDetails.description || ""} onChange={(e) => handleNewDetails(e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+                  </div>
                 </div>
-              </div>
-              <div>
-                <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
+                <div>
+                  <button onClick={addFormFields} type="button" className="items-center flex ml-2 mb-1 text-green-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 bg-green-100">
+                      <path fillRule="evenodd" d="M12 5.25a.75.75 0 01.75.75v5.25H18a.75.75 0 010 1.5h-5.25V18a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           )}
 
           {/* More Information  */}
           {moreInfos && (
-            <div className='grid items-end gap-2'>
-            <h1 className='p-2 text-center bg-slate-200 rounded-lg'>More Informations</h1>
+            <div className='grid col-span-2 lg:col-span-1 items-end gap-2'>
+              <h1 className='p-2 text-center bg-slate-200 rounded-lg'>More Informations</h1>
               {moreInfos?.map((element, index) => (
-                <div className="flex gap-2 items-center" key={index}>
-                  <div className='flex gap-2'>
+                <div className='grid items-end grid-cols-10' key={index}>
+                  <div className='grid grid-cols-2 col-span-9 gap-2'>
                     <div>
                       <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">Title</label>
                       <input type="text" name="title" id="title" value={element.title || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border w-full border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block" placeholder="Enter details" />
@@ -531,9 +562,12 @@ const Detail = () => {
                       <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">Description</label>
                       <input type="text" name="description" id="description" value={element.description || ""} onChange={(e) => handleMoreinfo(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                     </div>
+
+                  </div>
+                  <div className='col-span-1'>
                     {moreInfos.length != 0 && (
-                      <button type="button" className="items-end flex" onClick={() => removeMoreinfo(element._id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <button type="button" className="items-center mb-1 ml-2 flex" onClick={() => removeMoreinfo(element._id)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 bg-red-100 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                       </button>
@@ -542,33 +576,31 @@ const Detail = () => {
                 </div>
               ))}
 
-              <div className="flex gap-2 items-center">
-                <div className='flex gap-2'>
+              {/* New More info Add  */}
+              <div className='grid items-end grid-cols-10'>
+                <div className='grid grid-cols-2 col-span-9 gap-2'>
                   <div>
                     <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">New Title</label>
                     <input type="text" name="title" id="title"
                       value={newMoreinfo.title || ""}
                       onChange={(e) => handleNewMoreinfo(e)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter title" />
                   </div>
                   <div>
                     <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">New Description</label>
                     <input type="text" name="description" id="description"
                       value={newMoreinfo.description || ""}
                       onChange={(e) => handleNewMoreinfo(e)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter description" />
                   </div>
-
-                  <div className="items-end flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                  </div>
-
                 </div>
-              </div>
-              <div>
-                <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addMoreinfo}>Add</button>
+                <div className='col-span-1'>
+                  <button onClick={addMoreinfo} type="button" className="items-center flex ml-2 mb-1 text-green-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 bg-green-100">
+                      <path fillRule="evenodd" d="M12 5.25a.75.75 0 01.75.75v5.25H18a.75.75 0 010 1.5h-5.25V18a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -576,21 +608,31 @@ const Detail = () => {
           {/* Reviews  */}
           {reviews && (
             <div className='grid items-end col-span-2 gap-2'>
-            <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Reviews</h1>
+              <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Reviews</h1>
               {reviews?.map((element, index) => (
-                <div className="flex gap-2 items-center" key={index}>
-                  <div>
-                    <label htmlFor="userName" className="block mb-2 text-xs font-medium text-gray-900">Reviewed by</label>
-                    <input type="text" name="userName" id="userName" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
-                  </div>
-                  <div className='flex'>
+                <div className='grid grid-cols-12 items-end' key={index}>
+                  <div className='grid grid-cols-4 col-span-11 gap-2'>
+                    <div>
+                      <label htmlFor="userName" className="block mb-2 text-xs font-medium text-gray-900">Reviewed by</label>
+                      <input type="text" name="userName" id="userName" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" required />
+                    </div>
+                    <div>
+                      <label htmlFor="date" className="block mb-2 text-xs font-medium text-gray-900">Reviewed At</label>
+                      <input datepicker type="date" name="date" id="date" value={element?.date || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" required />
+                    </div>
+                    <div>
+                      <label htmlFor="rating" className="block mb-2 text-xs font-medium text-gray-900">Rating</label>
+                      <input type="number" name="rating" id="rating" value={element.rating || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" required />
+                    </div>
                     <div>
                       <label htmlFor="comment" className="block mb-2 text-xs font-medium text-gray-900">Comment</label>
-                      <input type="text" name="comment" id="comment" value={element.comment || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Enter details" required />
+                      <input type="text" name="comment" id="comment" value={element.comment || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" required />
                     </div>
+                  </div>
+                  <div>
                     {reviews.length > 0 && (
-                      <button type="button" className="items-end flex" onClick={() => removeReview(element._id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2 mb-2 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <button type="button" className="items-center ml-2 mb-1 flex" onClick={() => removeReview(element._id)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 bg-red-100 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                       </button>
@@ -598,9 +640,6 @@ const Detail = () => {
                   </div>
                 </div>
               ))}
-              {/* <div>
-            <button className="w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addReview}>Add</button>
-          </div> */}
             </div>
           )}
 
