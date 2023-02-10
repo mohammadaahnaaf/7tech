@@ -199,17 +199,17 @@ export function Details() {
             <div className='md:p-8 grid w-full md:max-w-7xl mx-auto gap-4'>
                 <div className='grid grid-cols-5 gap-4 w-full'>
 
-                    <div className='rounded-lg ring-2 ring-gray-200 col-span-5 lg:col-span-2'>
+                    <div className='rounded-sm ring-0 ring-gray-200 col-span-5 lg:col-span-2'>
 
-                        <div className='grid p-4 gap-1 mt-2 items-center'>
+                        <div className='grid gap-4 py-4 items-center'>
                             {images.slice(view - 1, view).map((item, index) => (
                                 <div className='relative cursor-pointer flex items-center mx-auto' key={index}>
                                     <Image
-                                        height={500}
-                                        width={500}
+                                        height={512}
+                                        width={512}
                                         src={`${item}`}
                                         alt='product-images'
-                                        className="mx-auto rounded-md"
+                                        className="mx-auto w-full rounded-md"
                                     />
                                     <div className='absolute backdrop-blur-sm inset-0 z-10 opacity-0 hover:opacity-100 duration-300 flex justify-center items-center'>
                                         <button onClick={() => handleViewImage(item)} className="bg-red-600 text-white rounded-md p-3 text-2xl font-semibold">
@@ -218,15 +218,15 @@ export function Details() {
                                     </div>
                                 </div>
                             ))}
-                            <div className='flex gap-3 mt-2 items-center mx-auto justify-center'>
+                            <div className='flex gap-4 items-center justify-between'>
                                 {images.map((item, index) => (
-                                    <button type='button' className='ring-2 items-center flex ring-gray-200 rounded-md w-full' onClick={() => setView(index + 1)} key={index}>
+                                    <button type='button' className='ring-2 justify-center items-center flex ring-gray-200 rounded-sm w-full' onClick={() => setView(index + 1)} key={index}>
                                         <Image
                                             height={120}
                                             width={120}
                                             src={`${item}`}
                                             alt='product-images'
-                                            className="min-w-full h-[10vh] rounded-md"
+                                            className="min-w-full h-[15vh] rounded-sm"
                                         />
                                     </button>
                                 ))}
@@ -349,12 +349,12 @@ export function Details() {
                 </div>
 
                 {/* Specifications More info Reviews  */}
-                <div ref={myRef} className='rounded-lg w-full'>
-                    <div className='w-auto col-span-12 rounded-md'>
+                <div ref={myRef} className='rounded-sm w-full'>
+                    <div className='w-auto col-span-12 rounded-sm'>
                         <>
                             <div className="sm:hidden">
                                 <label htmlFor="tabs" className="sr-only">More Information</label>
-                                <select value={show || ''} onChange={(e) => setShow(e.target.value)} id="tabs" className="bg-red-50 border border-red-300 text-gray-700 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
+                                <select value={show || ''} onChange={(e) => setShow(e.target.value)} id="tabs" className="bg-red-50 border border-red-300 text-gray-700 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full">
                                     <option value='details'>
                                         Specifications
                                     </option>
@@ -366,12 +366,12 @@ export function Details() {
                                     </option>
                                 </select>
                             </div>
-                            <ul className="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow ring-2 ring-gray-200 sm:flex ">
+                            <ul className="hidden text-sm font-medium text-center text-gray-700 divide-x-2 divide-white border-b-red-600 border-b-2 focus:divide-red-600 rounded-sm shadow sm:flex ">
                                 <li className="w-full">
                                     <button
                                         onClick={() => setShow('details')}
                                         type='button'
-                                        className="inline-block w-full p-4 text-gray-900 rounded-l-lg bg-gray-50 focus:bg-gray-100 focus:ring-2 focus:ring-gray-300 active focus:outline-none"
+                                        className="inline-block w-full py-2 text-gray-900 rounded-l-sm bg-white focus:bg-red-600 focus:text-white active focus:outline-none"
                                     >
                                         Specifications
                                     </button>
@@ -380,7 +380,7 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('info')}
                                         type='button'
-                                        className="inline-block w-full p-4 bg-gray-50 focus:bg-gray-100 hover:text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:outline-none"
+                                        className="inline-block w-full py-2 text-gray-900 rounded-l-sm bg-white focus:bg-red-600 focus:text-white active focus:outline-none"
                                     >
                                         More Information
                                     </button>
@@ -389,7 +389,7 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('reviews')}
                                         type='button'
-                                        className="inline-block w-full p-4 rounded-r-lg bg-gray-50 focus:bg-gray-100 hover:text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:outline-none"
+                                        className="inline-block w-full py-2 text-gray-900 rounded-l-sm bg-white focus:bg-red-600 focus:text-white active focus:outline-none"
                                     >
                                         Reviews
                                     </button>
@@ -541,9 +541,9 @@ export function Details() {
                 </div>
 
                 {/* Realted Products  */}
-                <div className='ring-2 ring-gray-300 bg-white rounded-md p-3 mt-2 md:max-w-7xl mx-auto w-full'>
-                    <h1 className='py-4 text-center font-bold text-2xl text-black'>Related Products</h1>
-                    <div className='grid grid-cols-10 w-full gap-2 p-3'>
+                <div className='bg-white mt-4 md:max-w-7xl mx-auto w-full'>
+                    <h1 className='text-center bg-black px-4 py-2 font-medium text-xl text-gray-50'>Related Products</h1>
+                    <div className='grid grid-cols-10 w-full gap-2 bg-gray-50 p-4'>
                         {relatedProductsId.map((id, index) =>
                             <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
                                 <Product productId={id} />
