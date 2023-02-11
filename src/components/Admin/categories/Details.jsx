@@ -1,6 +1,6 @@
 import React from 'react'
 import AdminLayout from '../../layout/AdminLayout'
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
@@ -9,6 +9,7 @@ export function Detail() {
 
   const router = useRouter()
   let itemId = router.query.id
+
   const [category, setCategory] = React.useState({
     _id: '',
     name: '',
@@ -27,7 +28,6 @@ export function Detail() {
     })
   const [error, setError] = React.useState('')
   const [success, setSuccess] = React.useState('')
-  const [isLoading, setIsLoading] = React.useState(true)
   const [featured, setFeatured] = React.useState(false)
   const [indexing, setIndexing] = React.useState(0)
 
@@ -53,20 +53,13 @@ export function Detail() {
 
       const reqData = {
         // subCategories: JSON.stringify(formValues),
-        name: data.get('categoryName'),
+        // name: data.get('categoryName'),
+        name: category.name,
         tagline: data.get('tagline'),
         isFeatured: featured,
         index: +indexing
       }
       await axiosAPI.put(`/categories/${itemId}`, reqData)
-
-      // const reqSubData = {
-      //   name: sub.name,
-      // }
-
-      // sub.name !== null && (
-      //   await axiosAPI.post(`/categories/${itemId}/sub-category`, reqSubData)
-      // )
 
       setSuccess('Category Edited.')
       setTimeout(() => {
@@ -74,7 +67,6 @@ export function Detail() {
       }, 2000)
 
     } catch (error) {
-      setIsLoading(false);
       console.log(error)
       setError(error.response?.data?.message)
     }
@@ -91,6 +83,7 @@ export function Detail() {
     setFormValues(newInputFields);
   };
 
+  // Add subcategory
   async function addFormFields() {
     const reqSubData = {
       name: sub.name,
@@ -106,6 +99,7 @@ export function Detail() {
     // }])
   };
 
+  // delete subcategory 
   function removeFormFields(id) {
     axiosAPI.delete(`/categories/${itemId}/sub-category/${id}`)
 
@@ -116,15 +110,7 @@ export function Detail() {
     setTimeout(() => { setSuccess('') }, 2000)
   }
 
-  // Featured? 
-  function handleFeature() {
-    if (featured === false) {
-      setFeatured(true)
-    } else if (featured === true) {
-      setFeatured(false)
-    }
-  }
-
+  // edit category 
   const handleCatChange = (event) => {
     const { name, value } = event.target;
     setCategory((prevState) => {
@@ -172,8 +158,8 @@ export function Detail() {
             </>
           )}
           <div className='w-full px-4'>
-            <label htmlFor="categoryName" className="block my-2 text-xs font-medium text-gray-900">Category name</label>
-            <input type="text" name='categoryName' id="categoryName"
+            <label htmlFor="name" className="block my-2 text-xs font-medium text-gray-900">Category name</label>
+            <input type="text" name='name' id="name"
               value={category.name || ''}
               onChange={(e) => handleCatChange(e)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Name" required />
