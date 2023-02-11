@@ -19,6 +19,7 @@ const Detail = () => {
 
   const [products, setProducts] = React.useState([]);
   const [cats, setCats] = React.useState([]);
+  const [subCats, setSubCats] = React.useState([]);
   const [tags, setTags] = React.useState([]);
   const [images, setImages] = React.useState([]);
   const [files, setFiles] = React.useState([]);
@@ -34,6 +35,8 @@ const Detail = () => {
       _id: '',
       name: '',
       category: '',
+      subCategory: '',
+      imageAlt: '',
       specifications: '',
       code: '',
       quantity: '',
@@ -69,8 +72,16 @@ const Detail = () => {
       const res = await axiosRoot.get('/categories');
       setCats(res.data)
     }
+    function setSubCategory() {
+      cats.map((x) => {
+        if (x.name === details.category) {
+          setSubCats(x.subCategories)
+        }
+      });
+    }
     getCategory()
-  }, []);
+    details && setSubCategory()
+  }, [details]);
 
 
   // get data 
@@ -449,31 +460,46 @@ const Detail = () => {
               <input type="text" onChange={(event) => handleAllChange(event)} value={details.name || ""} id="name" name='name' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" required />
             </div>
 
-            <div>
-              <label htmlFor="category" className="block mb-1 text-sm font-medium text-gray-900">Category</label>
-              <select id="category" name='category'
-                onChange={(event) => handleAllChange(event)} value={details.category || ""}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" required>
-                {cats.map((cat) =>
-                  <option>{cat.name}</option>
-                )}
-              </select>
+            <div className='grid grid-cols-2 gap-3'>
+
+              <div>
+                <label htmlFor="category" className="block mb-1 text-sm font-medium text-gray-900">Category</label>
+                <select id="category" name='category'
+                  onChange={(event) => handleAllChange(event)} value={details.category || ""}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" required>
+                  {cats.map((cat) =>
+                    <option>{cat.name}</option>
+                  )}
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="subCategory" className="block mb-1 text-sm font-medium text-gray-900">Subcategory</label>
+                <select id="subCategory" value={details.subCategory || ''} onChange={(event) => handleAllChange(event)} name='subCategory' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Subcategory">
+                  {subCats?.map((sub, index) =>
+                    <option key={index} value={sub.name}>{sub.name}</option>
+                  )}
+                </select>
+              </div>
             </div>
-            {/* <div>
-              <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Category</label>
-              <input type="text" onChange={(event) => handleAllChange(event)} value={details.category || ""} name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="" required />
-            </div> */}
-            <div>
-              <label htmlFor="code" className="block mb-1 text-sm font-medium text-gray-900 ">Product code</label>
-              <input type="text" onChange={(event) => handleAllChange(event)} value={details.code || ""} name="code" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" />
-            </div>
-            <div>
-              <label htmlFor="quantity" className="block mb-1 text-sm font-medium text-gray-900">Quantity</label>
-              <input type="number" onChange={(event) => handleAllChange(event)} value={details.quantity || ""} name="quantity" id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" />
+
+            <div className='grid grid-cols-2 gap-3'>
+              <div>
+                <label htmlFor="code" className="block mb-1 text-sm font-medium text-gray-900 ">Product code</label>
+                <input type="text" onChange={(event) => handleAllChange(event)} value={details.code || ""} name="code" id="code" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" />
+              </div>
+              <div>
+                <label htmlFor="quantity" className="block mb-1 text-sm font-medium text-gray-900">Quantity</label>
+                <input type="number" onChange={(event) => handleAllChange(event)} value={details.quantity || ""} name="quantity" id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="" />
+              </div>
             </div>
 
             <div>
-              <label htmlFor="shortDescription" className="block mb-1 text-sm font-medium text-gray-900">Product specifications</label>
+              <label htmlFor="imageAlt" className="block mb-1 text-sm font-medium text-gray-900 ">Brand</label>
+              <input type="text" id="imageAlt" name="imageAlt" onChange={(event) => handleAllChange(event)} value={details.imageAlt || ""} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Brand Name" />
+            </div>
+            <div>
+              <label htmlFor="shortDescription" className="block mb-1 text-sm font-medium text-gray-900">Short Description</label>
               <textarea type="text" name='shortDescription' rows={3} onChange={(event) => handleAllChange(event)} value={details.shortDescription || ""} id="shortDescription" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="enter specifications" />
             </div>
             <div>
@@ -490,6 +516,7 @@ const Detail = () => {
               <input id="bordered-checkbox-1" type="checkbox" onClick={() => isFeatured ? setIsFeatured(false) : setIsFeatured(true)} checked={isFeatured} name="bordered-checkbox" className="w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-600" />
               <label htmlFor="bordered-checkbox-1" className="py-2.5 ml-2 w-full text-sm font-medium text-gray-900">Featured on home</label>
             </div>
+
 
             <div className='grid grid-cols-2 gap-3'>
               <div>

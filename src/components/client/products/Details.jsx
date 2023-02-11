@@ -281,8 +281,7 @@ export function Details() {
                                                 Brand:
                                             </th>
                                             <td className=" py-2">
-                                                {/* {product.brand ? product.brand : 'Unknown'} */}
-                                                {product.brand || 'ReDragon'}
+                                                {product.imageAlt || 'Unknown'}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">

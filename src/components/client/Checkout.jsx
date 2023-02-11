@@ -73,8 +73,6 @@ function Checkouts({ setSuccess, setOrder }) {
 
     function handleCity(e) {
         setCity(e.target.value)
-
-
     }
 
     // const countSubtotal = (items) => items.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
