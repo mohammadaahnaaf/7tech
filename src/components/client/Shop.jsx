@@ -11,7 +11,7 @@ export function Shop({ items, title, term, key }) {
 
   let searchTerm = term;
 
-  const slugs = ['name', 'category', 'tags', 'price', 'code', 'quantity']
+  const slugs = ['name', 'category', 'subCategory', 'tags', 'imageAlt', 'code']
 
   // Search filter 
   const search = (data) => {

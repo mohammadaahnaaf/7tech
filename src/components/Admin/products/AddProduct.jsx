@@ -271,14 +271,14 @@ const Detail = () => {
             <Dialog as="div" className="relative z-10" onClose={closeModal}>
                 <Transition.Child
                     as={Fragment}
-                    enter="ease-out duration-300"
+                    enter="ease-out duration-200"
                     enterFrom="opacity-0"
                     enterTo="opacity-100"
                     leave="ease-in duration-200"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    <div className="fixed inset-0 bg-black backdrop-blur-sm bg-opacity-40" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">
@@ -303,19 +303,26 @@ const Detail = () => {
                                     <div className='my-2'>
                                         <Search setSearchTerm={setSearchTerm} />
                                     </div>
-                                    {/* <div className="w-full gap-2 mx-auto grid grid-cols-5">
-                                            {relatedProducts?.map((product, index) => (
-                                                <ProductCard key={index} product={product} add={() => handleAdd(product._id)} />
-                                            ))}
-                                        </div> */}
                                     <div className="w-full gap-2 mx-auto grid grid-cols-5">
+                                        {/* {search(products).slice(0, 5).map((product, index) => {
+                                            return isSelected(product._id) ?
+                                                <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
+                                                : null
+                                        })} */}
                                         {search(products).slice(0, 5).map((product, index) => (
                                             <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                                         ))}
                                     </div>
                                 </div>
 
-                                <div className="mt-4 flex justify-end">
+                                <div className="mt-4 flex gap-2 justify-end">
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
+                                        onClick={closeModal}
+                                    >
+                                        Cancel
+                                    </button>
                                     <button
                                         type="button"
                                         className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"

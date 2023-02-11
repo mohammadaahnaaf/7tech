@@ -1,4 +1,3 @@
-
 import React, { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
@@ -15,13 +14,6 @@ const sortOptions = [
   { name: 'Newest', href: '#', current: false },
   { name: 'Price: Low to High', href: '#', current: false },
   { name: 'Price: High to Low', href: '#', current: false },
-]
-const subCategories = [
-  { name: 'Totes', href: '#' },
-  { name: 'Backpacks', href: '#' },
-  { name: 'Travel Bags', href: '#' },
-  { name: 'Hip Bags', href: '#' },
-  { name: 'Laptop Sleeves', href: '#' },
 ]
 const filters = [
   {
@@ -47,23 +39,14 @@ const filters = [
       { value: 'low', label: 'Low to High', checked: false },
       { value: 'high', label: 'High to Low', checked: false },
     ],
-  },
-  {
-    id: 'size',
-    name: 'Size',
-    options: [
-      { value: '2l', label: 'Small', checked: false },
-      { value: '6l', label: 'Medium', checked: false },
-      { value: '12l', label: 'Large', checked: false },
-    ],
-  },
+  }
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Categoryq({ term }) {
+export function Category({ term }) {
 
   const router = useRouter()
   const slug = router.query.id
@@ -87,6 +70,15 @@ export default function Categoryq({ term }) {
     }
     getProducts()
   }, []);
+
+  const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
+
+  // Search filter 
+  const search = (data) => {
+    return data.filter((item) =>
+      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(slug.toLowerCase()))
+    )
+  }
 
   return (
     <div className="bg-white">
@@ -323,41 +315,34 @@ export default function Categoryq({ term }) {
                 {/* <div className="h-screen w-full bg-blue-600 rounded-lg border-4 border-dashed border-gray-200 lg:h-full" /> */}
                 <div className='hidden items-center justify-center justify-items-center mx-auto gap-2 md:gap-4 md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4'>
 
-                  {items?.filter((item) => {
-                    if (searchTerm === "") {
-                      return item;
-                    } else if (item.category.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                      return item;
-                    } else if (item.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                      return item;
-                    } else if (item.price.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                      return item;
-                    } return ""
-                  }).map((product) => {
+                  {search(items)?.map((product) => {
+                    return (
+                      <ProductCard setiCategory={setiCategory} product={product} />
+                    )
+                  })}
+                  {/* {search(items)?.map((product) => {
                     return product.category.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ||
                       product.name.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ? (
                       <ProductCard setiCategory={setiCategory} product={product} />
                     ) : null
-                  })}
+                  })} */}
                 </div>
 
                 <div className='md:hidden grid'>
-                  {items?.filter((item) => {
-                    if (searchTerm === "") {
-                      return item;
-                    } else if (item.category.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                      return item;
-                    } else if (item.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                      return item;
-                    } else if (item.price.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                      return item;
-                    } return ""
-                  }).map((product) => {
+
+                {search(items)?.map((product) => {
+                    return (
+                      <ProductCard setiCategory={setiCategory} product={product} />
+                    )
+                  })}
+
+                  {/* {search(items)?.map((product) => {
                     return product.category.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ||
                       product.name.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ? (
                       <ProductCard setiCategory={setiCategory} product={product} />
                     ) : null
-                  })}
+                  })} */}
+
                 </div>
               </div>
             </div>
