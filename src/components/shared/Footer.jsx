@@ -22,17 +22,25 @@ export function Footers() {
     <footer className="p-4 border-t-2 border-red-600 bg-black sm:p-6">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0">
-          <a href="#" className="grid items-center justify-items-center">
-            <img src="/logo.png" className="mr-3 h-8" alt="Logo" />
-            <span className="self-center text-lg font-semibold whitespace-nowrap text-white hover:text-red-600">SevenTech Engineering LTD.</span>
+          <a href="#" className="grid gap-2 items-center justify-items-center">
+            <img src="/logo.png" className="w-auto h-8" alt="Logo" />
+            <span className="self-center text-lg font-medium whitespace-nowrap text-white hover:text-red-600">SevenTech Engineering LTD.</span>
           </a>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <div>
 
-            <h2 className="mb-6 text-sm font-semibold uppercase text-red-600">Call Us</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase text-red-600">Call Us</h2>
             <ul className="text-gray-200">
-              <li className="mb-4 flex items-center">
+              <li className="mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+                <Link href='tel:+8801911444466'>
+                  <a className="hover:text-red-600">+8801911444466</a>
+                </Link>
+              </li>
+              <li className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
@@ -46,7 +54,7 @@ export function Footers() {
 
 
           <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase text-red-600">About</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase text-red-600">About</h2>
             <ul className="text-gray-200">
               <li className="mb-2">
                 <a href="#" className="hover:text-red-600">About us</a>
@@ -63,7 +71,7 @@ export function Footers() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase text-red-600">Contact</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase text-red-600">Contact</h2>
             <ul className="text-gray-200">
               <li className="mb-2">
                 <a href="https://www.facebook.com/rdragonbd/" className="hover:text-red-600">Facebook</a>
@@ -77,17 +85,17 @@ export function Footers() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-red-600 uppercase">Find us</h2>
+            <h2 className="mb-3 text-sm font-semibold text-red-600 uppercase">Find us</h2>
             <ul className="text-gray-200">
               <li className="mb-2">
                 <p className='flex items-center hover:text-red-600'>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
-                  Level-5/39
+                  Level-5/39, Kazi Bhaban,
                 </p>
                 <p className=' hover:text-red-600'>
-                  New Elephant Road, Kazi Bhaban,
+                  New Elephant Road,
                 </p>
                 <p className=' hover:text-red-600'>
                   Dhaka-1205, Bangladesh

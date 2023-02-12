@@ -1,15 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { MailIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React, { Fragment, useEffect } from 'react'
-// import { subscribers } from '../../data/Subscribers';
 import AdminLayout from '../layout/AdminLayout'
+import { Pagenation } from '../shared/Pagination';
 import Search from '../shared/Search';
 import axiosAPI from '../utils/axios-api';
 
 function Subscriber() {
 
-    const router = useRouter()
     const [searchTerm, setSearchTerm] = React.useState('')
     const [selected, setSelected] = React.useState([]);
     const [allSelected, setAllSelected] = React.useState(false)
@@ -17,6 +16,8 @@ function Subscriber() {
     const [isOpen, setIsOpen] = React.useState(false)
     const [confirm, setConfirm] = React.useState(false)
     const [page, setPage] = React.useState(0)
+    const [pageSize, setPageSize] = React.useState(10)
+
 
     function closeModal() {
         !confirm && (
@@ -28,7 +29,7 @@ function Subscriber() {
     //Get Data
     React.useEffect(() => {
         async function getUsers() {
-            const res = await axiosAPI.get('/user');
+            const res = await axiosAPI.get(`/user?page=${page + 1}&size=${pageSize}`);
             setSubscribers(res.data)
         }
         getUsers()
@@ -42,7 +43,7 @@ function Subscriber() {
             selected.map((item) =>
                 axiosAPI.delete(`/user/${item}`)
             ),
-            router.reload()
+            setSuccess('User Vanished')
         )
     }
 
@@ -142,6 +143,14 @@ function Subscriber() {
         </Transition>
     )
 
+    const slugs = ['fullName', 'email', 'phoneNumber']
+
+    const search = (data) => {
+        return data.filter((item) =>
+            slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+        )
+    }
+
     return (
 
         <div className="mx-3 mt-3 bg-red-100 overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -184,17 +193,7 @@ function Subscriber() {
                     </tr>
                 </thead>
                 <tbody>
-                    {subscribers.filter((row) => {
-                        if (searchTerm === "") {
-                            return row;
-                        } else if (row.phone.toString().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                            return row;
-                        } else if (row.name.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                            return row;
-                        } else if (row.email.toLowerCase().includes(typeof searchTerm === 'string' ? searchTerm.toLowerCase() : '')) {
-                            return row;
-                        } return ""
-                    }).slice(0, 4).map((item, index) => {
+                    {search(subscribers).map((item, index) => {
                         const isItemSelected = isSelected(item._id);
 
                         {/* .slice(0, n) is used to get a range of items from Array[] */ }
@@ -219,10 +218,14 @@ function Subscriber() {
                                     )}   {item.fullName}
                                 </th>
                                 <td className="py-4 px-6">
-                                    {item.phoneNumber}
+                                    <Link href={`tel:${item.phoneNumber}`}>
+                                        <a>{item.phoneNumber}</a>
+                                    </Link>
                                 </td>
                                 <td className="py-4 px-6">
-                                    {item.email}
+                                    <Link href={`mailto:${item.email}`}>
+                                        <a>{item.email}</a>
+                                    </Link>
                                 </td>
                                 <td className="py-4 px-6">
                                     <a href="#" className="font-medium text-gray-400 hover:text-red-600">
@@ -234,106 +237,9 @@ function Subscriber() {
                     })}
                 </tbody>
             </table>
-            <div className='p-2 flex justify-end'>
-                <Pagenation etPage={setPage} page={page} />
-            </div>
+            <Pagenation page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
+
         </div>
-    )
-}
-
-
-function Pagenations({ itemsPerPage, subscribers }) {
-
-
-    const [currentItems, setCurrentItems] = React.useState(null);
-    const [pageCount, setPageCount] = React.useState(1);
-    const [itemOffset, setItemOffset] = React.useState(0);
-    const [pages, setPages] = React.useState(['']);
-
-    useEffect(() => {
-        // Fetch items from another resources.
-        const endOffset = itemOffset + itemsPerPage;
-        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-        setCurrentItems(subscribers.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(subscribers.length / itemsPerPage));
-        setPages([...Array(pageCount).keys()])
-    }, [itemOffset, itemsPerPage]);
-
-    // Invoke when user click to request another page.
-    const handlePageClick = (event) => {
-        const newOffset = event.selected * itemsPerPage % subscribers.length;
-        console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
-        setItemOffset(newOffset);
-    };
-
-    return (
-        <nav className='flex items-center gap-2' aria-label="Page navigation example">
-            <p className='text-sm'>Pages</p>
-            <ul className="inline-flex items-center -space-x-px">
-                <li>
-                    <button type='button' className="block py-2 px-3 ml-0 leading-tight text-red-600 bg-white rounded-l-lg border border-red-300 hover:bg-red-100 hover:text-black ">
-                        <span className="sr-only">Previous</span>
-                        <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                    </button>
-                </li>
-                {pages.map((page) => (
-
-                    <li key={page}>
-                        <button onClick={handlePageClick} type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">
-                            {page}
-                        </button>
-                    </li>
-                ))}
-                {/* <li>
-                    <button type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">2</button>
-                </li>
-                <li>
-                    <button type='button' aria-current="page" className="z-10 py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black ">3</button>
-                </li>
-                <li>
-                    <button type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">4</button>
-                </li>
-                <li>
-                    <button type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black ">5</button>
-                </li> */}
-                <li>
-                    <button type='button' className="block py-2 px-3 leading-tight text-red-600 bg-white rounded-r-lg border border-red-300 hover:bg-red-100 hover:text-black ">
-                        <span className="sr-only">Next</span>
-                        <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
-                    </button>
-                </li>
-            </ul>
-        </nav>
-    )
-}
-
-function Pagenation({ page, setPage }) {
-    let total = 50
-    return (
-        <nav className='flex items-center gap-2' aria-label="Page navigation example">
-            <p className='text-sm'>Pages</p>
-            <ul className="inline-flex items-center -space-x-px">
-                <li>
-                    <button type='button' onClick={() => setPage(page - 1)} className="block py-2 px-3 ml-0 leading-tight text-red-600 bg-white rounded-l-lg border border-red-300 hover:bg-red-100 hover:text-black ">
-                        <span className="sr-only">Previous</span>
-                        <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
-                    </button>
-                </li>
-                {total > 24 && (
-                    [0, 1, 2, 3].map((pages) => (
-                        <li key={pages}>
-                            <button onClick={() => setPage(pages + 1)} type='button' className="py-2 px-3 leading-tight text-red-600 bg-white border border-red-300 hover:bg-red-100 hover:text-black">{pages + 1}</button>
-                        </li>
-                    ))
-                )}
-                <li>
-                    <button type='button' onClick={() => setPage(1 + page)} className="block py-2 px-3 leading-tight text-red-600 bg-white rounded-r-lg border border-red-300 hover:bg-red-100 hover:text-black ">
-                        <span className="sr-only">Next</span>
-                        <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
-                    </button>
-                </li>
-            </ul>
-        </nav>
     )
 }
 
