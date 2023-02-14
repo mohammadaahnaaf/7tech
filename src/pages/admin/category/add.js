@@ -1,7 +1,7 @@
+import { AddCategory } from '@seventech/admin'
 import Head from 'next/head'
 import React from 'react'
-import { AddCategory } from '../../../components'
-import { withAuth } from '../../../hoc/withAuth'
+import { withAuth } from 'src/hoc/withAuth'
 
 function AddCategoryPage() {
     return (

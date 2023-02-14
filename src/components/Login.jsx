@@ -143,7 +143,7 @@ export function Logins() {
     )
 }
 
-export default function Login() {
+export function Login() {
     return (
         <>
             <BasicNavbar />

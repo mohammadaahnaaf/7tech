@@ -3,7 +3,7 @@ import { Category } from './Category'
 import React from 'react'
 
 
-export function Details() {
+export function CategoryDetails() {
 
     const [searchTerm, setSearchTerm] = React.useState('')
 

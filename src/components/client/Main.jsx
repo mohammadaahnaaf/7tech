@@ -4,7 +4,7 @@ import Layout from '../layout/Layout'
 import { Shop } from './Shop'
 import axiosRoot from '../utils/axios-root'
 
-export function Main({ setIntro }) {
+export function Main() {
 
     const [searchTerm, setSearchTerm] = React.useState('')
     const [home, setHome] = React.useState([]);
@@ -14,8 +14,6 @@ export function Main({ setIntro }) {
         async function getProducts() {
             const res = await axiosRoot.get('/products/featured-on-home');
             setHome(res.data)
-            // setProducts(res.data)
-            setIntro(false)
         }
         getProducts()
     }, []);

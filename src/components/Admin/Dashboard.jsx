@@ -3,7 +3,7 @@ import AdminLayout from '../layout/AdminLayout'
 // import { ProductsLists } from './products/ProductsList'
 import axiosRoot from '../utils/axios-root';
 import axiosAPI from '../utils/axios-api';
-import { Order } from './orders/Orders';
+import { Order } from './orders/OrderList';
 
 function Dashboards() {
 
@@ -54,12 +54,11 @@ function Dashboards() {
   )
 }
 
-export default function Dashboard() {
+export function Dashboard() {
   return (
     <AdminLayout>
       <Dashboards />
       <Order />
-      {/* <ProductsLists /> */}
     </AdminLayout>
   )
 }

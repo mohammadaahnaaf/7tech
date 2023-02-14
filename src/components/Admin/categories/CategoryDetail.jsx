@@ -222,7 +222,7 @@ export function Detail() {
   )
 }
 
-export default function Details() {
+export function CategoryDetail() {
   return (
     <AdminLayout>
       <Detail />

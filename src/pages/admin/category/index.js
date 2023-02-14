@@ -1,7 +1,7 @@
+import { CategoriesList } from '@seventech/admin'
 import Head from 'next/head'
 import React from 'react'
-import { CategoriesList } from '../../../components'
-import { withAuth } from '../../../hoc/withAuth'
+import { withAuth } from 'src/hoc/withAuth'
 
 function CategoryPage() {
     return (

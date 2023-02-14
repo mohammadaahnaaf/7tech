@@ -243,7 +243,7 @@ const Detail = () => {
     )
 }
 
-export function Details() {
+export function OrderDetails() {
     return (
         <AdminLayout>
             <Detail />

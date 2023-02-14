@@ -1,7 +1,6 @@
 import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../components/layout/AdminLayout';
-// import axiosAPI from '../components/utils/axios-api';
 
 // export const withAuth = (Component) => {
 //     const AuthComponent = () => {
@@ -27,7 +26,6 @@ import AdminLayout from '../components/layout/AdminLayout';
 
 //     return AuthComponent;
 // }
-
 
 function Loading() {
 
@@ -70,7 +68,7 @@ export const withAuth = (Component, pageProps) => {
             const token = localStorage.getItem("access_token");
             setIsLoggedIn(!!token)
             if (!token) {
-                setTimeout(() => { Router.push('/login') }, 500)
+                setTimeout(() => { Router.push('/login') }, 200)
             }
 
         }, [router, isLoggedIn]);

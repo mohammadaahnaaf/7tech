@@ -1,6 +1,6 @@
+import { Signin } from '@seventech/Signin'
 import Head from 'next/head'
 import React from 'react'
-import Signin from '../components/Signin'
 
 function SigninPage() {
     return (

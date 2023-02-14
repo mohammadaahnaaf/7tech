@@ -248,7 +248,7 @@ export function ProductsLists() {
   )
 }
 
-export default function ProductsList() {
+export function ProductList() {
   return (
     <AdminLayout>
       <ProductsLists />

@@ -5,7 +5,7 @@ import axiosRoot from './utils/axios-root'
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 import Router from 'next/router'
 
-export default function Signin() {
+export function Signin() {
 
 
     const [error, setError] = useState("")

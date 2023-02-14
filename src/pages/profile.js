@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
-import { Profile } from '../components'
 import { withAuth } from '../hoc/withAuth'
+import { Profile } from '@seventech/client'
 
 function ProfilePage() {
     return (

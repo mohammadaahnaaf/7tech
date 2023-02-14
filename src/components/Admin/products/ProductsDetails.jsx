@@ -790,7 +790,7 @@ const Detail = () => {
   )
 }
 
-export function Details() {
+export function ProductsDetails() {
   return (
     <AdminLayout>
       <Detail />

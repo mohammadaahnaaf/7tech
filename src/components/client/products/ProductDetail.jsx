@@ -78,13 +78,6 @@ export function Details() {
         }
     }
 
-    // const incrementQty = () => {
-    //     setQty(count => count + 1);
-    // }
-    // const decrementQty = () => {
-    //     setQty(count => count - 1);
-    // }
-
     function handleScroll(e) {
         e.preventDefault()
         setShow('reviews')
@@ -273,7 +266,7 @@ export function Details() {
                                                 Stock Status:
                                             </th>
                                             <td className=" py-2">
-                                                {product.quantity === 0 ? 'Stock Out' : 'In Stock'}
+                                                {product?.quantity !== 0 ? 'In Stock' : 'Stock Out'}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -556,47 +549,10 @@ export function Details() {
     )
 }
 
-export function Detail() {
+export function ProductDetail() {
     return (
         <Layout>
             <Details />
         </Layout>
     )
 }
-
-// export const relatedProducts = [
-//     {
-//         name: 'ReDragon Keyboard',
-//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-//         price: 100,
-//         _id: '63d4aaa2950803a7a4c6403d',
-//     },
-//     {
-//         name: 'ReDragon Keyboard',
-//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-//         _id: '63d4aaa2950803a7a4c6403d',
-//         price: 100,
-
-//     },
-//     {
-//         name: 'ReDragon Keyboard',
-//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-//         price: 100,
-//         _id: '63d4aaa2950803a7a4c6403d',
-
-//     },
-//     {
-//         name: 'ReDragon Keyboard',
-//         price: 100,
-
-//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-//         _id: '63d4aaa2950803a7a4c6403d',
-//     },
-//     {
-//         name: 'ReDragon Keyboard',
-//         price: 100,
-
-//         "images": ["https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-01-500x500-1672822103678.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-04-500x500-1672822104084.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-02-500x500-1672822104263.jpeg", "https://seventech.s3.ap-southeast-1.amazonaws.com/gaia-c211-white-03-500x500-1672822104405.jpeg"],
-//         _id: '63d4aaa2950803a7a4c6403d',
-//     },
-// ]

@@ -710,7 +710,7 @@ function Others() {
     </div>
   )
 }
-export default function Settings() {
+export function Settings() {
 
   return (
     <AdminLayout>

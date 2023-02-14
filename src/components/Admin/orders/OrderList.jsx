@@ -189,7 +189,7 @@ export function Order() {
   )
 }
 
-export default function Orders() {
+export function OrderList() {
   return (
     <AdminLayout>
       <Order />

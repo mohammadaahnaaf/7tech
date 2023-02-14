@@ -1,6 +1,6 @@
+import { Cart } from '@seventech/client';
 import Head from 'next/head'
 import React from 'react'
-import { Cart } from '../components';
 
 function CartPage() {
     return (

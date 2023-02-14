@@ -3,16 +3,14 @@ import { TrashIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
-// import { Editor } from 'react-draft-wysiwyg';
 import { TagsInput } from "react-tag-input-component";
 import { v4 as uuidv4 } from 'uuid';
 import AdminLayout from '../../layout/AdminLayout';
 import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const Detail = () => {
+const Add = () => {
 
     const router = useRouter()
 
@@ -647,7 +645,7 @@ const Detail = () => {
 export function AddProduct() {
     return (
         <AdminLayout>
-            <Detail />
+            <Add />
         </AdminLayout>
     )
 }

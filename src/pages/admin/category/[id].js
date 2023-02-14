@@ -1,7 +1,7 @@
+import { CategoryDetail } from '@seventech/admin'
 import Head from 'next/head'
 import React from 'react'
-import Details from '../../../components/Admin/categories/Details'
-import { withAuth } from '../../../hoc/withAuth'
+import { withAuth } from 'src/hoc/withAuth'
 
 function CategoryDetailsPage() {
     return (
@@ -11,7 +11,7 @@ function CategoryDetailsPage() {
                 <meta name="description" content="Ahnaf and Tanvir made this site" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Details />
+            <CategoryDetail />
         </>
     )
 
