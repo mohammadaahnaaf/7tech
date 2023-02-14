@@ -15,12 +15,12 @@ const navigation = [
         name: 'Home', href: '/',
         icon: <HomeIcon className='h-5 w-5 mr-1' />
     },
-    {
-        name: 'Categories', href: '/category',
-        icon: <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5 mr-1' fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-        </svg>
-    },
+    // {
+    //     name: 'Categories', href: '/category',
+    //     icon: <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5 mr-1' fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    //         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+    //     </svg>
+    // },
     {
         name: 'Cart',
         href: '/cart',
@@ -60,25 +60,19 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Navbar({ setSearchTerm }) {
+function Navbar({ setSearchTerm, setOpen }) {
 
     const [useri, setUseri] = useState(false);
     const { pathname, router } = useRouter();
     const { totalUniqueItems } = useCart()
 
     useEffect(() => {
-        if (!useri) {
-            axiosAPI
-                .get('/auth/get-me')
-                .then(res => {
-                    setUseri(!!res.data.email);
-                })
-                .catch(error => {
-                    console.log(error);
-                    // Router.push('/login')
-                });
-        }
-    }, []);
+
+        const topG = localStorage.getItem('access_token');
+        setUseri(!!topG);
+        // console.log("topg :" + topG)
+
+    }, [router]);
 
     async function handleLogout(e) {
 
@@ -231,20 +225,41 @@ function Navbar({ setSearchTerm }) {
                             <Disclosure.Panel className="md:hidden border-t-2 border-gray-600 bg-black">
                                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                                     {navigation.map((item) => (
-                                        <Disclosure.Button
-                                            key={item.name}
-                                            as="a"
-                                            href={item.href}
-                                            className={classNames(
-                                                pathname === item.href ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
-                                                'flex px-3 py-2 text-red-600 rounded-md text-base font-medium'
-                                            )}
-                                            aria-current={item.current ? 'page' : undefined}
-                                        >
-                                            {item.icon} {item.name}
-                                        </Disclosure.Button>
+                                        <>
+
+                                            <Disclosure.Button
+                                                key={item.name}
+                                                as="a"
+                                                href={item.href}
+                                                className={classNames(
+                                                    pathname === item.href ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
+                                                    'flex px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                                )}
+                                                aria-current={item.current ? 'page' : undefined}
+                                            >
+                                                {item.icon} {item.name}
+                                            </Disclosure.Button>
+
+                                            <Disclosure.Button
+                                                key={1000}
+                                                as="button"
+                                                onClick={() => setOpen(true)}
+                                                // href={item.href}
+                                                className={classNames(
+                                                    pathname === '/category/' ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
+                                                    'flex px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                                )}
+                                            // aria-current={item.current ? 'page' : undefined}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5 mr-1' fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                                                </svg>
+                                                <span>Categories</span>
+                                            </Disclosure.Button>
+                                        </>
                                     ))}
                                 </div>
+
                                 <div className="pt-2 pb-3 border-t-2 border-gray-600">
 
                                     <div className="mt-3 px-2 space-y-1">
@@ -265,7 +280,7 @@ function Navbar({ setSearchTerm }) {
                     </>
                 )}
             </Disclosure>
-        </div >
+        </div>
     )
 }
 

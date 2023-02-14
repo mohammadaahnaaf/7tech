@@ -35,7 +35,7 @@ export function Logins() {
             localStorage.setItem('refresh_token', refresh_token);
             Router.push('/admin')
         } catch (error) {
-            if(error.response){
+            if (error.response) {
                 console.log(error.response.data);
                 setError(error.response?.data?.message)
                 // Router.push('/login')
@@ -53,9 +53,9 @@ export function Logins() {
                         alt="seventech logo"
                     />
                     <h2 className="mt-6 text-center text-2xl md:text-3xl font-extrabold text-white">Login Here</h2>
-                    <p className="mt-2 text-center text-sm text-red-400">
+                    <p className="mt-2 text-center text-sm text-blue-500">
                         Don't have an account?{' '}
-                        <a href="signin" className="font-medium text-red-200 hover:text-black">
+                        <a href="signin" className="font-medium text-red-500 hover:text-white">
                             Sign Up
                         </a>
                     </p>
@@ -118,21 +118,21 @@ export function Logins() {
                             </Link>
                         </div>
                         {/* <div className="flex items-center w-full">
-                            <input
-                                id="remember-me"
-                                name="remember-me"
-                                type="checkbox"
-                                className="h-4 w-4 text-red-600 focus:ring-black border-gray-300 rounded"
-                            />
-                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                                I agree to the terms and conditions.
-                            </label>
-                        </div> */}
+                        <input
+                            id="remember-me"
+                            name="remember-me"
+                            type="checkbox"
+                            className="h-4 w-4 text-red-600 focus:ring-black border-gray-300 rounded"
+                        />
+                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                            I agree to the terms and conditions.
+                        </label>
+                    </div> */}
                     </div>
                     <div>
                         <button
                             type="submit"
-                            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-opacity-60 bg-opacity-40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-black focus:bg-red-500 focus:outline-none"
                         >
                             Login
                         </button>

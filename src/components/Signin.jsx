@@ -1,4 +1,4 @@
-import Navbar from './shared/Navbar'
+import { BasicNavbar } from './shared/Navbar'
 import Footer from './shared/Footer'
 import { useState } from 'react'
 import axiosRoot from './utils/axios-root'
@@ -32,16 +32,17 @@ export default function Signin() {
             }
 
             if (data.get('password') === data.get('confirm-password')) {
+
                 const res = await axiosRoot.post('/auth/signup', reqData);
+
+                const { access_token, refresh_token } = res.data;
+                localStorage.setItem('access_token', access_token);
+                localStorage.setItem('refresh_token', refresh_token);
+                Router.push('/')
+
             } else {
                 setError("Password didn't match.")
             }
-
-            const { access_token, refresh_token } = res.data;
-            localStorage.setItem('access_token', access_token);
-            localStorage.setItem('refresh_token', refresh_token);
-            Router.push('/')
-
         } catch (error) {
             console.log(error.response);
             setError(error.response?.data?.message)
@@ -52,31 +53,31 @@ export default function Signin() {
 
     return (
         <>
-            <Navbar />
-            <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md w-full space-y-8">
+            <BasicNavbar />
+            <div className="min-h-screen bg-[url('/spinner.png')] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-md w-full space-y-8 bg-black bg-opacity-20 rounded-lg p-3">
                     <div>
                         <img
                             className="mx-auto h-16 w-auto"
                             src="/logo.png"
                             alt="seven tech"
                         />
-                        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign Up Here</h2>
-                        <p className="mt-2 text-center text-sm text-gray-600">
+                        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-200">Sign Up Here</h2>
+                        <p className="mt-2 text-center text-sm text-blue-500">
                             Already have an account?{' '}
-                            <a href="login" className="font-medium text-red-400 hover:text-black">
+                            <a href="login" className="font-medium text-red-500 hover:text-white">
                                 Login
                             </a>
                         </p>
                     </div>
 
                     {error && (
-                        <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
+                        <div class="p-3 my-2 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
                             <span class="font-medium">Warning!</span> {error}
                         </div>
                     )}
 
-                    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                    <form className="mt-5 space-y-6" onSubmit={handleSubmit}>
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
@@ -87,7 +88,7 @@ export default function Signin() {
                                     id="fullName"
                                     name="fullName"
                                     type="text"
-                                    autoComplete="fullName"
+                                    // autoComplete="fullName"
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
                                     placeholder="Full name"
@@ -101,7 +102,7 @@ export default function Signin() {
                                     id="phone"
                                     name="phone"
                                     type="tel"
-                                    autoComplete="phone"
+                                    // autoComplete="phone"
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
                                     placeholder="Phone number"
@@ -115,7 +116,7 @@ export default function Signin() {
                                     id="email"
                                     name="email"
                                     type="email"
-                                    autoComplete="email"
+                                    // autoComplete="email"
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
                                     placeholder="Email address"
@@ -129,7 +130,7 @@ export default function Signin() {
                                     id="password"
                                     name="password"
                                     type={showPass}
-                                    autoComplete="current-password"
+                                    // autoComplete="current-password"
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     placeholder="Password"
@@ -152,7 +153,7 @@ export default function Signin() {
                                     id="confirm-password"
                                     name="confirm-password"
                                     type={showPass}
-                                    autoComplete="current-password"
+                                    // autoComplete="current-password"
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     placeholder="Confirm password"
@@ -170,7 +171,7 @@ export default function Signin() {
                         </div>
 
                         <div className="flex items-center justify-end">
-                            <div className="flex items-center">
+                            <div className="hidden items-center">
                                 <input
                                     id="remember-me"
                                     name="remember-me"
@@ -192,7 +193,7 @@ export default function Signin() {
                         <div>
                             <button
                                 type="submit"
-                                className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-black focus:bg-red-500 focus:outline-none"
                             >
                                 Signup
                             </button>

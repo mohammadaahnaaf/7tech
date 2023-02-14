@@ -5,10 +5,12 @@ import Navbar from '../shared/Navbar'
 
 function Layout({ children, setSearchTerm }) {
 
+    const [open, setOpen] = React.useState(false)
+
     return (
         <>
-            <Navbar setSearchTerm={setSearchTerm} />
-            <CategoryBar />
+            <Navbar setOpen={setOpen} setSearchTerm={setSearchTerm} />
+            <CategoryBar open={open} setOpen={setOpen} />
             <div className='border-0 border-red-600'>
                 {children}
             </div>

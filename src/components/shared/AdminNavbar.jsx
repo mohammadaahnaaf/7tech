@@ -7,22 +7,15 @@ import Link from 'next/link'
 import axiosAPI from '../utils/axios-api'
 
 
-// const user = {
-//     name: 'Ahnaf',
-//     email: 'ahnaf1998ff@gmail.com',
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-// }
-
-
 const navigation = [
+    { name: 'Home', href: '/' },
     { name: 'Dashboard', href: '/admin' },
     { name: 'Products', href: '/admin/products' },
-    { name: 'Add Product', href: '#' },
+    { name: 'Add Product', href: '/admin/products/add' },
     { name: 'Orders', href: '/admin/orders' },
-    { name: 'Subscribers', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Home', href: '/' },
+    { name: 'Customers', href: 'admin/subscribers' },
+    { name: 'Admins', href: 'admin/subscribers' },
+    { name: 'Settings', href: '/admin/settings' },
 ]
 const userNavigation = [
     { name: 'Home', href: '/', state: true },

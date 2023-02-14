@@ -10,10 +10,10 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export function CategoryBar() {
+export function CategoryBar({ open, setOpen }) {
 
     const router = useRouter()
-    const [open, setOpen] = useState(false)
+
     const [categories, setCategories] = useState([])
 
     //Get Data
@@ -87,7 +87,7 @@ export function CategoryBar() {
                                     <Tab.Panels as={Fragment}>
                                         {categories.map((category) => (
                                             <Tab.Panel key={category.name} className="pt-5 pb-5 bg-black px-4 -z-50 space-y-5">
-                                      
+
                                                 <div>
                                                     <ul
                                                         role="list"
@@ -116,7 +116,7 @@ export function CategoryBar() {
             </Transition.Root>
 
             {/* PC menu view  */}
-            <header className="relative max-h-10 bg-red-600">
+            <header className="relative max-h-10 lg:block hidden bg-red-600">
 
                 <div area-position='fixed' aria-label="Top" className="max-w-7xl max-h-10 mx-auto px-4 sm:px-6 xl:px-8">
                     <div>
