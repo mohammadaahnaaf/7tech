@@ -1,4 +1,4 @@
-import { OrderDetails } from '@seventech/admin'
+import { OrderDetails } from '@seventech/Admin'
 import Head from 'next/head'
 import React from 'react'
 import { withAuth } from 'src/hoc/withAuth'

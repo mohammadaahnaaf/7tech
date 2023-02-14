@@ -243,7 +243,7 @@ function Subscriber() {
     )
 }
 
-export default function Subscribers() {
+export function Subscribers() {
     return (
         <AdminLayout>
             <Subscriber />

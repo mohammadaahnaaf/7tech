@@ -2,7 +2,6 @@ import { ProductList } from '@seventech/Admin'
 import Head from 'next/head'
 import React from 'react'
 import { withAuth } from 'src/hoc/withAuth'
-// import { withAuth } from '../../../hoc/withAuth'
 
 
 function ProductsPage() {

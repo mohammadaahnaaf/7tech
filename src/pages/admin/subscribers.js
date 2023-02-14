@@ -1,7 +1,7 @@
+import { Subscribers } from '@seventech/Admin'
 import Head from 'next/head'
 import React from 'react'
-import Subscribers from '../../components/Admin/Subscribers'
-import { withAuth } from '../../hoc/withAuth'
+import { withAuth } from 'src/hoc/withAuth'
 
 function SubscribersPage() {
   return (
