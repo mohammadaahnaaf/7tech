@@ -195,7 +195,7 @@ export function Details() {
                     <div className='rounded-sm ring-0 ring-gray-200 col-span-5 lg:col-span-2'>
 
                         <div className='grid gap-4 py-4 items-center'>
-                            {images.slice(view - 1, view).map((item, index) => (
+                            {images?.slice(view - 1, view).map((item, index) => (
                                 <div className='relative cursor-pointer flex items-center mx-auto' key={index}>
                                     <Image
                                         height={512}
@@ -212,8 +212,8 @@ export function Details() {
                                 </div>
                             ))}
                             <div className='flex gap-4 items-center justify-between'>
-                                {images.map((item, index) => (
-                                    <button type='button' className='ring-2 justify-center items-center flex ring-gray-200 rounded-sm w-full' onClick={() => setView(index + 1)} key={index}>
+                                {images?.map((item, index) => (
+                                    <button key={index} type='button' className='ring-2 justify-center items-center flex ring-gray-200 rounded-sm w-full' onClick={() => setView(index + 1)}>
                                         <Image
                                             height={120}
                                             width={120}
@@ -510,7 +510,7 @@ export function Details() {
                                                 {[0, 1, 2, 3, 4].map((rating, index) => (
                                                     <button type='button' onClick={() => setStar(index + 1)}>
                                                         <StarIcon
-                                                            key={rating}
+                                                            key={index}
                                                             className={classNames(
                                                                 star > rating ? 'text-red-600' : 'text-red-200',
                                                                 'h-6 w-6 flex-shrink-0 ring-red-200 ring-2 rounded bg-white mx-1'
@@ -536,7 +536,7 @@ export function Details() {
                 <div className='bg-white mt-4 md:max-w-7xl mx-auto w-full'>
                     <h1 className='text-center bg-black px-4 py-2 font-medium text-xl text-gray-50'>Related Products</h1>
                     <div className='grid grid-cols-10 w-full gap-2 bg-gray-50 p-4'>
-                        {relatedProductsId.map((id, index) =>
+                        {relatedProductsId?.map((id, index) =>
                             <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
                                 <Product productId={id} />
                             </div>

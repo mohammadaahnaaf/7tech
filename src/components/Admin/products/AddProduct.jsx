@@ -10,7 +10,7 @@ import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
 
-const Add = () => {
+function Add() {
 
     const router = useRouter()
 
@@ -40,18 +40,6 @@ const Add = () => {
 
         setFiles((previousImages) => previousImages.concat(imagesArray));
 
-        // for (let i = 0; i < file.length; i++) {
-        //     let fileType = file[i]['type'];
-        //     const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg'];
-        //     if (validImageTypes.includes(fileType)) {
-        //         setFiles([...files, file[i]]);
-        //     } else {
-        //         setError("only images accepted");
-        //     }
-        // }
-
-        // console.log(file)
-        // console.log(files)
     };
 
     // remove selected images 
@@ -197,8 +185,8 @@ const Add = () => {
         async function getCategory() {
             const res = await axiosRoot.get('/categories');
             setCats(res.data)
-            // let item = res.data.find((x) => x.name === category)
-            // setSubCats(item?.subCategories)
+            setCategory(res?.data[0].name)
+            
         }
         getCategory()
 

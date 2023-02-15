@@ -2,9 +2,7 @@ import React from 'react'
 import { ShoppingCartIcon } from '@heroicons/react/outline'
 import { useCart } from 'react-use-cart'
 import axiosRoot from '../utils/axios-root';
-import Product from './products/Product';
 import Link from 'next/link';
-import Products from './products/Products';
 import { ProductCards } from './products/ProductCard';
 
 export function Shop({ items, title, term, key }) {
@@ -80,10 +78,10 @@ export function ProductCard({ setiCategory, product }) {
           <ShoppingCartIcon className='h-7 w-7' />
         </button>
       </div>
-      {images.slice(0, 1).map((item, index) => (
+      {images?.slice(0, 1).map((item, index) => (
         <div key={index} className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden group-hover:opacity-75 lg:aspect-none lg:h-80">
           <img
-            src={`${item}` || product?.imageSrc}
+            src={item}
             alt='product image'
             className="h-full w-full z-10 object-cover object-center lg:h-full lg:w-full"
           />

@@ -1,6 +1,5 @@
 import { ShoppingCartIcon } from '@heroicons/react/solid'
 import Link from 'next/link';
-// import { useRouter } from 'next/router';
 import React from 'react'
 import { useCart } from 'react-use-cart';
 import axiosRoot from '../../utils/axios-root';
@@ -18,13 +17,11 @@ function Product({ productId, key }) {
             const res = await axiosRoot.get(`/products/${productId}`);
             setImages(res.data.images)
             setProduct(res.data)
-            // setiCategory(product.category)
-            console.log(product)
         }
         productId && getImages()
     }, []);
 
-    const cartProduct = {
+    let cartProduct = {
         id: product?._id,
         imageSrc: images[0],
         name: product.name,
@@ -45,7 +42,7 @@ function Product({ productId, key }) {
                     <ShoppingCartIcon className='h-7 w-7' />
                 </button>
             </div>
-            {images.slice(0, 1).map((item, index) => (
+            {images?.slice(0, 1).map((item, index) => (
                 <div key={index} className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden group-hover:opacity-75 lg:aspect-none lg:h-80">
                     <img
                         src={`${item}` || product?.imageSrc}
