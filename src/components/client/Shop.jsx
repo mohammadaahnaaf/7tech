@@ -64,7 +64,7 @@ export function ProductCard({ setiCategory, product }) {
     id: product._id,
     imageSrc: images[0],
     name: product.name,
-    price: product.price,
+    price: product.onlinePrice,
     category: product.category,
     quantity: 1
   }
@@ -97,7 +97,7 @@ export function ProductCard({ setiCategory, product }) {
               </a>
             </Link>
           </h3>
-          <p className="mt-1 text-end text-md text-green-500">৳ {product.price}</p>
+          <p className="mt-1 text-end text-md text-green-500">৳ {product.onlinePrice}</p>
         </div>
       </div>
     </div>

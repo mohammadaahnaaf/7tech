@@ -186,7 +186,7 @@ function Add() {
             const res = await axiosRoot.get('/categories');
             setCats(res.data)
             setCategory(res?.data[0].name)
-            
+
         }
         getCategory()
 
@@ -639,6 +639,7 @@ export function AddProduct() {
 }
 
 export function ProductCard({ product, add, key, isItemSelected }) {
+    
 
     return (
         <div key={key} className="bg-white shadow-md border border-gray-200 rounded-lg">
@@ -651,17 +652,16 @@ export function ProductCard({ product, add, key, isItemSelected }) {
                     />
                 </a>
             </Link>
-            <div className="p-2 h-28 grid gap-2 items-center content-between">
-                <Link href={`/product/${product._id}`}>
-                    <a className="text-gray-900 font-bold text-md tracking-tight">{product.name}</a>
-                </Link>
-                <div>
-                    <input onChange={add} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
+            <div className="h-[14vh] grid grid-cols-1 gap-2 content-between">
+                <div className='p-2'>
+                    <Link href={`/product/${product._id}`}>
+                        <a className="text-gray-900 font-medium text-md tracking-tight">{product.name.substring(0,28)}</a>
+                    </Link>
+                </div>
+                <div className='px-2 py-1 bg-red-600 hover:bg-green-500 rounded-b-md'>
+                    <input onChange={add} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 focus:outline-none focus:border-0 rounded border-gray-300 focus:ring-0 ring-white ring-2" />
                     <label htmlFor="checkbox" className="sr-only">checkbox</label>
                 </div>
-                {/* <button onClick={() => add(product)} type='button' className="w-full items-center text-sm !text-center text-red-600 hover:text-white bg-white hover:bg-red-600 ring-2 ring-red-600 focus:ring-red-300 font-medium rounded-md px-3 py-2">
-                    Add
-                </button> */}
             </div>
         </div>
     )
