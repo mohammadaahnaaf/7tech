@@ -1,5 +1,5 @@
-import '../styles/globals.css'
 import '../styles/tag.css'
+import '../styles/globals.css'
 import { CartProvider } from 'react-use-cart';
 
 function MyApp({ Component, pageProps }) {
