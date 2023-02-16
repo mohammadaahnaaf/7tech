@@ -15,12 +15,6 @@ const navigation = [
         name: 'Home', href: '/',
         icon: <HomeIcon className='h-5 w-5 mr-1' />
     },
-    // {
-    //     name: 'Categories', href: '/category',
-    //     icon: <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5 mr-1' fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    //         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-    //     </svg>
-    // },
     {
         name: 'Cart',
         href: '/cart',
@@ -70,7 +64,6 @@ function Navbar({ setSearchTerm, setOpen }) {
 
         const topG = localStorage.getItem('access_token');
         setUseri(!!topG);
-        // console.log("topg :" + topG)
 
     }, [router]);
 
@@ -91,22 +84,20 @@ function Navbar({ setSearchTerm, setOpen }) {
                     <>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
-                                <div className="grid items-center grid-cols-12 w-full">
-                                    <div className="hidden md:block h-8">
-                                        <Link href='/'>
-                                            <a className='h-20 w-full'>
-                                                <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
-                                            </a>
-                                        </Link>
-                                    </div>
+                                <div className=" h-8">
+                                    <Link href='/'>
+                                        <a className='h-20 w-full'>
+                                            <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
+                                        </a>
+                                    </Link>
+                                </div>
 
-                                    {/* Search Bar  */}
-                                    <div className='col-span-11 mx-auto md:w-[40%]'>
-                                        <Search setSearchTerm={setSearchTerm} />
-                                    </div>
+                                {/* Search Bar  */}
+                                <div className='hidden md:block col-span-1 w-full justify-center'>
+                                    <Search setSearchTerm={setSearchTerm} />
                                 </div>
                                 <div className="hidden md:block">
-                                    <div className="ml-4 flex items-center md:ml-6">
+                                    <div className="flex items-center">
 
                                         {/* Cart  */}
                                         <button
@@ -125,23 +116,12 @@ function Navbar({ setSearchTerm, setOpen }) {
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="ml-3 relative">
                                             <div>
-                                                {/* {useri ? ( */}
                                                 <Menu.Button className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800">
                                                     <span className="sr-only">Open user menu</span>
                                                     <svg className="h-6 w-6 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                     </svg>
                                                 </Menu.Button>
-                                                {/* ) : ( */}
-                                                {/* <div className='flex justify-between gap-2 mx-3'>
-                                                        <Link href='/signin'>
-                                                            <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Signup</a>
-                                                        </Link>
-                                                        <Link href='/login'>
-                                                            <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Login</a>
-                                                        </Link>
-                                                    </div> */}
-                                                {/* )} */}
                                             </div>
                                             <Transition
                                                 as={Fragment}
@@ -153,6 +133,8 @@ function Navbar({ setSearchTerm, setOpen }) {
                                                 leaveTo="transform opacity-0 scale-95"
                                             >
                                                 <Menu.Items className="origin-top-right absolute z-40 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gradient-to-r from-black to-red-900 ring-1 ring-red-600 ring-opacity-20 focus:outline-none">
+
+
                                                     {userNavigation.map((item) => (
                                                         <Menu.Item key={item.name}>
                                                             {({ active }) => (
@@ -224,40 +206,46 @@ function Navbar({ setSearchTerm, setOpen }) {
                         >
                             <Disclosure.Panel className="md:hidden border-t-2 border-gray-600 bg-black">
                                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                                    {navigation.map((item) => (
-                                        <>
-
-                                            <Disclosure.Button
-                                                key={item.name}
-                                                as="a"
-                                                href={item.href}
-                                                className={classNames(
-                                                    pathname === item.href ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
-                                                    'flex px-3 py-2 text-red-600 rounded-md text-base font-medium'
-                                                )}
-                                                aria-current={item.current ? 'page' : undefined}
-                                            >
-                                                {item.icon} {item.name}
-                                            </Disclosure.Button>
-
-                                            <Disclosure.Button
-                                                key={1000}
-                                                as="button"
-                                                onClick={() => setOpen(true)}
-                                                // href={item.href}
-                                                className={classNames(
-                                                    pathname === '/category/' ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
-                                                    'flex px-3 py-2 text-red-600 rounded-md text-base font-medium'
-                                                )}
-                                            // aria-current={item.current ? 'page' : undefined}
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5 mr-1' fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-                                                </svg>
-                                                <span>Categories</span>
-                                            </Disclosure.Button>
-                                        </>
+                                    <Disclosure.Button
+                                        as='div'
+                                        className='py-2'
+                                    >
+                                        <Search setSearchTerm={setSearchTerm} />
+                                    </Disclosure.Button>
+                                    {navigation.map((item, index) => (
+                                        <Disclosure.Button
+                                            key={index}
+                                            as="a"
+                                            href={item.href}
+                                            className={classNames(
+                                                pathname === item.href ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
+                                                'flex items-center px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                            )}
+                                            aria-current={item.current ? 'page' : undefined}
+                                        >
+                                            {item.icon} {item.name}
+                                            {item.name === "Cart" && (
+                                                <span className="flex h-5 w-5 mx-2 rounded-full bg-red-600 bg-opacity-50 justify-center">
+                                                    <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
+                                                    <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
+                                                </span>
+                                            )}
+                                        </Disclosure.Button>
                                     ))}
+                                    <Disclosure.Button
+                                        key={1000}
+                                        as="button"
+                                        onClick={() => setOpen(true)}
+                                        className={classNames(
+                                            pathname.includes('/category/') ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
+                                            'flex px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                        )}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5 mr-1' fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                                        </svg>
+                                        <span>Categories</span>
+                                    </Disclosure.Button>
                                 </div>
 
                                 <div className="pt-2 pb-3 border-t-2 border-gray-600">

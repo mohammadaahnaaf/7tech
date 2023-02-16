@@ -22,7 +22,7 @@ export function Footers() {
     <footer className="p-4 border-t-2 border-red-600 bg-black sm:p-6">
       <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0">
-          <a href="#" className="grid gap-2 items-center justify-items-center">
+          <a href="/" className="grid gap-2 items-center justify-items-center">
             <img src="/logo.png" className="w-auto h-8" alt="Logo" />
             <span className="self-center text-lg font-medium whitespace-nowrap text-white hover:text-red-600">SevenTech Engineering LTD.</span>
           </a>
@@ -88,18 +88,19 @@ export function Footers() {
             <h2 className="mb-3 text-sm font-semibold text-red-600 uppercase">Find us</h2>
             <ul className="text-gray-200">
               <li className="mb-2">
-                <p className='flex items-center hover:text-red-600'>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                  Level-5/39, Kazi Bhaban,
-                </p>
-                <p className=' hover:text-red-600'>
-                  New Elephant Road,
-                </p>
-                <p className=' hover:text-red-600'>
-                  Dhaka-1205, Bangladesh
-                </p>
+                <Link href='https://goo.gl/maps/7nBfZRWCmJXRNqdX8'>
+
+                  <a className='cursor-pointer hover:text-red-600'>
+                    <p className='flex items-center'>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                      </svg>
+                      Level-5/39, Kazi Bhaban,
+                    </p>
+                    <p>New Elephant Road,</p>
+                    <p>Dhaka-1205, Bangladesh</p>
+                  </a>
+                </Link>
                 <Link href='tel:+8801911444466'>
                   <a className='flex items-center mt-2  hover:text-red-600'>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">

@@ -31,6 +31,7 @@ export function Logins() {
 
             const res = await axiosRoot.post('/auth/login', reqData);
             const { access_token, refresh_token } = res.data;
+            console.log(res.data)
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refresh_token', refresh_token);
             Router.push('/admin')
