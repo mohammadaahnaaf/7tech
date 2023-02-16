@@ -206,12 +206,12 @@ function Navbar({ setSearchTerm, setOpen }) {
                         >
                             <Disclosure.Panel className="md:hidden border-t-2 border-gray-600 bg-black">
                                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                                    <Disclosure.Button
+                                    <Disclosure
                                         as='div'
                                         className='py-2'
                                     >
                                         <Search setSearchTerm={setSearchTerm} />
-                                    </Disclosure.Button>
+                                    </Disclosure>
                                     {navigation.map((item, index) => (
                                         <Disclosure.Button
                                             key={index}

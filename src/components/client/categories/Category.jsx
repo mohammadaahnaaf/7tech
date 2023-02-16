@@ -50,7 +50,7 @@ export function Category({ term }) {
 
   const router = useRouter()
   const slug = router.query.id
-  const searchTerm = term
+  let searchTerm = term
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [items, setItems] = useState([])
   const [categories, setCategories] = useState([])
@@ -76,7 +76,7 @@ export function Category({ term }) {
   // Search filter 
   const search = (data) => {
     return data.filter((item) =>
-      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(slug.toLowerCase()))
+      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(slug.toLowerCase(searchTerm)))
     )
   }
 
@@ -312,7 +312,6 @@ export function Category({ term }) {
 
               {/* Product grid */}
               <div className="lg:col-span-10">
-                {/* <div className="h-screen w-full bg-blue-600 rounded-lg border-4 border-dashed border-gray-200 lg:h-full" /> */}
                 <div className='hidden items-center justify-center justify-items-center mx-auto gap-2 md:gap-4 md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4'>
 
                   {search(items)?.map((product) => {

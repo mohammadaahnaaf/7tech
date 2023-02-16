@@ -8,6 +8,7 @@ function Search({ setSearchTerm }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setSearchTerm('')
         const data = new FormData(e.currentTarget);
         const slug = {
             name: data.get('search')
@@ -16,7 +17,7 @@ function Search({ setSearchTerm }) {
     }
 
     function handleSearch(e) {
-        setSearchTerm(e.target.value)
+         setSearchTerm(e.target.value)
     }
 
     return (
