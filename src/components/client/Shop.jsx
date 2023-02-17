@@ -20,17 +20,16 @@ export function Shop({ items, title, term, key }) {
 
   return items.length >= 1 ? (
 
-    <div key={key} className='bg-black px-3 py-3'>
+    <div key={key} className='bg-black grid gap-4 px-2 pt-4'>
       {/* Title  */}
-      <div className='max-w-7xl hover:scale-95 hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
+      <div className='max-w-7xl w-full hover:scale-95 hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
         <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
       </div>
 
-
       <div>
-        <div className="mx-auto mt-4 max-w-7xl">
+        <div className="mx-auto max-w-7xl">
           {/* <Products /> */}
-          <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {search(items)?.map((product, index) => {
               return (
                 <ProductCards key={index} product={product} />
