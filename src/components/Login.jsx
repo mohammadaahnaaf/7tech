@@ -1,10 +1,9 @@
-import { BasicNavbar } from './shared/Navbar'
-import Footer from './shared/Footer'
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 import axiosRoot from './utils/axios-root';
 import { useState } from 'react';
 import Router from 'next/router'
 import Link from 'next/link';
+import { BasicNavbar, Footer } from './shared';
 
 export function Logins() {
 
@@ -39,7 +38,6 @@ export function Logins() {
             if (error.response) {
                 console.log(error.response.data);
                 setError(error.response?.data?.message)
-                // Router.push('/login')
             }
         }
     };

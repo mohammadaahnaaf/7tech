@@ -1,6 +1,6 @@
+import { AdminLayout } from '@seventech/layout';
 import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import AdminLayout from '../components/layout/AdminLayout';
 
 // export const withAuth = (Component) => {
 //     const AuthComponent = () => {

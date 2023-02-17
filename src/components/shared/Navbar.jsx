@@ -3,11 +3,12 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import Router, { useRouter } from 'next/router'
-import Search from './Search'
+import { Search } from './Search'
 import { useCart } from 'react-use-cart'
 import axiosAPI from '../utils/axios-api'
 import Link from 'next/link'
 import { HomeIcon, ShieldCheckIcon, UserCircleIcon, UserIcon } from '@heroicons/react/solid'
+// import { Search } from '.'
 
 
 const navigation = [
@@ -54,7 +55,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Navbar({ setSearchTerm, setOpen }) {
+export function Navbar({ setSearchTerm, setOpen }) {
 
     const [useri, setUseri] = useState(false);
     const { pathname, router } = useRouter();
@@ -420,5 +421,3 @@ export function BasicNavbar() {
         </div>
     )
 }
-
-export default Navbar

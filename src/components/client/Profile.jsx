@@ -1,4 +1,4 @@
-import Layout from "../layout/Layout"
+import { Layout } from '@seventech/layout';
 import React from 'react'
 import axiosAPI from "../utils/axios-api";
 

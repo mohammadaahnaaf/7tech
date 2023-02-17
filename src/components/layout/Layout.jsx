@@ -1,9 +1,8 @@
 import React from 'react'
-import { CategoryBar } from '../client/categories/CategoryBar'
-import { Footers } from '../shared/Footer'
-import Navbar from '../shared/Navbar'
+import { Footers, Navbar } from '@seventech/shared'
+import { CategoryBar } from '@seventech/client'
 
-function Layout({ children, setSearchTerm }) {
+export function Layout({ children, setSearchTerm }) {
 
     const [open, setOpen] = React.useState(false)
 
@@ -18,5 +17,3 @@ function Layout({ children, setSearchTerm }) {
         </>
     )
 }
-
-export default Layout

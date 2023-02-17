@@ -2,10 +2,11 @@ import { TrashIcon } from '@heroicons/react/solid'
 import React from 'react'
 import { useCart } from 'react-use-cart'
 import { cities } from '../../data/placeNames'
-import Layout from '../layout/Layout'
 import axiosRoot from '../utils/axios-root'
-import Success from './Success'
 import Router, { useRouter } from 'next/router'
+import { Layout } from '@seventech/layout'
+import { ErrorText } from '@seventech/shared'
+import { Success } from './Success'
 
 function Checkouts({ setSuccess, setOrder }) {
 
@@ -87,11 +88,7 @@ function Checkouts({ setSuccess, setOrder }) {
 
     return (
         <>
-            {error && (
-                <div className="p-3 my-2 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-                    <span className="font-medium">Warning!</span> {error}
-                </div>
-            )}
+            <ErrorText error={error} />
             <form onSubmit={handleSubmit}>
                 <div className="min-h-full bg-black py-6 sm:px-6 lg:px-8">
                     <div className='max-w-7xl mx-auto grid md:flex justify-center gap-5'>

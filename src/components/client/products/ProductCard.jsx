@@ -1,6 +1,5 @@
 import { ShoppingCartIcon } from '@heroicons/react/solid'
 import Link from 'next/link';
-// import { useRouter } from 'next/router';
 import React from 'react'
 import { useCart } from 'react-use-cart';
 import axiosRoot from '../../utils/axios-root';

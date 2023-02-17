@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react'
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import { dataCategories } from '../../../data/CategoriesData';
-import AdminLayout from '../../layout/AdminLayout'
-import Search from '../../shared/Search';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useDebounce } from 'use-debounce';
@@ -10,7 +8,8 @@ import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
 import { Dialog, Transition } from '@headlessui/react';
 import { fDate } from '../../utils/formatTime';
-import { Pagenation } from '../../shared/Pagination';
+import { AdminLayout } from '@seventech/layout';
+import { Pagenation, Search, SuccessText } from '@seventech/shared';
 
 export function Categories() {
 
@@ -160,11 +159,8 @@ export function Categories() {
     return (
         <div className="mx-3 mt-3 relative overflow-x-auto bg-red-100 shadow-md sm:rounded-lg">
             {modal}
-            {success && (
-                <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
-                    <span class="font-medium">Deleted!</span> {success}
-                </div>
-            )}
+            <SuccessText success={success} />
+            {/* <ErrorText error={error} /> */}
             <div className='flex justify-center w-full py-1 bg-black'>
                 <div className='md:w-1/3'>
                     <Search setSearchTerm={setSearchTerm} />

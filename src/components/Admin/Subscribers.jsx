@@ -1,10 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { MailIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
+import { AdminLayout } from '@seventech/layout';
 import Link from 'next/link';
-import React, { Fragment, useEffect } from 'react'
-import AdminLayout from '../layout/AdminLayout'
-import { Pagenation } from '../shared/Pagination';
-import Search from '../shared/Search';
+import React, { Fragment } from 'react'
+import { Pagenation, Search } from '@seventech/shared';
 import axiosAPI from '../utils/axios-api';
 
 function Subscriber() {

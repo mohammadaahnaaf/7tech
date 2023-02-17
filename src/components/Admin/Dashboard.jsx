@@ -1,9 +1,8 @@
 import React from 'react'
-import AdminLayout from '../layout/AdminLayout'
-// import { ProductsLists } from './products/ProductsList'
 import axiosRoot from '../utils/axios-root';
 import axiosAPI from '../utils/axios-api';
 import { Order } from './orders/OrderList';
+import { AdminLayout } from '@seventech/layout';
 
 function Dashboards() {
 

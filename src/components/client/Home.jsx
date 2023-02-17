@@ -1,13 +1,10 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-// import Layout from '../layout/Layout'
-
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { BasicNavbar } from '../shared/Navbar';
-import Footer from '../shared/Footer';
 import axiosRoot from '../utils/axios-root';
 import Link from 'next/link';
+import { BasicNavbar, Footer } from '@seventech/shared';
 
 
 export function Banner() {

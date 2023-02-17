@@ -1,9 +1,9 @@
 import React from 'react'
-import AdminLayout from '../../layout/AdminLayout'
-// import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
+import { ErrorText, SuccessText } from '@seventech/shared';
+import { AdminLayout } from '@seventech/layout';
 
 export function Detail() {
 
@@ -124,16 +124,8 @@ export function Detail() {
   return (
 
     <div className='p-5 min-h-screen bg-white rounded-lg m-3'>
-      {error && (
-        <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-          <span class="font-medium">Warning!</span> {error}
-        </div>
-      )}
-      {success && (
-        <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
-          <span class="font-medium">Success</span> {success}
-        </div>
-      )}
+      <SuccessText success={success} />
+      <ErrorText error={error} />
       <form onSubmit={handleSubmit}>
         <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Edit Category</h1>
         <div className="grid gap-2 max-w-4xl mx-auto bg-gray-100 shadow rounded-lg ring-2 ring-gray-300 mb-6">
@@ -143,7 +135,6 @@ export function Detail() {
                 <label htmlFor="tagline" className="block my-2 text-xs font-medium text-gray-900">Tagline</label>
                 <input type="text" value={category.tagline || ''} onChange={(e) => handleCatChange(e)} name='tagline' id="tagline" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Category Title" />
               </div>
-
 
               <div className='w-full px-4 pt-2'>
                 <label htmlFor="indexing" className="block my-2 text-xs font-medium text-gray-900">Index</label>

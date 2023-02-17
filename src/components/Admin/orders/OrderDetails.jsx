@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import AdminLayout from '../../layout/AdminLayout'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import axiosAPI from '../../utils/axios-api';
-// import axiosRoot from '../../utils/axios-root';
+import { ErrorText, SuccessText } from '@seventech/shared';
+import { AdminLayout } from '@seventech/layout';
 
 const Detail = () => {
     const router = useRouter()
@@ -60,7 +60,7 @@ const Detail = () => {
                     if (i.productId === item._id) {
                         i.name = item.name
                         i.quantity = i.quantity
-                        i.price = item.price
+                        i.onlinePrice = item.onlinePrice
                         i.productId = item._id
                     }
                     return i;
@@ -124,16 +124,8 @@ const Detail = () => {
 
         <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
             <h1 className='text-center py-3 mb-5 rounded-lg bg-gray-200 text-2xl'>Order Details</h1>
-            {success && (
-                <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
-                    <span class="font-medium">Success</span> {success}
-                </div>
-            )}
-            {error && (
-                <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-                    <span class="font-medium">Warning!</span> {error}
-                </div>
-            )}
+            <SuccessText success={success} />
+            <ErrorText error={error} />
             <form onSubmit={handleSubmit}>
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
 
@@ -214,7 +206,7 @@ const Detail = () => {
                                 </div>
                                 <div className='col-span-3'>
                                     <label htmlFor="price" className="w-full mb-2 text-xs font-medium text-gray-900">Price</label>
-                                    <input type="number" name="price" id="price" value={element.price || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Price" />
+                                    <input type="number" name="price" id="price" value={element.onlinePrice || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Price" />
                                 </div>
                                 <div className='flex'>
 

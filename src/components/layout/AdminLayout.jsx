@@ -1,10 +1,20 @@
+import React from 'react'
 import { TemplateIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
-import React from 'react'
-import AdminNavbar from '../shared/AdminNavbar'
-// import { Footers } from '../shared/Footer'
+import { AdminNavbar } from '@seventech/shared'
+import axiosAPI from '@seventech/utils/axios-api'
+import Router from 'next/router'
 
 const Sidebar = () => {
+
+    async function handleLogout(e) {
+
+        e.preventDefault()
+        await axiosAPI.delete('/auth/logout');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        Router.push('/login')
+    }
 
     return (
         <aside className="w-64 md:block hidden" aria-label="Sidebar">
@@ -86,12 +96,10 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/login">
-                            <a className="flex items-center p-2 text-base font-normal text-red-600 rounded-lg hover:text-white hover:bg-red-600  ">
-                                <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 transition duration-75   group-hover:text-red-600   " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd"></path></svg>
-                                <span className="flex-1 ml-3 whitespace-nowrap">Sign Out</span>
-                            </a>
-                        </Link>
+                        <button onClick={handleLogout} className="flex w-full text-left items-center p-2 text-base font-normal text-red-600 rounded-lg hover:text-white hover:bg-red-600  ">
+                            <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 transition duration-75   group-hover:text-red-600   " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd"></path></svg>
+                            <span className="flex-1 ml-3 whitespace-nowrap">Sign Out</span>
+                        </button>
                     </li>
 
                 </ul>
@@ -102,7 +110,7 @@ const Sidebar = () => {
 }
 
 
-export default function AdminLayout({ children }) {
+export function AdminLayout({ children }) {
     return (
         <>
             <AdminNavbar />
@@ -112,7 +120,6 @@ export default function AdminLayout({ children }) {
                     {children}
                 </div>
             </div>
-            {/* <Footers /> */}
         </>
     )
 }

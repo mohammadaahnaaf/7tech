@@ -1,8 +1,8 @@
 import React from 'react'
 import { Banner } from './Home'
-import Layout from '../layout/Layout'
 import { Shop } from './Shop'
 import axiosRoot from '../utils/axios-root'
+import { Layout } from '@seventech/layout'
 
 export function Main() {
 

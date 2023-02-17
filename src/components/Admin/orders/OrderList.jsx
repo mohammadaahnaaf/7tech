@@ -1,14 +1,11 @@
 import React from 'react'
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router';
-import AdminLayout from '../../layout/AdminLayout'
-import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api'
 import { fDate } from '../../utils/formatTime';
 import Link from 'next/link';
-import { Pagenation } from '../../shared/Pagination';
-
-// import { orders } from '../../../data/OrderList';
+import { Pagenation, Search, SuccessText } from '@seventech/shared';
+import { AdminLayout } from '@seventech/layout';
 
 export function Order() {
 
@@ -87,11 +84,8 @@ export function Order() {
 
   return (
     <>
-      {success && (
-        <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-          <span class="font-medium">Delete!</span> {success}
-        </div>
-      )}
+      <SuccessText success={success} />
+      {/* <ErrorText error={error} /> */}
       <div className="mx-3 mt-3 bg-red-100 overflow-x-auto relative shadow-md sm:rounded-lg">
         <div className='flex justify-center w-full py-1 bg-black'>
           <div className='md:w-1/3'>

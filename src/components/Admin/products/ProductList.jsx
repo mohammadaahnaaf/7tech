@@ -5,13 +5,10 @@ import { useRouter } from 'next/router';
 import { useDebounce } from 'use-debounce';
 import React, { Fragment } from 'react'
 import { products } from '../../../data/ProductsData'
-import AdminLayout from '../../layout/AdminLayout'
-import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
-import { Pagenation } from '../../shared/Pagination';
-import { ErrorText } from '@seventech/shared/ErrorText';
-import { SuccessText } from '@seventech/shared/SuccessText';
+import { AdminLayout } from '@seventech/layout';
+import { ErrorText, Pagenation, Search, SuccessText } from '@seventech/shared';
 
 export function ProductsLists() {
   const router = useRouter()

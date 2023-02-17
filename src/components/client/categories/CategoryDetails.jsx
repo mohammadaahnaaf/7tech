@@ -1,6 +1,6 @@
-import Layout from '../../layout/Layout'
 import { Category } from './Category'
 import React from 'react'
+import { Layout } from '@seventech/layout'
 
 
 export function CategoryDetails() {

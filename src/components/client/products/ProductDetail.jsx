@@ -1,15 +1,13 @@
 import { StarIcon } from '@heroicons/react/solid'
 import { Fragment, useEffect, useRef, useState } from 'react'
-
 import Router, { useRouter } from 'next/router'
-import Layout from '../../layout/Layout'
 import axiosAPI from '../../utils/axios-api'
 import axiosRoot from '../../utils/axios-root'
 import Image from 'next/image'
 import { useCart } from 'react-use-cart'
 import { Dialog, Transition } from '@headlessui/react'
 import Product from './Product'
-// import { ProductCard } from '../Shop'
+import { Layout } from '@seventech/layout'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -304,8 +302,8 @@ export function Details() {
 
                             {/* short description  */}
                             <div className='grid gap-2 mt-4'>
-                                <h2 className='text-sm font-semibold'>Short Description:</h2>
-                                <p className='text-sm'>{product.shortDescription || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at ipsum et dui efficitur euismod non vitae ipsum. Aliquam erat volutpat. Sed eu lacinia lorem. Cras lobortis nisl nisl, in vulputate nibh ullamcorper feugiat. Nunc malesuada condimentum luctus. Nulla tellus mi, porttitor eu tempus vitae, viverra vitae dui. Maecenas vulputate eros ante, et venenatis tortor consequat quis. Nullam vehicula non leo et congue. In vel nisl ligula."}</p>
+                                <h2 className='text-md font-semibold'>Short Description:</h2>
+                                <p className='text-md'>{product.shortDescription || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at ipsum et dui efficitur euismod non vitae ipsum. Aliquam erat volutpat. Sed eu lacinia lorem. Cras lobortis nisl nisl, in vulputate nibh ullamcorper feugiat. Nunc malesuada condimentum luctus. Nulla tellus mi, porttitor eu tempus vitae, viverra vitae dui. Maecenas vulputate eros ante, et venenatis tortor consequat quis. Nullam vehicula non leo et congue. In vel nisl ligula."}</p>
                             </div>
 
                             {/* Add to cart button  */}
@@ -329,7 +327,7 @@ export function Details() {
                                     <button
                                         type="button"
                                         onClick={() => addItem(cartProduct, qty)}
-                                        className="flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black hover:text-white ring-2 ring-black"
+                                        className="flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black text-white ring-2 ring-black"
                                     >
                                         Add to Cart
                                     </button>

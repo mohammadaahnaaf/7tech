@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { SearchIcon } from '@heroicons/react/outline'
 
-function Search({ setSearchTerm }) {
+export function Search({ setSearchTerm }) {
 
     const router = useRouter()
 
@@ -49,5 +49,3 @@ function Search({ setSearchTerm }) {
         </form>
     )
 }
-
-export default Search;

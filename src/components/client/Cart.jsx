@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TrashIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/router';
 import { useCart } from 'react-use-cart'
-import Layout from '../layout/Layout'
 import Link from 'next/link';
-// import axiosAPI from '../utils/axios-api';
+import { Layout } from '@seventech/layout';
 
 export function Carts() {
 
     const router = useRouter()
-    // const [qty, setQty] = useState(1)
     const { removeItem, items, totalUniqueItems, updateItem } = useCart()
     const countSubtotal = (i) => i.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
     const subtotal = countSubtotal(items)

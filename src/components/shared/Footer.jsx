@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 // import Image from 'next/image'
 
-function Footer() {
+export function Footer() {
   return (
     <footer className='flex gap-2 align-bottom justify-center text-lg bg-black py-2'>
       <div className='flex text-sm gap-2 justify-center'>
@@ -143,6 +143,3 @@ export function Footers() {
 
   )
 }
-
-
-export default Footer

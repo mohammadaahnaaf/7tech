@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { CheckIcon } from '@heroicons/react/outline'
 import { useCart } from 'react-use-cart';
 import Router from 'next/router'
-// import { products } from '../../data/ProductsData'
 
 
-function Success({ order }) {
+export function Success({ order }) {
 
     const { emptyCart, cartTotal } = useCart();
 
@@ -122,5 +121,3 @@ function ProductsViews({ order }) {
 
     )
 }
-
-export default Success;

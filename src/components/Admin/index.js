@@ -1,6 +1,6 @@
+export * from './Dashboard'
 export * from './categories/index'
 export * from './orders/index'
 export * from './products/index'
-export * from './Dashboard'
 export * from './Subscribers'
 export * from './Settings'

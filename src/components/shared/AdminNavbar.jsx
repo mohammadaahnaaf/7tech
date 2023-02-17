@@ -28,7 +28,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function AdminNavbar() {
+export function AdminNavbar() {
 
     const [useri, setUseri] = React.useState(true);
     const { pathname } = useRouter();
@@ -210,5 +210,3 @@ function AdminNavbar() {
         </div>
     )
 }
-
-export default AdminNavbar

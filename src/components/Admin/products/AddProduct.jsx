@@ -1,13 +1,12 @@
 import { Dialog, Switch, Transition } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/solid';
-import { ErrorText } from '@seventech/shared/ErrorText';
+import { AdminLayout } from '@seventech/layout';
+import { ErrorText, Search } from '@seventech/shared';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
 import { TagsInput } from "react-tag-input-component";
 import { v4 as uuidv4 } from 'uuid';
-import AdminLayout from '../../layout/AdminLayout';
-import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
 

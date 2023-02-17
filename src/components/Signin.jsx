@@ -1,9 +1,8 @@
-import { BasicNavbar } from './shared/Navbar'
-import Footer from './shared/Footer'
 import { useState } from 'react'
 import axiosRoot from './utils/axios-root'
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 import Router from 'next/router'
+import { BasicNavbar, Footer } from './shared'
 
 export function Signin() {
 

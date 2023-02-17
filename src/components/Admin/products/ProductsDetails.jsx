@@ -1,17 +1,13 @@
 import React, { Fragment } from 'react'
-import AdminLayout from '../../layout/AdminLayout'
 import { TrashIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import axiosRoot from '../../utils/axios-root';
 import axiosAPI from '../../utils/axios-api';
 import { TagsInput } from 'react-tag-input-component';
 import { Dialog, Switch, Transition } from '@headlessui/react';
-import { fDate } from '../../utils/formatTime';
-import Search from '../../shared/Search';
 import { ProductCard } from './AddProduct';
-import { ErrorText } from '@seventech/shared/ErrorText';
-// import { v4 as uuidv4 } from 'uuid';
-
+import { ErrorText, Search } from '@seventech/shared';
+import { AdminLayout } from '@seventech/layout';
 
 const Detail = () => {
 

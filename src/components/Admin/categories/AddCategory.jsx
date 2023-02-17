@@ -1,8 +1,9 @@
 import React from 'react'
-import AdminLayout from '../../layout/AdminLayout'
 import { v4 as uuidv4 } from 'uuid';
 import axiosAPI from '../../utils/axios-api';
 import Router from 'next/router';
+import { ErrorText } from '@seventech/shared';
+import { AdminLayout } from '@seventech/layout';
 
 export function AddCategorys() {
 
@@ -79,11 +80,8 @@ export function AddCategorys() {
   return (
 
     <div className='p-5 min-h-screen bg-white rounded-lg m-3'>
-      {error && (
-        <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-          <span class="font-medium">Warning!</span> {error}
-        </div>
-      )}
+      {/* <SuccessText success={success} /> */}
+      <ErrorText error={error} />
       {isLoading && (
         <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
           <span class="font-medium">Loading!</span> Category is adding.
