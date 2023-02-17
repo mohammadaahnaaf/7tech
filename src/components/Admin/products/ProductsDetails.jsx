@@ -9,6 +9,7 @@ import { Dialog, Switch, Transition } from '@headlessui/react';
 import { fDate } from '../../utils/formatTime';
 import Search from '../../shared/Search';
 import { ProductCard } from './AddProduct';
+import { ErrorText } from '@seventech/shared/ErrorText';
 // import { v4 as uuidv4 } from 'uuid';
 
 
@@ -422,16 +423,9 @@ const Detail = () => {
 
   return (
     <div className='grid p-5 bg-white rounded-lg grid-cols-1 gap-3 justify-around mx-3 my-3'>
-      {success && (
-        <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
-          <span class="font-medium">Success</span> {success}
-        </div>
-      )}
-      {error && (
-        <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-          <span class="font-medium">Warning!</span> {error}
-        </div>
-      )}
+      <SuccessText success={success} />
+      <ErrorText error={error} />
+
       {related}
       <div className='relative py-3 flex items-center justify-center mb-5 text-center bg-gray-200 rounded-lg'>
 

@@ -1,5 +1,6 @@
 import { Dialog, Switch, Transition } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/solid';
+import { ErrorText } from '@seventech/shared/ErrorText';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
@@ -328,14 +329,10 @@ function Add() {
     return (
 
         <div className='grid justify-around grid-cols-1 gap-3 p-5 m-3 bg-white rounded-lg'>
-            {error && (
-                <div className="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-                    <span className="font-medium">Warning!</span> {error}
-                </div>
-            )}
+            <ErrorText error={error} />
             {related}
+            
             <div className='relative py-3 flex items-center justify-center mb-5 text-center bg-gray-200 rounded-lg'>
-
                 <Switch
                     checked={active}
                     onChange={setActive}
@@ -639,7 +636,7 @@ export function AddProduct() {
 }
 
 export function ProductCard({ product, add, key, isItemSelected }) {
-    
+
 
     return (
         <div key={key} className="bg-white shadow-md border border-gray-200 rounded-lg">
@@ -655,7 +652,7 @@ export function ProductCard({ product, add, key, isItemSelected }) {
             <div className="h-[14vh] grid grid-cols-1 gap-2 content-between">
                 <div className='p-2'>
                     <Link href={`/product/${product._id}`}>
-                        <a className="text-gray-900 font-medium text-md tracking-tight">{product.name.substring(0,28)}</a>
+                        <a className="text-gray-900 font-medium text-md tracking-tight">{product.name.substring(0, 28)}</a>
                     </Link>
                 </div>
                 <div className='px-2 py-1 bg-red-600 hover:bg-green-500 rounded-b-md'>

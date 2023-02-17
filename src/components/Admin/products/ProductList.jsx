@@ -10,6 +10,8 @@ import Search from '../../shared/Search';
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
 import { Pagenation } from '../../shared/Pagination';
+import { ErrorText } from '@seventech/shared/ErrorText';
+import { SuccessText } from '@seventech/shared/SuccessText';
 
 export function ProductsLists() {
   const router = useRouter()
@@ -18,6 +20,7 @@ export function ProductsLists() {
   const [allSelected, setAllSelected] = React.useState(false)
   const [rows, setRows] = React.useState([]);
   const [success, setSuccess] = React.useState('');
+  const [error, setError] = React.useState('');
   const [isOpen, setIsOpen] = React.useState(false)
   const [pageSize, setPageSize] = React.useState(10)
   const [page, setPage] = React.useState(0)
@@ -159,6 +162,8 @@ export function ProductsLists() {
 
     <div className="mx-3 mt-3 overflow-x-auto bg-red-100 relative shadow-md sm:rounded-lg">
       {isOpen && modal}
+      <SuccessText success={success} />
+      <ErrorText error={error} />
       <div className='flex justify-center w-full py-1 bg-black'>
         <div className='md:w-1/3'>
           <Search setSearchTerm={setSearchTerm} />
