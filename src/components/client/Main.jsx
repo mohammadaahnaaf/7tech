@@ -30,6 +30,7 @@ export function Main() {
                     <Shop key={index} term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
                 ))}
             </div>
+       
         </Layout>
     )
 }

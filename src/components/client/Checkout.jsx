@@ -2,11 +2,12 @@ import { TrashIcon } from '@heroicons/react/solid'
 import React from 'react'
 import { useCart } from 'react-use-cart'
 import { cities } from '../../data/placeNames'
-import axiosRoot from '../utils/axios-root'
 import Router, { useRouter } from 'next/router'
 import { Layout } from '@seventech/layout'
 import { ErrorText } from '@seventech/shared'
 import { Success } from './Success'
+import axiosRoot from '@seventech/utils/axios-root'
+// import axiosRoot from '../utils/axios-root'
 
 function Checkouts({ setSuccess, setOrder }) {
 

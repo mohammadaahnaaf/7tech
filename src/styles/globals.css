@@ -32,6 +32,7 @@
     @apply font-roboto;
   }
 }
+
 /* 
 @layer components {
 
@@ -40,3 +41,16 @@
     @apply focus: outline-none;
   }
 } */
+
+#background-video {
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  float: left;
+  top: 0;
+  padding: none;
+  position: fixed;
+  /* optional depending on what you want to do in your app */
+
+
+}

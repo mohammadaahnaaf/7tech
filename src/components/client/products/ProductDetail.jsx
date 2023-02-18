@@ -86,7 +86,7 @@ export function Details() {
         id: product?._id,
         imageSrc: images[0],
         name: product.name,
-        price: product.price,
+        price: product.onlinePrice,
         category: product.category,
         stock: product.quantity,
         quantity: 1
@@ -361,7 +361,9 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('details')}
                                         type='button'
-                                        className="inline-block w-full py-2 text-gray-900 rounded-l-sm bg-white focus:bg-red-600 focus:text-white active focus:outline-none"
+                                        className={classNames(show === 'details' ? "bg-red-600 text-white" : "text-gray-900",
+                                            "inline-block w-full py-2 rounded-l-sm bg-white active focus:outline-none"
+                                        )}
                                     >
                                         Specifications
                                     </button>
@@ -370,7 +372,9 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('info')}
                                         type='button'
-                                        className="inline-block w-full py-2 text-gray-900 rounded-l-sm bg-white focus:bg-red-600 focus:text-white active focus:outline-none"
+                                        className={classNames(show === 'info' ? "bg-red-600 text-white" : "text-gray-900",
+                                            "inline-block w-full py-2 rounded-l-sm bg-white active focus:outline-none"
+                                        )}
                                     >
                                         More Information
                                     </button>
@@ -379,7 +383,9 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('reviews')}
                                         type='button'
-                                        className="inline-block w-full py-2 text-gray-900 rounded-l-sm bg-white focus:bg-red-600 focus:text-white active focus:outline-none"
+                                        className={classNames(show === 'reviews' ? "bg-red-600 text-white" : "text-gray-900",
+                                            "inline-block w-full py-2 rounded-l-sm bg-white active focus:outline-none"
+                                        )}
                                     >
                                         Reviews
                                     </button>
@@ -532,7 +538,9 @@ export function Details() {
 
                 {/* Realted Products  */}
                 <div className='bg-white mt-4 md:max-w-7xl mx-auto w-full'>
-                    <h1 className='text-center bg-black px-4 py-2 font-medium text-xl text-gray-50'>Related Products</h1>
+                    <div className='grid grid-cols-3 border-b-2 border-black'>
+                        <h1 className='text-center bg-black col-span-3 lg:col-span-1 px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
+                    </div>
                     <div className='grid grid-cols-10 w-full gap-2 bg-gray-50 p-4'>
                         {relatedProductsId?.map((id, index) =>
                             <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
