@@ -33,7 +33,7 @@ export function Logins() {
             console.log(res.data)
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refresh_token', refresh_token);
-            Router.push('/admin')
+            Router.push('/')
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);

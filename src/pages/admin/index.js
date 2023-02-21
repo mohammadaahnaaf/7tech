@@ -1,7 +1,8 @@
 import { Dashboard } from '@seventech/Admin'
 import Head from 'next/head'
 import React from 'react'
-import { withAuth } from '../../hoc/withAuth'
+import { withAuth } from 'src/hoc/withAuth'
+// import { withAuth } from '../../hoc/withAuth'
 
 function AdminPage() {
     return (

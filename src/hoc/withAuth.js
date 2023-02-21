@@ -64,6 +64,7 @@ export const withAuth = (Component, pageProps) => {
     const AuthComponent = () => {
         const router = useRouter()
         const [isLoggedIn, setIsLoggedIn] = useState(false);
+
         useEffect(() => {
             const token = localStorage.getItem("access_token");
             setIsLoggedIn(!!token)
