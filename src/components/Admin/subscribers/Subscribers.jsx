@@ -4,7 +4,8 @@ import { AdminLayout } from '@seventech/layout';
 import Link from 'next/link';
 import React, { Fragment } from 'react'
 import { Pagenation, Search, SuccessText } from '@seventech/shared';
-import axiosAPI from '../utils/axios-api';
+import { useDebounce } from 'use-debounce';
+import axiosAPI from '@seventech/utils/axios-api';
 
 function Subscriber() {
 
@@ -18,15 +19,17 @@ function Subscriber() {
     const [pageSize, setPageSize] = React.useState(10)
     const [success, setSuccess] = React.useState('')
 
+    const [searchedName] = useDebounce(searchTerm, 400);
+
     //Get Data
     React.useEffect(() => {
         async function getUsers() {
-            const res = await axiosAPI.get(`/user?page=${page + 1}&size=${pageSize}`);
+            const res = await axiosAPI.get(`/user?page=${page + 1}&size=${pageSize}&searchQuery=${searchedName}`);
             setSubscribers(res.data.users)
             setTotal(res.data.count)
         }
         getUsers()
-    }, [success]);
+    }, [success, searchedName, pageSize, page]);
 
     function closeModal() {
         setIsOpen(false)
@@ -189,7 +192,7 @@ function Subscriber() {
                         </tr>
                     </thead>
                     <tbody>
-                        {search(subscribers).map((item, index) => {
+                        {subscribers?.map((item, index) => {
                             const isItemSelected = isSelected(item._id);
 
                             {/* .slice(0, n) is used to get a range of items from Array[] */ }
@@ -224,7 +227,7 @@ function Subscriber() {
                                         </Link>
                                     </td>
                                     <td className="py-4 px-6">
-                                        <a href="#" className="font-medium text-gray-400 hover:text-red-600">
+                                        <a href={`/admin/subscribers/${item._id}`} className="font-medium text-gray-400 hover:text-red-600">
                                             <PencilAltIcon className='h-5 w-5' />
                                         </a>
                                     </td>

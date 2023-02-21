@@ -84,19 +84,19 @@ const Detail = () => {
         setFormValues(newInputFields);
     };
 
-    const addFormFields = () => {
-        setFormValues([...formValues,
-        {
-            id: uuidv4(),
-            detail: ''
-        }])
-    };
+    // const addFormFields = () => {
+    //     setFormValues([...formValues,
+    //     {
+    //         id: uuidv4(),
+    //         detail: ''
+    //     }])
+    // };
 
-    const removeFormFields = id => {
-        const values = [...formValues];
-        values.splice(values.findIndex(value => value.id === id), 1);
-        setFormValues(values);
-    }
+    // const removeFormFields = id => {
+    //     const values = [...formValues];
+    //     values.splice(values.findIndex(value => value.id === id), 1);
+    //     setFormValues(values);
+    // }
 
     // submit edited data
     async function handleSubmit(event) {
@@ -208,7 +208,7 @@ const Detail = () => {
                                     <label htmlFor="price" className="w-full mb-2 text-xs font-medium text-gray-900">Price</label>
                                     <input type="number" name="price" id="price" value={element.onlinePrice || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Price" />
                                 </div>
-                                <div className='flex'>
+                                {/* <div className='flex'>
 
                                     {formValues.length != 1 && (
                                         <button type="button" className="items-end flex" onClick={() => removeFormFields(element._id)}>
@@ -217,15 +217,15 @@ const Detail = () => {
                                             </svg>
                                         </button>
                                     )}
-                                </div>
+                                </div> */}
                             </div>
                         ))}
-                        <div>
+                        {/* <div>
                             <button className="hidden w-auto text-white bg-black hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xs sm:w-auto px-4 py-2 text-center" type="button" onClick={addFormFields}>Add</button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
-                <div className='flex items-end justify-end gap-2 p-2 mt-2 bg-gray-200 rounded-lg'>
+                <div className='flex items-end justify-end gap-2 p-2 mt-5 bg-gray-200 rounded-lg'>
                     <button className="w-auto px-4 py-2 text-xs text-center text-white bg-red-600 rounded-lg hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='button'>Cancel</button>
                     <button className="w-auto px-4 py-2 text-xs text-center text-white bg-black rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-gray-300 sm:w-auto" type='submit'>Done</button>
                 </div>

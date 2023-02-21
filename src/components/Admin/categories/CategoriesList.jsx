@@ -33,7 +33,7 @@ export function Categories() {
     //Get Data
     React.useEffect(() => {
         async function getCategory() {
-            const res = await axiosRoot.get(`/categories?page=${page + 1}&size=${pageSize}&categoryName=${searchedName}`);
+            const res = await axiosRoot.get(`/categories?page=${page + 1}&size=${pageSize}&searchQuery=${searchedName}`);
             setRows(res.data.categories)
             setTotal(res.data.count)
         }
@@ -201,7 +201,7 @@ export function Categories() {
                     </tr>
                 </thead>
                 <tbody>
-                    {search(rows).map((item, index) => {
+                    {rows?.map((item, index) => {
                         const isItemSelected = isSelected(item._id);
                         return (
                             <tr key={index} className="bg-white border-b">

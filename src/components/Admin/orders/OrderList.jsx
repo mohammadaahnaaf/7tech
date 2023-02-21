@@ -6,6 +6,7 @@ import { fDate } from '../../utils/formatTime';
 import Link from 'next/link';
 import { Pagenation, Search, SuccessText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
+import { useDebounce } from 'use-debounce';
 
 export function Order() {
 
@@ -21,11 +22,13 @@ export function Order() {
 
   // const [checked, setChecked] = React.useState(false)
   // const [checkedAll, setCheckedAll] = React.useState(false)
+  
+  const [searchedName] = useDebounce(searchTerm, 400);
 
   //Get Data
   React.useEffect(() => {
     async function getOrder() {
-      const res = await axiosAPI.get(`/orders?page=${page + 1}&size=${pageSize}`);
+      const res = await axiosAPI.get(`/orders?page=${page + 1}&size=${pageSize}&searchQuery=${searchedName}`);
       setOrders(res.data.orders)
       setTotal(res.data.count)
     }

@@ -27,7 +27,7 @@ export function ProductsLists() {
   // get product data 
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&categoryName=${searchedName}`);
+      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&searchQuery=${searchedName}`);
       setRows(res.data.products)
       setTotal(res.data.count)
     }
@@ -206,7 +206,7 @@ export function ProductsLists() {
           </tr>
         </thead>
         <tbody>
-          {search(rows).map((product, index) => {
+          {rows.map((product, index) => {
             const isItemSelected = isSelected(product._id);
             return (
               <tr key={index} className="bg-white border-b hover:bg-gray-50">

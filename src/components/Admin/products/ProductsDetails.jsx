@@ -6,8 +6,9 @@ import axiosAPI from '../../utils/axios-api';
 import { TagsInput } from 'react-tag-input-component';
 import { Dialog, Switch, Transition } from '@headlessui/react';
 import { ProductCard } from './AddProduct';
-import { ErrorText, Search } from '@seventech/shared';
+import { ErrorText, Search, SuccessText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
+import { useDebounce } from 'use-debounce';
 
 const Detail = () => {
 
@@ -25,7 +26,8 @@ const Detail = () => {
   const [isFeatured, setIsFeatured] = React.useState(false)
   const [active, setActive] = React.useState(false)
   const [enabled, setEnabled] = React.useState(false)
-  const [relatedProducts, setRelatedProducts] = React.useState([])
+  const [relatedProducts, setRelatedProducts] = React.useState([]);
+  const [searchTerm, setSearchTerm] = React.useState('')
 
   const [details, setDetails] = React.useState(
     {
@@ -311,14 +313,16 @@ const Detail = () => {
     setEnabled(false)
   }
 
+  const [searchedName] = useDebounce(searchTerm, 400);
+
   // get product data 
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get('/products');
-      setProducts(res.data)
+      const res = await axiosRoot.get(`/products?page=${1}&searchQuery=${searchedName}`);
+      setProducts(res.data.products)
     }
     getProducts()
-  }, [router]);
+  }, [router, searchedName]);
 
   function handleAdd(product) {
     const selectedIndex = relatedProducts.indexOf(product._id);
@@ -343,7 +347,6 @@ const Detail = () => {
 
   const isSelected = (name) => relatedProducts.indexOf(name) !== -1
 
-  const [searchTerm, setSearchTerm] = React.useState()
   const slugs = ['code', 'name', 'category']
   const search = (data) => {
     return data.filter((item) =>
@@ -394,7 +397,7 @@ const Detail = () => {
                                         ))}
                                     </div> */}
                   <div className="w-full gap-2 mx-auto grid grid-cols-5">
-                    {search(products).slice(0, 5).map((product, index) => (
+                    {products?.map((product, index) => (
                       <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                     ))}
                   </div>
@@ -736,19 +739,19 @@ const Detail = () => {
                   <div className='grid grid-cols-4 col-span-11 gap-2'>
                     <div>
                       <label htmlFor="userName" className="block mb-2 text-xs font-medium text-gray-900">Reviewed by</label>
-                      <input type="text" name="userName" id="userName" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" required />
+                      <input type="text" name="userName" id="userName" value={element.name || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                     </div>
                     <div>
                       <label htmlFor="date" className="block mb-2 text-xs font-medium text-gray-900">Reviewed At</label>
-                      <input datepicker type="date" name="date" id="date" value={element?.date || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" required />
+                      <input datepicker type="date" name="date" id="date" value={element?.date || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                     </div>
                     <div>
                       <label htmlFor="rating" className="block mb-2 text-xs font-medium text-gray-900">Rating</label>
-                      <input type="number" name="rating" id="rating" value={element.rating || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" required />
+                      <input type="number" name="rating" id="rating" value={element.rating || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                     </div>
                     <div>
                       <label htmlFor="comment" className="block mb-2 text-xs font-medium text-gray-900">Comment</label>
-                      <input type="text" name="comment" id="comment" value={element.comment || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" required />
+                      <input type="text" name="comment" id="comment" value={element.comment || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                     </div>
                   </div>
                   <div>
