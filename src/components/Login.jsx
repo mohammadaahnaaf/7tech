@@ -4,11 +4,14 @@ import { useState } from 'react';
 import Router from 'next/router'
 import Link from 'next/link';
 import { BasicNavbar, ErrorText, Footer } from './shared';
+import axiosAPI from './utils/axios-api';
 
 export function Logins() {
 
     const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
     const [showPass, setShowPass] = useState("password")
+    const [isAdmin, setIsAdmin] = useState(false)
 
     function handleShowPass() {
         if (showPass === "password") {
@@ -17,6 +20,7 @@ export function Logins() {
             setShowPass('password')
         }
     }
+
     const handleSubmit = async (event) => {
         try {
             event.preventDefault();
@@ -33,13 +37,26 @@ export function Logins() {
             console.log(res.data)
             localStorage.setItem('access_token', access_token);
             localStorage.setItem('refresh_token', refresh_token);
-            Router.push('/')
+            setSuccess('Login Done')
+
+            if (!isAdmin) {
+                axiosAPI
+                    .get('/auth/get-me')
+                    .then(res => {
+                        setIsAdmin(!!res.data.isAdmin);
+                        !res.data.isAdmin ? Router.push('/') : Router.push('/admin')
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data);
                 setError(error.response?.data?.message)
             }
         }
+
     };
 
     return (
