@@ -67,7 +67,7 @@ const Detail = () => {
                 })
                 setProducts(newProducts);
             }
-            res.data.map(x => test(x))
+            res.data.products.map(x => test(x))
         }
         itemId && getProduct()
 

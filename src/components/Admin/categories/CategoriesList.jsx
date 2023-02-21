@@ -22,6 +22,7 @@ export function Categories() {
     const [success, setSuccess] = React.useState('')
     const [pageSize, setPageSize] = React.useState(10)
     const [page, setPage] = React.useState(0)
+    const [total, setTotal] = React.useState(0)
 
     const [searchedName] = useDebounce(searchTerm, 400);
 
@@ -33,7 +34,8 @@ export function Categories() {
     React.useEffect(() => {
         async function getCategory() {
             const res = await axiosRoot.get(`/categories?page=${page + 1}&size=${pageSize}&categoryName=${searchedName}`);
-            setRows(res.data)
+            setRows(res.data.categories)
+            setTotal(res.data.count)
         }
         getCategory()
     }, [success, page, pageSize, searchedName]);
@@ -230,7 +232,7 @@ export function Categories() {
                     })}
                 </tbody>
             </table>
-            <Pagenation page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
+            <Pagenation total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
 
         </div>
     )

@@ -184,8 +184,8 @@ function Add() {
     React.useEffect(() => {
         async function getCategory() {
             const res = await axiosRoot.get('/categories');
-            setCats(res.data)
-            setCategory(res?.data[0].name)
+            setCats(res.data.categories)
+            setCategory(res?.data.categories[0].name)
 
         }
         getCategory()
@@ -216,7 +216,7 @@ function Add() {
     React.useEffect(() => {
         async function getProducts() {
             const res = await axiosRoot.get('/products');
-            setProducts(res.data)
+            setProducts(res.data.products)
         }
         getProducts()
     }, [router]);
@@ -281,9 +281,9 @@ function Add() {
                             <Dialog.Panel className="w-full ml-[25vh] max-w-5xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                 <Dialog.Title
                                     as="h3"
-                                    className="text-lg text-center font-medium leading-6 text-gray-900"
+                                    className="text-lg font-semibold text-center pb-3 leading-6 text-gray-900"
                                 >
-                                    Add Related Products
+                                    Select Related Products
                                 </Dialog.Title>
                                 <div className="mt-2">
                                     <div className='my-2'>
@@ -295,7 +295,7 @@ function Add() {
                                                 <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                                                 : null
                                         })} */}
-                                        {search(products).slice(0, 5).map((product, index) => (
+                                        {search(products).map((product, index) => (
                                             <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                                         ))}
                                     </div>

@@ -1,10 +1,11 @@
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { ChevronDoubleRightIcon } from "@heroicons/react/solid";
+import axiosRoot from "@seventech/utils/axios-root";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
-import axiosAPI from "../../utils/axios-api";
+// import axiosAPI from "../../utils/axios-api";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -19,11 +20,11 @@ export function CategoryBar({ open, setOpen }) {
     //Get Data
     React.useEffect(() => {
         async function getCategory() {
-            const res = await axiosAPI.get('/categories');
-            setCategories(res.data)
+            const res = await axiosRoot.get('/categories');
+            setCategories(res.data.categories)
         }
         getCategory()
-    }, [router]);
+    }, [router, open]);
 
     return (
 
@@ -69,7 +70,7 @@ export function CategoryBar({ open, setOpen }) {
                                 <Tab.Group as="div" className="mt-2">
                                     <div className="border-b border-gray-200">
                                         <Tab.List className="-mb-px flex px-4 space-x-8">
-                                            {categories.slice(0, 9).map((category) => (
+                                            {categories?.map((category) => (
                                                 <Tab
                                                     key={category.name}
                                                     className={({ selected }) =>

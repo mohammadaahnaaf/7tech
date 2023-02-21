@@ -21,13 +21,15 @@ export function ProductsLists() {
   const [isOpen, setIsOpen] = React.useState(false)
   const [pageSize, setPageSize] = React.useState(10)
   const [page, setPage] = React.useState(0)
+  const [total, setTotal] = React.useState(0);
 
   const [searchedName] = useDebounce(searchTerm, 400);
   // get product data 
   React.useEffect(() => {
     async function getProducts() {
       const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&categoryName=${searchedName}`);
-      setRows(res.data)
+      setRows(res.data.products)
+      setTotal(res.data.count)
     }
     getProducts()
   }, [router, success, page, pageSize, searchedName]);
@@ -36,7 +38,6 @@ export function ProductsLists() {
   function handleDelete(e) {
     e.preventDefault()
     setIsOpen(false)
-    // await axiosAPI.delete(`/products/${selected}`);
     selected.map((item) =>
       axiosAPI.delete(`/products/${item}`)
     )
@@ -244,7 +245,7 @@ export function ProductsLists() {
         </tbody>
       </table>
 
-      <Pagenation setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} page={page} />
+      <Pagenation total={total} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} page={page} />
 
     </div>
   )

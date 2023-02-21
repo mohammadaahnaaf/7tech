@@ -3,8 +3,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function Pagenation({ page, setPage, pageSize, setPageSize }) {
-  let total = 20
+export function Pagenation({ total, page, setPage, pageSize, setPageSize }) {
 
   function handleDecrement() {
     if (page !== 0) {

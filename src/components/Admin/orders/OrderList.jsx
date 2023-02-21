@@ -17,6 +17,7 @@ export function Order() {
   const [success, setSuccess] = React.useState('')
   const [pageSize, setPageSize] = React.useState(10)
   const [page, setPage] = React.useState(0)
+  const [total, setTotal] = React.useState(0)
 
   // const [checked, setChecked] = React.useState(false)
   // const [checkedAll, setCheckedAll] = React.useState(false)
@@ -25,7 +26,8 @@ export function Order() {
   React.useEffect(() => {
     async function getOrder() {
       const res = await axiosAPI.get(`/orders?page=${page + 1}&size=${pageSize}`);
-      setOrders(res.data)
+      setOrders(res.data.orders)
+      setTotal(res.data.count)
     }
     getOrder()
   }, [success]);
@@ -131,7 +133,7 @@ export function Order() {
             </tr>
           </thead>
           <tbody>
-            {search(orders).map((order, index) => {
+            {orders.map((order, index) => {
               const isItemSelected = isSelected(order._id);
               return (
                 <tr key={index} className="bg-white border-b hover:bg-gray-50">
@@ -177,7 +179,7 @@ export function Order() {
             })}
           </tbody>
         </table>
-        <Pagenation page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
+        <Pagenation total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
       </div>
     </>
   )

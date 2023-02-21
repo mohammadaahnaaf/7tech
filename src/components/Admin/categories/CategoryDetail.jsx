@@ -1,9 +1,11 @@
 import React from 'react'
 import { useRouter } from 'next/router';
-import axiosRoot from '../../utils/axios-root';
-import axiosAPI from '../../utils/axios-api';
+// import axiosRoot from '../../utils/axios-root';
+// import axiosAPI from '../../utils/axios-api';
 import { ErrorText, SuccessText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
+import axiosRoot from '@seventech/utils/axios-root';
+import axiosAPI from '@seventech/utils/axios-api';
 
 export function Detail() {
 

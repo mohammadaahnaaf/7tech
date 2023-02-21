@@ -18,7 +18,7 @@ export function Banner() {
 
     return (
         <div className="max-w-full border-b-2 border-red-600 mx-auto">
-            {banners?.map((item, index) => (
+            {banners?.slice(0, 1).map((item, index) => (
                 <Carousel
                     // key={index}
                     autoPlay

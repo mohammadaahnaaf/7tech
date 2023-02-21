@@ -55,18 +55,20 @@ export function Category({ term }) {
   const [items, setItems] = useState([])
   const [categories, setCategories] = useState([])
   const [iCategory, setiCategory] = useState('')
+  const [total, setTotal] = React.useState(0)
 
   //Get Data
   React.useEffect(() => {
     async function getCategory() {
       const res = await axiosRoot.get('/categories');
-      setCategories(res.data)
+      setCategories(res.data.categories)
+      setTotal(res.data.count)
     }
     getCategory()
 
     async function getProducts() {
       const res = await axiosRoot.get('/products');
-      setItems(res.data)
+      setItems(res.data.products)
     }
     getProducts()
   }, []);

@@ -3,30 +3,36 @@ import axiosRoot from '../utils/axios-root';
 import axiosAPI from '../utils/axios-api';
 import { Order } from './orders/OrderList';
 import { AdminLayout } from '@seventech/layout';
+import { useRouter } from 'next/router';
 
 function Dashboards() {
 
-  const [products, setProducts] = React.useState([]);
+  const router = useRouter()
+
   const [orders, setOrders] = React.useState([]);
-  const total = (items) => items.reduce((acc, curr) => acc + curr.total, 0);
+  const [products, setProducts] = React.useState([]);
+  const total = (items) => items?.reduce((acc, curr) => acc + curr.total, 0);
   const totalSell = total(orders)
   const [stockout, setStockout] = React.useState(0)
 
   React.useEffect(() => {
     async function getProducts() {
       const res = await axiosRoot.get('/products');
-      setProducts(res.data)
-      if (res.data.map(i => i.quantity) === 0)
+      setProducts(res.data.products)
+      if (products?.map(i => i.quantity) === 0) {
         setStockout(count => count + 1)
+      }
     }
-    getProducts()
 
     async function getOrders() {
       const res = await axiosAPI.get('/orders');
-      setOrders(res.data)
+      setOrders(res.data.orders)
     }
+
     getOrders()
-  }, []);
+    getProducts()
+
+  }, [router]);
 
 
   return (

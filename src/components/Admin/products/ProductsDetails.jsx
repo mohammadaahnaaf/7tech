@@ -67,7 +67,7 @@ const Detail = () => {
   React.useEffect(() => {
     async function getCategory() {
       const res = await axiosRoot.get('/categories');
-      setCats(res.data)
+      setCats(res.data.categories)
     }
     function setSubCategory() {
       cats.map((x) => {
