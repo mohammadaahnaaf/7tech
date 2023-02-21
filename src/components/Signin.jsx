@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axiosRoot from './utils/axios-root'
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 import Router from 'next/router'
-import { BasicNavbar, Footer } from './shared'
+import { BasicNavbar, ErrorText, Footer } from './shared'
 
 export function Signin() {
 
@@ -70,12 +70,8 @@ export function Signin() {
                         </p>
                     </div>
 
-                    {error && (
-                        <div class="p-3 my-2 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-                            <span class="font-medium">Warning!</span> {error}
-                        </div>
-                    )}
-
+                    <ErrorText error={error} />
+                    
                     <form className="mt-5 space-y-6" onSubmit={handleSubmit}>
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="rounded-md shadow-sm -space-y-px">

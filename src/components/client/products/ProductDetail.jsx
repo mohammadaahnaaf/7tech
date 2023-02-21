@@ -8,6 +8,7 @@ import { useCart } from 'react-use-cart'
 import { Dialog, Transition } from '@headlessui/react'
 import Product from './Product'
 import { Layout } from '@seventech/layout'
+import { ErrorText, SuccessText } from '@seventech/shared'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -485,16 +486,11 @@ export function Details() {
                                     </div>
 
                                     {/* white a review  */}
+                                    <SuccessText success={success} />
+                                    <ErrorText error={error} />
+                                    
                                     <form onSubmit={handleSubmit}>
                                         <div className='px-2 md:px-5'>
-                                            {error && (
-                                                <p className='mr-3 p-3 bg-yellow-200 rounded-lg text-red-500'>{error}</p>
-                                            )}
-                                            {success && (
-                                                <div class="p-3 my-2 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
-                                                    <span class="font-medium">Success!</span> {success}
-                                                </div>
-                                            )}
                                             <label htmlFor="comment" className="block text-xl font-medium text-gray-700">
                                                 Write a Review
                                             </label>

@@ -22,11 +22,13 @@ export function Banner() {
 
     return (
         <div className="max-w-full border-b-2 border-red-600 mx-auto">
-            {banners?.slice(0, 1).map((item) =>
+            {banners?.slice(0, 1).map((item, index) => (
                 <Carousel
+                    key={index}
                     autoPlay
                     infiniteLoop
                     animationHandler="fade"
+                    stopOnHover={false}
                     showStatus={false}
                     showIndicators={false}
                     showThumbs={false}
@@ -45,6 +47,8 @@ export function Banner() {
                         />
                     ))}
                 </Carousel>
+            )
+
             )}
         </div>
     )

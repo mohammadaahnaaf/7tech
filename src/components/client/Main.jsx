@@ -27,7 +27,7 @@ export function Main() {
             <Banner />
             <div className='pb-4 bg-black'>
                 {home?.map((item, index) => (
-                    <Shop key={index} term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
+                    <Shop qey={index} term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
                 ))}
             </div>
        

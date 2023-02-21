@@ -3,7 +3,7 @@ import axiosRoot from './utils/axios-root';
 import { useState } from 'react';
 import Router from 'next/router'
 import Link from 'next/link';
-import { BasicNavbar, Footer } from './shared';
+import { BasicNavbar, ErrorText, Footer } from './shared';
 
 export function Logins() {
 
@@ -60,11 +60,7 @@ export function Logins() {
                     </p>
                 </div>
 
-                {error && (
-                    <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-                        <span class="font-medium">Warning!</span> {error}
-                    </div>
-                )}
+                <ErrorText error={error} />
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <input type="hidden" name="remember" defaultValue="true" />

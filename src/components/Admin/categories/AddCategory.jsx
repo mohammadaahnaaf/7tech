@@ -83,8 +83,8 @@ export function AddCategorys() {
       {/* <SuccessText success={success} /> */}
       <ErrorText error={error} />
       {isLoading && (
-        <div class="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
-          <span class="font-medium">Loading!</span> Category is adding.
+        <div className="p-3 my-2 text-sm text-red-700 bg-yellow-100 rounded-lg" role="alert">
+          <span className="font-medium">Loading!</span> Category is adding.
         </div>
       )}
       <form onSubmit={handleSubmit}>

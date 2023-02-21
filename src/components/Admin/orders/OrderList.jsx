@@ -135,7 +135,7 @@ export function Order() {
               const isItemSelected = isSelected(order._id);
               return (
                 <tr key={index} className="bg-white border-b hover:bg-gray-50">
-                  <td class="p-4 w-4">
+                  <td className="p-4 w-4">
                     <div className="flex items-center">
                       <input onChange={(event) => handleChecked(event, order._id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
                       <label htmlFor="checkbox" className="sr-only">checkbox</label>
