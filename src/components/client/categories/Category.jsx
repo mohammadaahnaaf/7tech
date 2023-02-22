@@ -73,7 +73,7 @@ export function Category({ term }) {
 
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${1}&size=${20}&category=${cats}&subCategory=${searchSubCats}&searchQuery=${searchedName || slug}`);
+      const res = await axiosRoot.get(`/products?page=${1}&size=${20}&category=${cats}&subCategory=${searchSubCats}&searchQuery=${searchedName}`);
       setItems(res.data.products)
     }
     getProducts()
