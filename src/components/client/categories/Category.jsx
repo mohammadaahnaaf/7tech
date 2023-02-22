@@ -58,10 +58,13 @@ export function Category({ term }) {
   const [cats, setCats] = useState('')
   const [searchSubCats, setSearchSubCats] = useState('')
   const [total, setTotal] = React.useState(0)
+  const [name, setName] = React.useState('')
 
-  const [searchedName] = useDebounce(searchTerm, 400);
+  const [searchedName] = useDebounce(name, 400);
   //Get Data
   React.useEffect(() => {
+    !slug && setName(searchTerm)
+    slug && setName(slug)
     async function getCategory() {
       const res = await axiosRoot.get('/categories');
       setCategories(res.data.categories)
@@ -89,6 +92,7 @@ export function Category({ term }) {
 
   function handleCategoryFilter(name) {
     setSearchSubCats('')
+    setName('')
     setCats(name)
   }
   return (
@@ -259,7 +263,7 @@ export function Category({ term }) {
             </div>
           </div>
 
-          <section aria-labelledby="products-heading" className="pt-6 pb-24">
+          <section aria-labelledby="products-heading" className="py-6">
             <h2 id="products-heading" className="sr-only">
               Products
             </h2>
