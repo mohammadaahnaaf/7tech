@@ -72,7 +72,7 @@ export function Category({ term }) {
       console.log(slug)
     }
     getCategory()
-  }, []);
+  }, [slug]);
 
   React.useEffect(() => {
     async function getProducts() {
