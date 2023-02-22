@@ -60,33 +60,33 @@ export function Category({ term }) {
   const [total, setTotal] = React.useState(0)
 
   const [searchedName] = useDebounce(searchTerm, 400);
-
   //Get Data
   React.useEffect(() => {
     async function getCategory() {
       const res = await axiosRoot.get('/categories');
       setCategories(res.data.categories)
       setTotal(res.data.count)
+      console.log(slug)
     }
     getCategory()
   }, []);
 
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${1}&size=${20}&category=${cats}&subCategory=${searchSubCats}&searchQuery=${searchedName}`);
+      const res = await axiosRoot.get(`/products?page=${1}&size=${20}&category=${cats}&subCategory=${searchSubCats}&searchQuery=${searchedName || slug}`);
       setItems(res.data.products)
     }
     getProducts()
   }, [searchSubCats, cats, searchedName])
 
-  // const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
-
   // // Search filter 
+  // const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
   // const search = (data) => {
   //   return data.filter((item) =>
   //     slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(slug.toLowerCase(searchTerm)))
   //   )
   // }
+
   function handleCategoryFilter(name) {
     setSearchSubCats('')
     setCats(name)
