@@ -21,12 +21,13 @@ const Detail = () => {
   const [tags, setTags] = React.useState([]);
   const [images, setImages] = React.useState([]);
   const [files, setFiles] = React.useState([]);
-  const [error, setError] = React.useState('')
-  const [success, setSuccess] = React.useState('')
+  const [relatedProducts, setRelatedProducts] = React.useState([]);
+
   const [isFeatured, setIsFeatured] = React.useState(false)
   const [active, setActive] = React.useState(false)
   const [enabled, setEnabled] = React.useState(false)
-  const [relatedProducts, setRelatedProducts] = React.useState([]);
+  const [error, setError] = React.useState('')
+  const [success, setSuccess] = React.useState('')
   const [searchTerm, setSearchTerm] = React.useState('')
 
   const [details, setDetails] = React.useState(
@@ -100,7 +101,7 @@ const Detail = () => {
 
     itemId && getProduct()
 
-  }, [itemId]);
+  }, [itemId, success]);
 
 
   // submit edit 
@@ -322,7 +323,7 @@ const Detail = () => {
       setProducts(res.data.products)
     }
     getProducts()
-  }, [router, searchedName]);
+  }, [router, searchedName, success]);
 
   function handleAdd(product) {
     const selectedIndex = relatedProducts.indexOf(product._id);
@@ -347,12 +348,12 @@ const Detail = () => {
 
   const isSelected = (name) => relatedProducts.indexOf(name) !== -1
 
-  const slugs = ['code', 'name', 'category']
-  const search = (data) => {
-    return data.filter((item) =>
-      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-    )
-  }
+  // const slugs = ['code', 'name', 'category']
+  // const search = (data) => {
+  //   return data.filter((item) =>
+  //     slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+  //   )
+  // }
 
   const related = (
     <Transition appear show={enabled} as={Fragment}>
@@ -391,11 +392,6 @@ const Detail = () => {
                   <div className='my-2'>
                     <Search setSearchTerm={setSearchTerm} />
                   </div>
-                  {/* <div className="w-full gap-2 mx-auto grid grid-cols-5">
-                                        {relatedProducts?.map((product, index) => (
-                                            <ProductCard key={index} product={product} add={() => handleAdd(product._id)} />
-                                        ))}
-                                    </div> */}
                   <div className="w-full gap-2 mx-auto grid grid-cols-5">
                     {products?.map((product, index) => (
                       <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
@@ -650,11 +646,11 @@ const Detail = () => {
               <div className='grid items-end grid-cols-10'>
                 <div className='grid grid-cols-2 col-span-9 gap-2'>
                   <div>
-                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">New Details</label>
+                    <label htmlFor="title" className="block mb-2 text-xs font-medium text-gray-900">New Title</label>
                     <input type="text" name="title" id="title"
                       value={newDetails.title || ""}
                       onChange={(e) => handleNewDetails(e)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter title" />
                   </div>
                   <div>
                     <label htmlFor="description" className="block mb-2 text-xs font-medium text-gray-900">New Description</label>
@@ -672,7 +668,7 @@ const Detail = () => {
             </div>
           )}
 
-          {/* More Information  */}
+          {/* Product Specifications  */}
           {moreInfos && (
             <div className='grid col-span-2 lg:col-span-1 items-end gap-2'>
               <h1 className='p-2 text-center bg-slate-200 rounded-lg'>Product Specifications</h1>

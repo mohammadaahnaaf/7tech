@@ -241,7 +241,7 @@ export function Details() {
                                                 Regular Price:
                                             </th>
                                             <td className=" py-2">
-                                                {product.regularPrice}
+                                            ৳ {product.regularPrice}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -249,7 +249,7 @@ export function Details() {
                                                 Product Price:
                                             </th>
                                             <td className=" py-2">
-                                                {product.onlinePrice}
+                                            ৳ {product.onlinePrice}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -257,7 +257,7 @@ export function Details() {
                                                 Offer Price:
                                             </th>
                                             <td className=" py-2">
-                                                {product.offerPrice}
+                                            ৳ {product.offerPrice}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">

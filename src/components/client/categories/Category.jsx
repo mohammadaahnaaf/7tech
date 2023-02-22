@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon, ChevronUpIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
 
-import axiosRoot from '../../utils/axios-root'
 import { useRouter } from 'next/router'
 import { ProductCard } from '../Shop'
 import Link from 'next/link'
+import { useDebounce } from 'use-debounce'
+import axiosRoot from '@seventech/utils/axios-root'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -54,8 +55,11 @@ export function Category({ term }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [items, setItems] = useState([])
   const [categories, setCategories] = useState([])
-  const [iCategory, setiCategory] = useState('')
+  const [cats, setCats] = useState('')
+  const [searchSubCats, setSearchSubCats] = useState('')
   const [total, setTotal] = React.useState(0)
+
+  const [searchedName] = useDebounce(searchTerm, 400);
 
   //Get Data
   React.useEffect(() => {
@@ -65,27 +69,32 @@ export function Category({ term }) {
       setTotal(res.data.count)
     }
     getCategory()
+  }, []);
 
+  React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get('/products');
+      const res = await axiosRoot.get(`/products?page=${1}&size=${20}&category=${cats}&subCategory=${searchSubCats}&searchQuery=${searchedName}`);
       setItems(res.data.products)
     }
     getProducts()
-  }, []);
+  }, [searchSubCats, cats, searchedName])
 
-  const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
+  // const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
 
-  // Search filter 
-  const search = (data) => {
-    return data.filter((item) =>
-      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(slug.toLowerCase(searchTerm)))
-    )
+  // // Search filter 
+  // const search = (data) => {
+  //   return data.filter((item) =>
+  //     slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(slug.toLowerCase(searchTerm)))
+  //   )
+  // }
+  function handleCategoryFilter(name) {
+    setSearchSubCats('')
+    setCats(name)
   }
-
   return (
     <div className="bg-white">
       <div>
-        {/* Mobile filter dialog */}
+        {/* Mobile view filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
           <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
             <Transition.Child
@@ -185,6 +194,7 @@ export function Category({ term }) {
           </Dialog>
         </Transition.Root>
 
+        {/* PC view filter dialog */}
         <main className="bg-black mx-auto max-w-9xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
             <h1 className="text-4xl font-semibold tracking-tight text-red-600">Categories</h1>
@@ -260,12 +270,29 @@ export function Category({ term }) {
                 <h3 className="sr-only">Categories</h3>
                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-md font-medium text-gray-300">
                   {categories.map((category, index) => (
-                    <li key={category.name}>
-                      <Link href={`/category/${category.name}`}>
-                        <a className='text-md'>{`${index + 1}. `}{category.name}</a>
-                      </Link>
+                    <li key={index}>
+                      <Disclosure>
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button className="flex hover:text-white focus:text-gray-100 w-full justify-between text-left text-md font-medium text-red-600 focus:outline-none focus:ring-0">
+                              <span><button onClick={() => handleCategoryFilter(category.name)} type='button'>
+                                {index + 1}. {category.name}
+                              </button></span>
+                              <ChevronUpIcon
+                                className={`${!open ? 'rotate-180 transform' : 'text-white'} h-5 w-5 text-red-500`}
+                              />
+                            </Disclosure.Button>
+                            <Disclosure.Panel className="p-2 gap-2 grid text-md text-gray-100">
+                              {category.subCategories?.map((sub, index) => (
+                                <button className='flex w-full items-center hover:text-green-600' type='button' onClick={() => setSearchSubCats(sub.name)}>{index + 1}. {sub.name}</button>
+                              ))}
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
                     </li>
-                  ))}
+                  )
+                  )}
                 </ul>
 
                 {filters.map((section) => (
@@ -316,33 +343,20 @@ export function Category({ term }) {
               <div className="lg:col-span-10">
                 <div className='hidden items-center justify-center justify-items-center mx-auto gap-2 md:gap-4 md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4'>
 
-                  {search(items)?.map((product) => {
+                  {items?.map((product) => {
                     return (
-                      <ProductCard setiCategory={setiCategory} product={product} />
+                      <ProductCard product={product} />
                     )
                   })}
-                  {/* {search(items)?.map((product) => {
-                    return product.category.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ||
-                      product.name.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ? (
-                      <ProductCard setiCategory={setiCategory} product={product} />
-                    ) : null
-                  })} */}
                 </div>
 
                 <div className='md:hidden grid'>
 
-                {search(items)?.map((product) => {
+                  {items?.map((product) => {
                     return (
-                      <ProductCard setiCategory={setiCategory} product={product} />
+                      <ProductCard product={product} />
                     )
                   })}
-
-                  {/* {search(items)?.map((product) => {
-                    return product.category.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ||
-                      product.name.toLowerCase().includes(typeof slug === 'string' ? slug.toLowerCase() : '') ? (
-                      <ProductCard setiCategory={setiCategory} product={product} />
-                    ) : null
-                  })} */}
 
                 </div>
               </div>

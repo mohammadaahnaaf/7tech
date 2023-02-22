@@ -290,12 +290,8 @@ function Add() {
                                         <Search setSearchTerm={setSearchTerm} />
                                     </div>
                                     <div className="w-full gap-2 mx-auto grid grid-cols-5">
-                                        {/* {search(products).slice(0, 5).map((product, index) => {
-                                            return isSelected(product._id) ?
-                                                <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
-                                                : null
-                                        })} */}
-                                        {search(products).map((product, index) => (
+                                  
+                                        {products?.map((product, index) => (
                                             <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                                         ))}
                                     </div>

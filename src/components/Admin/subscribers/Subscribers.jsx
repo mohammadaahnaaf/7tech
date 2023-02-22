@@ -227,9 +227,11 @@ function Subscriber() {
                                         </Link>
                                     </td>
                                     <td className="py-4 px-6">
-                                        <a href={`/admin/subscribers/${item._id}`} className="font-medium text-gray-400 hover:text-red-600">
-                                            <PencilAltIcon className='h-5 w-5' />
-                                        </a>
+                                        <Link href={`/admin/subscribers/${item._id}`}>
+                                            <a className="font-medium text-gray-400 hover:text-red-600">
+                                                <PencilAltIcon className='h-5 w-5' />
+                                            </a>
+                                        </Link>
                                     </td>
                                 </tr>
                             )

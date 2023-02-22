@@ -7,11 +7,11 @@
     --rti-bg: #fff;
     --rti-border: #ccc;
     --rti-main: red !important;
-    --rti-radius: 0.375rem;
+    --rti-radius: 0.375rem !important;
     --rti-s: 0.5rem;
     --rti-tag: #edf2f7;
     --rti-tag-remove: #e53e3e;
-    --rti-tag-padding: 0.15rem 0.25rem;
+    --rti-tag-padding: 0.15rem 0.25rem !important;
 
     /* Container Styles */
     align-items: center;
@@ -51,13 +51,18 @@
     border-radius: var(--rti-radius);
     display: inline-flex;
     justify-content: center;
-    padding: var(--rti-tag-padding);
+    padding-left: 10px !important;
+    /* padding: var(--rti-tag-padding); */
+}
+
+.rti--tag:hover {
+    background-color: black !important;
 }
 
 .rti--tag button {
     background: none;
     border: 0;
-    border-radius: 50%;
+    border-radius: 10% !important;
     cursor: pointer;
     line-height: inherit;
     padding: 0 var(--rti-s);
@@ -65,4 +70,5 @@
 
 .rti--tag button:hover {
     color: var(--rti-tag-remove) !important;
+    /* color: aqua !important; */
 }
