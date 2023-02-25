@@ -13,17 +13,22 @@ function Product({ productId, key }) {
 
     // get product data 
     React.useEffect(() => {
-        async function getImages() {
-            const res = await axiosRoot.get(`/products/${productId}`);
-            setImages(res.data.images)
-            setProduct(res.data)
+
+        async function getProduct() {
+            try {
+                const res = await axiosRoot.get(`/products/${productId}`);
+                setImages(res.data.images)
+                productId && setProduct(res.data)
+            } catch (error) {
+                console.log(error.data.message)
+            }
         }
-        productId && getImages()
-    }, []);
+        productId && getProduct()
+    }, [productId]);
 
     let cartProduct = {
         id: product?._id,
-        imageSrc: images[0],
+        imageSrc: images.slice(0, 1).map(x => x),
         name: product.name,
         price: product.onlinePrice,
         category: product.category,
