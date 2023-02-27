@@ -185,20 +185,22 @@ export function ProductsLists() {
             <th scope="col" className="py-3 px-6">
               Product name
             </th>
+            <th scope="col" className="py-3 text-center px-6 w-auto">
+              Category
+            </th>
             <th scope="col" className="py-3 px-6">
               Qty
             </th>
             <th scope="col" className="py-3 px-6">
-              Category
-            </th>
-            <th scope="col" className="py-3 px-6">
               Price
             </th>
-            <th scope="col" className="py-3 px-6">
-              {selected != 0 && (
-                <button type='submit' onClick={() => setIsOpen(true)}>
-                  <TrashIcon className='h-5 w-5 text-red-600' />
+            <th scope="col" className="py-3 text-center px-2">
+              {selected != 0 ? (
+                <button type='submit' className='flex items-center py-1 rounded-md text-center w-full bg-red-600 bg-opacity-20' onClick={() => setIsOpen(true)}>
+                  <TrashIcon className='h-5 w-5 mx-auto text-red-600' />
                 </button>
+              ) : (
+                <span>Edit</span>
               )}
               <span className="sr-only">Edit</span>
               {/* Action */}
@@ -222,14 +224,14 @@ export function ProductsLists() {
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                   {product.name}
                 </th>
-                <td className="py-4 px-6">
-                  {product.quantity}
-                </td>
-                <td className="py-4 px-6">
+                <td scope='row' className="py-4 px-2 flex text-center">
                   {product.category}
                 </td>
                 <td className="py-4 px-6">
-                ৳ {product.onlinePrice}
+                  {product.quantity}
+                </td>
+                <td className="flex gap-1 py-4 px-6">
+                  <span>৳</span> {product.onlinePrice}
                 </td>
                 <td className="py-4 px-6 text-right">
                   <button type='button' onClick={() => router.push(`/admin/products/${product._id}`)}>

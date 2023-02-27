@@ -1,6 +1,6 @@
 import { ShoppingCartIcon } from '@heroicons/react/solid'
 import Link from 'next/link';
-import React from 'react'
+import React, { use } from 'react'
 import { useCart } from 'react-use-cart';
 import axiosRoot from '../../utils/axios-root';
 
@@ -20,7 +20,7 @@ function Product({ productId, key }) {
                 setImages(res.data.images)
                 productId && setProduct(res.data)
             } catch (error) {
-                console.log(error.data.message)
+                console.log("Error: " + error.response?.data?.message)
             }
         }
         productId && getProduct()

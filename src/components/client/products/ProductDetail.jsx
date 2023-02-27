@@ -241,7 +241,7 @@ export function Details() {
                                                 Regular Price:
                                             </th>
                                             <td className=" py-2">
-                                            ৳ {product.regularPrice}
+                                                ৳ {product.regularPrice}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -249,7 +249,7 @@ export function Details() {
                                                 Product Price:
                                             </th>
                                             <td className=" py-2">
-                                            ৳ {product.onlinePrice}
+                                                ৳ {product.onlinePrice}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -257,7 +257,7 @@ export function Details() {
                                                 Offer Price:
                                             </th>
                                             <td className=" py-2">
-                                            ৳ {product.offerPrice}
+                                                ৳ {product.offerPrice}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -488,7 +488,7 @@ export function Details() {
                                     {/* white a review  */}
                                     <SuccessText success={success} />
                                     <ErrorText error={error} />
-                                    
+
                                     <form onSubmit={handleSubmit}>
                                         <div className='px-2 md:px-5'>
                                             <label htmlFor="comment" className="block text-xl font-medium text-gray-700">
@@ -538,7 +538,7 @@ export function Details() {
                         <h1 className='text-center bg-black col-span-3 lg:col-span-1 px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
                     </div>
                     <div className='grid grid-cols-10 w-full gap-2 bg-gray-50 p-4'>
-                        {relatedProductsId?.map((id, index) =>
+                        {relatedProductsId?.slice(0, 5).map((id, index) =>
                             <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
                                 <Product productId={id} />
                             </div>
