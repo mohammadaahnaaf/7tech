@@ -123,7 +123,7 @@ const Detail = () => {
       data.set('tags', JSON.stringify(tags))
       data.set('relatedProducts', JSON.stringify(relatedProducts))
       data.set('isFeatured', isFeatured)
-      // data.set('isActive', active)
+      data.set('inStock', active)
 
       // data.set('details', JSON.stringify(formValues.map(value => (
       //   { title: value.title }
