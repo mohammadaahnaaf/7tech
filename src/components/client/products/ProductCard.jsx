@@ -4,6 +4,10 @@ import React from 'react'
 import { useCart } from 'react-use-cart';
 import axiosRoot from '../../utils/axios-root';
 
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
+
 export function ProductCards({ product, key }) {
 
     const { addItem } = useCart();
@@ -14,7 +18,7 @@ export function ProductCards({ product, key }) {
         async function getImages() {
             const res = await axiosRoot.get(`/products/${product._id}`);
             setImages(res.data.images)
-           
+
         }
         product._id && getImages()
     }, []);
@@ -34,8 +38,11 @@ export function ProductCards({ product, key }) {
             <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 ring-opacity-30 bg-black bg-opacity-30">
                 <button
                     type='button'
-                    disabled={product.stock === 0}
+                    disabled={!product.inStock || product.quantity === 0}
                     onClick={() => addItem(cartProduct)}
+                    className={classNames(
+                        !product.inStock ? "cursor-not-allowed" : ""
+                    )}
                 >
                     <ShoppingCartIcon className='h-7 w-7' />
                 </button>

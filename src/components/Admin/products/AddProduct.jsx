@@ -27,6 +27,7 @@ function Add() {
     const [products, setProducts] = useState([])
     const [enabled, setEnabled] = useState(false)
     const [relatedProducts, setRelatedProducts] = useState([])
+    const [searchTerm, setSearchTerm] = useState('')
 
     // select images 
     const handleSelectImage = (e) => {
@@ -47,25 +48,7 @@ function Add() {
         setFiles(files.filter(x => x.name !== i));
     }
 
-    // const [userInfo, setuserInfo] = useState({
-    //     file: [],
-    //     filepreview: null,
-    // });
-
-    // const handleSelectImage = async (e) => {
-
-    //     setSelectedFiles(e.target.files);
-    //     setuserInfo({
-    //         ...userInfo,
-    //         file: e.target.files,
-    //         filepreview: URL.createObjectURL(e.target.files[0]),
-    //         // filepreview2: URL.createObjectURL(e.target.files[1]),
-    //     })
-    // }
-
     // submit form data
-
-
     const handleSubmit = async (event) => {
 
         try {
@@ -81,7 +64,7 @@ function Add() {
             data.set('tags', JSON.stringify(tags))
             data.set('relatedProducts', JSON.stringify(relatedProducts))
             data.set('isFeatured', featured)
-            data.set('isActive', active)
+            data.set('inStock', active)
             data.set('details', JSON.stringify(formValues.map(value => (
                 {
                     title: value.title,
@@ -244,7 +227,6 @@ function Add() {
 
     const isSelected = (name) => relatedProducts.indexOf(name) !== -1
 
-    const [searchTerm, setSearchTerm] = useState()
     const slugs = ['code', 'name', 'category']
     const search = (data) => {
         return data.filter((item) =>
@@ -290,7 +272,7 @@ function Add() {
                                         <Search setSearchTerm={setSearchTerm} />
                                     </div>
                                     <div className="w-full gap-2 mx-auto grid grid-cols-5">
-                                  
+
                                         {products?.map((product, index) => (
                                             <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                                         ))}
@@ -321,17 +303,33 @@ function Add() {
         </Transition>
     );
 
+    // const [userInfo, setuserInfo] = useState({
+    //     file: [],
+    //     filepreview: null,
+    // });
+
+    // const handleSelectImage = async (e) => {
+
+    //     setSelectedFiles(e.target.files);
+    //     setuserInfo({
+    //         ...userInfo,
+    //         file: e.target.files,
+    //         filepreview: URL.createObjectURL(e.target.files[0]),
+    //         // filepreview2: URL.createObjectURL(e.target.files[1]),
+    //     })
+    // }
+
     return (
 
         <div className='grid justify-around grid-cols-1 gap-3 p-5 m-3 bg-white rounded-lg'>
             <ErrorText error={error} />
             {related}
-            
+
             <div className='relative py-3 flex items-center justify-center mb-5 text-center bg-gray-200 rounded-lg'>
                 <Switch
                     checked={active}
                     onChange={setActive}
-                    className={`${active ? 'bg-teal-300' : 'bg-red-600'}
+                    className={`${active ? 'bg-green-400' : 'bg-red-600'}
                      absolute right-2 inline-flex h-[28px] w-[64px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
                 >
                     <span className="sr-only">Use setting</span>

@@ -265,7 +265,8 @@ export function Details() {
                                                 Stock Status:
                                             </th>
                                             <td className=" py-2">
-                                                {product?.quantity !== 0 ? 'In Stock' : 'Stock Out'}
+                                                {/* {product?.quantity !== 0 ? 'In Stock' : 'Stock Out'} */}
+                                                {product?.inStock ? 'In Stock' : 'Stock Out'}
                                             </td>
                                         </tr>
                                         <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
@@ -327,8 +328,11 @@ export function Details() {
                                 <div>
                                     <button
                                         type="button"
+                                        disabled={!product.inStock}
                                         onClick={() => addItem(cartProduct, qty)}
-                                        className="flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black text-white ring-2 ring-black"
+                                        className={classNames(
+                                            !product.inStock ? "cursor-not-allowed" : "",
+                                            "flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black text-white ring-2 ring-black")}
                                     >
                                         Add to Cart
                                     </button>

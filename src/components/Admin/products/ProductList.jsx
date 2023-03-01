@@ -10,6 +10,10 @@ import axiosRoot from '../../utils/axios-root';
 import { AdminLayout } from '@seventech/layout';
 import { ErrorText, Pagenation, Search, SuccessText } from '@seventech/shared';
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 export function ProductsLists() {
   const router = useRouter()
   const [searchTerm, setSearchTerm] = React.useState('')
@@ -180,7 +184,7 @@ export function ProductsLists() {
               </div>
             </th>
             <th scope="col" className="py-3 px-6">
-              ID
+              Product Code
             </th>
             <th scope="col" className="py-3 px-6">
               Product name
@@ -211,20 +215,27 @@ export function ProductsLists() {
           {rows.map((product, index) => {
             const isItemSelected = isSelected(product._id);
             return (
-              <tr key={index} className="bg-white border-b hover:bg-gray-50">
+              <tr key={index} className={classNames(
+                product.inStock ? 'hover:bg-gray-50 bg-white' : 'bg-red-500 text-white hover:bg-red-50',
+                "border-b"
+              )}>
                 <td className="p-4 w-4">
                   <div className="flex items-center">
                     <input onChange={(event) => handleChecked(event, product._id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
                     <label htmlFor="checkbox" className="sr-only">checkbox</label>
                   </div>
                 </td>
-                <td scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                <td scope="row" className={classNames(
+                  product.inStock ? "text-gray-900" : "text-white",
+                  "py-4 px-6 font-medium whitespace-nowrap")}>
                   {product.code}
                 </td>
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                <th scope="row" className={classNames(
+                  product.inStock ? "text-gray-900" : "text-white",
+                  "py-4 px-6 font-medium whitespace-nowrap")}>
                   {product.name}
                 </th>
-                <td scope='row' className="py-4 px-2 flex text-center">
+                <td scope='row' className="py-4 px-2 flex justify-center items-center text-center">
                   {product.category}
                 </td>
                 <td className="py-4 px-6">
