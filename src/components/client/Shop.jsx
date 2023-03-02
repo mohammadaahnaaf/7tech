@@ -11,15 +11,15 @@ function classNames(...classes) {
 export function Shop({ items, title, term, qey }) {
 
   let searchTerm = term;
-  const slugs = ['name', 'category', 'subCategory', 'tags', 'imageAlt', 'code']
 
   // Search filter 
-  const search = (data) => {
-    return data.filter((item) =>
-      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-    )
-  }
-
+  // const slugs = ['name', 'category', 'subCategory', 'tags', 'imageAlt', 'code']
+  // const search = (data) => {
+  //   return data.filter((item) =>
+  //     slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+  //   )
+  // }
+  let slug = items[0]
   return items.length >= 1 ? (
 
     <div key={qey} className='bg-black grid gap-4 px-2 pt-4'>
@@ -39,6 +39,11 @@ export function Shop({ items, title, term, qey }) {
             })}
           </div>
         </div>
+      </div>
+      <div className='max-w-7xl bg-gradient-to-r to-black from-red-600 mx-auto text-right text-white hover:text-red-600 text-sm w-full ring-white ring-2 p-2'>
+        <Link href={`/category/${slug.category}`}>
+          <a>Explore more...</a>
+        </Link>
       </div>
 
     </div>
