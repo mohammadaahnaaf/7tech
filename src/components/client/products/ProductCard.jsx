@@ -35,13 +35,14 @@ export function ProductCards({ product, key }) {
 
     return (
         <div key={key} className="group hover:scale-90 duration-300 bg-black relative hover:ring-white ring-red-600 ring-2">
-            <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white hover:bg-opacity-50 ring-2 ring-red-600 ring-opacity-30 bg-black bg-opacity-30">
+            <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white ring-2 ring-white ring-opacity-20 bg-black hover:bg-opacity-5 bg-opacity-30">
                 <button
                     type='button'
                     disabled={!product.inStock || product.quantity === 0}
                     onClick={() => addItem(cartProduct)}
                     className={classNames(
-                        !product.inStock ? "cursor-not-allowed" : ""
+                        !product.inStock ? "cursor-not-allowed" : "",
+                        "hover:text-red-600"
                     )}
                 >
                     <ShoppingCartIcon className='h-7 w-7' />
@@ -58,15 +59,18 @@ export function ProductCards({ product, key }) {
             ))}
             <div className="flex w-full p-2 justify-between border-t-2 border-red-600 bg-red-600 bg-opacity-10">
                 <div className='w-full'>
-                    <h3 className="text-lg text-gray-200">
+                    <h3 className="text-sm font-normal overflow-hidden md:text-md text-gray-200">
                         <Link href={`/product/${product?._id}`}>
                             <a>
                                 <span aria-hidden="true" className="absolute inset-0" />
-                                {product?.name?.substring(0, 23) + ' ...'}
+                                {/* {product?.name} */}
+                                {product?.name?.substring(0, 60) + ' ...'}
                             </a>
                         </Link>
                     </h3>
-                    <p className="mt-1 text-end text-md text-green-500">৳ {product.onlinePrice}</p>
+                    <p className="mt-1 flex justify-end items-center text-end text-md gap-2 text-green-500">
+                        <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}</p>
+                    {/* <p className="mt-1 text-end text-md text-green-500">৳ {product.onlinePrice}</p> */}
                 </div>
             </div>
         </div>

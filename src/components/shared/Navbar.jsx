@@ -94,7 +94,7 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                 </div>
 
                                 {/* Search Bar  */}
-                                <div className='hidden md:block col-span-1 w-full justify-center'>
+                                <div className='hidden md:block w-full lg:w-1/3 justify-center'>
                                     <Search setSearchTerm={setSearchTerm} />
                                 </div>
                                 <div className="hidden md:block">

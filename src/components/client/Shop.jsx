@@ -24,8 +24,8 @@ export function Shop({ items, title, term, qey }) {
 
     <div key={qey} className='bg-black grid gap-4 px-2 pt-4'>
       {/* Title  */}
-      <div className='max-w-7xl w-full hover:scale-95 hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
-        <h2 className=" text-lg md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
+      <div className='max-w-7xl w-full hover:scale-95 hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-4 md:py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
+        <h2 className="text-sm sm:text-md md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
       </div>
 
       <div>
