@@ -150,13 +150,13 @@ export function Categories() {
         </Transition>
     )
 
-    const slugs = ['name', 'subCategories', 'createdAt']
+    // const slugs = ['name', 'subCategories', 'createdAt']
 
-    const search = (data) => {
-        return data.filter((item) =>
-            slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-        )
-    }
+    // const search = (data) => {
+    //     return data.filter((item) =>
+    //         slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+    //     )
+    // }
 
     return (
         <div className="mx-3 mt-3 relative overflow-x-auto bg-red-100 shadow-md sm:rounded-lg">
@@ -165,7 +165,7 @@ export function Categories() {
             {/* <ErrorText error={error} /> */}
             <div className='flex justify-center w-full py-1 bg-black'>
                 <div className='md:w-1/3'>
-                    <Search setSearchTerm={setSearchTerm} />
+                    <Search searchButton={true} setSearchTerm={setSearchTerm} />
                 </div>
                 <Link href='/admin/category/add'>
                     <a className='bg-black ml-4 text-sm font-medium text-red-600 ring-1 ring-red-600 hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Category</a>

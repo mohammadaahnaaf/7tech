@@ -2,7 +2,11 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { SearchIcon } from '@heroicons/react/outline'
 
-export function Search({ setSearchTerm }) {
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
+
+export function Search({ setSearchTerm, searchButton }) {
 
     const router = useRouter()
 
@@ -17,7 +21,7 @@ export function Search({ setSearchTerm }) {
     }
 
     function handleSearch(e) {
-         setSearchTerm(e.target.value)
+        setSearchTerm(e.target.value)
     }
 
     return (
@@ -38,9 +42,9 @@ export function Search({ setSearchTerm }) {
                             placeholder="Search..."
                             required
                         />
-                        <button type="submit" className="px-4 flex absolute inset-y-2 right-2 items-center font-medium rounded-full text-sm py-1 bg-red-600 hover:bg-black text-black hover:text-red-600 hover:ring-1 ring-red-600">
-                            {/* <SearchIcon className='w-5 h-5 text-red-600' />  */}
-                            Search
+                        <button disabled={searchButton || false} type="submit" className={classNames(searchButton ? "cursor-not-allowed" : "",
+                            "px-4 flex absolute inset-y-2 right-2 items-center font-medium rounded-full text-sm py-1 bg-red-600 hover:bg-black text-black hover:text-red-600 hover:ring-1 ring-red-600")}
+                        >Search
                         </button>
                     </div>
                 </div>

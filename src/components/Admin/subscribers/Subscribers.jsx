@@ -141,13 +141,13 @@ function Subscriber() {
         </Transition>
     )
 
-    const slugs = ['fullName', 'email', 'phoneNumber']
+    // const slugs = ['fullName', 'email', 'phoneNumber']
 
-    const search = (data) => {
-        return data.filter((item) =>
-            slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-        )
-    }
+    // const search = (data) => {
+    //     return data.filter((item) =>
+    //         slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+    //     )
+    // }
 
     return (
         <>
@@ -155,7 +155,7 @@ function Subscriber() {
             <div className="mx-3 mt-3 bg-red-100 overflow-x-auto relative shadow-md sm:rounded-lg">
                 <div className='flex justify-center w-full py-1 bg-black'>
                     <div className='md:w-1/3'>
-                        <Search setSearchTerm={setSearchTerm} />
+                        <Search searchButton={true} setSearchTerm={setSearchTerm} />
                     </div>
                 </div>
                 {modal}

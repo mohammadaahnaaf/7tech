@@ -1,14 +1,20 @@
 import { Dialog, Switch, Transition } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/solid';
 import { AdminLayout } from '@seventech/layout';
-import { ErrorText, Search } from '@seventech/shared';
+import { ErrorText, Pagenation, Search } from '@seventech/shared';
+import axiosAPI from '@seventech/utils/axios-api';
+import axiosRoot from '@seventech/utils/axios-root';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import React, { Fragment, useState } from 'react';
 import { TagsInput } from "react-tag-input-component";
+import { useDebounce } from 'use-debounce';
 import { v4 as uuidv4 } from 'uuid';
-import axiosAPI from '../../utils/axios-api';
-import axiosRoot from '../../utils/axios-root';
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
+
 
 function Add() {
 
@@ -27,7 +33,12 @@ function Add() {
     const [products, setProducts] = useState([])
     const [enabled, setEnabled] = useState(false)
     const [relatedProducts, setRelatedProducts] = useState([])
+    const [pageSize, setPageSize] = React.useState(10)
+    const [page, setPage] = React.useState(0)
+    const [total, setTotal] = React.useState(0);
     const [searchTerm, setSearchTerm] = useState('')
+
+    const [searchedName] = useDebounce(searchTerm, 400);
 
     // select images 
     const handleSelectImage = (e) => {
@@ -198,12 +209,14 @@ function Add() {
     // get product data 
     React.useEffect(() => {
         async function getProducts() {
-            const res = await axiosRoot.get('/products');
+            const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&searchQuery=${searchedName}`);
             setProducts(res.data.products)
+            setTotal(res.data.count)
         }
         getProducts()
-    }, [router]);
+    }, [router, searchedName, page, pageSize]);
 
+    // handle related products 
     function handleAdd(product) {
         const selectedIndex = relatedProducts.indexOf(product._id);
         let newSelected = [];
@@ -227,12 +240,12 @@ function Add() {
 
     const isSelected = (name) => relatedProducts.indexOf(name) !== -1
 
-    const slugs = ['code', 'name', 'category']
-    const search = (data) => {
-        return data.filter((item) =>
-            slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-        )
-    }
+    // const slugs = ['code', 'name', 'category']
+    // const search = (data) => {
+    //     return data.filter((item) =>
+    //         slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+    //     )
+    // }
 
     const related = (
         <Transition appear show={enabled} as={Fragment}>
@@ -269,7 +282,7 @@ function Add() {
                                 </Dialog.Title>
                                 <div className="mt-2">
                                     <div className='my-2'>
-                                        <Search setSearchTerm={setSearchTerm} />
+                                        <Search searchButton={true} setSearchTerm={setSearchTerm} />
                                     </div>
                                     <div className="w-full gap-2 mx-auto grid grid-cols-5">
 
@@ -277,6 +290,13 @@ function Add() {
                                             <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                                         ))}
                                     </div>
+                                    <Pagenation
+                                        total={total}
+                                        page={page}
+                                        setPage={setPage}
+                                        pageSize={pageSize}
+                                        setPageSize={setPageSize}
+                                    />
                                 </div>
 
                                 <div className="mt-4 flex gap-2 justify-end">
@@ -637,7 +657,6 @@ export function ProductCard({ product, add, key, isItemSelected }) {
                 <a>
                     <img className="rounded-t-lg h-40 w-full"
                         src={product.images[0]}
-                        // src="https://flowbite.com/docs/images/blog/image-1.jpg"
                         alt="image of product"
                     />
                 </a>
@@ -648,8 +667,14 @@ export function ProductCard({ product, add, key, isItemSelected }) {
                         <a className="text-gray-900 font-medium text-md tracking-tight">{product.name.substring(0, 28)}</a>
                     </Link>
                 </div>
-                <div className='px-2 py-1 bg-red-600 hover:bg-green-500 rounded-b-md'>
-                    <input onChange={add} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 focus:outline-none focus:border-0 rounded border-gray-300 focus:ring-0 ring-white ring-2" />
+                <div className={classNames(
+                    isItemSelected ? "bg-green-500" : "",
+                    'px-2 py-1 bg-red-600 hover:bg-green-500 rounded-b-md'
+                )}>
+                    <input onChange={add} checked={isItemSelected} id="checkbox" type="checkbox" className={classNames(isItemSelected ? "text-green-500" : "",
+                        "cursor-pointer w-4 h-4 text-red-600 bg-gray-100 focus:outline-none focus:border-0 rounded border-gray-300 focus:ring-0 ring-2"
+                    )}
+                    />
                     <label htmlFor="checkbox" className="sr-only">checkbox</label>
                 </div>
             </div>

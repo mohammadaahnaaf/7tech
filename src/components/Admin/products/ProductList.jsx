@@ -168,7 +168,7 @@ export function ProductsLists() {
       <ErrorText error={error} />
       <div className='flex justify-center w-full py-1 bg-black'>
         <div className='md:w-1/3'>
-          <Search setSearchTerm={setSearchTerm} />
+          <Search searchButton={true} setSearchTerm={setSearchTerm} />
         </div>
         <Link href='/admin/products/add'>
           <a className='bg-black ml-4 text-sm font-medium text-red-600 ring-1 ring-red-600 hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Product</a>
@@ -184,7 +184,7 @@ export function ProductsLists() {
               </div>
             </th>
             <th scope="col" className="py-3 px-6">
-              Product Code
+              Code
             </th>
             <th scope="col" className="py-3 px-6">
               Product name
@@ -216,8 +216,8 @@ export function ProductsLists() {
             const isItemSelected = isSelected(product._id);
             return (
               <tr key={index} className={classNames(
-                product.inStock ? 'hover:bg-gray-50 bg-white' : 'bg-red-500 text-white hover:bg-red-50',
-                "border-b"
+                product.inStock ? 'text-gray-800' : 'text-red-400 border-b-red-600 hover:bg-red-50',
+                "border-b hover:bg-gray-50 bg-white"
               )}>
                 <td className="p-4 w-4">
                   <div className="flex items-center">
@@ -225,14 +225,10 @@ export function ProductsLists() {
                     <label htmlFor="checkbox" className="sr-only">checkbox</label>
                   </div>
                 </td>
-                <td scope="row" className={classNames(
-                  product.inStock ? "text-gray-900" : "text-white",
-                  "py-4 px-6 font-medium whitespace-nowrap")}>
+                <td scope="row" className="py-4 px-6 font-medium whitespace-nowrap">
                   {product.code}
                 </td>
-                <th scope="row" className={classNames(
-                  product.inStock ? "text-gray-900" : "text-white",
-                  "py-4 px-6 font-medium whitespace-nowrap")}>
+                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap">
                   {product.name}
                 </th>
                 <td scope='row' className="py-4 px-2 flex justify-center items-center text-center">
@@ -246,7 +242,7 @@ export function ProductsLists() {
                 </td>
                 <td className="py-4 px-6 text-right">
                   <button type='button' onClick={() => router.push(`/admin/products/${product._id}`)}>
-                    <p className="font-medium text-gray-400 hover:text-red-600">
+                    <p className="font-medium text-red-400 hover:text-red-600">
                       <PencilAltIcon className='h-5 w-5' />
                     </p>
                   </button>

@@ -6,7 +6,7 @@ import axiosAPI from '../../utils/axios-api';
 import { TagsInput } from 'react-tag-input-component';
 import { Dialog, Switch, Transition } from '@headlessui/react';
 import { ProductCard } from './AddProduct';
-import { ErrorText, Search, SuccessText } from '@seventech/shared';
+import { ErrorText, Pagenation, Search, SuccessText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
 import { useDebounce } from 'use-debounce';
 
@@ -29,6 +29,9 @@ const Detail = () => {
   const [error, setError] = React.useState('')
   const [success, setSuccess] = React.useState('')
   const [searchTerm, setSearchTerm] = React.useState('')
+  const [pageSize, setPageSize] = React.useState(10)
+  const [page, setPage] = React.useState(0)
+  const [total, setTotal] = React.useState(0);
 
   const [details, setDetails] = React.useState(
     {
@@ -323,12 +326,14 @@ const Detail = () => {
   // get product data 
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${1}&searchQuery=${searchedName}`);
+      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&searchQuery=${searchedName}`);
       setProducts(res.data.products)
+      setTotal(res.data.count)
     }
     getProducts()
-  }, [router, searchedName, success]);
+  }, [router, searchedName, page, pageSize, success]);
 
+  // handle related products 
   function handleAdd(product) {
     const selectedIndex = relatedProducts.indexOf(product._id);
     let newSelected = [];
@@ -394,13 +399,20 @@ const Detail = () => {
                 </Dialog.Title>
                 <div className="mt-2">
                   <div className='my-2'>
-                    <Search setSearchTerm={setSearchTerm} />
+                    <Search searchButton={true} setSearchTerm={setSearchTerm} />
                   </div>
                   <div className="w-full gap-2 mx-auto grid grid-cols-5">
                     {products?.map((product, index) => (
                       <ProductCard isItemSelected={isSelected(product._id)} key={index} product={product} add={() => handleAdd(product)} />
                     ))}
                   </div>
+                  <Pagenation
+                    total={total}
+                    page={page}
+                    setPage={setPage}
+                    pageSize={pageSize}
+                    setPageSize={setPageSize}
+                  />
                 </div>
 
                 <div className="mt-4 flex justify-end">

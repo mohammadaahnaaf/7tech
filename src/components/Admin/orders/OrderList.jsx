@@ -22,7 +22,7 @@ export function Order() {
 
   // const [checked, setChecked] = React.useState(false)
   // const [checkedAll, setCheckedAll] = React.useState(false)
-  
+
   const [searchedName] = useDebounce(searchTerm, 400);
 
   //Get Data
@@ -33,7 +33,7 @@ export function Order() {
       setTotal(res.data.count)
     }
     getOrder()
-  }, [success]);
+  }, [success, page, pageSize, searchedName]);
 
   function handleAllChecked(event) {
     // !checkedAll ? setCheckedAll(true) : setCheckedAll(false)
@@ -94,7 +94,7 @@ export function Order() {
       <div className="mx-3 mt-3 bg-red-100 overflow-x-auto relative shadow-md sm:rounded-lg">
         <div className='flex justify-center w-full py-1 bg-black'>
           <div className='md:w-1/3'>
-            <Search setSearchTerm={setSearchTerm} />
+            <Search searchButton={true} setSearchTerm={setSearchTerm} />
           </div>
         </div>
         <table className="w-full text-sm text-left text-gray-500">
