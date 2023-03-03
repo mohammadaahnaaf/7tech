@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import axiosAPI from '../../utils/axios-api';
 import { ErrorText, SuccessText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
+import axiosRoot from '@seventech/utils/axios-root';
 
 const Detail = () => {
     const router = useRouter()
@@ -18,7 +19,7 @@ const Detail = () => {
         {
             _id: '',
             name: '',
-            price: '',
+            onlinePrice: '',
             productId: '',
             quantity: ''
         },
@@ -53,23 +54,24 @@ const Detail = () => {
     // get all products
     useEffect(() => {
         async function getProduct() {
-            const res = await axiosAPI.get('/products');
+            const res = await axiosAPI.get(`/products?page=${1}&size=${20}`);
 
             function test(item) {
-                const newProducts = order.products.map(i => {
+                const newProducts = order?.products.map(i => {
                     if (i.productId === item._id) {
+                        i.productId = item._id
                         i.name = item.name
                         i.quantity = i.quantity
                         i.onlinePrice = item.onlinePrice
-                        i.productId = item._id
                     }
                     return i;
                 })
                 setProducts(newProducts);
+                console.log("NewProducts" + newProducts)
             }
             res.data.products.map(x => test(x))
         }
-        itemId && getProduct()
+        order && getProduct()
 
     }, [order]);
 
@@ -194,7 +196,7 @@ const Detail = () => {
                     <h1 className='text-start px-4 py-3 mb-5 rounded-lg bg-gray-200 text-xl'>Ordered Products List</h1>
                     <div className='grid w-full items-end gap-2'>
 
-                        {products.map((element, index) => (
+                        {products?.map((element, index) => (
                             <div className="grid gap-2 grid-cols-10 w-full items-center" key={index}>
                                 <div className='col-span-4'>
                                     <label htmlFor="name" className="block mb-2 text-xs font-medium text-gray-900">Product Name</label>
@@ -205,8 +207,8 @@ const Detail = () => {
                                     <input type="number" name="quantity" id="quantity" value={element.quantity || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="qty" />
                                 </div>
                                 <div className='col-span-3'>
-                                    <label htmlFor="price" className="w-full mb-2 text-xs font-medium text-gray-900">Price</label>
-                                    <input type="number" name="price" id="price" value={element.onlinePrice || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Price" />
+                                    <label htmlFor="onlinePrice" className="w-full mb-2 text-xs font-medium text-gray-900">Price</label>
+                                    <input type="number" name="onlinePrice" id="onlinePrice" value={element.onlinePrice || ""} onChange={(e) => handleChange(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Price" />
                                 </div>
                                 {/* <div className='flex'>
 
