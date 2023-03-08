@@ -541,10 +541,10 @@ export function Details() {
                     <div className='grid grid-cols-3 border-b-2 border-black'>
                         <h1 className='text-center bg-black col-span-3 lg:col-span-1 px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
                     </div>
-                    <div className='grid grid-cols-10 w-full gap-2 bg-gray-50 p-4'>
-                        {relatedProductsId?.slice(0, 5).map((id, index) =>
+                    <div className='grid grid-cols-10 w-full gap-2 rounded-b-md bg-gray-200 p-4'>
+                        {relatedProductsId?.slice(0, 5).map((item, index) =>
                             <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
-                                <Product productId={id} />
+                                <Product item={item} productId={item._id} />
                             </div>
                         )}
                     </div>

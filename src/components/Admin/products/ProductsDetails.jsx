@@ -103,7 +103,9 @@ const Detail = () => {
       setFormValues(res.data.details)
       setMoreInfo(res.data.information)
       setImages(res.data.images)
-      setRelatedProducts(res.data.relatedProducts)
+      let related = res.data.relatedProducts.map(x => x._id)
+      setRelatedProducts(related)
+      // setRelatedProducts(res.data.relatedProducts)
     }
 
     itemId && getProduct()
