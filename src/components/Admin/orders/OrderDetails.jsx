@@ -67,7 +67,7 @@ const Detail = () => {
                     return i;
                 })
                 setProducts(newProducts);
-                console.log("NewProducts" + newProducts)
+                // console.log("NewProducts" + newProducts)
             }
             res.data.products.map(x => test(x))
         }

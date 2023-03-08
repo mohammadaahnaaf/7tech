@@ -1,7 +1,6 @@
 import Axios from "axios";
 import axiosRoot from "./axios-root";
 
-
 const authTokenRefresh = async () => {
   try {
     const res = await axiosRoot.post("/auth/refresh-token", {

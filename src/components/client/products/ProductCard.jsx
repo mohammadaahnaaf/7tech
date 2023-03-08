@@ -11,21 +11,26 @@ function classNames(...classes) {
 export function ProductCards({ product, key }) {
 
     const { addItem } = useCart();
-    const [images, setImages] = React.useState([]);
+    // const [images, setImages] = React.useState([]);
+    // const [error, setError] = React.useState('');
 
     // get product data 
-    React.useEffect(() => {
-        async function getImages() {
-            const res = await axiosRoot.get(`/products/${product._id}`);
-            setImages(res.data.images)
-
-        }
-        product._id && getImages()
-    }, []);
+    // React.useEffect(() => {
+    //     async function getImages() {
+    //         try {
+    //             const res = await axiosRoot.get(`/products/${product._id}`);
+    //             setImages(res.data.images)
+    //         } catch (error) {
+    //             console.log(error)
+    //             setError(error.response?.data?.message)
+    //         }
+    //     }
+    //     product._id && getImages()
+    // }, []);
 
     const cartProduct = {
         id: product?._id,
-        imageSrc: images[0],
+        imageSrc: product.images[0],
         name: product.name,
         price: product.onlinePrice,
         category: product.category,
@@ -48,7 +53,7 @@ export function ProductCards({ product, key }) {
                     <ShoppingCartIcon className='h-7 w-7' />
                 </button>
             </div>
-            {images.slice(0, 1).map((item, index) => (
+            {product.images.slice(0, 1).map((item, index) => (
                 <div key={index} className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden group-hover:opacity-75 lg:aspect-none lg:h-80">
                     <img
                         src={`${item}` || product?.imageSrc}

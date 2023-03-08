@@ -5,7 +5,7 @@ import { CartProvider } from 'react-use-cart';
 function MyApp({ Component, pageProps }) {
 
   return (
-    <CartProvider>
+    <CartProvider>   
         <Component {...pageProps} />
     </CartProvider>
   );

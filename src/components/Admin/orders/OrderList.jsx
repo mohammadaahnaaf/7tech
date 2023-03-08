@@ -79,13 +79,13 @@ export function Order() {
     setTimeout(() => { setSuccess('') }, 2000)
   }
 
-  const slugs = ['customer_name', 'customer_number', 'createdAt', 'total', '_id', 'status']
+  // const slugs = ['customer_name', 'customer_number', 'createdAt', 'total', '_id', 'status']
 
-  const search = (data) => {
-    return data.filter((item) =>
-      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-    )
-  }
+  // const search = (data) => {
+  //   return data.filter((item) =>
+  //     slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+  //   )
+  // }
 
   return (
     <>

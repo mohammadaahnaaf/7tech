@@ -40,9 +40,9 @@ export function Shop({ items, title, term, qey }) {
           </div>
         </div>
       </div>
-      <div className='max-w-7xl bg-gradient-to-r to-black from-red-600 mx-auto text-right text-white hover:text-red-600 text-sm w-full ring-white ring-2 p-2'>
+      <div className='max-w-7xl ring-0 bg-black mx-auto text-right text-white hover:text-red-600 text-xs md:text-sm w-full'>
         <Link href={`/category/${slug.category}`}>
-          <a>Explore more...</a>
+          <a className='ring-2 px-4 py-1 ring-red-600'>Explore more...</a>
         </Link>
       </div>
 
@@ -53,18 +53,6 @@ export function Shop({ items, title, term, qey }) {
 export function ProductCard({ product }) {
 
   const { addItem } = useCart();
-  // const [images, setImages] = React.useState([]);
-  // const router = useRouter()
-
-  // // get product data 
-  // React.useEffect(() => {
-  //   async function getImages() {
-  //     const res = await axiosRoot.get(`/products/${product._id}`);
-  //     setImages(res.data.images)
-  //     // setiCategory(product.category)
-  //   }
-  //   getImages()
-  // }, []);
 
   const cartProduct = {
     id: product._id,

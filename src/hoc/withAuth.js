@@ -1,3 +1,4 @@
+// import { Transition } from '@headlessui/react';
 import { AdminLayout } from '@seventech/layout';
 import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -74,7 +75,9 @@ export const withAuth = (Component, pageProps) => {
 
         }, [router, isLoggedIn]);
 
-        return !isLoggedIn ? <Loading /> : <Component {...pageProps} />
+        return !isLoggedIn ? <Loading /> : (
+            <Component {...pageProps} />
+        )
     }
 
     return AuthComponent;
