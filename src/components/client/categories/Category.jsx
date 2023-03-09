@@ -9,6 +9,8 @@ import Link from 'next/link'
 import { useDebounce } from 'use-debounce'
 import axiosRoot from '@seventech/utils/axios-root'
 import { Pagenation } from '@seventech/shared'
+import { RangeSlider } from './RangeSlider'
+// import { RangeSlider } from './RangeSlider'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -18,6 +20,14 @@ const sortOptions = [
   { name: 'Price: High to Low', href: '#', current: false },
 ]
 const filters = [
+  {
+    id: 'price',
+    name: 'Price',
+    options: [
+      { value: 'low', label: 'Low to High', checked: false },
+      { value: 'high', label: 'High to Low', checked: false },
+    ],
+  },
   {
     id: 'color',
     name: 'Color',
@@ -32,14 +42,6 @@ const filters = [
     name: 'Brand',
     options: [
       { value: 'redragon', label: 'ReDragon', checked: true },
-    ],
-  },
-  {
-    id: 'price',
-    name: 'Price',
-    options: [
-      { value: 'low', label: 'Low to High', checked: false },
-      { value: 'high', label: 'High to Low', checked: false },
     ],
   }
 ]
@@ -63,11 +65,20 @@ export function Category({ term }) {
   const [page, setPage] = React.useState(0)
   const [name, setName] = React.useState('')
 
+  const [minValue, setMinValue] = useState(1);
+  const [maxValue, setMaxValue] = useState(8000);
+
   const [searchedName] = useDebounce(name, 400);
+  // const [searched] = useDebounce(term, 400);
+  const [maxPrice] = useDebounce(maxValue, 400);
+  const [minPrice] = useDebounce(minValue, 400);
+
+  React.useEffect(() => {
+    !slug ? setName(term) : setName(slug)
+  }, [term, slug])
+
   //Get Data
   React.useEffect(() => {
-    !slug && setName(searchTerm)
-    slug && setName(slug)
     async function getCategory() {
       const res = await axiosRoot.get('/categories');
       setCategories(res.data.categories)
@@ -75,16 +86,17 @@ export function Category({ term }) {
       console.log(slug)
     }
     getCategory()
-  }, [slug]);
+  }, [slug, searchTerm, term]);
 
+  //getProduct
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&searchQuery=${searchedName||cats}`);
+      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&searchQuery=${searchedName || cats}`);
       setItems(res.data.products)
       setTotal(res.data.count)
     }
     getProducts()
-  }, [searchSubCats, cats, searchedName, page, pageSize])
+  }, [searchSubCats, maxPrice, minPrice, cats, searchedName, page, pageSize])
 
   // // Search filter 
   // const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
@@ -94,10 +106,10 @@ export function Category({ term }) {
   //   )
   // }
 
-  function handleCategoryFilter(name) {
+  function handleCategoryFilter(nam) {
     setSearchSubCats('')
     setName('')
-    setCats(name)
+    setCats(nam)
   }
   return (
     <div className="bg-white">
@@ -205,7 +217,7 @@ export function Category({ term }) {
         {/* PC view filter dialog */}
         <main className="bg-black mx-auto max-w-9xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
-            <h1 className="text-4xl font-semibold tracking-tight text-red-600">Categories</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-red-600">Categories</h1>
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -303,6 +315,21 @@ export function Category({ term }) {
                   )}
                 </ul>
 
+                {/* Price Range */}
+
+                <div className='lg:col-span-2'>
+                  <RangeSlider
+                    minValue={minValue}
+                    setMinValue={setMinValue}
+                    maxValue={maxValue}
+                    setMaxValue={setMaxValue}
+                    min={1}
+                    max={10000}
+                    step={1}
+                    priceCap={1000}
+                  />
+                </div>
+
                 {filters.map((section) => (
                   <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
                     {({ open }) => (
@@ -368,7 +395,7 @@ export function Category({ term }) {
 
                 </div>
                 <div className='bg-red-600 rounded-lg bg-opacity-40 mt-4'>
-                <Pagenation total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
+                  <Pagenation total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
                 </div>
               </div>
             </div>

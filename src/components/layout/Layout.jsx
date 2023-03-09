@@ -15,8 +15,8 @@ export function Layout({ children, setSearchTerm }) {
                 {children}
             </div>
             <Footers />
-            {/* <video className='opacity-20 z-0' id='background-video' width="2900" height="240" loop autoPlay>
-                <source src="Qaramadi.webm" type="video/webm" />
+            {/* <video className='opacity-20 z-40' id='background-video' width="2900" height="240" loop autoPlay>
+                <source src="/Qaramadi.webm" type="video/webm" />
                 Your browser does not support the video tag.
             </video> */}
 
