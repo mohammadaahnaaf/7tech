@@ -1,6 +1,5 @@
 import { Category } from './Category'
 import React from 'react'
-// import { Layout } from '@seventech/layout'
 import { Footers, Navbar } from '@seventech/shared'
 
 

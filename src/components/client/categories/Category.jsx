@@ -8,6 +8,7 @@ import { ProductCard } from '../Shop'
 import Link from 'next/link'
 import { useDebounce } from 'use-debounce'
 import axiosRoot from '@seventech/utils/axios-root'
+import { Pagenation } from '@seventech/shared'
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -58,6 +59,8 @@ export function Category({ term }) {
   const [cats, setCats] = useState('')
   const [searchSubCats, setSearchSubCats] = useState('')
   const [total, setTotal] = React.useState(0)
+  const [pageSize, setPageSize] = React.useState(8)
+  const [page, setPage] = React.useState(0)
   const [name, setName] = React.useState('')
 
   const [searchedName] = useDebounce(name, 400);
@@ -68,7 +71,7 @@ export function Category({ term }) {
     async function getCategory() {
       const res = await axiosRoot.get('/categories');
       setCategories(res.data.categories)
-      setTotal(res.data.count)
+      // setTotal(res.data.count)
       console.log(slug)
     }
     getCategory()
@@ -76,11 +79,12 @@ export function Category({ term }) {
 
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${1}&size=${20}&category=${cats}&subCategory=${searchSubCats}&searchQuery=${searchedName}`);
+      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&searchQuery=${searchedName||cats}`);
       setItems(res.data.products)
+      setTotal(res.data.count)
     }
     getProducts()
-  }, [searchSubCats, cats, searchedName])
+  }, [searchSubCats, cats, searchedName, page, pageSize])
 
   // // Search filter 
   // const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
@@ -362,6 +366,9 @@ export function Category({ term }) {
                     )
                   })}
 
+                </div>
+                <div className='bg-red-600 rounded-lg bg-opacity-40 mt-4'>
+                <Pagenation total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
                 </div>
               </div>
             </div>
