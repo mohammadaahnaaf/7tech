@@ -54,7 +54,8 @@ export function Category({ term }) {
 
   const router = useRouter()
   const slug = router.query.id
-  let searchTerm = term
+  // let searchTerm = term
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [items, setItems] = useState([])
   const [categories, setCategories] = useState([])
@@ -68,8 +69,8 @@ export function Category({ term }) {
   const [minValue, setMinValue] = useState(1);
   const [maxValue, setMaxValue] = useState(8000);
 
-  const [searchedName] = useDebounce(name, 400);
   // const [searched] = useDebounce(term, 400);
+  const [searchedName] = useDebounce(name, 400);
   const [maxPrice] = useDebounce(maxValue, 400);
   const [minPrice] = useDebounce(minValue, 400);
 
@@ -82,18 +83,18 @@ export function Category({ term }) {
     async function getCategory() {
       const res = await axiosRoot.get('/categories');
       setCategories(res.data.categories)
-      // setTotal(res.data.count)
-      console.log(slug)
     }
     getCategory()
-  }, [slug, searchTerm, term]);
+  }, [slug, term]);
 
   //getProduct
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&searchQuery=${searchedName || cats}`);
+      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&searchQuery=${searchedName}`);
       setItems(res.data.products)
       setTotal(res.data.count)
+      // setTimeout(() => { setName("") }, 1000)
+      // setTimeout(() => { setCats("") }, 1000)
     }
     getProducts()
   }, [searchSubCats, maxPrice, minPrice, cats, searchedName, page, pageSize])
@@ -110,6 +111,7 @@ export function Category({ term }) {
     setSearchSubCats('')
     setName('')
     setCats(nam)
+    console.log(nam)
   }
   return (
     <div className="bg-white">
@@ -295,9 +297,9 @@ export function Category({ term }) {
                         {({ open }) => (
                           <>
                             <Disclosure.Button className="flex hover:text-white focus:text-gray-100 w-full justify-between text-left text-md font-medium text-red-600 focus:outline-none focus:ring-0">
-                              <span><button onClick={() => handleCategoryFilter(category.name)} type='button'>
+                              <button onClick={()=>handleCategoryFilter(category.name)} type='button'>
                                 {index + 1}. {category.name}
-                              </button></span>
+                              </button>
                               <ChevronUpIcon
                                 className={`${!open ? 'rotate-180 transform' : 'text-white'} h-5 w-5 text-red-500`}
                               />
