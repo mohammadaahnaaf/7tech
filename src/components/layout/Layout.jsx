@@ -1,7 +1,6 @@
 import React from 'react'
 import { Footers, Navbar } from '@seventech/shared'
 import { CategoryBar } from '@seventech/client'
-import { Transition } from '@headlessui/react'
 
 export function Layout({ children, setSearchTerm }) {
 
@@ -15,11 +14,6 @@ export function Layout({ children, setSearchTerm }) {
                 {children}
             </div>
             <Footers />
-
-            {/* <video className='opacity-20 z-0' id='background-video' width="2900" height="240" loop autoPlay>
-                <source src="Qaramadi.webm" type="video/webm" />
-                Your browser does not support the video tag.
-            </video> */}
         </>
     )
 }

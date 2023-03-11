@@ -13,11 +13,11 @@ import { RangeSlider } from './RangeSlider'
 // import { RangeSlider } from './RangeSlider'
 
 const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
+  // { name: 'Most Popular', bol: null, current: true },
+  // { name: 'Best Rating', bol: null, current: false },
+  // { name: 'Newest', bol: null, current: false },
+  { name: 'Price: High to Low', bol: true, current: false },
+  { name: 'Price: Low to High', bol: false, current: false }
 ]
 const filters = [
   {
@@ -67,6 +67,7 @@ export function Category({ term }) {
   const [name, setName] = React.useState('')
 
   const [minValue, setMinValue] = useState(1);
+  const [priceHL, setPriceHL] = useState(true);
   const [maxValue, setMaxValue] = useState(8000);
 
   // const [searched] = useDebounce(term, 400);
@@ -90,14 +91,12 @@ export function Category({ term }) {
   //getProduct
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&searchQuery=${searchedName}`);
+      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&highFirst=${priceHL}&searchQuery=${searchedName}`);
       setItems(res.data.products)
       setTotal(res.data.count)
-      // setTimeout(() => { setName("") }, 1000)
-      // setTimeout(() => { setCats("") }, 1000)
     }
     getProducts()
-  }, [searchSubCats, maxPrice, minPrice, cats, searchedName, page, pageSize])
+  }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName, page, pageSize])
 
   // // Search filter 
   // const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
@@ -111,8 +110,15 @@ export function Category({ term }) {
     setSearchSubCats('')
     setName('')
     setCats(nam)
-    console.log(nam)
+    // console.log(nam)
   }
+
+  function hadlePrice(bol) {
+    setName('')
+    priceHL !== bol &&
+    setPriceHL(bol)
+  }
+
   return (
     <div className="bg-white">
       <div>
@@ -247,17 +253,20 @@ export function Category({ term }) {
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
-                            <Link href={option.href}>
-                              <a
-                                className={classNames(
-                                  option.current ? 'font-medium text-gray-300' : 'text-gray-300',
-                                  active ? 'bg-red-100' : '',
-                                  'block px-4 py-2 text-sm'
-                                )}
-                              >
-                                {option.name}
-                              </a>
-                            </Link>
+
+                            <button
+                              type='button'
+                              // onClick={() => setPriceHL(option.bol)}
+                              onClick={() => hadlePrice(option.bol)}
+                              className={classNames(
+                                option.current ? 'font-medium text-gray-300' : 'text-gray-300',
+                                active ? 'bg-red-500' : '',
+                                'block px-4 py-2 text-sm w-full text-left'
+                              )}
+                            >
+                              {option.name}
+                            </button>
+
                           )}
                         </Menu.Item>
                       ))}
@@ -297,7 +306,7 @@ export function Category({ term }) {
                         {({ open }) => (
                           <>
                             <Disclosure.Button className="flex hover:text-white focus:text-gray-100 w-full justify-between text-left text-md font-medium text-red-600 focus:outline-none focus:ring-0">
-                              <button onClick={()=>handleCategoryFilter(category.name)} type='button'>
+                              <button onClick={() => handleCategoryFilter(category.name)} type='button'>
                                 {index + 1}. {category.name}
                               </button>
                               <ChevronUpIcon
