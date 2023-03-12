@@ -1,10 +1,9 @@
 import React from 'react'
-import axiosRoot from '../utils/axios-root';
 import { Order } from './orders/OrderList';
 import { AdminLayout } from '@seventech/layout';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-// import axiosAPI from '../utils/axios-api';
+import axiosAPI from '@seventech/utils/axios-api';
 
 function Dashboards() {
 
@@ -25,7 +24,7 @@ function Dashboards() {
 
   React.useEffect(() => {
     async function getDashboard() {
-      const res = await axiosRoot.get('/analytics');
+      const res = await axiosAPI.get('/analytics');
       setDatas(res.data)
     }
     getDashboard()
