@@ -25,7 +25,7 @@ function Dashboards() {
 
   React.useEffect(() => {
     async function getDashboard() {
-      const res = await axiosRoot.get('/anaytics');
+      const res = await axiosRoot.get('/analytics');
       setDatas(res.data)
     }
     getDashboard()
