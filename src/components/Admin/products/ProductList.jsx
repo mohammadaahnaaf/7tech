@@ -86,13 +86,13 @@ export function ProductsLists() {
   // function handleChecked() {
   //   !checked ? setChecked(true) : setChecked(false)
   // }
-  const slugs = ['code', 'name', 'category', 'tags', 'price']
+  // const slugs = ['code', 'name', 'category', 'tags', 'price']
 
-  const search = (data) => {
-    return data.filter((item) =>
-      slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-    )
-  }
+  // const search = (data) => {
+  //   return data.filter((item) =>
+  //     slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
+  //   )
+  // }
   function closeModal() {
     setIsOpen(false)
   }
