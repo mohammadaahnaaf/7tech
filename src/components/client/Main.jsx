@@ -4,6 +4,7 @@ import { Shop } from './Shop'
 import axiosRoot from '../utils/axios-root'
 import { Layout } from '@seventech/layout'
 import ReactPlayer from 'react-player'
+import { Loading } from '..'
 
 export function Main() {
 
@@ -19,10 +20,7 @@ export function Main() {
         getProducts()
     }, []);
 
-    // const titles = ['MADE FOR GAMING', 'BEST FOR GAMING', 'DEDICATED FOR GAMING', 'BUILD FOR GAMING', 'ALL PRODUCTS']
-    //filter((x, index) => x.index === index + 1)
-
-    return (
+    return home.length !== 0 ? (
         <Layout setSearchTerm={setSearchTerm}>
             <Banner />
             <div className='pb-4 bg-black'>
@@ -30,20 +28,10 @@ export function Main() {
                     <Shop qey={index} term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
                 ))}
             </div>
-
-            {/* {home.length !== 0 ? (
-                <div className='h-screen'>
-                    <ReactPlayer
-                        width='100%'
-                        height='100%'
-                        loop
-                        // controls
-                        playing
-                        url={['https://youtu.be/ybfl4hxsXh0', 'https://youtu.be/Y-uMPL5qcKE?t=31']}
-                    />
-                </div>
-            ) : null} */}
-
+        </Layout>
+    ) : (
+        <Layout>
+            <Loading bg='black' />
         </Layout>
     )
 }

@@ -87,15 +87,18 @@ export function ProductCard({ product }) {
       ))}
       <div className="flex w-full p-2 justify-between border-t-2 border-red-600 bg-red-600 bg-opacity-10">
         <div className='w-full'>
-          <h3 className="text-lg text-gray-200">
+          <h3 className="text-sm text-gray-200">
             <Link href={`/product/${product?._id}`}>
               <a>
                 <span aria-hidden="true" className="absolute inset-0" />
-                {product.name.substring(0, 23)}
+                {product.name.substring(0, 53)}
               </a>
             </Link>
           </h3>
-          <p className="mt-1 text-end text-md text-green-500">৳ {product.onlinePrice}</p>
+          <div className='flex gap-2 justify-end'>
+          <p className="mt-1 text-end line-through text-sm text-red-500">৳ {product.regularPrice}</p>
+          <p className="mt-1 text-end text-sm text-green-500">৳ {product.onlinePrice}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ import { useCart } from 'react-use-cart'
 import { Dialog, Transition } from '@headlessui/react'
 import Product from './Product'
 import { Layout } from '@seventech/layout'
-import { ErrorText, SuccessText } from '@seventech/shared'
+import { ErrorText, Loading, SuccessText } from '@seventech/shared'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -21,7 +21,7 @@ export function Details() {
     const myRef = useRef()
     const { addItem } = useCart();
 
-    const [product, setProduct] = useState([])
+    const [product, setProduct] = useState({})
     const [qty, setQty] = useState(1)
     const [star, setStar] = useState(0)
     const [show, setShow] = useState('details');
@@ -185,7 +185,7 @@ export function Details() {
         </Transition>
     )
 
-    return (
+    return product.name ? (
         <>
             {overview}
             <div className='md:p-8 grid w-full md:max-w-7xl mx-auto gap-4'>
@@ -551,7 +551,8 @@ export function Details() {
                 </div>
             </div>
         </>
-
+    ) : (
+        <Loading bg='white' />
     )
 }
 
