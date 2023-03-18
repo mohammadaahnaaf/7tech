@@ -31,13 +31,15 @@ export function Main() {
                 ))}
             </div>
 
-            {/* {home.length === 0 ? (
+            {/* {home.length !== 0 ? (
                 <div className='h-screen'>
                     <ReactPlayer
-                        loop playing
                         width='100%'
                         height='100%'
-                        url='https://youtu.be/CMQ3ofd7JSY'
+                        loop
+                        // controls
+                        playing
+                        url={['https://youtu.be/ybfl4hxsXh0', 'https://youtu.be/Y-uMPL5qcKE?t=31']}
                     />
                 </div>
             ) : null} */}

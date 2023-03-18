@@ -40,7 +40,7 @@ export function Shop({ items, title, term, qey }) {
           </div>
         </div>
       </div>
-      <div className='max-w-7xl ring-0 bg-black mx-auto text-right text-white hover:text-red-600 text-xs md:text-sm w-full'>
+      <div className='max-w-7xl ring-0 bg-black mx-auto text-right animate-pulse text-white hover:text-red-600 text-xs md:text-sm w-full'>
         <Link href={`/category/${slug.category}`}>
           <a className='ring-2 px-4 py-1 ring-red-600'>Explore more...</a>
         </Link>

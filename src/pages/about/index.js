@@ -12,7 +12,7 @@ function AboutPage() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            <div className='min-h-screen bg-black text-red-600 border-t-2 border-red-600'>
+            <div className='min-h-screen bg-red-700 text-white border-t-0 border-red-600'>
                 <div className='max-w-7xl mx-auto grid'>
                     <h2 className='text-xl md:text-2xl font-semibold text-center py-4'>
                         About Us

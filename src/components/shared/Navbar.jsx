@@ -8,7 +8,6 @@ import { useCart } from 'react-use-cart'
 import axiosAPI from '../utils/axios-api'
 import Link from 'next/link'
 import { HomeIcon, ShieldCheckIcon, UserCircleIcon, UserIcon } from '@heroicons/react/solid'
-// import { Search } from '.'
 
 
 const navigation = [
@@ -135,7 +134,6 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                             >
                                                 <Menu.Items className="origin-top-right absolute z-40 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gradient-to-r from-black to-red-900 ring-1 ring-red-600 ring-opacity-20 focus:outline-none">
 
-
                                                     {userNavigation.map((item) => (
                                                         <Menu.Item key={item.name}>
                                                             {({ active }) => (
@@ -199,14 +197,14 @@ export function Navbar({ setSearchTerm, setOpen }) {
                         <Transition.Child
                             as={Fragment}
                             enter="transition ease-in-out duration-500 transform"
-                            enterFrom="-translate-x-full"
-                            enterTo="translate-x-0"
+                            enterFrom="-translate-y-full"
+                            enterTo="translate-y-0"
                             leave="transition ease-in-out duration-300 transform"
-                            leaveFrom="translate-x-0"
-                            leaveTo="-translate-x-full"
+                            leaveFrom="translate-y-0"
+                            leaveTo="-translate-y-full"
                         >
-                            <Disclosure.Panel className="md:hidden border-t-2 border-gray-600 bg-black">
-                                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                            <Disclosure.Panel className="md:hidden border-t-2 border-red-600 bg-black">
+                                <div className="px-2 py-2 space-y-1 sm:px-3">
                                     <Disclosure
                                         as='div'
                                         className='py-2'
@@ -247,23 +245,19 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                         </svg>
                                         <span>Categories</span>
                                     </Disclosure.Button>
+                              
+                                    {userNavigation.map((item) => (
+                                        <Disclosure.Button
+                                            key={item.name}
+                                            as='a'
+                                            href={item.href}
+                                            className="flex px-3 py-2 rounded-md text-base font-medium text-red-600"
+                                        >
+                                            {item.icon} {item.name}
+                                        </Disclosure.Button>
+                                    ))}
                                 </div>
 
-                                <div className="pt-2 pb-3 border-t-2 border-gray-600">
-
-                                    <div className="mt-3 px-2 space-y-1">
-                                        {userNavigation.map((item) => (
-                                            <Disclosure.Button
-                                                key={item.name}
-                                                as='a'
-                                                href={item.href}
-                                                className="flex px-3 py-2 rounded-md text-base font-medium text-red-600"
-                                            >
-                                                {item.icon} {item.name}
-                                            </Disclosure.Button>
-                                        ))}
-                                    </div>
-                                </div>
                             </Disclosure.Panel>
                         </Transition.Child>
                     </>
