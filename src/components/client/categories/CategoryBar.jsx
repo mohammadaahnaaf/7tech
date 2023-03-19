@@ -31,7 +31,7 @@ export function CategoryBar({ open, setOpen }) {
         <div>
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="relative z-10 lg:hidden" onClose={setOpen}>
+                <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
@@ -86,18 +86,23 @@ export function CategoryBar({ open, setOpen }) {
                                         </Tab.List>
                                     </div>
                                     <Tab.Panels as={Fragment}>
-                                        {categories.map((category) => (
-                                            <Tab.Panel key={category.name} className="pt-5 pb-5 bg-black px-4 -z-50 space-y-5">
+                                        {categories.map((category, index) => (
+                                            <Tab.Panel key={category.name} className="py-5 px-4 -z-50 space-y-5">
 
                                                 <div>
                                                     <ul
                                                         role="list"
-                                                        className="mt-2 flex flex-col space-y-6"
+                                                        className="mt-2 px-4 flex flex-col space-y-6"
                                                     >
-                                                        {category?.subCategories?.map((item) => (
-                                                            <li key={item.name} className="flow-root">
+                                                        <li className="flow-root">
+                                                            <button type="button" onClick={() => router.push(`/category/${category.name}`)} className="-m-3 p-2 block font-semibold text-red-600">
+                                                                {index + 1}. {category.name}
+                                                            </button>
+                                                        </li>
+                                                        {category?.subCategories?.map((item, index) => (
+                                                            <li key={item.name} className="flow-root px-4">
                                                                 <button type="button" onClick={() => router.push(`/category/${item.name}`)} className="-m-3 p-2 block text-gray-200">
-                                                                    {item.name}
+                                                                    {index + 1}. {item.name}
                                                                 </button>
                                                             </li>
                                                         ))}

@@ -9,6 +9,7 @@ import { ProductCard } from './AddProduct';
 import { ErrorText, Pagenation, Search, SuccessText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
 import { useDebounce } from 'use-debounce';
+import { fDate, fDateTime } from '@seventech/utils/formatTime';
 
 const Detail = () => {
 
@@ -757,7 +758,7 @@ const Detail = () => {
                     </div>
                     <div>
                       <label htmlFor="date" className="block mb-2 text-xs font-medium text-gray-900">Reviewed At</label>
-                      <input datepicker type="date" name="date" id="date" value={element?.date || ""} onChange={(e) => handleReview(element._id, e)} className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
+                      <input type="text" name="date" id="date" value={fDateTime(+element.date) || ""} readOnly className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-red-600 focus:border-red-600 block w-full" placeholder="Enter details" />
                     </div>
                     <div>
                       <label htmlFor="rating" className="block mb-2 text-xs font-medium text-gray-900">Rating</label>
