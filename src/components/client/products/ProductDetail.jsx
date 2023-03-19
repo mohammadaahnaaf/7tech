@@ -9,6 +9,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import Product from './Product'
 import { Layout } from '@seventech/layout'
 import { ErrorText, Loading, SuccessText } from '@seventech/shared'
+import { fToNow } from '@seventech/utils/formatTime'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -190,7 +191,8 @@ export function Details() {
             {overview}
             <div className='md:p-8 grid w-full md:max-w-7xl mx-auto gap-4'>
                 <div className='grid grid-cols-5 gap-4 w-full'>
-
+                    
+                    {/* Images  */}
                     <div className='rounded-sm ring-0 ring-gray-200 col-span-5 lg:col-span-2'>
 
                         <div className='grid gap-4 py-4 items-center'>
@@ -444,24 +446,24 @@ export function Details() {
                         {/* Reviews  */}
                         {(show === 'reviews') && (
                             <div className='mt-5 rounded-md md:p-5 bg-gray-50'>
-                                <h2 className='text-xl py-4 px-2 font-medium'>Reviews:</h2>
+                                <h2 className='text-xl p-2 font-medium'>Average Review</h2>
                                 <div className='grid gap-5'>
                                     <div className='flex px-2'>
-                                        <h1 className='text-7xl '>{product?.averageRating?.toFixed(1) || '0.0'}</h1>
+                                        <h1 className='text-7xl text-gray-600'>{product?.averageRating?.toFixed(1) || '0.0'}</h1>
                                         <div className='grid'>
                                             <div className="flex items-center">
                                                 {[0, 1, 2, 3, 4].map((rating) => (
                                                     <StarIcon
                                                         key={rating}
                                                         className={classNames(
-                                                            product.averageRating > rating ? 'text-red-400' : 'text-gray-300',
+                                                            product.averageRating > rating ? 'text-red-500' : 'text-gray-300',
                                                             'h-8 w-8 flex-shrink-0'
                                                         )}
                                                         aria-hidden="true"
                                                     />
                                                 ))}
                                             </div>
-                                            <h2 className='px-2 py-1 text-gray-500'>{product.averageRating || '0'} Reviews</h2>
+                                            <h2 className='px-2 py-1 text-gray-500'>{product?.reviewCount || '0'} Reviews</h2>
                                         </div>
                                     </div>
                                     <div className='px-2 grid gap-3'>
@@ -469,7 +471,7 @@ export function Details() {
                                             <div key={index} className='border-b md:mx-5 border-gray-200 items-center pb-2 grid justify-between col-span-1 gap-3 md:flex'>
                                                 <div className='grid w-1/4 gap-0'>
                                                     <p className='text-sm'>{review.name}</p>
-                                                    <p className='text-xs text-gray-400'>@ {review.date}</p>
+                                                    <p className='text-xs text-gray-400'>@t {review.date}</p>
                                                     {/* <p className='text-xs text-gray-400'>{fToNow(review.date)}</p> */}
                                                 </div>
                                                 <div className="flex items-center">
