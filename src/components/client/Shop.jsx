@@ -10,16 +10,8 @@ function classNames(...classes) {
 
 export function Shop({ items, title, term, qey }) {
 
-  let searchTerm = term;
-
-  // Search filter 
-  // const slugs = ['name', 'category', 'subCategory', 'tags', 'imageAlt', 'code']
-  // const search = (data) => {
-  //   return data.filter((item) =>
-  //     slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-  //   )
-  // }
   let slug = items[0]
+
   return items.length >= 1 ? (
 
     <div key={qey} className='bg-black grid gap-4 px-2 pt-4'>
@@ -34,7 +26,7 @@ export function Shop({ items, title, term, qey }) {
       <div>
         <div className="mx-auto max-w-7xl">
           {/* <Products /> */}
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
             {items?.map((product, index) => {
               return (
                 <ProductCards key={index} product={product} />
@@ -43,12 +35,6 @@ export function Shop({ items, title, term, qey }) {
           </div>
         </div>
       </div>
-      {/* <div className='max-w-7xl ring-0 bg-black mx-auto text-right animate-pulse text-white hover:text-red-600 text-xs md:text-sm w-full'>
-        <Link href={`/category/${slug.category}`}>
-          <a className='ring-2 px-4 py-1 ring-red-600'>Explore more...</a>
-        </Link>
-      </div> */}
-
     </div>
   ) : null
 }
@@ -89,7 +75,7 @@ export function ProductCard({ product }) {
         </div>
       ))}
       <div className="flex w-full p-2 justify-between border-t-2 border-red-600 bg-red-600 bg-opacity-10">
-        <div className='w-full'>
+        <div className='w-full grid justify-between items-center min-h-44'>
           <h3 className="text-sm text-gray-200">
             <Link href={`/product/${product?._id}`}>
               <a>

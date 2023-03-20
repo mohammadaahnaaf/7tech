@@ -4,12 +4,13 @@ import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, ChevronUpIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
 
 import { useRouter } from 'next/router'
-import { ProductCard } from '../Shop'
+// import { ProductCard } from '../Shop'
 import Link from 'next/link'
 import { useDebounce } from 'use-debounce'
 import axiosRoot from '@seventech/utils/axios-root'
 import { Loading, Pagenation } from '@seventech/shared'
 import { RangeSlider } from './RangeSlider'
+import { ProductCards } from '../products'
 
 const sortOptions = [
   // { name: 'Most Popular', bol: null, current: true },
@@ -53,7 +54,6 @@ export function Category({ term }) {
 
   const router = useRouter()
   const slug = router.query.id
-  // let searchTerm = term
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [items, setItems] = useState([])
@@ -96,20 +96,12 @@ export function Category({ term }) {
     getProducts()
   }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName, page, pageSize])
 
-  // // Search filter 
-  // const slugs = ['imageAlt', 'name', 'category', 'subCategory', 'code', 'tags']
-  // const search = (data) => {
-  //   return data.filter((item) =>
-  //     slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(slug.toLowerCase(searchTerm)))
-  //   )
-  // }
 
   function handleCategoryFilter(nam) {
     setSearchSubCats('')
     setName('')
     setCats(nam)
     setMaxValue(50000)
-    // console.log(nam)
   }
 
   function hadlePrice(bol) {
@@ -254,7 +246,6 @@ export function Category({ term }) {
 
                           <button
                             type='button'
-                            // onClick={() => setPriceHL(option.bol)}
                             onClick={() => hadlePrice(option.bol)}
                             className={classNames(
                               option.current ? 'font-medium text-gray-300' : 'text-gray-300',
@@ -295,7 +286,7 @@ export function Category({ term }) {
 
           <div className="grid bg-black grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-12">
             {/* Filters */}
-            <form className="hidden lg:block lg:col-span-2">
+            <div className="hidden lg:block lg:col-span-2">
               <h3 className="sr-only">Categories</h3>
               <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-md font-medium text-gray-300">
                 {categories.map((category, index) => (
@@ -381,30 +372,20 @@ export function Category({ term }) {
                   )}
                 </Disclosure>
               ))}
-            </form>
+            </div>
 
             {/* Product grid */}
             {items.length === 0 ? (
               <Loading bg='black' />
             ) : null}
             <div className="lg:col-span-10">
-              <div className='hidden items-center justify-center justify-items-center mx-auto gap-2 md:gap-4 md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4'>
+              <div className='items-center justify-start mx-auto gap-2 md:gap-4 grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-4'>
 
-                {items?.map((product) => {
+                {items?.map((product, index) => {
                   return (
-                    <ProductCard product={product} />
+                    <ProductCards key={index} product={product} />
                   )
                 })}
-              </div>
-
-              <div className='md:hidden grid'>
-
-                {items?.map((product) => {
-                  return (
-                    <ProductCard product={product} />
-                  )
-                })}
-
               </div>
               <div className='bg-red-600 rounded-lg bg-opacity-40 mt-4'>
                 <Pagenation total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
