@@ -24,8 +24,11 @@ export function Shop({ items, title, term, qey }) {
 
     <div key={qey} className='bg-black grid gap-4 px-2 pt-4'>
       {/* Title  */}
-      <div className='max-w-7xl w-full hover:scale-95 hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-4 md:py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
-        <h2 className="text-sm sm:text-md md:text-2xl font-medium tracking-tight px-5 text-white">{title}</h2>
+      <div className='max-w-7xl w-full hover:scale-95 flex items-center px-5 justify-between hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-4 md:py-8 bg-gradient-to-r from-black to-red-600 ring-white ring-2'>
+        <h2 className="text-sm sm:text-md md:text-2xl font-medium tracking-tight text-white">{title}</h2>
+        <Link href={`/category/${slug.category}`}>
+          <a className='ring-2 px-4 py-1 ring-white text-white hover:bg-black'>Explore more...</a>
+        </Link>
       </div>
 
       <div>
@@ -40,11 +43,11 @@ export function Shop({ items, title, term, qey }) {
           </div>
         </div>
       </div>
-      <div className='max-w-7xl ring-0 bg-black mx-auto text-right animate-pulse text-white hover:text-red-600 text-xs md:text-sm w-full'>
+      {/* <div className='max-w-7xl ring-0 bg-black mx-auto text-right animate-pulse text-white hover:text-red-600 text-xs md:text-sm w-full'>
         <Link href={`/category/${slug.category}`}>
           <a className='ring-2 px-4 py-1 ring-red-600'>Explore more...</a>
         </Link>
-      </div>
+      </div> */}
 
     </div>
   ) : null

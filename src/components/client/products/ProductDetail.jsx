@@ -468,27 +468,28 @@ export function Details() {
                                     <div className='px-2 grid gap-3'>
                                         {product.reviews?.map((review, index) => {
                                             const formateDates = (data) => new Date(data)
-                                            return(
-                                            <div key={index} className='border-b md:mx-5 border-gray-200 items-center pb-2 grid justify-between col-span-1 gap-3 md:flex'>
-                                                <div className='grid w-1/4 gap-0'>
-                                                    <p className='text-sm'>{review.name}</p>
-                                                    <p className='text-xs text-gray-400'>@ {fDateTime(+review.date)}</p>
+                                            return (
+                                                <div key={index} className='border-b md:mx-5 border-gray-200 items-center pb-2 grid justify-between col-span-1 gap-3 md:flex'>
+                                                    <div className='grid w-1/4 gap-0'>
+                                                        <p className='text-sm'>{review.name}</p>
+                                                        <p className='text-xs text-gray-400'>@ {fDateTime(+review.date)}</p>
+                                                    </div>
+                                                    <div className="flex items-center">
+                                                        {[0, 1, 2, 3, 4].map((rating) => (
+                                                            <StarIcon
+                                                                key={rating}
+                                                                className={classNames(
+                                                                    review.rating > rating ? 'text-red-400' : 'text-gray-300',
+                                                                    'h-6 w-6 flex-shrink-0'
+                                                                )}
+                                                                aria-hidden="true"
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                    <p className='flex items-center w-1/3 text-sm text-gray-500'>{review.comment}</p>
                                                 </div>
-                                                <div className="flex items-center">
-                                                    {[0, 1, 2, 3, 4].map((rating) => (
-                                                        <StarIcon
-                                                            key={rating}
-                                                            className={classNames(
-                                                                review.rating > rating ? 'text-red-400' : 'text-gray-300',
-                                                                'h-6 w-6 flex-shrink-0'
-                                                            )}
-                                                            aria-hidden="true"
-                                                        />
-                                                    ))}
-                                                </div>
-                                                <p className='flex items-center w-1/3 text-sm text-gray-500'>{review.comment}</p>
-                                            </div>
-                                        )})}
+                                            )
+                                        })}
                                     </div>
 
                                     {/* white a review  */}
@@ -539,18 +540,20 @@ export function Details() {
                 </div>
 
                 {/* Realted Products  */}
-                <div className='bg-white mt-4 md:max-w-7xl mx-auto w-full'>
-                    <div className='grid grid-cols-3 border-b-2 border-black'>
-                        <h1 className='text-center bg-black col-span-3 lg:col-span-1 px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
+                {relatedProductsId.length > 0 && (
+                    <div className='bg-white mt-4 md:max-w-7xl mx-auto w-full'>
+                        <div className='grid grid-cols-3 border-b-2 border-black'>
+                            <h1 className='text-center bg-black col-span-3 lg:col-span-1 px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
+                        </div>
+                        <div className='grid grid-cols-10 w-full gap-2 rounded-b-md bg-gray-200 p-4'>
+                            {relatedProductsId?.slice(0, 5).map((item, index) =>
+                                <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
+                                    <Product item={item} productId={item._id} />
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    <div className='grid grid-cols-10 w-full gap-2 rounded-b-md bg-gray-200 p-4'>
-                        {relatedProductsId?.slice(0, 5).map((item, index) =>
-                            <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
-                                <Product item={item} productId={item._id} />
-                            </div>
-                        )}
-                    </div>
-                </div>
+                )}
             </div>
         </>
     ) : (
