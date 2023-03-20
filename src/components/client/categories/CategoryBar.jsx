@@ -122,7 +122,7 @@ export function CategoryBar({ open, setOpen }) {
             </Transition.Root>
 
             {/* PC menu view  */}
-            <header className="relative max-h-10 lg:block hidden bg-red-600">
+            <header className="relative max-h-10 lg:block hidden bg-red-700">
 
                 <div area-position='fixed' aria-label="Top" className="max-w-7xl max-h-10 mx-auto px-4 sm:px-6 xl:px-8">
                     <div>
@@ -135,12 +135,12 @@ export function CategoryBar({ open, setOpen }) {
                                 <span className="sr-only">Open menu</span>
                                 {/* <MenuIcon className="h-6 w-6" aria-hidden="true" /> */}
                                 <ChevronDoubleRightIcon className="h-6 w-6 mr-1" aria-hidden="true" />
-                                <span className="">Categories</span>
+                                <span>Categories</span>
                             </button>
 
                             <Popover.Group className="hidden lg:ml-0 xl:block lg:self-stretch">
                                 <div className="h-10 flex gap-8">
-                                    {categories.slice(0, 9).map((category, index) => (
+                                    {categories.slice(0, 10).map((category, index) => (
                                         <Popover key={index} className="flex">
                                             {({ open }) => (
                                                 <>
@@ -148,9 +148,9 @@ export function CategoryBar({ open, setOpen }) {
                                                         <Popover.Button
                                                             className={classNames(
                                                                 open
-                                                                    ? 'border-gray-900 text-white border-b-white border-b-4'
-                                                                    : 'border-transparent text-gray-900 hover:border-white border-b-4 hover:text-white',
-                                                                'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-semibold -mb-px pt-px'
+                                                                    ? 'border-red-700 text-white border-b-white border-b-4'
+                                                                    : 'border-transparent text-black hover:border-white border-b-4 hover:text-white',
+                                                                'relative z-10 flex items-center focus:outline-none focus:border-b-4 transition-colors ease-out duration-200 text-sm font-semibold -mb-px pt-px'
                                                             )}
                                                         >
                                                             {category.name}
@@ -174,7 +174,7 @@ export function CategoryBar({ open, setOpen }) {
                                                                     <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-8">
 
                                                                         <div className="row-start-1 grid grid-cols-3 gap-y-5 gap-x-5 text-sm">
-                                                                            {/* {category.subCategories.map((section) => ( */}
+                                                                           
                                                                             <div>
                                                                                 <Link href={`/category/${category.name}`}>
                                                                                     <a className="font-medium text-lg text-gray-100">
@@ -194,7 +194,6 @@ export function CategoryBar({ open, setOpen }) {
                                                                                     ))}
                                                                                 </ul>
                                                                             </div>
-                                                                            {/* ))} */}
                                                                         </div>
                                                                     </div>
                                                                 </div>
