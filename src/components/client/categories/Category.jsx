@@ -102,12 +102,23 @@ export function Category({ term }) {
     setName('')
     setCats(nam)
     setMaxValue(50000)
+    // setMobileFiltersOpen(false)
   }
 
   function hadlePrice(bol) {
     setName('')
     priceHL !== bol &&
       setPriceHL(bol)
+  }
+
+  function handleFilterOpen() {
+    setMobileFiltersOpen(true)
+  }
+
+  function handleTo(link) {
+    router.push(`/category/${link}`)
+    setMobileFiltersOpen(false)
+    // setTimeout(() => { setMobileFiltersOpen(false) }, 500)
   }
 
   return (
@@ -156,9 +167,9 @@ export function Category({ term }) {
                   <ul role="list" className="px-4 text-md grid gap-2 py-3 font-semibold text-gray-100">
                     {categories.map((category, index) => (
                       <li key={category.name}>
-                        <Link href={`/category/${category.name}`}>
-                          <a>{`${index + 1}. `}{category.name}</a>
-                        </Link>
+                        <button type='button' onClick={() => handleTo(category.name)}>
+                          {`${index + 1}. `}{category.name}
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -271,7 +282,7 @@ export function Category({ term }) {
             <button
               type="button"
               className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-300 sm:ml-6 lg:hidden"
-              onClick={() => setMobileFiltersOpen(true)}
+              onClick={() => handleFilterOpen()}
             >
               <span className="sr-only">Filters</span>
               <FilterIcon className="h-5 w-5" aria-hidden="true" />
@@ -316,7 +327,6 @@ export function Category({ term }) {
               </ul>
 
               {/* Price Range */}
-
               <div className='lg:col-span-2'>
                 <RangeSlider
                   minValue={minValue}

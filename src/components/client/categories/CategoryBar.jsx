@@ -68,19 +68,19 @@ export function CategoryBar({ open, setOpen }) {
 
                                 {/* Links */}
                                 <Tab.Group as="div" className="mt-2">
-                                    <div className="border-b border-gray-200">
-                                        <Tab.List className="-mb-px flex px-4 space-x-8">
-                                            {categories?.map((category) => (
+                                    <div className="border-y-2 border-red-600">
+                                        <Tab.List className="grid p-4">
+                                            {categories?.map((category, index) => (
                                                 <Tab
                                                     key={category.name}
                                                     className={({ selected }) =>
                                                         classNames(
-                                                            selected ? 'text-red-600 border-red-600' : 'text-gray-100 border-transparent',
-                                                            'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-medium'
+                                                            selected ? 'bg-red-600 text-white' : 'text-red-600 border-transparent',
+                                                            'flex-1 text-left whitespace-nowrap rounded-md p-2 text-base font-medium'
                                                         )
                                                     }
                                                 >
-                                                    {category.name}
+                                                    {index + 1}. {category.name}
                                                 </Tab>
                                             ))}
                                         </Tab.List>
@@ -95,7 +95,7 @@ export function CategoryBar({ open, setOpen }) {
                                                         className="mt-2 px-4 flex flex-col space-y-6"
                                                     >
                                                         <li className="flow-root">
-                                                            <button type="button" onClick={() => router.push(`/category/${category.name}`)} className="-m-3 p-2 block font-semibold text-red-600">
+                                                            <button type="button" onClick={() => router.push(`/category/${category.name}`)} className="-m-3 p-2 block text-md font-semibold text-red-600">
                                                                 {index + 1}. {category.name}
                                                             </button>
                                                         </li>
@@ -174,7 +174,7 @@ export function CategoryBar({ open, setOpen }) {
                                                                     <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-8">
 
                                                                         <div className="row-start-1 grid grid-cols-3 gap-y-5 gap-x-5 text-sm">
-                                                                           
+
                                                                             <div>
                                                                                 <Link href={`/category/${category.name}`}>
                                                                                     <a className="font-medium text-lg text-gray-100">
