@@ -1,12 +1,38 @@
 import { Dialog, Transition } from '@headlessui/react';
+import axiosAPI from '@seventech/utils/axios-api';
 import React, { Fragment } from 'react'
 import { about } from 'src/data'
+import { TrashIcon } from '@heroicons/react/solid';
+
+
+const terms = [
+  {
+    title: "disclaimer",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  }
+]
+const privacy = [
+  {
+    title: "information collection and use",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  }
+]
+const abouts = [
+  {
+    title: "disclaimer",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    topics: JSON.stringify(['aaaa', 'aall'])
+  }
+]
+const topics = ['aaaa', 'aall']
 
 function About() {
 
   const [selected, setSelected] = React.useState([]);
   const [allSelected, setAllSelected] = React.useState(false)
   const [enabled, setEnabled] = React.useState(false)
+  const [success, setSuccess] = React.useState('')
+  const [error, setError] = React.useState('')
 
   function handleAllChecked(event) {
     // !checkedAll ? setCheckedAll(true) : setCheckedAll(false)
@@ -44,10 +70,47 @@ function About() {
     setEnabled(false)
   }
 
-  function handleSubmit(e) {
-    e.preventDefault()
+  async function handleDelete(id) {
+    try {
+      await axiosAPI.delete(`/content/about/${id}`);
+      setSuccess('About Vanished')
+    } catch (error) {
+      console.log(error)
+      // setError(error.response?.data?.message)
+    }
+  }
+
+  async function handleSubmit(event) {
+    try {
+      event.preventDefault()
+
+      const reqData = {
+        about: [
+          {
+            title: "disclaimer",
+            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+            topics: topics
+            // topics: JSON.stringify(topics)
+          }
+        ],
+        privacy: privacy,
+        terms: terms
+      }
+
+      await axiosAPI.post(`/content`, reqData);
+      setSuccess('Status Edited')
+      setTimeout(() => {
+        setSuccess('')
+      }, 2000)
+
+    } catch (error) {
+      console.log(error)
+      setError(error.response?.data?.message)
+      setTimeout(() => { setError('') }, 6000)
+    }
     setEnabled(false)
   }
+
 
   const modal = (
     <Transition appear show={enabled} as={Fragment}>
@@ -106,7 +169,7 @@ function About() {
                     Cancel
                   </button>
                   <button
-                    type="submit"
+                    type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                     onClick={handleSubmit}
                   >
@@ -129,16 +192,17 @@ function About() {
 
           const isItemSelected = isSelected(item._id);
           return (
-            <div className='flex items-start w-full gap-2'>
+            <div className='flex items-start p-4 rounded-md my-1 bg-red-600 bg-opacity-10 w-full gap-2'>
               {/* <div className="flex items-center">
               <input id="checkbox-all" onChange={handleAllChecked} type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
               <label htmlFor="checkbox-all" className="sr-only">checkbox</label>
-            </div> */}
+             </div> */}
 
-              <div className="flex pt-9 items-center">
+
+              {/* <div className="flex pt-9 items-center">
                 <input onChange={(event) => handleChecked(event, item._id)} checked={isItemSelected} id="checkbox" type="checkbox" className="cursor-pointer w-4 h-4 text-red-600 bg-gray-100 rounded border-gray-300 focus:ring-red-500 focus:ring-2" />
                 <label htmlFor="checkbox" className="sr-only">checkbox</label>
-              </div>
+              </div> */}
 
               <div className='w-full'>
                 <div className='w-full'>
@@ -150,6 +214,10 @@ function About() {
                   <label htmlFor="description" className="block mb-1 text-sm font-medium text-gray-900">Description</label>
                   <textarea type="text" rows={4} value={item.description || ''} name='description' id="description" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-2.5" placeholder="Desciption" required />
                 </div>
+              </div>
+              <div className="grid h-full content-center items-center">
+                <button className='bg-white text-red-600 hover:bg-red-600 hover:text-white p-1 rounded-md' type='button' onClick={() => handleDelete(item._id)}>
+                  <TrashIcon className='h-6 w-6' /></button>
               </div>
             </div>
           )

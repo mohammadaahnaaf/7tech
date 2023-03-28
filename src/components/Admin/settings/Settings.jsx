@@ -22,21 +22,21 @@ function Setting() {
   const [files, setFile] = useState([]);
   const [error, setError] = useState('')
   const [banners, setBanners] = useState([])
+  const [success, setSuccess] = useState('')
 
   // get images data 
   React.useEffect(() => {
     async function getBanners() {
       const res = await axiosRoot.get('/banner');
       setBanners(res.data)
-      console.log(res.data)
     }
     getBanners()
-  }, []);
+  }, [success]);
 
   // Delete Banner
   async function handleDelete(id) {
     await axiosAPI.delete(`/banner/${id}`);
-    router.reload()
+    setSuccess('Banner Vanished')
   }
 
   // submit form data

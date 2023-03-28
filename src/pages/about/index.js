@@ -1,9 +1,22 @@
 import { Footers, Navbar } from '@seventech/shared'
+import axiosRoot from '@seventech/utils/axios-root'
 import Head from 'next/head'
 import React from 'react'
 import { about } from 'src/data'
 
 function AboutPage() {
+
+    const [table, setTable] = React.useState([])
+
+    React.useEffect(() => {
+        async function getTable() {
+            const res = await axiosRoot.get(`/content?content-type=${'about'}`);
+            setTable(res.data)
+            console.log(res.data)
+        }
+        getTable()
+    }, []);
+
     return (
         <>
             <Head>
