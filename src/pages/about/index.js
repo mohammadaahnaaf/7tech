@@ -2,19 +2,19 @@ import { Footers, Navbar } from '@seventech/shared'
 import axiosRoot from '@seventech/utils/axios-root'
 import Head from 'next/head'
 import React from 'react'
-import { about } from 'src/data'
+// import { about } from 'src/data'
 
 function AboutPage() {
 
-    const [table, setTable] = React.useState([])
+    const [about, setAbout] = React.useState([])
 
+    //Get Data
     React.useEffect(() => {
-        async function getTable() {
-            const res = await axiosRoot.get(`/content?content-type=${'about'}`);
-            setTable(res.data)
-            console.log(res.data)
+        async function getContent() {
+            const res = await axiosRoot.get('/content/about');
+            setAbout(res.data)
         }
-        getTable()
+        getContent()
     }, []);
 
     return (
@@ -33,7 +33,7 @@ function AboutPage() {
                     <div className='grid items-start justify-start gap-5 md:gap-10 px-8 py-5'>
                         {about.map((item, index) => (
                             <div key={index} className='grid gap-1'>
-                                <h3 className='text-md font-medium md:text-2xl'>{index + 1}. {item.title}</h3>
+                                <h3 className='text-sm font-medium md:text-2xl'>{index + 1}. {item.title}</h3>
                                 <p className='text-xs font-normal pl-3 md:pl-5 md:text-lg'>{item.description}</p>
                             </div>
                         ))}
