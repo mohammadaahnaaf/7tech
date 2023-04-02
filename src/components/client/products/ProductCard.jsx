@@ -48,14 +48,25 @@ export function ProductCards({ product, key }) {
                 ))}
             </div>
             <div className="grid w-full p-2 border-t-2 border-red-600">
-                <div className='h-20 grid content-between'>
+                <div className='h-20 hidden md:grid content-between'>
                     <Link href={`/product/${product?._id}`}>
-                        <a className="text-sm w-full font-normal md:text-md text-gray-200">
+                        <a className="w-full font-normal text-sm text-gray-200">
                             <span aria-hidden="true" className="absolute inset-0" />
                             {product?.name?.substring(0, 60)}
                         </a>
                     </Link>
-                    <p className="mt-1 w-full flex justify-end items-center text-end text-md gap-2 text-green-500">
+                    <p className="mt-1 w-full flex justify-end items-center text-end text-sm gap-2 text-green-500">
+                        <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}
+                    </p>
+                </div>
+                <div className='h-20 grid md:hidden content-between'>
+                    <Link href={`/product/${product?._id}`}>
+                        <a className="text-xs w-full font-normal text-gray-200">
+                            <span aria-hidden="true" className="absolute inset-0" />
+                            {product?.name?.substring(0, 40)}
+                        </a>
+                    </Link>
+                    <p className="mt-1 w-full flex justify-end items-center text-end text-xs gap-2 text-green-500">
                         <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}
                     </p>
                 </div>

@@ -25,7 +25,7 @@ export function Pagenation({ total, page, setPage, pageSize, setPageSize }) {
 
   return (
     <div className='gap-4 items-center p-2 flex justify-end'>
-      <div>
+      <div className="hidden md:block">
         <label className='mx-2 text-sm' htmlFor='pageSize'>Page Size:</label>
         <select value={pageSize} onChange={(e) => setPageSize(e.target.value)} className='text-sm rounded-lg outline-none ring-1 ring-red-600 border-none focus:ring-red-600 focus:ring-2 focus:border-none py-1' name='pageSize' id='pageSize'>
           <option value={8}>8</option>

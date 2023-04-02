@@ -226,7 +226,7 @@ export function Category({ term }) {
       {/* PC view filter dialog */}
       <main className="bg-black mx-auto max-w-9xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
-          <h1 className="text-3xl font-semibold tracking-tight text-red-600">Categories</h1>
+          <h1 className="text-xl md:text-3xl font-semibold tracking-tight text-red-600">Categories</h1>
 
           <div className="flex items-center">
             <Menu as="div" className="relative inline-block text-left">
@@ -386,7 +386,9 @@ export function Category({ term }) {
 
             {/* Product grid */}
             {items.length === 0 ? (
-              <Loading bg='black' />
+              <div className='w-full lg:col-span-10'>
+                <Loading bg='black' />
+              </div>
             ) : null}
             <div className="lg:col-span-10">
               <div className='items-center justify-start mx-auto gap-2 md:gap-4 grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-4'>
