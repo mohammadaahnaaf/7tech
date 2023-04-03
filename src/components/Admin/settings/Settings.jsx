@@ -80,11 +80,11 @@ function Setting() {
 
 
   return (
-    <div className='pt-6'>
+    <div className='pt-6 rounded-b-lg'>
       <ErrorText error={error} />
       <form onSubmit={handleSubmit}>
         {/* Upload banners  */}
-        <div className="shadow overflow-hidden">
+        <div className="shadow rounded-lg">
 
           <div className="px-4 py-5 bg-red-600 sm:p-6">
 
@@ -165,7 +165,7 @@ function Setting() {
             )}
           </div>
 
-          <div className="px-4 py-3 bg-red-200 text-right sm:px-6">
+          <div className="px-4 py-3 bg-white rounded-b-lg text-right sm:px-6">
             <button
               type="submit"
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600"
@@ -191,7 +191,7 @@ export function Settings() {
 }
 
 
-export function Tabs({ children }) {
+export function Tabs() {
   const [tab, setTab] = useState('banner')
   const tabs = [
     {
@@ -213,7 +213,7 @@ export function Tabs({ children }) {
   ]
 
   return (
-    <div className="max-w-6xl rounded-t-md my-6 bg-white w-full mx-auto pt-6">
+    <div className="max-w-6xl rounded-lg my-6 bg-white w-full mx-auto pt-6">
       <Tab.Group>
         <Tab.List className="grid lg:flex border-y-2 border-y-red-600">
 
@@ -238,7 +238,7 @@ export function Tabs({ children }) {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="">
+        <Tab.Panels>
 
           <Tab.Panel>
             <Setting />

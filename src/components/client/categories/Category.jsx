@@ -148,12 +148,12 @@ export function Category({ term }) {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-sm flex-col overflow-y-auto bg-red-600 py-4 pb-12 shadow-xl">
-                <div className="flex items-center justify-between px-4">
-                  <h2 className="text-lg font-semibold text-gray-200">Categories</h2>
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-sm flex-col overflow-y-auto bg-black shadow-xl">
+                <div className="flex items-center py-4 justify-between px-4">
+                  <h2 className="text-lg font-semibold text-red-600">Categories</h2>
                   <button
                     type="button"
-                    className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-red-600 p-2 text-gray-400"
+                    className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md p-2 text-red-600"
                     onClick={() => setMobileFiltersOpen(false)}
                   >
                     <span className="sr-only">Close menu</span>
@@ -161,10 +161,10 @@ export function Category({ term }) {
                   </button>
                 </div>
 
-                {/* Filters */}
-                <form className="mt-4 border-t-2 border-gray-200">
+                {/* Category List */}
+                <div className="border-t-2 border-red-600">
                   <h3 className="sr-only">Categories</h3>
-                  <ul role="list" className="px-4 text-md grid gap-2 py-3 font-semibold text-gray-100">
+                  <ul role="list" className="px-4 text-md grid gap-2 py-3 font-semibold text-red-600">
                     {categories.map((category, index) => (
                       <li key={category.name}>
                         <button type='button' onClick={() => handleTo(category.name)}>
@@ -173,50 +173,66 @@ export function Category({ term }) {
                       </li>
                     ))}
                   </ul>
+                  <div className='border-t-2 p-4 border-red-600'>
+                    <div className='w-full bg-opacity-10 px-4 bg-red-600 rounded-lg '>
+                      <RangeSlider
+                        minValue={minValue}
+                        setMinValue={setMinValue}
+                        maxValue={maxValue}
+                        setMaxValue={setMaxValue}
+                        min={1}
+                        max={10000}
+                        step={1}
+                        priceCap={1000}
+                      />
+                    </div>
+                  </div>
+                  <div className='hidden'>
+                    {filters.map((section) => (
+                      <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
+                        {({ open }) => (
+                          <>
+                            <h3 className="-mx-2 -my-3 flow-root">
+                              <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-300">
+                                <span className="font-medium text-gray-900">{section.name}</span>
+                                <span className="ml-6 flex items-center">
+                                  {open ? (
+                                    <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                  ) : (
+                                    <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                  )}
+                                </span>
+                              </Disclosure.Button>
+                            </h3>
+                            <Disclosure.Panel className="pt-6">
+                              <div className="space-y-6">
+                                {section.options.map((option, optionIdx) => (
+                                  <div key={option.value} className="flex items-center">
+                                    <input
+                                      id={`filter-mobile-${section.id}-${optionIdx}`}
+                                      name={`${section.id}[]`}
+                                      defaultValue={option.value}
+                                      type="checkbox"
+                                      defaultChecked={option.checked}
+                                      className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                    />
+                                    <label
+                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                      className="ml-3 min-w-0 flex-1 text-gray-300"
+                                    >
+                                      {option.label}
+                                    </label>
+                                  </div>
+                                ))}
+                              </div>
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    ))}
+                  </div>
 
-                  {filters.map((section) => (
-                    <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
-                      {({ open }) => (
-                        <>
-                          <h3 className="-mx-2 -my-3 flow-root">
-                            <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-300">
-                              <span className="font-medium text-gray-900">{section.name}</span>
-                              <span className="ml-6 flex items-center">
-                                {open ? (
-                                  <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
-                                ) : (
-                                  <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
-                                )}
-                              </span>
-                            </Disclosure.Button>
-                          </h3>
-                          <Disclosure.Panel className="pt-6">
-                            <div className="space-y-6">
-                              {section.options.map((option, optionIdx) => (
-                                <div key={option.value} className="flex items-center">
-                                  <input
-                                    id={`filter-mobile-${section.id}-${optionIdx}`}
-                                    name={`${section.id}[]`}
-                                    defaultValue={option.value}
-                                    type="checkbox"
-                                    defaultChecked={option.checked}
-                                    className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
-                                  />
-                                  <label
-                                    htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                    className="ml-3 min-w-0 flex-1 text-gray-300"
-                                  >
-                                    {option.label}
-                                  </label>
-                                </div>
-                              ))}
-                            </div>
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
-                  ))}
-                </form>
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -226,15 +242,16 @@ export function Category({ term }) {
       {/* PC view filter dialog */}
       <main className="bg-black mx-auto max-w-9xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
-          <h1 className="text-xl md:text-3xl font-semibold tracking-tight text-red-600">Categories</h1>
+          {/* Upper Top section */}
 
+          <h1 className="text-xl md:text-3xl font-semibold tracking-tight text-gray-200">Categories</h1>
           <div className="flex items-center">
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-300 hover:text-gray-300">
-                  Sort
+                  Sort by
                   <ChevronDownIcon
-                    className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-300"
+                    className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-200 group-hover:text-gray-300"
                     aria-hidden="true"
                   />
                 </Menu.Button>
@@ -266,7 +283,6 @@ export function Category({ term }) {
                           >
                             {option.name}
                           </button>
-
                         )}
                       </Menu.Item>
                     ))}
@@ -275,10 +291,10 @@ export function Category({ term }) {
               </Transition>
             </Menu>
 
-            <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-300 sm:ml-7">
+            {/* <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-300 sm:ml-7">
               <span className="sr-only">View grid</span>
               <ViewGridIcon className="h-5 w-5" aria-hidden="true" />
-            </button>
+            </button> */}
             <button
               type="button"
               className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-300 sm:ml-6 lg:hidden"
@@ -290,15 +306,15 @@ export function Category({ term }) {
           </div>
         </div>
 
-        <section aria-labelledby="products-heading" className="py-6">
+        <section className="py-6">
           <h2 id="products-heading" className="sr-only">
-            Products
+            Categories
           </h2>
-
+          {/* SideBar */}
           <div className="grid bg-black grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-12">
-            {/* Filters */}
-            <div className="hidden lg:block lg:col-span-2">
+            <div className="hidden lg:block lg:col-span-3 xl:col-span-2">
               <h3 className="sr-only">Categories</h3>
+              {/* All Categories */}
               <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-md font-medium text-gray-300">
                 {categories.map((category, index) => (
                   <li key={index}>
@@ -327,7 +343,7 @@ export function Category({ term }) {
               </ul>
 
               {/* Price Range */}
-              <div className='lg:col-span-2'>
+              <div className='lg:col-span-3 xl:col-span-2'>
                 <RangeSlider
                   minValue={minValue}
                   setMinValue={setMinValue}
@@ -340,57 +356,63 @@ export function Category({ term }) {
                 />
               </div>
 
-              {filters.map((section) => (
-                <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
-                  {({ open }) => (
-                    <>
-                      <h3 className="-my-3 flow-root">
-                        <Disclosure.Button className="flex w-full items-center justify-between bg-red-600 rounded-sm p-3 text-sm text-gray-200 hover:text-gray-300">
-                          <span className="font-medium text-gray-300">{section.name}</span>
-                          <span className="ml-6 flex items-center">
-                            {open ? (
-                              <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
-                            ) : (
-                              <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
-                            )}
-                          </span>
-                        </Disclosure.Button>
-                      </h3>
-                      <Disclosure.Panel className="pt-6">
-                        <div className="space-y-4">
-                          {section.options.map((option, optionIdx) => (
-                            <div key={option.value} className="flex items-center">
-                              <input
-                                id={`filter-${section.id}-${optionIdx}`}
-                                name={`${section.id}[]`}
-                                defaultValue={option.value}
-                                type="checkbox"
-                                defaultChecked={option.checked}
-                                className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
-                              />
-                              <label
-                                htmlFor={`filter-${section.id}-${optionIdx}`}
-                                className="ml-3 text-sm text-gray-400"
-                              >
-                                {option.label}
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-              ))}
+              {/* Filters SideBar */}
+              <div className='hidden'>
+                {filters.map((section) => (
+                  <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
+                    {({ open }) => (
+                      <>
+                        <h3 className="-my-3 flow-root">
+                          <Disclosure.Button className="flex w-full items-center justify-between bg-red-600 rounded-sm p-3 text-sm text-gray-200 hover:text-gray-300">
+                            <span className="font-medium text-gray-100">{section.name}</span>
+                            <span className="ml-6 flex items-center">
+                              {open ? (
+                                <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                              ) : (
+                                <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        </h3>
+                        <Disclosure.Panel className="pt-6">
+                          <div className="space-y-4">
+                            {section.options.map((option, optionIdx) => (
+                              <div key={option.value} className="flex items-center">
+                                <input
+                                  id={`filter-${section.id}-${optionIdx}`}
+                                  name={`${section.id}[]`}
+                                  defaultValue={option.value}
+                                  type="checkbox"
+                                  defaultChecked={option.checked}
+                                  className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                />
+                                <label
+                                  htmlFor={`filter-${section.id}-${optionIdx}`}
+                                  className="ml-3 text-sm text-gray-400"
+                                >
+                                  {option.label}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                ))}
+              </div>
+
             </div>
 
-            {/* Product grid */}
+            {/* Null Product Loading */}
             {items.length === 0 ? (
-              <div className='w-full lg:col-span-10'>
+              <div className='w-full lg:col-span-9 xl:col-span-10'>
                 <Loading bg='black' />
               </div>
             ) : null}
-            <div className="lg:col-span-10">
+
+            {/* Product List */}
+            <div className="lg:col-span-9 xl:col-span-10">
               <div className='items-center justify-start mx-auto gap-2 md:gap-4 grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-4'>
 
                 {items?.map((product, index) => {
