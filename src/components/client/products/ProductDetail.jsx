@@ -6,7 +6,7 @@ import axiosRoot from '../../utils/axios-root'
 import Image from 'next/image'
 import { useCart } from 'react-use-cart'
 import { Dialog, Transition } from '@headlessui/react'
-import Product from './Product'
+import { Relatedcard } from './Product'
 import { Layout } from '@seventech/layout'
 import { ErrorText, Loading, SuccessText } from '@seventech/shared'
 import { fDateTime } from '@seventech/utils/formatTime'
@@ -164,14 +164,14 @@ export function Details() {
                                 <div className="mt-2 flex justify-between ">
                                     <button
                                         type="button"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                                         onClick={prevImage}
                                     >
                                         Back
                                     </button>
                                     <button
                                         type="button"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                                         onClick={nextImage}
                                     >
                                         Next
@@ -229,40 +229,40 @@ export function Details() {
 
                     {/* Side info  */}
                     <div className='p-4 rounded-lg bg-white col-span-5 lg:col-span-3'>
-                        <h1 className='text-xl font-semibold text-left'>{product.name}</h1>
+                        <h1 className='text-md lg:text-xl font-semibold text-left'>{product.name}</h1>
                         <div>
 
                             {/* side info table */}
                             <div className="relative mt-4">
-                                <table className="w-full text-sm text-left p-3">
+                                <table className="w-full text-xs lg:text-sm text-left p-3">
 
                                     <tbody>
-                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
-                                            <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                        <tr className="bg-white border-gray-100 border-b">
+                                            <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Regular Price:
                                             </th>
                                             <td className=" py-2">
                                                 ৳ {product.regularPrice}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
-                                            <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                        <tr className="bg-white border-gray-100 border-b">
+                                            <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Product Price:
                                             </th>
                                             <td className=" py-2">
                                                 ৳ {product.onlinePrice}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
-                                            <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                        <tr className="bg-white border-gray-100 border-b">
+                                            <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Offer Price:
                                             </th>
                                             <td className=" py-2">
                                                 ৳ {product.offerPrice}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
-                                            <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                        <tr className="bg-white border-gray-100 border-b">
+                                            <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Stock Status:
                                             </th>
                                             <td className=" py-2">
@@ -270,19 +270,19 @@ export function Details() {
                                                 {product?.inStock ? 'In Stock' : 'Stock Out'}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
-                                            <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                        <tr className="bg-white border-gray-100 border-b">
+                                            <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Brand:
                                             </th>
                                             <td className=" py-2">
                                                 {product.imageAlt || 'Unknown'}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
-                                            <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                        <tr className="bg-white border-gray-100 border-b">
+                                            <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Total Reviews:
                                             </th>
-                                            <td className="grid md:flex py-2">
+                                            <td className="flex py-2">
                                                 {[0, 1, 2, 3, 4].map((rating) => (
                                                     <StarIcon
                                                         key={rating}
@@ -293,9 +293,11 @@ export function Details() {
                                                         aria-hidden="true"
                                                     />
                                                 ))}
-                                                <span className='px-2'> {product.reviewCount} Reviews</span>
-                                                <button type='button' onClick={handleScroll}>
-                                                    <a className='hover:text-red-600'>| Write A Review</a>
+                                                <span className='px-2 hidden lg:block'> {product.reviewCount}
+                                                    {product.reviewCount === 1 ? " Review" : " Reviews"}
+                                                </span>
+                                                <button type='button' className='hidden hover:text-red-600 lg:block' onClick={handleScroll}>
+                                                    | Write A Review
                                                 </button>
                                             </td>
                                         </tr>
@@ -402,7 +404,7 @@ export function Details() {
                         {/* More Info */}
                         {(show === 'info') && (
                             <>
-                                <div div className='mt-5 rounded-md md:p-5 bg-gray-50'>
+                                <div div className='rounded-md md:p-5 bg-gray-50'>
                                     <h2 className='text-xl mb-3 font-medium'>More Informations</h2>
                                     {product.details?.map((detail, index) => (
                                         <div className='my-2' key={index}>
@@ -414,9 +416,9 @@ export function Details() {
                             </>
                         )}
 
-                        {/* Details  */}
+                        {/* Specifications  */}
                         {(show === 'details') && (
-                            <div className='mt-5 rounded-md md:p-5'>
+                            <div className='rounded-md md:p-5 bg-gray-50'>
                                 <h2 className='text-xl mb-3 font-medium'>Specifications</h2>
 
                                 <table className="w-full text-sm text-left p-3">
@@ -444,7 +446,7 @@ export function Details() {
 
                         {/* Reviews  */}
                         {(show === 'reviews') && (
-                            <div className='mt-5 rounded-md md:p-5 bg-gray-50'>
+                            <div className='rounded-md md:p-5 bg-gray-50'>
                                 <h2 className='text-xl p-2 font-medium'>Average Review</h2>
                                 <div className='grid gap-5'>
                                     <div className='flex px-2'>
@@ -462,17 +464,18 @@ export function Details() {
                                                     />
                                                 ))}
                                             </div>
-                                            <h2 className='px-2 py-1 text-gray-500'>{product?.reviewCount || '0'} Reviews</h2>
+                                            <h2 className='px-2 py-1 text-gray-600'>{product?.reviewCount || '0'}
+                                                <span>{product.reviewCount === 1 ? " Review" : " Reviews"}</span>
+                                            </h2>
                                         </div>
                                     </div>
                                     <div className='px-2 grid gap-3'>
                                         {product.reviews?.map((review, index) => {
-                                            const formateDates = (data) => new Date(data)
                                             return (
                                                 <div key={index} className='border-b md:mx-5 border-gray-200 items-center pb-2 grid justify-between col-span-1 gap-3 md:flex'>
                                                     <div className='grid w-1/4 gap-0'>
                                                         <p className='text-sm'>{review.name}</p>
-                                                        <p className='text-xs text-gray-400'>@ {fDateTime(+review.date)}</p>
+                                                        <p className='text-xs text-gray-500'>@ {fDateTime(+review.date)}</p>
                                                     </div>
                                                     <div className="flex items-center">
                                                         {[0, 1, 2, 3, 4].map((rating) => (
@@ -512,22 +515,22 @@ export function Details() {
                                                     defaultValue={''}
                                                 />
                                             </div>
-                                            <div className="flex items-center p-3 mt-3 bg-red-100 rounded-md">
-                                                <p className='mr-3 text-gray-500'>Do You Like It?</p>
+                                            <div className="flex text-gray-800 hover:text-red-800 items-center p-3 mt-3 hover:bg-red-100 bg-gray-200 rounded-md">
+                                                <p className='mr-3'>Do You Like It?</p>
                                                 {[0, 1, 2, 3, 4].map((rating, index) => (
                                                     <button type='button' onClick={() => setStar(index + 1)}>
                                                         <StarIcon
                                                             key={index}
                                                             className={classNames(
                                                                 star > rating ? 'text-red-600' : 'text-red-200',
-                                                                'h-6 w-6 flex-shrink-0 ring-red-200 ring-2 rounded bg-white mx-1'
+                                                                'h-6 w-6 flex-shrink-0 ring-2 hover:text-red-600 ring-red-200 rounded bg-white mx-1'
                                                             )}
                                                             aria-hidden="true"
                                                         />
                                                     </button>
                                                 ))}
                                             </div>
-                                            <button type='submit' className="flex items-center justify-center px-8 py-2 mt-3 text-base font-medium text-white bg-red-600 border border-transparent rounded-md w-15 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600">
+                                            <button type='submit' className="flex items-center justify-center px-4 py-1 mt-3 text-base font-medium text-white bg-red-600 border border-transparent rounded-md min-w-15 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600">
                                                 Done
                                             </button>
                                         </div>
@@ -543,12 +546,12 @@ export function Details() {
                 {relatedProductsId.length > 0 && (
                     <div className='bg-white mt-4 md:max-w-7xl mx-auto w-full'>
                         <div className='grid grid-cols-3 border-b-2 border-black'>
-                            <h1 className='text-center bg-black col-span-3 lg:col-span-1 px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
+                            <h1 className='text-center bg-black px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
                         </div>
-                        <div className='grid grid-cols-10 w-full gap-2 rounded-b-md bg-gray-200 p-4'>
+                        <div className='grid grid-cols-12 w-full gap-2 rounded-b-md bg-gray-50 p-3'>
                             {relatedProductsId?.slice(0, 5).map((item, index) =>
-                                <div key={index} className='col-span-5 sm:col-span-3 md:col-span-2 '>
-                                    <Product item={item} productId={item._id} />
+                                <div key={index} className='col-span-12 lg:col-span-6'>
+                                    <Relatedcard item={item} qey={item._id} />
                                 </div>
                             )}
                         </div>
