@@ -7,7 +7,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export function ProductCards({ product, key }) {
+export function ProductCards({ product }) {
 
     const { addItem } = useCart();
 
@@ -22,7 +22,7 @@ export function ProductCards({ product, key }) {
     }
 
     return (
-        <div key={key} className="group hover:scale-90 duration-300 bg-black relative hover:ring-white ring-red-600 ring-2">
+        <div className="group hover:scale-90 duration-300 bg-black relative hover:ring-white ring-red-600 ring-2">
             <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white ring-2 ring-white ring-opacity-20 bg-black hover:bg-opacity-5 bg-opacity-30">
                 <button
                     type='button'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Order } from './orders/OrderList';
 import { AdminLayout } from '@seventech/layout';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import Link from 'next/link';
 import axiosAPI from '@seventech/utils/axios-api';
 
@@ -9,31 +9,27 @@ function Dashboards() {
 
   const router = useRouter()
 
-  // const [orders, setOrders] = React.useState([])
   // const total = (items) => items?.reduce((acc, curr) => acc + curr.total, 0);
-  // const totalSell = total(orders)
 
   const [datas, setDatas] = React.useState({
     totalProducts: 0,
     totalOutOfStockProducts: 0,
     totalCategories: 0,
     totalOrders: 0,
-    // totalSells: 0,
     totalUsers: 0
   })
 
   React.useEffect(() => {
     async function getDashboard() {
-      const res = await axiosAPI.get('/analytics');
-      setDatas(res.data)
+      try {
+        const res = await axiosAPI.get('/analytics');
+        setDatas(res.data)
+      } catch (error) {
+        console.log(error)
+        Router.push('/login')
+      }
     }
     getDashboard()
-
-    // async function getOrders() {
-    //   const res = await axiosAPI.get('/orders');
-    //   setOrders(res.data.orders)
-    // }
-    // getOrders()
 
   }, [router]);
 

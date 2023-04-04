@@ -3,7 +3,7 @@ import { Banner } from './Home'
 import { Shop } from './Shop'
 import axiosRoot from '../utils/axios-root'
 import { Layout } from '@seventech/layout'
-import ReactPlayer from 'react-player'
+// import ReactPlayer from 'react-player'
 import { Loading } from '..'
 
 export function Main() {
@@ -25,7 +25,7 @@ export function Main() {
             <Banner />
             <div className='pb-4 bg-black'>
                 {home?.map((item, index) => (
-                    <Shop qey={index} term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
+                    <Shop key={index} term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
                 ))}
             </div>
         </Layout>

@@ -6,7 +6,7 @@ import axiosRoot from '../../utils/axios-root'
 import Image from 'next/image'
 import { useCart } from 'react-use-cart'
 import { Dialog, Transition } from '@headlessui/react'
-import { Relatedcard } from './Product'
+import { Relatedcard } from './Relatedcard'
 import { Layout } from '@seventech/layout'
 import { ErrorText, Loading, SuccessText } from '@seventech/shared'
 import { fDateTime } from '@seventech/utils/formatTime'
@@ -549,9 +549,9 @@ export function Details() {
                             <h1 className='text-center bg-black px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
                         </div>
                         <div className='grid grid-cols-12 w-full gap-2 rounded-b-md bg-gray-50 p-3'>
-                            {relatedProductsId?.slice(0, 5).map((item, index) =>
+                            {relatedProductsId?.slice(0, 6).map((item, index) =>
                                 <div key={index} className='col-span-12 lg:col-span-6'>
-                                    <Relatedcard item={item} qey={item._id} />
+                                    <Relatedcard item={item} />
                                 </div>
                             )}
                         </div>

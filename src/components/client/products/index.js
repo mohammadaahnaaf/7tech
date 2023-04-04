@@ -1,4 +1,3 @@
 export * from './ProductDetail'
-export * from './Product'
+export * from './Relatedcard'
 export * from './ProductCard'
-export * from './Products'

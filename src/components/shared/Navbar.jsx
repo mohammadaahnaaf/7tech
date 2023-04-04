@@ -84,12 +84,10 @@ export function Navbar({ setSearchTerm, setOpen }) {
                     <>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
-                                <div className=" h-8">
-                                    <Link href='/'>
-                                        <a className='h-20 w-full'>
-                                            <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
-                                        </a>
-                                    </Link>
+                                <div className="flex items-center h-full">
+                                    <button onClick={() => router.push('/')}>
+                                        <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
+                                    </button>
                                 </div>
 
                                 {/* Search Bar  */}
@@ -245,7 +243,7 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                         </svg>
                                         <span>Categories</span>
                                     </Disclosure.Button>
-                              
+
                                     {userNavigation.map((item) => (
                                         <Disclosure.Button
                                             key={item.name}
@@ -269,19 +267,10 @@ export function Navbar({ setSearchTerm, setOpen }) {
 
 export function BasicNavbar() {
 
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
-    // const [useri, setUseri] = useState(false);
+
     const { pathname } = useRouter();
+    const router  = useRouter();
     const { totalUniqueItems } = useCart()
-
-
-
-    // async function handleLogout(e) {
-    //     e.preventDefault()
-    //     await axiosAPI.delete('/auth/logout');
-    //     setUseri(false);
-    //     Router.push('/login')
-    // }
 
     return (
         <div className="min-h-full">
@@ -291,12 +280,10 @@ export function BasicNavbar() {
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
                                 <div className="flex items-center">
-                                    <div className="hidden md:block h-8">
-                                        <Link href='/'>
-                                            <a className='h-20 w-full'>
-                                                <Image src="/logo.png" alt="Home" layout="fixed" width={80} height={40} />
-                                            </a>
-                                        </Link>
+                                    <div className="hidden md:flex items-center h-16">
+                                    <button onClick={() => router.push('/')}>
+                                        <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
+                                    </button>
                                     </div>
                                 </div>
 

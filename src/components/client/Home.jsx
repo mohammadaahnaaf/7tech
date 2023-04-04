@@ -20,7 +20,7 @@ export function Banner() {
         <div className="max-w-full border-b-2 border-red-600 mx-auto">
             {banners?.slice(0, 1).map((item, index) => (
                 <Carousel
-                    // key={index}
+                    key={index}
                     autoPlay
                     infiniteLoop
                     animationHandler="fade"
