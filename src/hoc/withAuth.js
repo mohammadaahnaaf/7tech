@@ -1,32 +1,32 @@
-// import { Transition } from '@headlessui/react';
 import { AdminLayout } from '@seventech/layout';
+import axiosAPI from '@seventech/utils/axios-api';
 import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-// export const withAuth = (Component) => {
-//     const AuthComponent = () => {
-//         // const { pathname } = useRouter();
-//         const [isLoggedIn, setIsLoggedIn] = useState(false);
-//         useEffect(() => {
-//             if (!isLoggedIn) {
+export const withAuth = (Component, pageProps) => {
 
-//                 axiosAPI
-//                     .get('/auth/get-me')
-//                     .then(res => {
-//                         setIsLoggedIn(!!res.data.email);
-//                     })
-//                     .catch(error => {
-//                         console.log(error);
-//                         Router.push('/login')
-//                     });
-//             }
-//         }, [isLoggedIn]);
+    const AuthComponent = () => {
+        const [isLoggedIn, setIsLoggedIn] = useState(false);
+        useEffect(() => {
+            if (!isLoggedIn) {
 
-//         return isLoggedIn && <Component />;
-//     }
+                axiosAPI
+                    .get('/auth/get-me')
+                    .then(res => {
+                        setIsLoggedIn(!!res.data.email);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        Router.push('/login')
+                    });
+            }
+        }, [isLoggedIn]);
 
-//     return AuthComponent;
-// }
+        return isLoggedIn ? (<Component {...pageProps} />) : (<Loading />)
+    }
+
+    return AuthComponent;
+}
 
 function Loading() {
 
@@ -56,28 +56,28 @@ function Loading2() {
     )
 }
 
-export const withAuth = (Component, pageProps) => {
+// export const withAuth = (Component, pageProps) => {
 
-    const AuthComponent = () => {
-        const router = useRouter()
-        const [isLoggedIn, setIsLoggedIn] = useState(false);
+//     const AuthComponent = () => {
+//         const router = useRouter()
+//         const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-        useEffect(() => {
-            const token = localStorage.getItem("access_token");
-            setIsLoggedIn(!!token)
-            if (!token) {
-                setTimeout(() => { Router.push('/login') }, 200)
-            }
+//         useEffect(() => {
+//             const token = localStorage.getItem("access_token");
+//             setIsLoggedIn(!!token)
+//             if (!token) {
+//                 setTimeout(() => { Router.push('/login') }, 200)
+//             }
 
-        }, [router, isLoggedIn]);
+//         }, [router, isLoggedIn]);
 
-        return !isLoggedIn ? <Loading /> : (
-            <Component {...pageProps} />
-        )
-    }
+//         return !isLoggedIn ? <Loading /> : (
+//             <Component {...pageProps} />
+//         )
+//     }
 
-    return AuthComponent;
-}
+//     return AuthComponent;
+// }
 
 export const withMeAuth = (Component, pageProps) => {
 
