@@ -57,9 +57,10 @@ function classNames(...classes) {
 export function Navbar({ setSearchTerm, setOpen }) {
 
     const [useri, setUseri] = useState(false);
-    const { pathname, router } = useRouter();
+    const { pathname } = useRouter();
     const { totalUniqueItems } = useCart()
-
+    const router = useRouter()
+    
     useEffect(() => {
 
         const topG = localStorage.getItem('access_token');
@@ -85,7 +86,7 @@ export function Navbar({ setSearchTerm, setOpen }) {
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
                                 <div className="flex items-center h-full">
-                                    <button onClick={() => router.push('/')}>
+                                    <button type='button' onClick={() => router.push('/')}>
                                         <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
                                     </button>
                                 </div>
@@ -269,7 +270,7 @@ export function BasicNavbar() {
 
 
     const { pathname } = useRouter();
-    const router  = useRouter();
+    const router = useRouter();
     const { totalUniqueItems } = useCart()
 
     return (
@@ -281,9 +282,9 @@ export function BasicNavbar() {
                             <div className="flex items-center justify-between h-16">
                                 <div className="flex items-center">
                                     <div className="hidden md:flex items-center h-16">
-                                    <button onClick={() => router.push('/')}>
-                                        <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
-                                    </button>
+                                        <button onClick={() => router.push('/')}>
+                                            <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
+                                        </button>
                                     </div>
                                 </div>
 
