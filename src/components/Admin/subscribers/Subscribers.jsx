@@ -14,10 +14,12 @@ function Subscriber() {
     const [allSelected, setAllSelected] = React.useState(false)
     const [subscribers, setSubscribers] = React.useState([]);
     const [isOpen, setIsOpen] = React.useState(false)
+    const [detailOpen, setDetailOpen] = React.useState(false)
     const [page, setPage] = React.useState(0)
     const [total, setTotal] = React.useState(0)
     const [pageSize, setPageSize] = React.useState(10)
     const [success, setSuccess] = React.useState('')
+    const [me, setMe] = React.useState({})
 
     const [searchedName] = useDebounce(searchTerm, 400);
 
@@ -34,6 +36,13 @@ function Subscriber() {
     function closeModal() {
         setIsOpen(false)
     }
+    function closeDetail() {
+        setDetailOpen(false)
+    }
+    function viewMe(data) {
+        setDetailOpen(true)
+        setMe(data)
+    }
 
 
     // delete user
@@ -43,6 +52,14 @@ function Subscriber() {
             axiosAPI.delete(`/user/${item}`)
         ),
             setSuccess('User Vanished')
+        setTimeout(() => { setSuccess('') })
+    }
+
+    function handleDeleteMe(id) {
+        setDetailOpen(false)
+        axiosAPI.delete(`/user/${id}`)
+        setSuccess('User Vanished')
+        setTimeout(() => { setSuccess('') })
     }
 
     function handleAllChecked(event) {
@@ -141,13 +158,125 @@ function Subscriber() {
         </Transition>
     )
 
-    // const slugs = ['fullName', 'email', 'phoneNumber']
+    const viewDetails = (
+        <Transition appear show={detailOpen} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={closeDetail}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-black bg-opacity-25" />
+                </Transition.Child>
 
-    // const search = (data) => {
-    //     return data.filter((item) =>
-    //         slugs.some((key) => (typeof item[key] === 'string' ? item[key].toLowerCase() : '').includes(searchTerm))
-    //     )
-    // }
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-lg text-center font-medium leading-6 text-gray-900"
+                                >
+                                    Customer Information
+                                </Dialog.Title>
+                                <div className="mt-2 p-3 bg-gray-100 rounded-lg">
+                                    <table className='table-auto w-full'>
+                                        <thead className='border-b bg-gray-100 border-white'>
+                                            <tr>
+                                                <th>Customer Info</th>
+                                                <th>Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className='mt-4'>
+                                            <tr className='bg-white'>
+                                                <td>Role: </td>
+                                                <td>{me.isAdmin ? (
+                                                    <p className='flex items-center text-green-500'>
+                                                        <span>Admin</span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </p>
+                                                ) : (
+                                                    <p className='flex items-center text-red-500'>
+                                                        <span>Cstomer</span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="ml-1 w-4 h-4 text-red-500">
+                                                            <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </p>
+                                                )}</td>
+                                            </tr>
+                                            <tr className='border-b bg-gray-100 border-white'>
+                                                <td>Name: </td>
+                                                <td>{me.fullName}</td>
+                                            </tr>
+                                            <tr className=' bg-white'>
+                                                <td>Phone: </td>
+                                                <td>
+                                                    <Link href={`tel:${me.phoneNumber}`}>
+                                                        <a className='hover:text-blue-600'>{me.phoneNumber}</a>
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                            <tr className='border-b bg-gray-100 border-white'>
+                                                <td>Email: </td>
+                                                <td>
+                                                    <Link href={`mailto:${me.email}`}>
+                                                        <a className='hover:text-blue-600'>{me.email}</a>
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                            <tr className=' bg-white'>
+                                                <td>City: </td>
+                                                <td>{me.city}</td>
+                                            </tr>
+                                            <tr className='border-b bg-gray-100 border-white'>
+                                                <td>Zone: </td>
+                                                <td>{me.zone}</td>
+                                            </tr>
+                                            <tr className=' bg-white'>
+                                                <td>Address: </td>
+                                                <td>{me.address}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div className="flex items-center justify-end gap-4 mt-4">
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        onClick={closeDetail}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                                        onClick={() => handleDeleteMe(me._id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition>
+    )
 
     return (
         <>
@@ -159,6 +288,7 @@ function Subscriber() {
                     </div>
                 </div>
                 {modal}
+                {viewDetails}
                 <table className="w-full text-sm text-left text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
@@ -227,11 +357,15 @@ function Subscriber() {
                                         </Link>
                                     </td>
                                     <td className="py-4 px-6">
-                                        <Link href={`/admin/subscribers/${item._id}`}>
+                                        <button type='button' onClick={() => viewMe(item)} className="font-medium text-gray-400 hover:text-red-600">
+                                            <PencilAltIcon className='h-5 w-5' />
+                                        </button>
+
+                                        {/* <Link href={`/admin/subscribers/${item._id}`}>
                                             <a className="font-medium text-gray-400 hover:text-red-600">
                                                 <PencilAltIcon className='h-5 w-5' />
                                             </a>
-                                        </Link>
+                                        </Link> */}
                                     </td>
                                 </tr>
                             )
