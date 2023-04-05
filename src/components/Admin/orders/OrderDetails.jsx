@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import axiosAPI from '../../utils/axios-api';
 import { ErrorText, SuccessText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
-import axiosRoot from '@seventech/utils/axios-root';
+// import axiosRoot from '@seventech/utils/axios-root';
 
 const Detail = () => {
     const router = useRouter()
@@ -52,28 +52,28 @@ const Detail = () => {
     }, [router, success]);
 
     // get all products
-    useEffect(() => {
-        async function getProduct() {
-            const res = await axiosAPI.get(`/products?page=${1}&size=${20}`);
+    // useEffect(() => {
+    //     async function getProduct() {
+    //         const res = await axiosAPI.get(`/products?page=${1}&size=${20}`);
 
-            function test(item) {
-                const newProducts = order?.products.map(i => {
-                    if (i.productId === item._id) {
-                        i.productId = item._id
-                        i.name = item.name
-                        i.quantity = i.quantity
-                        i.onlinePrice = item.onlinePrice
-                    }
-                    return i;
-                })
-                setProducts(newProducts);
-                // console.log("NewProducts" + newProducts)
-            }
-            res.data.products.map(x => test(x))
-        }
-        order && getProduct()
+    //         function test(item) {
+    //             const newProducts = order?.products.map(i => {
+    //                 if (i.productId === item._id) {
+    //                     i.productId = item._id
+    //                     i.name = item.name
+    //                     // i.quantity = i.quantity
+    //                     i.onlinePrice = item.onlinePrice
+    //                 }
+    //                 return i;
+    //             })
+    //             setProducts(newProducts);
+    //             // console.log("NewProducts" + newProducts)
+    //         }
+    //         res.data.products.map(x => test(x))
+    //     }
+    //     order && getProduct()
 
-    }, [order]);
+    // }, [order]);
 
     // Details 
     const handleChange = (id, event) => {
