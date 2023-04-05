@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { withAuth } from '../hoc/withAuth'
+import { withMeAuth } from '../hoc/withAuth'
 import { Profile } from '@seventech/client'
 
 function ProfilePage() {
@@ -16,4 +16,4 @@ function ProfilePage() {
     )
 }
 
-export default withAuth(ProfilePage)
+export default withMeAuth(ProfilePage)
