@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import Error from '../components/404'
 
-function ErrorPage() {
+export default function ErrorPage() {
   return (
     <>
       <Head>
@@ -14,5 +14,3 @@ function ErrorPage() {
     </>
   )
 }
-
-export default ErrorPage
