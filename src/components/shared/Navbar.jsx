@@ -22,21 +22,6 @@ const navigation = [
     },
 ]
 
-// const userNavigation = [
-//     {
-//         name: 'Admin',
-//         href: '/admin',
-//         icon: <ShieldCheckIcon className='h-5 w-5 mr-1' />,
-//         state: true
-//     },
-//     {
-//         name: 'Your Profile',
-//         href: '/profile',
-//         icon: <UserIcon className='h-5 w-5 mr-1' />,
-//         state: true
-//     },
-// ]
-
 const basicNavigation = [
     {
         name: 'Home',
@@ -147,7 +132,6 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                             >
                                                 <Menu.Items className="origin-top-right absolute z-40 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gradient-to-r from-black to-red-900 ring-1 ring-red-600 ring-opacity-20 focus:outline-none">
 
-                                                    {/* {userNavigation.map((item, index) => ( */}
 
                                                     {amAdmin && (
 
@@ -181,7 +165,7 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                                             </Link>
                                                         )}
                                                     </Menu.Item>
-                                                    {/* ))} */}
+
                                                     <Menu.Item>
                                                         {({ active }) => {
                                                             return useri ? (
@@ -311,7 +295,7 @@ export function Navbar({ setSearchTerm, setOpen }) {
 export function BasicNavbar() {
 
 
-    const { pathname } = useRouter();
+    const { pathname } =  useRouter();
     const router = useRouter();
     const { totalUniqueItems } = useCart()
 

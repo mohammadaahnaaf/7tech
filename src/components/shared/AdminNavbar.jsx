@@ -31,7 +31,7 @@ function classNames(...classes) {
 export function AdminNavbar() {
 
     const [useri, setUseri] = React.useState(true);
-    const { pathname } = useRouter();
+    const { pathname } = Router;
     // console.log(pathname);
 
     async function handleLogout(e) {

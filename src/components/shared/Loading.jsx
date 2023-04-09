@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactPlayer from 'react-player'
 
 export function Loading({ bg }) {
     return bg === 'black' ? (
@@ -15,18 +14,4 @@ export function Loading({ bg }) {
             </svg>
         </div>
     )
-}
-
-export function VideoPlay({ home }) {
-    return home.length !== 0 ? (
-        <div className='h-screen'>
-            <ReactPlayer
-                width='100%'
-                height='100%'
-                loop
-                playing
-                url={['https://youtu.be/ybfl4hxsXh0', 'https://youtu.be/Y-uMPL5qcKE?t=31']}
-            />
-        </div>
-    ) : null
 }

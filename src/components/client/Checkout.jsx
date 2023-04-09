@@ -7,7 +7,6 @@ import { Layout } from '@seventech/layout'
 import { ErrorText } from '@seventech/shared'
 import { Success } from './Success'
 import axiosRoot from '@seventech/utils/axios-root'
-// import axiosRoot from '../utils/axios-root'
 
 function Checkouts({ setSuccess, setOrder }) {
 
@@ -135,7 +134,6 @@ function Checkouts({ setSuccess, setOrder }) {
                                             name="phone"
                                             placeholder='Phone Number'
                                             id="phone"
-                                            pattern="[+]{1}[0-9]{11,14}"
                                             required
                                             autoComplete="phone"
                                             className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
@@ -157,19 +155,6 @@ function Checkouts({ setSuccess, setOrder }) {
                                                 <option key={index} value={city.name}>{city.name}</option>
                                             ))}
                                         </select>
-
-                                        {/* <label htmlFor="city" className="block text-sm font-medium text-red-600">
-                                        City
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="city"
-                                        id="city"
-                                        onChange={(e) => setCity(e.target.value)}
-                                        value={city || ''}
-                                        autoComplete="address-level2"
-                                        className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
-                                    /> */}
                                     </div>
 
                                     <div className="col-span-6 sm:col-span-3">
@@ -187,17 +172,6 @@ function Checkouts({ setSuccess, setOrder }) {
                                                 <option key={index} value={item}>{item}</option>
                                             ))}
                                         </select>
-
-                                        {/* <label htmlFor="zone" className="block text-sm font-medium text-red-600">
-                                        Zone
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="zone"
-                                        id="zone"
-                                        autoComplete="address-level1"
-                                        className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
-                                    /> */}
                                     </div>
 
                                     <div className="col-span-6 sm:col-span-3 lg:col-span-2 hidden">
@@ -281,7 +255,6 @@ function Checkouts({ setSuccess, setOrder }) {
                                                                     <TrashIcon className="h-6 w-6 text-red-600 hover:text-red-500" aria-hidden="true" />
                                                                 </button>
                                                             </div>
-                                                            {/* <p className="mt-1 text-sm text-red-500">{product.color}</p> */}
                                                         </div>
                                                         <div className="flex items-end flex-1 justify-between">
                                                             <p className="text-red-500 text-sm">Qty {product.quantity}</p>

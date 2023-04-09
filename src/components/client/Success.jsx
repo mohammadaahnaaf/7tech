@@ -6,12 +6,12 @@ import Router from 'next/router'
 
 export function Success({ order }) {
 
-    const { emptyCart, cartTotal } = useCart();
+    const { emptyCart, cartTotal, totalUniqueItems } = useCart();
 
     function handleSuccess() {
 
         const { pathname } = Router
-        if (pathname == '/checkout') {
+        if (pathname === '/checkout') {
             Router.push('/')
         }
 
@@ -35,7 +35,7 @@ export function Success({ order }) {
                     </div>
                     <div className='cols-span-1 text-center text-gray-100 bg-green-500 bg-opacity-20 items-center grid rounded-lg p-3'>
                         <h2>Total Price</h2>
-                        <h2>TK 24,000</h2>
+                        <h2>TK {cartTotal}</h2>
                     </div>
                     <div className='cols-span-1 text-center text-gray-100 bg-green-500 bg-opacity-20 items-center grid rounded-lg p-3'>
                         <h2>Ordered At</h2>
@@ -47,7 +47,7 @@ export function Success({ order }) {
                     </div>
                     <div className='cols-span-1 text-center text-gray-100 bg-green-500 bg-opacity-20 items-center grid rounded-lg p-3'>
                         <h2>Total Products</h2>
-                        <h2>1</h2>
+                        <h2>{totalUniqueItems}</h2>
                     </div>
                 </div>
 
