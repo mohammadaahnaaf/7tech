@@ -25,8 +25,8 @@ function Dashboards() {
         const res = await axiosAPI.get('/analytics');
         setDatas(res.data)
       } catch (error) {
-        console.log(error)
         Router.push('/login')
+        console.log(error)
       }
     }
     getDashboard()

@@ -21,20 +21,22 @@ const navigation = [
         icon: <ShoppingCartIcon className='h-5 w-5 mr-1' />
     },
 ]
-const userNavigation = [
-    {
-        name: 'Admin',
-        href: '/admin',
-        icon: <ShieldCheckIcon className='h-5 w-5 mr-1' />,
-        state: true
-    },
-    {
-        name: 'Your Profile',
-        href: '/profile',
-        icon: <UserIcon className='h-5 w-5 mr-1' />,
-        state: true
-    },
-]
+
+// const userNavigation = [
+//     {
+//         name: 'Admin',
+//         href: '/admin',
+//         icon: <ShieldCheckIcon className='h-5 w-5 mr-1' />,
+//         state: true
+//     },
+//     {
+//         name: 'Your Profile',
+//         href: '/profile',
+//         icon: <UserIcon className='h-5 w-5 mr-1' />,
+//         state: true
+//     },
+// ]
+
 const basicNavigation = [
     {
         name: 'Home',
@@ -49,7 +51,6 @@ const basicNavigation = [
 ]
 
 
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -57,16 +58,29 @@ function classNames(...classes) {
 export function Navbar({ setSearchTerm, setOpen }) {
 
     const [useri, setUseri] = useState(false);
+    const [amAdmin, setAmAdmin] = useState(false);
     const { pathname } = useRouter();
     const { totalUniqueItems } = useCart()
     const router = useRouter()
-    
+
     useEffect(() => {
 
         const topG = localStorage.getItem('access_token');
         setUseri(!!topG);
 
-    }, [router]);
+        if (!amAdmin) {
+            axiosAPI
+                .get('/auth/get-me')
+                .then(res => {
+                    setAmAdmin(!!res.data.isAdmin);
+                })
+                .catch(error => {
+                    console.log(error)
+                    // Router.push('/login')
+                });
+        }
+
+    }, [router, amAdmin]);
 
     async function handleLogout(e) {
 
@@ -133,22 +147,41 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                             >
                                                 <Menu.Items className="origin-top-right absolute z-40 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gradient-to-r from-black to-red-900 ring-1 ring-red-600 ring-opacity-20 focus:outline-none">
 
-                                                    {userNavigation.map((item) => (
-                                                        <Menu.Item key={item.name}>
+                                                    {/* {userNavigation.map((item, index) => ( */}
+
+                                                    {amAdmin && (
+
+                                                        <Menu.Item>
                                                             {({ active }) => (
-                                                                <Link href={item.href}>
+                                                                <Link href='/admin'>
                                                                     <a
                                                                         className={classNames(
                                                                             active ? 'bg-red-600' : '',
                                                                             'block px-4 py-2 text-sm text-gray-100 hover:text-white hover:bg-red-600'
                                                                         )}
                                                                     >
-                                                                        {item.name}
+                                                                        Admin
                                                                     </a>
                                                                 </Link>
                                                             )}
                                                         </Menu.Item>
-                                                    ))}
+                                                    )}
+
+                                                    <Menu.Item>
+                                                        {({ active }) => (
+                                                            <Link href='/profile'>
+                                                                <a
+                                                                    className={classNames(
+                                                                        active ? 'bg-red-600' : '',
+                                                                        'block px-4 py-2 text-sm text-gray-100 hover:text-white hover:bg-red-600'
+                                                                    )}
+                                                                >
+                                                                    Your Profile
+                                                                </a>
+                                                            </Link>
+                                                        )}
+                                                    </Menu.Item>
+                                                    {/* ))} */}
                                                     <Menu.Item>
                                                         {({ active }) => {
                                                             return useri ? (
@@ -245,16 +278,25 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                         <span>Categories</span>
                                     </Disclosure.Button>
 
-                                    {userNavigation.map((item) => (
+                                    {/*userNavigation */}
+
+                                    {amAdmin && (
                                         <Disclosure.Button
-                                            key={item.name}
                                             as='a'
-                                            href={item.href}
+                                            href='/admin'
                                             className="flex px-3 py-2 rounded-md text-base font-medium text-red-600"
                                         >
-                                            {item.icon} {item.name}
+                                            <ShieldCheckIcon className='h-5 w-5 mr-1' /> Admin
                                         </Disclosure.Button>
-                                    ))}
+                                    )}
+
+                                    <Disclosure.Button
+                                        as='a'
+                                        href='/profile'
+                                        className="flex px-3 py-2 rounded-md text-base font-medium text-red-600"
+                                    >
+                                        <UserIcon className='h-5 w-5 mr-1' /> Your Profile
+                                    </Disclosure.Button>
                                 </div>
 
                             </Disclosure.Panel>
