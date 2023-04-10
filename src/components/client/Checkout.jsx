@@ -7,11 +7,13 @@ import { Layout } from '@seventech/layout'
 import { ErrorText } from '@seventech/shared'
 import { Success } from './Success'
 import axiosRoot from '@seventech/utils/axios-root'
+import axiosAPI from '@seventech/utils/axios-api'
 
 function Checkouts({ setSuccess, setOrder }) {
 
     const router = useRouter()
 
+    const [me, setMe] = React.useState({})
     const [city, setCity] = React.useState('Dhaka')
     const [zone, setZone] = React.useState('')
     const [zones, setZones] = React.useState([])
@@ -39,6 +41,20 @@ function Checkouts({ setSuccess, setOrder }) {
             setShipment(120)
         }
     }, [city, total])
+
+
+    // get me
+    React.useEffect(() => {
+        async function getProfile() {
+            try {
+                const res = await axiosAPI.get('/auth/get-me');
+                setMe(res.data);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getProfile()
+    }, []);
 
     // post data 
     const handleSubmit = async (event) => {
@@ -90,13 +106,13 @@ function Checkouts({ setSuccess, setOrder }) {
         <>
             <ErrorText error={error} />
             <form onSubmit={handleSubmit}>
-                <div className="min-h-full bg-black py-6 sm:px-6 lg:px-8">
-                    <div className='max-w-7xl mx-auto grid md:flex justify-center gap-5'>
+                <div className="bg-black py-6 px-4 lg:px-8">
+                    <div className='max-w-7xl min-h-[78vh] mx-auto grid lg:flex justify-center gap-5'>
 
                         {/* Account and delevary details */}
-                        <div className="shadow h-full ring-2 ring-red-600">
-                            <div className="px-4 py-5 sm:p-6">
-                                <div className="grid grid-cols-6 gap-6">
+                        <div className="shadow h-full ring-0 lg:ring-2 ring-red-600">
+                            <div className="lg:p-4">
+                                <div className="grid grid-cols-6 gap-2 lg:gap-6">
                                     <h2 className='text-center col-span-6 text-red-600 font-medium text-2xl'>Checkout</h2>
                                     <div className="col-span-6">
                                         <label htmlFor="name" className="block text-sm font-medium text-red-600">
@@ -107,12 +123,13 @@ function Checkouts({ setSuccess, setOrder }) {
                                             name="name"
                                             placeholder='Name'
                                             id="name"
+                                            defaultValue={me.fullName || ''}
                                             autoComplete="given-name"
                                             className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                         />
                                     </div>
 
-                                    <div className="col-span-6 sm:col-span-3 hidden">
+                                    {/* <div className="col-span-6 sm:col-span-3 hidden">
                                         <label htmlFor="email" className="block text-sm font-medium text-red-600">
                                             Email address
                                         </label>
@@ -124,7 +141,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                             autoComplete="email"
                                             className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className="col-span-6 sm:col-span-6">
                                         <label htmlFor="phone" className="block text-sm font-medium text-red-600">
                                             Phone number
@@ -135,6 +152,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                             placeholder='Phone Number'
                                             id="phone"
                                             required
+                                            defaultValue={me.phoneNumber || ''}
                                             autoComplete="phone"
                                             className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                         />
@@ -148,6 +166,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                             id="city"
                                             name="city"
                                             value={city || ''}
+                                            defaultValue={me.city || ''}
                                             onChange={(e) => handleCity(e)}
                                             className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                         >
@@ -164,6 +183,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                         <select
                                             id="zone"
                                             name="zone"
+                                            defaultValue={me.zone || ''}
                                             value={zone || ''}
                                             onChange={(e) => setZone(e.target.value)}
                                             className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
@@ -174,7 +194,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                         </select>
                                     </div>
 
-                                    <div className="col-span-6 sm:col-span-3 lg:col-span-2 hidden">
+                                    {/* <div className="col-span-6 sm:col-span-3 lg:col-span-2 hidden">
                                         <label htmlFor="area" className="block text-sm font-medium text-red-600">
                                             Area
                                         </label>
@@ -186,7 +206,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                             autoComplete="postal-code"
                                             className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className="col-span-6">
                                         <label htmlFor="payment" className="block text-sm font-medium text-red-600">
                                             Payment Method
@@ -208,6 +228,7 @@ function Checkouts({ setSuccess, setOrder }) {
                                         <textarea
                                             id="address"
                                             name="address"
+                                            defaultValue={me.address || ''}
                                             rows={3}
                                             className="bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                             placeholder="Address"
@@ -215,10 +236,10 @@ function Checkouts({ setSuccess, setOrder }) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="px-4 py-4 md:rounded-b-lg bg-red-600 bg-opacity-10 text-right sm:px-6">
+                            <div className="px-4 mt-4 lg:mt-0 py-4 md:rounded-b-lg bg-red-600 bg-opacity-10 text-right sm:px-6">
                                 <button
                                     type="submit"
-                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium hover:text-black text-red-600 hover:bg-red-600 focus:outline-none ring-2 ring-red-600"
+                                    className="inline-flex justify-center py-1 hover:text-white px-4 border border-transparent shadow-sm text-sm font-medium text-red-600 hover:bg-red-600 focus:outline-none ring-2 hover:ring-white ring-red-600"
                                 >
                                     Confirm Order
                                 </button>
@@ -226,7 +247,7 @@ function Checkouts({ setSuccess, setOrder }) {
                         </div>
 
                         {/* Cart Products details */}
-                        <div className='md:w-1/3 h-auto shadow ring-red-600 ring-2 overflow-y-scroll'>
+                        <div className='md:w-1/3 shadow ring-red-600 ring-2 overflow-y-auto'>
                             <div className="h-auto py-3 px-2">
                                 <div className="mt-8">
                                     <div className="flow-root">

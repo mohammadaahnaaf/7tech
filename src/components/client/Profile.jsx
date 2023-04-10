@@ -28,7 +28,7 @@ export function Setting() {
         setIsOpen(true)
     }
 
-    // get filter category 
+    // get me
     React.useEffect(() => {
         async function getProfile() {
             const res = await axiosAPI.get('/auth/get-me');
