@@ -9,7 +9,7 @@ import { ProductCard } from './AddProduct';
 import { ErrorText, Pagenation, Search, SuccessText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
 import { useDebounce } from 'use-debounce';
-import { fDate, fDateTime } from '@seventech/utils/formatTime';
+import { fDateTime } from '@seventech/utils/formatTime';
 
 const Detail = () => {
 

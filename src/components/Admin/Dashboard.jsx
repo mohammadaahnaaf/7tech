@@ -1,11 +1,11 @@
 import React from 'react'
-import { Order } from './orders/OrderList';
 import { AdminLayout } from '@seventech/layout';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axiosAPI from '@seventech/utils/axios-api';
+import { Order } from './orders';
 
-function Dashboards() {
+function Dash() {
 
   const router = useRouter()
 
@@ -21,13 +21,8 @@ function Dashboards() {
 
   React.useEffect(() => {
     async function getDashboard() {
-      try {
-        const res = await axiosAPI.get('/analytics');
-        setDatas(res.data)
-      } catch (error) {
-        Router.push('/login')
-        console.log(error)
-      }
+      const res = await axiosAPI.get('/analytics');
+      setDatas(res.data)
     }
     getDashboard()
 
@@ -76,6 +71,7 @@ function Card({ cardData, title, link }) {
     </div>
   )
 }
+
 function RedCard({ cardData, title, link }) {
   return (
     <div className='p-3 items-center grid mx-auto w-[100%] h-40 rounded-md ring-white cursor-pointer ring-2 hover:ring-red-600 bg-white'>
@@ -90,7 +86,7 @@ function RedCard({ cardData, title, link }) {
 export function Dashboard() {
   return (
     <AdminLayout>
-      <Dashboards />
+      <Dash />
       <Order />
     </AdminLayout>
   )

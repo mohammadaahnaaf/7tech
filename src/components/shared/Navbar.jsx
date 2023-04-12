@@ -230,11 +230,10 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                     {navigation.map((item, index) => (
                                         <Disclosure.Button
                                             key={index}
-                                            as="a"
-                                            href={item.href}
+                                            onClick={() => router.push(`/${item.href}`)}
                                             className={classNames(
                                                 pathname === item.href ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
-                                                'flex items-center px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                                'flex w-full items-center px-3 py-2 text-red-600 rounded-md text-base font-medium'
                                             )}
                                             aria-current={item.current ? 'page' : undefined}
                                         >
@@ -253,7 +252,7 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                         onClick={() => setOpen(true)}
                                         className={classNames(
                                             pathname.includes('/category/') ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
-                                            'flex px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                            'flex w-full px-3 py-2 text-red-600 rounded-md text-base font-medium'
                                         )}
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" className='h-5 w-5 mr-1' fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -266,19 +265,21 @@ export function Navbar({ setSearchTerm, setOpen }) {
 
                                     {amAdmin && (
                                         <Disclosure.Button
-                                            as='a'
-                                            href='/admin'
-                                            className="flex px-3 py-2 rounded-md text-base font-medium text-red-600"
-                                        >
+                                            onClick={() => router.push('/admin')}
+                                            className={classNames(
+                                                pathname.includes('/admin/') ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
+                                                'flex w-full px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                            )}                                        >
                                             <ShieldCheckIcon className='h-5 w-5 mr-1' /> Admin
                                         </Disclosure.Button>
                                     )}
 
                                     <Disclosure.Button
-                                        as='a'
-                                        href='/profile'
-                                        className="flex px-3 py-2 rounded-md text-base font-medium text-red-600"
-                                    >
+                                        onClick={() => router.push('/profile')}
+                                        className={classNames(
+                                            pathname.includes('/profile/') ? 'bg-opacity-10 bg-red-600 text-red-500' : '',
+                                            'flex w-full px-3 py-2 text-red-600 rounded-md text-base font-medium'
+                                        )}                                    >
                                         <UserIcon className='h-5 w-5 mr-1' /> Your Profile
                                     </Disclosure.Button>
                                 </div>
@@ -295,7 +296,7 @@ export function Navbar({ setSearchTerm, setOpen }) {
 export function BasicNavbar() {
 
 
-    const { pathname } =  useRouter();
+    const { pathname } = useRouter();
     const router = useRouter();
     const { totalUniqueItems } = useCart()
 
@@ -405,15 +406,14 @@ export function BasicNavbar() {
                             leaveTo="transform opacity-0 scale-95"
                         >
                             <Disclosure.Panel className="md:hidden relative rounded-b-lg bg-gradient-to-b border-t-2 border-red-600 from-black to-red-900">
-                                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                                <div className="px-2 w-full pt-2 pb-3 space-y-1 sm:px-3">
                                     {navigation.map((item) => (
                                         <Disclosure.Button
                                             key={item.name}
-                                            as="a"
-                                            href={item.href}
+                                            onClick={() => router.push(`/${item.href}`)}
                                             className={classNames(
                                                 pathname === item.href ? 'text-white bg-red-800' : '',
-                                                'flex px-3 text-gray-200 py-2 rounded-md text-base font-medium'
+                                                'flex px-3 w-full text-gray-200 py-2 rounded-md text-base font-medium'
                                             )}
                                             aria-current={item.current ? 'page' : undefined}
                                         >

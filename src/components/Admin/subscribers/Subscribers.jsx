@@ -44,7 +44,6 @@ function Subscriber() {
         setMe(data)
     }
 
-
     // delete user
     function handleDelete() {
         setIsOpen(false)

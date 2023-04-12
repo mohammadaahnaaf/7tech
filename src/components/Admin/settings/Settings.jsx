@@ -180,18 +180,8 @@ function Setting() {
   )
 }
 
+
 export function Settings() {
-
-  return (
-    <AdminLayout>
-      {/* <Setting /> */}
-      <Tabs />
-    </AdminLayout>
-  )
-}
-
-
-export function Tabs() {
   const [tab, setTab] = useState('banner')
   const tabs = [
     {
@@ -213,51 +203,53 @@ export function Tabs() {
   ]
 
   return (
-    <div className="max-w-6xl rounded-lg my-6 bg-white w-full mx-auto pt-6">
-      <Tab.Group>
-        <Tab.List className="grid lg:flex border-y-2 border-y-red-600">
+    <AdminLayout>
+      <div className="max-w-6xl rounded-lg my-6 bg-white w-full mx-auto pt-6">
+        <Tab.Group>
+          <Tab.List className="grid lg:flex border-y-2 border-y-red-600">
 
-          {tabs.map((item, index) => (
-            <Tab
-              key={item.value}
+            {tabs.map((item, index) => (
+              <Tab
+                key={item.value}
 
-              className={({ selected }) =>
-                classNames(
-                  index === 3 ? "" : "border-r-2",
-                  'w-full py-2.5 text-sm font-medium leading-5 text-red-600 border-red-600 hover:border-white',
-                  'focus:outline-none focus:ring-0',
-                  selected
-                    ? 'bg-red-600 shadow text-white border-white'
-                    : 'hover:bg-red-600 border-red-600 hover:text-white'
-                )
-              }
-            >
-              <button type='button' onClick={() => setTab(item.value)}>
-                {item.name}
-              </button>
-            </Tab>
-          ))}
-        </Tab.List>
-        <Tab.Panels>
+                className={({ selected }) =>
+                  classNames(
+                    index === 3 ? "" : "border-r-2",
+                    'w-full py-2.5 text-sm font-medium leading-5 text-red-600 border-red-600 hover:border-white',
+                    'focus:outline-none focus:ring-0',
+                    selected
+                      ? 'bg-red-600 shadow text-white border-white'
+                      : 'hover:bg-red-600 border-red-600 hover:text-white'
+                  )
+                }
+              >
+                <button type='button' onClick={() => setTab(item.value)}>
+                  {item.name}
+                </button>
+              </Tab>
+            ))}
+          </Tab.List>
+          <Tab.Panels>
 
-          <Tab.Panel>
-            <Setting />
-          </Tab.Panel>
+            <Tab.Panel>
+              <Setting />
+            </Tab.Panel>
 
-          <Tab.Panel>
-            <About />
-          </Tab.Panel>
+            <Tab.Panel>
+              <About />
+            </Tab.Panel>
 
-          <Tab.Panel>
-            <Terms />
-          </Tab.Panel>
+            <Tab.Panel>
+              <Terms />
+            </Tab.Panel>
 
-          <Tab.Panel>
-            <Privacy />
-          </Tab.Panel>
+            <Tab.Panel>
+              <Privacy />
+            </Tab.Panel>
 
-        </Tab.Panels>
-      </Tab.Group>
-    </div>
+          </Tab.Panels>
+        </Tab.Group>
+      </div>
+    </AdminLayout>
   )
 }

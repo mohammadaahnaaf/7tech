@@ -165,8 +165,8 @@ function Checkouts({ setSuccess, setOrder }) {
                                         <select
                                             id="city"
                                             name="city"
-                                            value={city || ''}
-                                            defaultValue={me.city || ''}
+                                            // value={city || ''}
+                                            defaultValue={me.city}
                                             onChange={(e) => handleCity(e)}
                                             className="mt-1 bg-black bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
                                         >
@@ -264,8 +264,8 @@ function Checkouts({ setSuccess, setOrder }) {
 
                                                     <div className="ml-4 flex flex-1 flex-col">
                                                         <div>
-                                                            <div className="flex justify-between text-base font-medium text-red-600">
-                                                                <button type='button' onClick={() => router.push(`/products/${product.id}`)}>
+                                                            <div className="flex justify-between text-base font-medium hover:text-white text-red-600">
+                                                                <button type='button' onClick={() => router.push(`/product/${product.id}`)}>
                                                                     <h3 className='text-left'> {product.name.substring(0, 35)} </h3>
                                                                 </button>
                                                                 <button

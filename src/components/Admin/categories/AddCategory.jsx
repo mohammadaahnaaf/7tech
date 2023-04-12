@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { ErrorText } from '@seventech/shared';
 import { AdminLayout } from '@seventech/layout';
 
-export function AddCategorys() {
+function Add() {
 
   const [formValues, setFormValues] = React.useState([{ id: uuidv4(), names: "" }])
   const [error, setError] = React.useState('')
@@ -168,7 +168,7 @@ export function AddCategorys() {
 export function AddCategory() {
   return (
     <AdminLayout>
-      <AddCategorys />
+      <Add />
     </AdminLayout>
   )
 }

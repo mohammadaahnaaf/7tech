@@ -11,7 +11,7 @@ import { fDate } from '../../utils/formatTime';
 import { AdminLayout } from '@seventech/layout';
 import { Pagenation, Search, SuccessText } from '@seventech/shared';
 
-export function Categories() {
+function Categories() {
 
     const router = useRouter()
     const [searchTerm, setSearchTerm] = React.useState('')

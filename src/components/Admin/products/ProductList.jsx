@@ -14,7 +14,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function ProductsLists() {
+function ProductsLists() {
   const router = useRouter()
   const [searchTerm, setSearchTerm] = React.useState('')
   const [selected, setSelected] = React.useState([]);

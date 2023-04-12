@@ -56,13 +56,15 @@ export function Carts() {
 
                                         <div className="ml-4 flex flex-1 flex-col">
                                             <div>
-                                                <div className="flex justify-between text-base font-medium text-red-600">
+                                                <div className="flex justify-between text-base font-medium hover:text-white text-red-600">
                                                     <button type='button' onClick={() => router.push(`/product/${product.id}`)}>
-                                                        {product.name} 
+                                                        {product.name}
                                                     </button>
                                                     <p className="ml-4 text-green-500">৳ {product.price}</p>
                                                 </div>
-                                                <p className="mt-1 text-sm text-red-500">{product.category}</p>
+                                                <Link href={`/category/${product.category}`}>
+                                                    <a className="mt-1 hover:text-white text-sm text-red-500">{product.category}</a>
+                                                </Link>
                                             </div>
                                             <div className="flex flex-1 items-end justify-between text-sm">
 
