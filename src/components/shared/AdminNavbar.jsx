@@ -95,7 +95,7 @@ export function AdminNavbar() {
                                     <div className="hidden md:block h-8">
                                         <Link href='/'>
                                             <a className='h-20 w-full'>
-                                                <Image src="/logo.png" alt="Home" layout="fixed" width={80} height={40} />
+                                                <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
                                             </a>
                                         </Link>
                                     </div>

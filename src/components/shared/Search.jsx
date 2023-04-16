@@ -38,12 +38,12 @@ export function Search({ setSearchTerm, searchButton }) {
                             id="search"
                             name="search"
                             onChange={handleSearch}
-                            className="block p-3 pl-10 w-full placeholder-gray-200 placeholder-opacity-70 bg-transparent focus:ring-red-600 text-red-600 ring-gray-200 border-gray-200 focus:border-red-600 shadow-sm sm:text-sm"
+                            className="block p-3 pl-10 w-full placeholder-gray-200 placeholder-opacity-70 outline-none focus:outline-none border-0 ring-0 bg-red-600 bg-opacity-10 text-red-600 shadow-sm sm:text-sm"
                             placeholder="Search here..."
                             required
                         />
                         <button disabled={searchButton || false} type="submit" className={classNames(searchButton ? "cursor-not-allowed" : "",
-                            "px-4 flex absolute inset-y-2 right-2 items-center font-medium rounded-full text-sm hover:bg-red-600 bg-black text-white hover:ring-red-600 ring-1 ring-gray-200")}
+                            "px-4 flex absolute inset-y-2 right-2 items-center font-medium rounded-full text-sm bg-black text-red-600 hover:ring-red-600 ring-0")}
                         >Search
                         </button>
                     </div>

@@ -16,10 +16,10 @@ export function Shop({ items, title }) {
 
     <div className='bg-black grid gap-4 px-2 pt-4'>
       {/* Title  */}
-      <div className='max-w-7xl w-full hover:scale-95 flex items-center px-5 justify-between hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-4 md:py-8 bg-gradient-to-r from-black to-red-800 ring-red-600 ring-2'>
+      <div className='max-w-7xl w-full hover:scale-95 flex items-center px-5 justify-between hover:animate-pulse hover:cursor-pointer duration-300 mx-auto py-4 md:py-8 bg-gradient-to-r from-purple-800 to-red-800 ring-red-600 ring-0'>
         <h2 className="text-sm sm:text-md md:text-2xl font-medium tracking-tight text-white">{title}</h2>
         <Link href={`/category/${slug.category}`}>
-          <a className='ring-2 px-4 py-1 ring-white text-white hover:bg-black'>Explore more...</a>
+          <a className='ring-0 bg-black bg-opacity-50 px-4 py-0.5 md:py-1 ring-white text-sm sm:text-md md:text-lg font-medium text-white hover:bg-opacity-70'>Explore more</a>
         </Link>
       </div>
 
@@ -85,8 +85,8 @@ export function ProductCard({ product }) {
             </Link>
           </h3>
           <div className='flex gap-2 justify-end'>
-          <p className="mt-1 text-end line-through text-sm text-red-500">৳ {product.regularPrice}</p>
-          <p className="mt-1 text-end text-sm text-green-500">৳ {product.onlinePrice}</p>
+            <p className="mt-1 text-end line-through text-sm text-red-500">৳ {product.regularPrice}</p>
+            <p className="mt-1 text-end text-sm text-green-500">৳ {product.onlinePrice}</p>
           </div>
         </div>
       </div>

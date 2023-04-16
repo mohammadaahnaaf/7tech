@@ -28,7 +28,7 @@ export function CategoryBar({ open, setOpen }) {
 
     return (
 
-        <div>
+        <div className="bg-black">
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -122,7 +122,7 @@ export function CategoryBar({ open, setOpen }) {
             </Transition.Root>
 
             {/* PC menu view  */}
-            <header className="relative max-h-10 lg:block hidden bg-red-700">
+            <header className="relative max-h-10 lg:block hidden bg-red-700 bg-opacity-10">
 
                 <div area-position='fixed' aria-label="Top" className="max-w-7xl max-h-10 mx-auto px-4 sm:px-6 xl:px-8">
                     <div>
@@ -139,7 +139,7 @@ export function CategoryBar({ open, setOpen }) {
                             </button>
 
                             <Popover.Group className="hidden lg:ml-0 xl:block lg:self-stretch">
-                                <div className="h-10 flex gap-8">
+                                <div className="h-10 flex w-full gap-8">
                                     {categories.slice(0, 10).map((category, index) => (
                                         <Popover key={index} className="flex">
                                             {({ open }) => (
@@ -149,7 +149,7 @@ export function CategoryBar({ open, setOpen }) {
                                                             className={classNames(
                                                                 open
                                                                     ? 'border-red-700 text-white border-b-white border-b-4'
-                                                                    : 'border-transparent text-black hover:border-white border-b-4 hover:text-white',
+                                                                    : 'border-transparent text-red-600 hover:border-white border-b-4 hover:text-white',
                                                                 'relative z-10 flex items-center focus:outline-none focus:border-b-4 transition-colors ease-out duration-200 text-sm font-semibold -mb-px pt-px'
                                                             )}
                                                         >
