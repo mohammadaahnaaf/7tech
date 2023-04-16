@@ -24,7 +24,7 @@ export function ProductCards({ product }) {
 
     return (
         <div className="group hover:scale-90 duration-300 bg-red-600 relative bg-opacity-20">
-            <div className="absolute z-10 grid items-center justify-items-center top-0 right-0 h-10 w-10 text-white bg-red-600 hover:bg-black">
+            <div className="absolute z-40 grid items-center justify-items-center top-0 right-0 p-1 text-white bg-red-600 hover:bg-black">
                 <button
                     type='button'
                     disabled={!product.inStock || product.quantity === 0}
@@ -34,16 +34,13 @@ export function ProductCards({ product }) {
                         "hover:text-red-600"
                     )}
                 >
-                    <ShoppingCartIcon className='h-7 w-7' />
+                    <ShoppingCartIcon className='lg:h-7 lg:w-7 h-5 w-5' />
                 </button>
             </div>
             <div>
                 {product.images.slice(0, 1).map((item, index) => (
                     <div key={index} className="min-h-80 bg-gradient-to-b from-pink-800 to-purple-500 aspect-w-1 aspect-h-1 w-full overflow-hidden group-hover:opacity-75 lg:aspect-none lg:h-80">
-                        <Image
-                            layout='responsive'
-                            width={500}
-                            height={520}
+                        <img
                             src={item}
                             alt='product image'
                             className="h-full w-full z-20 object-cover object-center lg:h-full lg:w-full"

@@ -316,12 +316,12 @@ export function Details() {
                                 {/* Qty */}
                                 <div>
                                     <h4 className="text-sm font-medium text-gray-900">Qty</h4>
-                                    <div className="relative flex flex-row w-full h-12 mt-1 bg-transparent ring-black ring-2">
-                                        <button disabled={qty === 1} type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full hover:text-white hover:bg-black text-black bg-white cursor-pointer ">
+                                    <div className="relative flex flex-row w-full h-12 mt-1 bg-transparent bg-black">
+                                        <button disabled={qty === 1} type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full hover:text-white bg-black hover:bg-red-600 text-white cursor-pointer ">
                                             <span className="m-auto text-2xl font-semibold">−</span>
                                         </button>
-                                        <p className="flex items-center justify-center w-full font-semibold text-center text-black bg-white border-black border-x-2 text-md">{qty}</p>
-                                        <button disabled={qty === cartProduct.stock} type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full hover:bg-black hover:text-white text-black bg-white cursor-pointer">
+                                        <p className="flex items-center justify-center w-full font-semibold text-center hover:bg-red-600 bg-black text-white border-white border-x-2 text-md">{qty}</p>
+                                        <button disabled={qty === cartProduct.stock} type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full bg-black text-white hover:bg-red-600 cursor-pointer">
                                             <span className="m-auto text-2xl font-semibold">+</span>
                                         </button>
                                     </div>
@@ -335,7 +335,7 @@ export function Details() {
                                         onClick={() => addItem(cartProduct, qty)}
                                         className={classNames(
                                             !product.inStock ? "cursor-not-allowed" : "",
-                                            "flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black text-white ring-2 ring-black")}
+                                            "flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black text-white")}
                                     >
                                         Add to Cart
                                     </button>
@@ -364,13 +364,15 @@ export function Details() {
                                     </option>
                                 </select>
                             </div>
-                            <ul className="hidden text-sm font-medium text-center text-gray-700 divide-x-2 divide-white border-b-red-600 border-b-2 focus:divide-red-600 rounded-sm shadow sm:flex ">
+                            <ul className="hidden text-sm font-medium text-center text-gray-700 divide-x-2 divide-red-600 border-b-red-600 border-b-2 focus:divide-red-600 shadow sm:flex ">
                                 <li className="w-full">
                                     <button
                                         onClick={() => setShow('details')}
                                         type='button'
-                                        className={classNames(show === 'details' ? "bg-red-600 text-white" : "text-gray-900",
-                                            "inline-block w-full py-2 rounded-l-sm bg-white active focus:outline-none"
+                                        className={classNames(show === 'details' ? "!bg-red-600 text-white" : "text-gray-900",
+                                            "inline-block w-full py-2 bg-white active focus:outline-none text-gray-900",
+                                            show === 'info' ? 'bg-gradient-to-l from-red-600 to-white' : ''
+
                                         )}
                                     >
                                         Specifications
@@ -380,8 +382,11 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('info')}
                                         type='button'
-                                        className={classNames(show === 'info' ? "bg-red-600 text-white" : "text-gray-900",
-                                            "inline-block w-full py-2 rounded-l-sm bg-white active focus:outline-none"
+                                        className={classNames(show === 'info' ? "!bg-red-600 text-white" : "text-gray-900",
+                                            "inline-block w-full py-2 text-gray-900 bg-white active focus:outline-none",
+                                            show === 'reviews' ? 'bg-gradient-to-l from-red-600 to-white' : '',
+                                            show === 'details' ? 'bg-gradient-to-r from-red-600 to-white' : '',
+
                                         )}
                                     >
                                         More Information
@@ -391,8 +396,9 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('reviews')}
                                         type='button'
-                                        className={classNames(show === 'reviews' ? "bg-red-600 text-white" : "text-gray-900",
-                                            "inline-block w-full py-2 rounded-l-sm bg-white active focus:outline-none"
+                                        className={classNames(show === 'reviews' ? "!bg-red-600 text-white" : "text-gray-900",
+                                            "inline-block w-full py-2 bg-white text-gray-900 active focus:outline-none",
+                                            show === 'info' ? 'bg-gradient-to-r from-red-600 to-white' : ''
                                         )}
                                     >
                                         Reviews

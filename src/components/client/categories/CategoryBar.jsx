@@ -28,7 +28,7 @@ export function CategoryBar({ open, setOpen }) {
 
     return (
 
-        <div className="bg-black">
+        <div className="bg-gradient-to-t from-pink-800 to-black">
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -122,7 +122,7 @@ export function CategoryBar({ open, setOpen }) {
             </Transition.Root>
 
             {/* PC menu view  */}
-            <header className="relative max-h-10 lg:block hidden bg-red-700 bg-opacity-10">
+            <header className="relative max-h-10 lg:block hidden bg-black bg-opacity-10">
 
                 <div area-position='fixed' aria-label="Top" className="max-w-7xl max-h-10 mx-auto px-4 sm:px-6 xl:px-8">
                     <div>
