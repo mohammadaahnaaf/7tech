@@ -23,7 +23,7 @@ export function Relatedcard({ item }) {
     }
 
     return (
-        <div className='flex h-28 gap-2 justify-start items-center p-2 bg-white hover:bg-opacity-5 rounded-md hover:bg-black shadow'>
+        <div className='flex h-28 gap-2 justify-start items-center p-2 bg-white hover:bg-pink-50 shadow'>
             {item?.images?.slice(0, 1).map((image, index) => (
                 <div key={index} className="flex items-center rounded-md group-hover:opacity-75">
                     <Image

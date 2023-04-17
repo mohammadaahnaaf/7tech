@@ -192,17 +192,18 @@ export function Details() {
                 <div className='grid grid-cols-5 gap-4 w-full'>
 
                     {/* Images  */}
-                    <div className='rounded-sm ring-0 ring-gray-200 col-span-5 lg:col-span-2'>
+                    <div className='col-span-5 lg:col-span-2'>
 
-                        <div className='grid gap-4 py-4 items-center'>
+                        <div className='grid gap-4 py-4 items-center content-between'>
                             {images?.slice(view - 1, view).map((item, index) => (
                                 <div className='relative cursor-pointer flex items-center mx-auto' key={index}>
                                     <Image
+                                        // layout='fill'
                                         height={512}
                                         width={512}
-                                        src={`${item}`}
+                                        src={item}
                                         alt='product-images'
-                                        className="mx-auto w-full rounded-md"
+                                        className="mx-auto w-full h-full rounded-md"
                                     />
                                     <div className='absolute backdrop-blur-sm inset-0 z-10 opacity-0 hover:opacity-100 duration-300 flex justify-center items-center'>
                                         <button onClick={() => handleViewImage(item)} className="bg-red-600 text-white rounded-md p-3 text-2xl font-semibold">
@@ -228,16 +229,16 @@ export function Details() {
                     </div>
 
                     {/* Side info  */}
-                    <div className='p-4 rounded-lg bg-white col-span-5 lg:col-span-3'>
-                        <h1 className='text-md lg:text-xl font-semibold text-left'>{product.name}</h1>
-                        <div>
+                    <div className='p-4 col-span-5 lg:col-span-3'>
+                        <div className='grid items-center h-full'>
+                            <h1 className='text-md lg:text-xl font-semibold text-left'>{product.name}</h1>
 
                             {/* side info table */}
-                            <div className="relative mt-4">
+                            <div className="relative">
                                 <table className="w-full text-xs lg:text-sm text-left p-3">
 
                                     <tbody>
-                                        <tr className="bg-white border-gray-100 border-b">
+                                        <tr className="border-gray-100 border-b">
                                             <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Regular Price:
                                             </th>
@@ -245,7 +246,7 @@ export function Details() {
                                                 ৳ {product.regularPrice}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white border-gray-100 border-b">
+                                        <tr className="border-gray-100 border-b">
                                             <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Product Price:
                                             </th>
@@ -253,7 +254,7 @@ export function Details() {
                                                 ৳ {product.onlinePrice}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white border-gray-100 border-b">
+                                        <tr className="border-gray-100 border-b">
                                             <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Offer Price:
                                             </th>
@@ -261,7 +262,7 @@ export function Details() {
                                                 ৳ {product.offerPrice}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white border-gray-100 border-b">
+                                        <tr className="border-gray-100 border-b">
                                             <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Stock Status:
                                             </th>
@@ -270,7 +271,7 @@ export function Details() {
                                                 {product?.inStock ? 'In Stock' : 'Stock Out'}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white border-gray-100 border-b">
+                                        <tr className="border-gray-100 border-b">
                                             <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Brand:
                                             </th>
@@ -278,7 +279,7 @@ export function Details() {
                                                 {product.imageAlt || 'Unknown'}
                                             </td>
                                         </tr>
-                                        <tr className="bg-white border-gray-100 border-b">
+                                        <tr className="border-gray-100 border-b">
                                             <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Total Reviews:
                                             </th>
@@ -306,39 +307,41 @@ export function Details() {
                             </div>
 
                             {/* short description  */}
-                            <div className='grid gap-2 mt-4'>
-                                <h2 className='text-md font-semibold'>Short Description:</h2>
-                                <p className='text-md'>{product.shortDescription || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at ipsum et dui efficitur euismod non vitae ipsum. Aliquam erat volutpat. Sed eu lacinia lorem. Cras lobortis nisl nisl, in vulputate nibh ullamcorper feugiat. Nunc malesuada condimentum luctus. Nulla tellus mi, porttitor eu tempus vitae, viverra vitae dui. Maecenas vulputate eros ante, et venenatis tortor consequat quis. Nullam vehicula non leo et congue. In vel nisl ligula."}</p>
-                            </div>
-
-                            {/* Add to cart button  */}
-                            <div className='grid grid-cols-2 my-3 w-full gap-3'>
-                                {/* Qty */}
-                                <div>
-                                    <h4 className="text-sm font-medium text-gray-900">Qty</h4>
-                                    <div className="relative flex flex-row w-full h-12 mt-1 bg-transparent bg-black">
-                                        <button disabled={qty === 1} type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full hover:text-white bg-black hover:bg-red-600 text-white cursor-pointer ">
-                                            <span className="m-auto text-2xl font-semibold">−</span>
-                                        </button>
-                                        <p className="flex items-center justify-center w-full font-semibold text-center hover:bg-red-600 bg-black text-white border-white border-x-2 text-md">{qty}</p>
-                                        <button disabled={qty === cartProduct.stock} type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full bg-black text-white hover:bg-red-600 cursor-pointer">
-                                            <span className="m-auto text-2xl font-semibold">+</span>
-                                        </button>
-                                    </div>
+                            <div className='grid items-center content-between h-full'>
+                                <div className='grid gap-2 mt-4'>
+                                    <h2 className='text-md font-semibold'>Short Description:</h2>
+                                    <p className='text-md'>{product.shortDescription || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at ipsum et dui efficitur euismod non vitae ipsum. Aliquam erat volutpat. Sed eu lacinia lorem. Cras lobortis nisl nisl, in vulputate nibh ullamcorper feugiat. Nunc malesuada condimentum luctus. Nulla tellus mi, porttitor eu tempus vitae, viverra vitae dui. Maecenas vulputate eros ante, et venenatis tortor consequat quis. Nullam vehicula non leo et congue. In vel nisl ligula."}</p>
                                 </div>
 
-                                {/* Add to Cart  */}
-                                <div>
-                                    <button
-                                        type="button"
-                                        disabled={!product.inStock}
-                                        onClick={() => addItem(cartProduct, qty)}
-                                        className={classNames(
-                                            !product.inStock ? "cursor-not-allowed" : "",
-                                            "flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black text-white")}
-                                    >
-                                        Add to Cart
-                                    </button>
+                                {/* Add to cart button  */}
+                                <div className='grid grid-cols-2 w-full gap-3'>
+                                    {/* Qty */}
+                                    <div>
+                                        <h4 className="text-sm font-medium text-gray-900">Qty</h4>
+                                        <div className="relative flex flex-row w-full h-12 mt-1 bg-transparent bg-black">
+                                            <button disabled={qty === 1} type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full hover:text-white bg-black hover:bg-red-600 text-white cursor-pointer ">
+                                                <span className="m-auto text-2xl font-semibold">−</span>
+                                            </button>
+                                            <p className="flex items-center justify-center w-full font-semibold text-center hover:bg-red-600 bg-black text-white border-white border-x-2 text-md">{qty}</p>
+                                            <button disabled={qty === cartProduct.stock} type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full bg-black text-white hover:bg-red-600 cursor-pointer">
+                                                <span className="m-auto text-2xl font-semibold">+</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Add to Cart  */}
+                                    <div>
+                                        <button
+                                            type="button"
+                                            disabled={!product.inStock}
+                                            onClick={() => addItem(cartProduct, qty)}
+                                            className={classNames(
+                                                !product.inStock ? "cursor-not-allowed" : "",
+                                                "flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black text-white")}
+                                        >
+                                            Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -410,7 +413,7 @@ export function Details() {
                         {/* More Info */}
                         {(show === 'info') && (
                             <>
-                                <div div className='rounded-md md:p-5 bg-gray-50'>
+                                <div div className='md:p-5 bg-gradient-to-b from-pink-300 to-white'>
                                     <h2 className='text-xl mb-3 font-medium'>More Informations</h2>
                                     {product.details?.map((detail, index) => (
                                         <div className='my-2' key={index}>
@@ -424,14 +427,14 @@ export function Details() {
 
                         {/* Specifications  */}
                         {(show === 'details') && (
-                            <div className='rounded-md md:p-5 bg-gray-50'>
+                            <div className='md:p-5 bg-gradient-to-b from-pink-200 to-white'>
                                 <h2 className='text-xl mb-3 font-medium'>Specifications</h2>
 
                                 <table className="w-full text-sm text-left p-3">
                                     <tbody>
                                         {product?.information?.map((info, index) => (
 
-                                            <tr key={index} className="bg-white w-1/2 md:w-1/3 border-gray-100 border-b">
+                                            <tr key={index} className="w-1/2 md:w-1/3 border-gray-100 border-b">
                                                 <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                     {index + 1}. {info.title} :
                                                 </th>
@@ -452,7 +455,7 @@ export function Details() {
 
                         {/* Reviews  */}
                         {(show === 'reviews') && (
-                            <div className='rounded-md md:p-5 bg-gray-50'>
+                            <div className='md:p-5 bg-gradient-to-b from-pink-200 to-white'>
                                 <h2 className='text-xl p-2 font-medium'>Average Review</h2>
                                 <div className='grid gap-5'>
                                     <div className='flex px-2'>
@@ -553,8 +556,9 @@ export function Details() {
                     <div className='bg-white mt-4 md:max-w-7xl mx-auto w-full'>
                         <div className='grid grid-cols-3 border-b-2 border-black'>
                             <h1 className='text-center bg-black px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
+                            <div className='w-full bg-gradient-to-r from-black to-white ' />
                         </div>
-                        <div className='grid grid-cols-12 w-full gap-2 rounded-b-md bg-gray-50 p-3'>
+                        <div className='grid grid-cols-12 w-full gap-2 rounded-b-md bg-gradient-to-t from-white to-black/25 p-3'>
                             {relatedProductsId?.slice(0, 6).map((item, index) =>
                                 <div key={index} className='col-span-12 lg:col-span-6'>
                                     <Relatedcard item={item} />
