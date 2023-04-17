@@ -23,7 +23,7 @@ export function ProductCards({ product }) {
     }
 
     return (
-        <div className="group hover:scale-90 duration-300 bg-red-600 relative bg-opacity-20">
+        <div className="group hover:scale-90 duration-300 bg-gradient-to-b to-black from-purple-600 relative">
             <div className="absolute z-40 grid items-center justify-items-center top-0 right-0 p-1 text-white bg-red-600 hover:bg-black">
                 <button
                     type='button'
