@@ -196,7 +196,7 @@ export function Details() {
 
                         <div className='grid gap-4 py-4 items-center content-between'>
                             {images?.slice(view - 1, view).map((item, index) => (
-                                <div className='relative cursor-pointer flex items-center mx-auto' key={index}>
+                                <div className='relative hover:scale-105 duration-300 cursor-pointer flex items-center mx-auto' key={index}>
                                     <Image
                                         // layout='fill'
                                         height={512}
@@ -206,15 +206,18 @@ export function Details() {
                                         className="mx-auto w-full h-full rounded-md"
                                     />
                                     <div className='absolute backdrop-blur-sm inset-0 z-10 opacity-0 hover:opacity-100 duration-300 flex justify-center items-center'>
-                                        <button onClick={() => handleViewImage(item)} className="bg-red-600 text-white rounded-md p-3 text-2xl font-semibold">
-                                            View Image
+                                        <button onClick={() => handleViewImage(item)} className="text-white bg-red-600 p-1 hover:bg-black text-lg font-semibold">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+
                                         </button>
                                     </div>
                                 </div>
                             ))}
                             <div className='flex gap-4 items-center justify-between'>
                                 {images?.map((item, index) => (
-                                    <button key={index} type='button' className='ring-2 justify-center items-center flex ring-gray-200 rounded-sm w-full' onClick={() => setView(index + 1)}>
+                                    <button key={index} type='button' className='ring-2 justify-center hover:scale-95 duration-300 hover:ring-black items-center flex ring-gray-200 rounded-sm w-full' onClick={() => setView(index + 1)}>
                                         <Image
                                             height={120}
                                             width={120}
