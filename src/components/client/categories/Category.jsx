@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useDebounce } from 'use-debounce'
 import axiosRoot from '@seventech/utils/axios-root'
-import { Loading, Pagenation } from '@seventech/shared'
+import { Loading, NextPage } from '@seventech/shared'
 import { RangeSlider } from './RangeSlider'
 import { ProductCards } from '../products'
 
@@ -240,73 +240,74 @@ export function Category({ term }) {
       </Transition.Root>
 
       {/* PC view filter dialog */}
-      <main className="bg-black mx-auto max-w-9xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-baseline justify-between border-b border-gray-200 pt-6 pb-6">
-          {/* Upper Top section */}
+      <main className="bg-black mx-auto">
+        <div className='bg-gradient-to-r from-black via-red-600 to-black'>
+          <div className="flex items-baseline px-4 sm:px-6 lg:px-8 justify-between py-6">
+            {/* Upper Top section */}
+            <h1 className="text-xl md:text-2xl font-normal tracking-tight text-gray-200">Categories</h1>
+            <div className="flex items-center">
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-300 hover:text-gray-300">
+                    Sort by
+                    <ChevronDownIcon
+                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-200 group-hover:text-gray-300"
+                      aria-hidden="true"
+                    />
+                  </Menu.Button>
+                </div>
 
-          <h1 className="text-xl md:text-3xl font-semibold tracking-tight text-gray-200">Categories</h1>
-          <div className="flex items-center">
-            <Menu as="div" className="relative inline-block text-left">
-              <div>
-                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-300 hover:text-gray-300">
-                  Sort by
-                  <ChevronDownIcon
-                    className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-200 group-hover:text-gray-300"
-                    aria-hidden="true"
-                  />
-                </Menu.Button>
-              </div>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 z-40 mt-2 w-40 origin-top-right rounded-md bg-black ring-white shadow-2xl ring-1 ring-opacity-20 focus:outline-none">
+                    <div className="py-1">
+                      {sortOptions.map((option) => (
+                        <Menu.Item key={option.name}>
+                          {({ active }) => (
 
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute right-0 z-40 mt-2 w-40 origin-top-right rounded-md bg-black ring-white shadow-2xl ring-1 ring-opacity-20 focus:outline-none">
-                  <div className="py-1">
-                    {sortOptions.map((option) => (
-                      <Menu.Item key={option.name}>
-                        {({ active }) => (
+                            <button
+                              type='button'
+                              onClick={() => hadlePrice(option.bol)}
+                              className={classNames(
+                                option.current ? 'font-medium text-gray-300' : 'text-gray-300',
+                                active ? 'bg-red-500' : '',
+                                'block px-4 py-2 text-sm w-full text-left'
+                              )}
+                            >
+                              {option.name}
+                            </button>
+                          )}
+                        </Menu.Item>
+                      ))}
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
 
-                          <button
-                            type='button'
-                            onClick={() => hadlePrice(option.bol)}
-                            className={classNames(
-                              option.current ? 'font-medium text-gray-300' : 'text-gray-300',
-                              active ? 'bg-red-500' : '',
-                              'block px-4 py-2 text-sm w-full text-left'
-                            )}
-                          >
-                            {option.name}
-                          </button>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
-
-            {/* <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-300 sm:ml-7">
+              {/* <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-300 sm:ml-7">
               <span className="sr-only">View grid</span>
               <ViewGridIcon className="h-5 w-5" aria-hidden="true" />
             </button> */}
-            <button
-              type="button"
-              className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-300 sm:ml-6 lg:hidden"
-              onClick={() => handleFilterOpen()}
-            >
-              <span className="sr-only">Filters</span>
-              <FilterIcon className="h-5 w-5" aria-hidden="true" />
-            </button>
+              <button
+                type="button"
+                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-300 sm:ml-6 lg:hidden"
+                onClick={() => handleFilterOpen()}
+              >
+                <span className="sr-only">Filters</span>
+                <FilterIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <section className="py-6">
+        <section className="py-6 px-4 sm:px-6 lg:px-8">
           <h2 id="products-heading" className="sr-only">
             Categories
           </h2>
@@ -315,7 +316,7 @@ export function Category({ term }) {
             <div className="hidden lg:block lg:col-span-3 xl:col-span-2">
               <h3 className="sr-only">Categories</h3>
               {/* All Categories */}
-              <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-md font-medium text-gray-300">
+              <ul role="list" className="space-y-4 border-b border-pink-600 pb-6 text-md font-medium text-gray-300">
                 {categories.map((category, index) => (
                   <li key={index}>
                     <Disclosure>
@@ -421,9 +422,7 @@ export function Category({ term }) {
                   )
                 })}
               </div>
-              <div className='bg-red-600 rounded-lg bg-opacity-40 mt-4'>
-                <Pagenation total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
-              </div>
+                <NextPage total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
             </div>
           </div>
         </section>
