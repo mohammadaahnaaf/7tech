@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import axiosRoot from '../utils/axios-root';
+import Image from 'next/image';
 
 export function Banner() {
 
@@ -29,18 +30,21 @@ export function Banner() {
                     showIndicators={false}
                     showThumbs={false}
                     interval={2500}
-                    transitionTime={500}
+                    transitionTime={700}
                     swipeable={false}
                     emulateTouch
                     className='z-50'
                 // swipeScrollTolerance
                 >
                     {item.images.map((image, index) => (
-                        <img
-                            key={index}
-                            src={image}
-                            className='z-50 object-cover h-[20vh] md:h-[55vh] select-none cursor-pointer'
-                        />
+                        <div key={index} className='h-[20vh] md:h-[65vh] w-full'>
+                            <Image
+                                layout='fill'
+                                src={image}
+                                alt={`banner-image-${1 + index}`}
+                                className='z-50 object-cover h-[20vh] md:h-[65vh] select-none cursor-pointer'
+                            />
+                        </div>
                     ))}
                 </Carousel>
             )

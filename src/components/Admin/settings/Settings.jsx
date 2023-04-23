@@ -9,6 +9,7 @@ import { Tab } from '@headlessui/react'
 import Privacy from './Privacy';
 import Terms from './Terms';
 import About from './About';
+import Image from 'next/image';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -18,8 +19,7 @@ function classNames(...classes) {
 function Setting() {
 
   const router = useRouter();
-  const [tab, setTab] = useState('about')
-  const [files, setFile] = useState([]);
+  const [files, setFiles] = useState([]);
   const [error, setError] = useState('')
   const [banners, setBanners] = useState([])
   const [success, setSuccess] = useState('')
@@ -60,24 +60,38 @@ function Setting() {
     }
   }
 
-  // handle image upload 
+  // select images 
   const handleSelectImage = (e) => {
-    let file = e.target.files;
 
-    for (let i = 0; i < file.length; i++) {
-      const fileType = file[i]['type'];
-      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-      if (validImageTypes.includes(fileType)) {
-        setFile([...files, file[i]]);
-      } else {
-        setError("only images accepted");
-      }
-    }
+    let file = e.target.files;
+    const selectedFilesArray = Array.from(file);
+
+    const imagesArray = selectedFilesArray.map((file) => {
+      return file;
+    });
+
+    setFiles((previousImages) => previousImages.concat(imagesArray));
   };
+
+  //remove image
   const removeImage = (i) => {
-    setFile(files.filter(x => x.name !== i));
+    setFiles(files.filter(x => x.name !== i));
   }
 
+  // handle image upload 
+  // const handleSelectImage = (e) => {
+  //   let file = e.target.files;
+
+  //   for (let i = 0; i < file.length; i++) {
+  //     const fileType = file[i]['type'];
+  //     const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+  //     if (validImageTypes.includes(fileType)) {
+  //       setFile([...files, file[i]]);
+  //     } else {
+  //       setError("only images accepted");
+  //     }
+  //   }
+  // };
 
   return (
     <div className='pt-6 rounded-b-lg'>
@@ -88,7 +102,7 @@ function Setting() {
 
           <div className="px-4 py-5 bg-red-600 sm:p-6">
 
-            {/* Banners Upload  */}
+            {/* Upload Input  */}
             <div>
               <label className="block text-sm font-medium text-gray-100">Upload Photos</label>
               <div className="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
@@ -127,7 +141,7 @@ function Setting() {
             </div>
           </div>
 
-          {/* Banners Images */}
+          {/* Banners Images Previews */}
           <div className='grid p-4 bg-black'>
             <div className='grid grid-cols-2 w-full gap-2'>
               {files?.map((file, index) =>
@@ -144,11 +158,11 @@ function Setting() {
               )}
             </div>
             {files.length === 0 && (
-              <div className='grid grid-cols-2 w-full gap-2'>
+              <div className='grid grid-cols-2 w-full gap-2 md:gap-3'>
                 {banners?.map((item, index) =>
                   <>
                     {item.images.map((image) =>
-                      <div key={index} className='h-36 rounded-lg ring-1 ring-gray-300 hover:opacity-70 cursor-pointer relative'>
+                      <div key={index} className='h-36 ring-2 ring-red-600 hover:opacity-70 cursor-pointer relative'>
                         <div className="absolute m-1 z-10 grid items-center justify-items-center top-0 right-0 h-8 w-8 text-white rounded-lg bg-red-600 bg-opacity-25 hover:bg-opacity-50">
                           <button type='button'
                             onClick={() => handleDelete(item._id)}
@@ -156,7 +170,9 @@ function Setting() {
                             <TrashIcon className='text-red-600 h-6 w-6' />
                           </button>
                         </div>
-                        <img alt='product image' src={image} className='h-36 mx-auto' />
+                        <div className='h-36 mx-auto w-auto'>
+                          <Image layout='fill' alt='product image' src={image} className='h-36 mx-auto object-cover' />
+                        </div>
                       </div>
                     )}
                   </>
