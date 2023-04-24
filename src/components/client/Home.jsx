@@ -18,7 +18,7 @@ export function Banner() {
     }, []);
 
     return (
-        <div className="max-w-full border-b-2 border-red-600 mx-auto">
+        <div className="max-w-full border-b border-pink-900 shadow mx-auto">
             {banners?.slice(0, 1).map((item, index) => (
                 <Carousel
                     key={index}

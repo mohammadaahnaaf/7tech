@@ -10,7 +10,7 @@ export function Layout({ children, setSearchTerm }) {
         <>
             <Navbar setOpen={setOpen} setSearchTerm={setSearchTerm} />
             <CategoryBar open={open} setOpen={setOpen} />
-            <div className='border-0 border-red-600'>
+            <div>
                 {children}
             </div>
             <Footers />

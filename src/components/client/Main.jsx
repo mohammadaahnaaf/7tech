@@ -3,7 +3,6 @@ import { Banner } from './Home'
 import { Shop } from './Shop'
 import axiosRoot from '../utils/axios-root'
 import { Layout } from '@seventech/layout'
-// import ReactPlayer from 'react-player'
 import { Loading } from '..'
 
 export function Main() {
