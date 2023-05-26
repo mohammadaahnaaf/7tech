@@ -23,8 +23,8 @@ export function ProductCards({ product }) {
     }
 
     return (
-        <div className="group hover:scale-90 duration-300 bg-gradient-to-b to-black from-purple-600 relative">
-            <div className="absolute z-40 grid items-center justify-items-center top-0 right-0 p-1 text-white bg-red-600 hover:bg-black">
+        <div className="group ring-black ring-2 hover:scale-90 duration-300 bg-white relative">
+            <div className="absolute z-40 grid items-center justify-items-center top-0 right-0 p-1 text-white hover:bg-red-600 bg-black">
                 <button
                     type='button'
                     disabled={!product.inStock || product.quantity === 0}
@@ -39,7 +39,7 @@ export function ProductCards({ product }) {
             </div>
             <div>
                 {product.images.slice(0, 1).map((item, index) => (
-                    <div key={index} className="min-h-80 bg-gradient-to-b from-pink-800 to-purple-500 aspect-w-1 aspect-h-1 w-full overflow-hidden group-hover:opacity-75 lg:aspect-none lg:h-80">
+                    <div key={index} className="min-h-80 bg-white aspect-w-1 aspect-h-1 w-full overflow-hidden group-hover:opacity-75 lg:aspect-none lg:h-80">
                         <img
                             src={item}
                             alt='product image'
@@ -51,12 +51,12 @@ export function ProductCards({ product }) {
             <div className="grid w-full p-2 border-t-2 border-red-600">
                 <div className='h-20 hidden md:grid content-between'>
                     <Link href={`/product/${product?._id}`}>
-                        <a className="w-full font-normal text-sm text-gray-200">
+                        <a className="w-full font-normal text-sm text-black">
                             <span aria-hidden="true" className="absolute inset-0" />
                             {product?.name?.substring(0, 60)}
                         </a>
                     </Link>
-                    <p className="mt-1 w-full flex justify-end items-center text-end text-sm gap-2 text-green-500">
+                    <p className="mt-1 w-full flex justify-end items-center text-end text-sm gap-2 text-green-800">
                         <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}
                     </p>
                 </div>
@@ -88,3 +88,4 @@ export function ProductCards({ product }) {
         </div>
     )
 }
+// This App is made by Ahnaf and Tanvir 

@@ -239,7 +239,7 @@ export function Category({ term }) {
         </Dialog>
       </Transition.Root>
 
-      {/* PC view filter dialog */}
+      {/* PC view */}
       <main className="bg-black mx-auto">
         <div className='bg-gradient-to-r from-black via-red-600 to-black'>
           <div className="flex items-baseline px-4 sm:px-6 lg:px-8 justify-between py-6">
@@ -430,3 +430,5 @@ export function Category({ term }) {
     </div>
   )
 }
+
+// This App is made by Ahnaf and Tanvir 

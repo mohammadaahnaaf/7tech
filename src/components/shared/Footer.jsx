@@ -16,12 +16,13 @@ export function Footer() {
     </footer>
   )
 }
+// [url('/banners/redragon4.png')] bg-no-repeat
 
 export function Footers() {
   return (
 
-    <footer className="bg-[url('/banners/redragon4.png')] bg-no-repeat font-normal bg-center bg-cover">
-      <div className='bg-gradient-to-t from-purple-900 to-black bg-opacity-0 p-6'>
+    <footer className="bg-black font-normal bg-center bg-cover">
+      <div className='bg-black bg-opacity-0 p-6'>
         <div className="md:flex md:justify-between">
           <div className="md:hidden block mb-6">
             <Link href="/">
@@ -35,16 +36,16 @@ export function Footers() {
             <Link href="/">
               <a className="grid gap-2 items-center justify-items-center">
                 <Image height={60} width={120} src="/logo.png" className="hidden md:block w-auto h-8" alt="Logo" />
-                <span className="self-center text-lg font-medium whitespace-nowrap hover:text-white text-red-600">SevenTech Engineering Ltd.</span>
+                <span className="self-center text-lg font-medium whitespace-nowrap text-white hover:text-red-600">SevenTech Engineering Ltd.</span>
               </a>
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
 
-              <h2 className="mb-3 text-sm font-semibold uppercase text-red-600">Call Us</h2>
-              <ul className="text-red-600">
-                <li className="mb-2 hover:text-gray-200 flex items-center">
+              <h2 className="mb-3 text-sm font-semibold uppercase text-white">Call Us</h2>
+              <ul className="text-white">
+                <li className="mb-2 hover:text-red-600 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                   </svg>

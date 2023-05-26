@@ -10,7 +10,7 @@ export function Main() {
     const [searchTerm, setSearchTerm] = React.useState('')
     const [home, setHome] = React.useState([]);
 
-    // get product data 
+    // get featured products data
     React.useEffect(() => {
         async function getProducts() {
             const res = await axiosRoot.get('/products/featured-on-home');
@@ -19,10 +19,12 @@ export function Main() {
         getProducts()
     }, []);
 
+    // const mapArrayByIndex = home?.sort((a, b) => a.index - b.index).map(item => item.name);
+
     return home.length !== 0 ? (
         <Layout setSearchTerm={setSearchTerm}>
             <Banner />
-            <div className='pb-4 bg-black'>
+            <div className='pb-4 min-h-screen bg-white'>
                 {home?.map((item, index) => (
                     <Shop key={index} term={searchTerm} items={item.products.slice(0, 12)} title={item.tagline} />
                 ))}
@@ -30,7 +32,9 @@ export function Main() {
         </Layout>
     ) : (
         <Layout>
-            <Loading bg='black' />
+            <Loading bg='white' />
         </Layout>
     )
 }
+
+// This App is made by Ahnaf and Tanvir 
