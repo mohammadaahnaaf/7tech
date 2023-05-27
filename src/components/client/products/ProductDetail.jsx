@@ -257,14 +257,16 @@ export function Details() {
                                                 ৳ {product.onlinePrice}
                                             </td>
                                         </tr>
-                                        <tr className="border-gray-100 border-b">
-                                            <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
-                                                Offer Price:
-                                            </th>
-                                            <td className=" py-2">
-                                                ৳ {product.offerPrice}
-                                            </td>
-                                        </tr>
+                                        {product.offerPrice && (
+                                            <tr className="border-gray-100 border-b">
+                                                <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
+                                                    Offer Price:
+                                                </th>
+                                                <td className=" py-2">
+                                                    ৳ {product.offerPrice}
+                                                </td>
+                                            </tr>
+                                        )}
                                         <tr className="border-gray-100 border-b">
                                             <th scope="row" className="w-1/2 lg:w-1/4 font-medium text-gray-900 whitespace-nowrap">
                                                 Stock Status:
@@ -416,11 +418,11 @@ export function Details() {
                         {/* More Info */}
                         {(show === 'info') && (
                             <>
-                                <div div className='md:p-5 bg-gradient-to-b from-pink-300 to-white'>
-                                    <h2 className='text-xl mb-3 font-medium'>More Informations</h2>
+                                <div div className='md:p-5'>
+                                    {/* <h2 className='text-xl mb-3 font-medium'>More Informations</h2> */}
                                     {product.details?.map((detail, index) => (
                                         <div className='my-2' key={index}>
-                                            <h2 className='pl-10 text-md font-bold text-gray-700'>{index + 1}. {detail.title}</h2>
+                                            <h2 className='pl-10 text-md font-bold text-gray-700'>{detail.title}</h2>
                                             <p className='py-1 px-16 text-sm font-normal text-gray-600'> {detail.description}</p>
                                         </div>
                                     ))}
@@ -430,7 +432,7 @@ export function Details() {
 
                         {/* Specifications  */}
                         {(show === 'details') && (
-                            <div className='md:p-5 bg-gradient-to-b from-pink-200 to-white'>
+                            <div className='md:p-5'>
                                 <h2 className='text-xl mb-3 font-medium'>Specifications</h2>
 
                                 <table className="w-full text-sm text-left p-3">
@@ -438,8 +440,8 @@ export function Details() {
                                         {product?.information?.map((info, index) => (
 
                                             <tr key={index} className="w-1/2 md:w-1/3 border-gray-100 border-b">
-                                                <th scope="row" className=" w-1/4 font-medium text-gray-900 whitespace-nowrap">
-                                                    {index + 1}. {info.title} :
+                                                <th scope="row" className="w-1/4 pl-4 font-medium text-gray-900 whitespace-nowrap">
+                                                    {info.title} :
                                                 </th>
                                                 <td className=" py-2">
                                                     {info.description}
@@ -448,17 +450,12 @@ export function Details() {
                                         ))}
                                     </tbody>
                                 </table>
-
-                                {/* <div key={index} className='flex justify-items-start md:w-4/5'>
-                                    <p className='w-56 py-1 pl-10 text-sm font-normal text-gray-500'>{index + 1}. {info.title}:</p>
-                                    <p className='py-1 pl-10 text-sm font-normal text-gray-500'>{info.description}</p>
-                                </div> */}
                             </div>
                         )}
 
                         {/* Reviews  */}
                         {(show === 'reviews') && (
-                            <div className='md:p-5 bg-gradient-to-b from-pink-200 to-white'>
+                            <div className='md:p-5'>
                                 <h2 className='text-xl p-2 font-medium'>Average Review</h2>
                                 <div className='grid gap-5'>
                                     <div className='flex px-2'>
@@ -543,7 +540,7 @@ export function Details() {
                                                 ))}
                                             </div>
                                             <button type='submit' className="flex items-center justify-center px-4 py-1 mt-3 text-base font-medium text-white bg-red-600 border border-transparent rounded-md min-w-15 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600">
-                                                Done
+                                                Comment
                                             </button>
                                         </div>
                                     </form>
@@ -561,7 +558,7 @@ export function Details() {
                             <h1 className='text-center bg-black px-4 py-2 font-medium text-sm text-gray-50'>Related Products</h1>
                             <div className='w-full bg-gradient-to-r from-black to-white ' />
                         </div>
-                        <div className='grid grid-cols-12 w-full gap-2 rounded-b-md bg-gradient-to-t from-white to-black/25 p-3'>
+                        <div className='grid grid-cols-12 w-full gap-2 rounded-b-md py-3'>
                             {relatedProductsId?.slice(0, 6).map((item, index) =>
                                 <div key={index} className='col-span-12 lg:col-span-6'>
                                     <Relatedcard item={item} />

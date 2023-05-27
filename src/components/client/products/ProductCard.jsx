@@ -80,7 +80,7 @@ export function ProductCards({ product }) {
                             <ShoppingCartIcon className='h-5 w-5' />
                         </button>
                         <p className="mt-1 w-full flex justify-end items-center text-end text-xs gap-2 text-green-500">
-                            <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}
+                            <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.offerPrice || product.onlinePrice}
                         </p>
                     </div>
                 </div>
