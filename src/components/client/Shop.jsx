@@ -17,9 +17,9 @@ export function Shop({ items, title }) {
     <div className='bg-white grid gap-4 px-2 pt-4'>
       {/* Title  */}
       <div className='max-w-7xl w-full flex items-center px-5 justify-between hover:cursor-pointer duration-300 mx-auto py-4 md:py-8 hover:bg-opacity-90 bg-black'>
-        <h2 className="text-sm sm:text-md md:text-2xl font-medium tracking-tight text-white">{title}</h2>
+        <h2 className="text-sm sm:text-md md:text-xl font-medium tracking-tight text-white">{title}</h2>
         <Link href={`/category/${slug.category}`}>
-          <a className='ring-0 text-black hover:ring-white hover:bg-black hover:text-white hover:ring-2 px-4 py-0.5 md:py-1 ring-white text-sm sm:text-md md:text-lg font-medium bg-white'>Explore more</a>
+          <a className='hover:ring-0 hover:text-black ring-white bg-black text-white ring-2 px-4 py-0.5 md:py-1 text-xs sm:text-sm md:text-md font-medium hover:bg-white'>Explore more</a>
         </Link>
       </div>
 

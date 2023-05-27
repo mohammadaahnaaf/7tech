@@ -32,7 +32,8 @@ export function Main() {
         </Layout>
     ) : (
         <Layout>
-            <Loading bg='white' />
+            {/* <Loading bg='white' /> */}
+            <div className='h-screen w-full bg-white' />
         </Layout>
     )
 }

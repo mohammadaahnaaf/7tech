@@ -4,8 +4,6 @@ import { XIcon } from '@heroicons/react/outline'
 import { ChevronDownIcon, ChevronUpIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
 
 import { useRouter } from 'next/router'
-// import { ProductCard } from '../Shop'
-import Link from 'next/link'
 import { useDebounce } from 'use-debounce'
 import axiosRoot from '@seventech/utils/axios-root'
 import { Loading, NextPage } from '@seventech/shared'
@@ -53,7 +51,7 @@ function classNames(...classes) {
 export function Category({ term }) {
 
   const router = useRouter()
-  const slug = router.query.id
+  let slug = router.query.id
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [items, setItems] = useState([])
@@ -70,12 +68,19 @@ export function Category({ term }) {
   const [maxValue, setMaxValue] = useState(8000);
 
   const [searchedName] = useDebounce(name, 400);
+  const [searchedNamed] = useDebounce(term, 400);
   const [maxPrice] = useDebounce(maxValue, 400);
   const [minPrice] = useDebounce(minValue, 400);
 
   React.useEffect(() => {
-    !slug ? setName(term) : setName(slug)
-  }, [term, slug])
+    function slugify() {
+      setTimeout(() => { setName(slug) }, 500)
+    }
+    // function termia() {
+    //   setTimeout(() => { setName(term) }, 500)
+    // }
+    slugify()
+  }, [slug]);
 
   //Get Data
   React.useEffect(() => {
@@ -89,12 +94,12 @@ export function Category({ term }) {
   //getProduct
   React.useEffect(() => {
     async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&highFirst=${priceHL}&searchQuery=${searchedName}`);
+      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&highFirst=${priceHL}&searchQuery=${searchedNamed || searchedName}`);
       setItems(res.data.products)
       setTotal(res.data.count)
     }
     getProducts()
-  }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName, page, pageSize])
+  }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName,searchedNamed, page, pageSize])
 
 
   function handleCategoryFilter(nam) {
@@ -422,7 +427,7 @@ export function Category({ term }) {
                   )
                 })}
               </div>
-                <NextPage total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
+              <NextPage total={total} page={page} setPage={setPage} pageSize={pageSize} setPageSize={setPageSize} />
             </div>
           </div>
         </section>
