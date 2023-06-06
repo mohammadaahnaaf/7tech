@@ -40,10 +40,18 @@ export function ProductCards({ product }) {
             <div>
                 {product.images.slice(0, 1).map((item, index) => (
                     <div key={index} className="min-h-80 bg-white aspect-w-1 aspect-h-1 w-full overflow-hidden group-hover:opacity-75 lg:aspect-none lg:h-80">
-                        <img
+                        {/* <img
                             src={item}
                             alt='product image'
                             className="h-full w-full z-20 object-cover object-center lg:h-full lg:w-full"
+                        /> */}
+                        <Image
+                            // layout='fill'
+                            height={512}
+                            width={512}
+                            src={item}
+                            alt='product-images'
+                            className="mx-auto w-full h-full rounded-md"
                         />
                     </div>
                 ))}

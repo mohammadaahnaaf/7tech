@@ -94,4 +94,4 @@ export function ProductCard({ product }) {
   )
 }
 
-// This App is made by Ahnaf and Tanvir 
+// This App is made by Ahnaf and Tanvir.
