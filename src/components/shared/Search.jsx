@@ -43,7 +43,7 @@ export function Search({ setSearchTerm, searchButton }) {
                             required
                         />
                         <button disabled={searchButton || false} type="submit" className={classNames(searchButton ? "cursor-not-allowed" : "",
-                            "px-4 flex absolute inset-y-2 right-2 items-center font-medium rounded-full text-sm bg-white text-red-600 hover:ring-red-600 ring-0")}
+                            "px-4 flex absolute inset-y-2 right-2 items-center font-medium rounded-full text-sm bg-white text-black hover:bg-black hover:text-white")}
                         >Search
                         </button>
                     </div>

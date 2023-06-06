@@ -32,11 +32,11 @@ export function Footers() {
               </a>
             </Link>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:grid items-center">
             <Link href="/">
               <a className="grid gap-2 items-center justify-items-center">
                 <Image height={60} width={120} src="/logo.png" className="hidden md:block w-auto h-8" alt="Logo" />
-                <span className="self-center text-lg font-medium whitespace-nowrap text-white hover:text-red-600">SevenTech Engineering Ltd.</span>
+                <span className="self-center text-lg font-medium whitespace-nowrap text-blue-600 hover:text-red-600">SevenTech Engineering Ltd.</span>
               </a>
             </Link>
           </div>
