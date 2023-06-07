@@ -254,7 +254,7 @@ export function NewCatBar() {
             setCategories(res.data.categories)
         }
         getCategory()
-    }, [router, open]);
+    }, [router]);
 
     function closeModal() {
         setIsOpen(false)
