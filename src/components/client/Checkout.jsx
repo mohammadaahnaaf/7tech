@@ -106,7 +106,7 @@ function Checkouts({ setSuccess, setOrder }) {
         <>
             <ErrorText error={error} />
             <form onSubmit={handleSubmit}>
-                <div className="bg-black py-6 px-4 lg:px-8">
+                <div className="py-6 px-4 lg:px-8">
                     <div className='max-w-7xl min-h-[78vh] mx-auto grid lg:flex justify-center gap-5'>
 
                         {/* Account and delevary details */}

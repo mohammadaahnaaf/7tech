@@ -41,29 +41,29 @@ export const RangeSlider = ({ min, minValue, setMinValue, max, maxValue, setMaxV
 
     return (
         <div className="grid place-items-center">
-            <div className="grid bg-transparent shadow-xl rounded-lg py-4">
-                <h1 className="text-md font-bold text-red-600"> Price Range</h1>
+            <div className="grid bg-transparent rounded-lg py-4">
+                <h1 className="text-md font-bold text-black"> Price Range</h1>
 
                 <div className="flex gap-2 justify-between items-center my-3">
                     <div>
-                        <label htmlFor='left' className="text-sm text-red-600 font-semibold">Min</label>
+                        <label htmlFor='left' className="text-sm text-black font-semibold">Min</label>
                         <input
                             id='left'
                             onChange={(e) => setMinValue(e.target.value)}
                             type="number"
                             value={minValue}
-                            className="w-full ring-2 ring-red-600 bg-transparent text-red-600 rounded-md border-0 appearance-none focus:outline-none"
+                            className="w-full bg-gray-200 text-black rounded-md border-0 appearance-none focus:outline-none"
                         />
                     </div>
                     {/* <div className="font-semibold text-lg"> - </div> */}
                     <div>
-                        <label htmlFor='right' className="text-sm text-red-600 font-semibold">Max</label>
+                        <label htmlFor='right' className="text-sm text-black font-semibold">Max</label>
                         <input
                             id='right'
                             onChange={(e) => setMaxValue(e.target.value)}
                             type="number"
                             value={maxValue}
-                            className="w-full ring-2 ring-red-600 rounded-md border-0 bg-transparent text-red-600 appearance-none focus:outline-none"
+                            className="w-full bg-gray-200 rounded-md border-0 text-black appearance-none focus:outline-none"
                         />
                     </div>
                 </div>
@@ -71,7 +71,7 @@ export const RangeSlider = ({ min, minValue, setMinValue, max, maxValue, setMaxV
                 <div className="my-2">
                     <div className="slider relative h-1 rounded-md bg-red-100">
                         <div
-                            className="progress absolute h-1 bg-red-600 rounded "
+                            className="progress rounded-full absolute h-1 bg-black"
                             ref={progressRef}
                         ></div>
                     </div>

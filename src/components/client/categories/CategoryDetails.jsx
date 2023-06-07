@@ -11,7 +11,7 @@ export function CategoryDetails() {
     return (
         <>
             <Navbar setOpen={setOpen} setSearchTerm={setSearchTerm} />
-            <div className='bg-black border-t-2 border-red-600'>
+            <div className='border-t-2 border-red-600'>
                 <Category term={searchTerm} />
             </div>
             <Footers />

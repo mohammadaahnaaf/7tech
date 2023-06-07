@@ -48,6 +48,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+const brands = [
+  'ReDragon', 'Asus', 'Dell', 'HP', 'Gigabyte', 'LG', 'Samsung', 'Pixel', 'Oppo'
+]
 export function Category({ term }) {
 
   const router = useRouter()
@@ -99,7 +102,7 @@ export function Category({ term }) {
       setTotal(res.data.count)
     }
     getProducts()
-  }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName,searchedNamed, page, pageSize])
+  }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName, searchedNamed, page, pageSize])
 
 
   function handleCategoryFilter(nam) {
@@ -245,8 +248,8 @@ export function Category({ term }) {
       </Transition.Root>
 
       {/* PC view */}
-      <main className="bg-black mx-auto">
-        <div className='bg-gradient-to-r from-black via-red-600 to-black'>
+      <main className="mx-auto">
+        <div className='bg-gradient-to-r from-blue-500 via-pink-600 to-green-500'>
           <div className="flex items-baseline px-4 sm:px-6 lg:px-8 justify-between py-6">
             {/* Upper Top section */}
             <h1 className="text-xl md:text-2xl font-normal tracking-tight text-gray-200">Categories</h1>
@@ -317,25 +320,26 @@ export function Category({ term }) {
             Categories
           </h2>
           {/* SideBar */}
-          <div className="grid bg-black grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-12">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-12">
             <div className="hidden lg:block lg:col-span-3 xl:col-span-2">
               <h3 className="sr-only">Categories</h3>
+
               {/* All Categories */}
-              <ul role="list" className="space-y-4 border-b border-pink-600 pb-6 text-md font-medium text-gray-300">
+              <ul role="list" className="space-y-4 border-b border-gray-600 pb-6 text-md font-medium">
                 {categories.map((category, index) => (
                   <li key={index}>
                     <Disclosure>
                       {({ open }) => (
                         <>
-                          <Disclosure.Button className="flex hover:text-white focus:text-gray-100 w-full justify-between text-left text-md font-medium text-red-600 focus:outline-none focus:ring-0">
+                          <Disclosure.Button className="flex hover:text-gray-500 focus:text-gray-400 w-full justify-between text-left text-md font-medium text-black focus:outline-none focus:ring-0">
                             <button onClick={() => handleCategoryFilter(category.name)} type='button'>
-                              {index + 1}. {category.name}
+                              {category.name}
                             </button>
                             <ChevronUpIcon
-                              className={`${!open ? 'rotate-180 transform' : 'text-white'} h-5 w-5 text-red-500`}
+                              className={`${!open ? 'rotate-180 transform' : 'text-gray-700'} h-5 w-5 text-black`}
                             />
                           </Disclosure.Button>
-                          <Disclosure.Panel className="p-2 gap-2 grid text-md text-gray-100">
+                          <Disclosure.Panel className="p-2 gap-2 grid text-md text-gray-700">
                             {category.subCategories?.map((sub, index) => (
                               <button className='flex w-full items-center hover:text-green-600' type='button' onClick={() => setSearchSubCats(sub.name)}>{index + 1}. {sub.name}</button>
                             ))}
@@ -348,6 +352,36 @@ export function Category({ term }) {
                 )}
               </ul>
 
+              {/* Filter Brands  */}
+              <ul role="list" className="space-y-4 border-b py-4 border-gray-600 text-md font-medium">
+
+                <li>
+                  <Disclosure>
+                    {({ open }) => (
+                      <>
+                        <Disclosure.Button className="flex py-2 hover:text-gray-500 focus:text-gray-400 w-full justify-between text-left text-md font-medium text-black focus:outline-none focus:ring-0">
+                          <button type='button'>
+                            Brands
+                          </button>
+                          <ChevronUpIcon
+                            className={`${!open ? 'rotate-180 transform' : 'text-gray-700'} h-5 w-5 text-black`}
+                          />
+                        </Disclosure.Button>
+                        <div className='grid gap-1'>
+                          {brands?.map((brand, index) => (
+                            <Disclosure.Panel key={index} className="flex hover:text-gray-500 focus:text-gray-400 w-full justify-between text-left text-md font-medium text-black focus:outline-none focus:ring-0">
+                              <button onClick={() => router.push(`/category/${brand}`)} type='button'>
+                                {brand}
+                              </button>
+                            </Disclosure.Panel>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </Disclosure>
+                </li>
+
+              </ul>
               {/* Price Range */}
               <div className='lg:col-span-3 xl:col-span-2'>
                 <RangeSlider
