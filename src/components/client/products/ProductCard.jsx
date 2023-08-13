@@ -39,24 +39,21 @@ export function ProductCards({ product }) {
             </div>
             <div>
                 {product.images.slice(0, 1).map((item, index) => (
-                    <div key={index} className="min-h-80 bg-white aspect-w-1 aspect-h-1 w-full overflow-hidden group-hover:opacity-75 lg:aspect-none lg:h-80">
-                        {/* <img
-                            src={item}
-                            alt='product image'
-                            className="h-full w-full z-20 object-cover object-center lg:h-full lg:w-full"
-                        /> */}
-                        <Image
-                            // layout='fill'
-                            height={512}
-                            width={512}
-                            src={item}
-                            alt='product-images'
-                            className="mx-auto w-full h-full rounded-md"
-                        />
+                    <div key={index} className="min-h-80 bg-white w-full group-hover:opacity-75">
+                        <div className='relative h-40 md:h-56 lg:h-80 w-full'>
+                            <Image
+                                layout='fill'
+                                // height={512}
+                                // width={512}
+                                src={item}
+                                alt='product-images'
+                                className="mx-auto w-full h-full"
+                            />
+                        </div>
                     </div>
                 ))}
             </div>
-            <div className="grid w-full p-2 border-t-2 border-red-600">
+            <div className="grid bg-gray-200 w-full p-2 border-t-2 border-black">
                 <div className='h-20 hidden md:grid content-between'>
                     <Link href={`/product/${product?._id}`}>
                         <a className="w-full font-normal text-sm text-black">
@@ -65,13 +62,13 @@ export function ProductCards({ product }) {
                         </a>
                     </Link>
                     <p className="mt-1 w-full flex justify-end items-center text-end text-sm gap-2 text-green-800">
-                        <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}
+                        <span className='text-red-600 line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}
                     </p>
                 </div>
-                <div className='h-20 grid md:hidden content-between'>
+                <div className='h-10 grid md:hidden content-between'>
                     <Link href={`/product/${product?._id}`}>
-                        <a className="text-xs w-full font-normal text-gray-200">
-                            <span aria-hidden="true" className="absolute inset-0" />
+                        <a className="text-xs w-full font-normal text-black">
+                            {/* <span aria-hidden="true" className="absolute inset-0" /> */}
                             {product?.name?.substring(0, 40)}
                         </a>
                     </Link>
@@ -82,12 +79,12 @@ export function ProductCards({ product }) {
                             onClick={() => addItem(cartProduct)}
                             className={classNames(
                                 !product.inStock ? "cursor-not-allowed" : "",
-                                "hover:text-red-600 text-white block 2xl:hidden"
+                                "hover:text-red-600 text-black block 2xl:hidden"
                             )}
                         >
                             <ShoppingCartIcon className='h-5 w-5' />
                         </button>
-                        <p className="mt-1 w-full flex justify-end items-center text-end text-xs gap-2 text-green-500">
+                        <p className="mt-1 w-full flex justify-end items-center text-end text-sm font-semibold gap-2 text-green-500">
                             <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.offerPrice || product.onlinePrice}
                         </p>
                     </div>

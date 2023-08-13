@@ -16,7 +16,7 @@ export function Shop({ items, title }) {
 
     <div className='bg-white grid gap-4 px-2 pt-4'>
       {/* Title  */}
-      <div className='max-w-7xl w-full flex items-center px-5 justify-between hover:cursor-pointer duration-300 mx-auto py-4 md:py-8 hover:bg-opacity-90 bg-black'>
+      <div className='max-w-7xl w-full mx-auto flex items-center px-5 justify-between hover:cursor-pointer duration-300 py-4 md:py-8 hover:bg-opacity-90 bg-black'>
         <h2 className="text-sm sm:text-md md:text-xl font-medium tracking-tight text-white">{title}</h2>
         <Link href={`/category/${slug.category}`}>
           <a className='hover:ring-0 hover:text-black ring-white bg-black text-white ring-2 px-4 py-0.5 md:py-1 text-xs sm:text-sm md:text-md font-medium hover:bg-white'>Explore more</a>
@@ -24,9 +24,9 @@ export function Shop({ items, title }) {
       </div>
 
       <div>
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-7xl w-full">
           {/* <Products /> */}
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {items?.map((product, index) => {
               return (
                 <ProductCards key={index} product={product} />
