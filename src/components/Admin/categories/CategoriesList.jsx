@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
-import { dataCategories } from '../../../data/CategoriesData';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useDebounce } from 'use-debounce';
@@ -56,7 +55,7 @@ function Categories() {
 
     function handleAllChecked(event) {
         if (event.target.checked) {
-            const newSelecteds = dataCategories.map((n) => n._id);
+            const newSelecteds = rows?.map((n) => n._id);
             setSelected(newSelecteds);
             setAllSelected(true)
             return;

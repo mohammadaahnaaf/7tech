@@ -85,9 +85,11 @@ export function Navbar({ setSearchTerm, setOpen }) {
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
                                 <div className="flex items-center h-full">
-                                    <button type='button' onClick={() => router.push('/')}>
-                                        <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
-                                    </button>
+                                    <Link href='/'>
+                                        <a>
+                                            <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
+                                        </a>
+                                    </Link>
                                 </div>
 
                                 {/* Search Bar  */}

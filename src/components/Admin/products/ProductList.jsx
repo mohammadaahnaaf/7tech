@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDebounce } from 'use-debounce';
 import React, { Fragment } from 'react'
-import { products } from '../../../data/ProductsData'
 import axiosAPI from '../../utils/axios-api';
 import axiosRoot from '../../utils/axios-root';
 import { AdminLayout } from '@seventech/layout';
@@ -52,7 +51,7 @@ function ProductsLists() {
   function handleAllChecked(event) {
     // !checkedAll ? setCheckedAll(true) : setCheckedAll(false)
     if (event.target.checked) {
-      const newSelecteds = products.map((n) => n._id);
+      const newSelecteds = rows?.map((n) => n._id);
       setSelected(newSelecteds);
       setAllSelected(true)
       return;

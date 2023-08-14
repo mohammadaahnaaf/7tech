@@ -1,4 +1,4 @@
-import { Dialog, Menu, Popover, Tab, Transition } from "@headlessui/react";
+import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { ChevronDoubleRightIcon } from "@heroicons/react/solid";
 import axiosRoot from "@seventech/utils/axios-root";
