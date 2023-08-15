@@ -266,36 +266,36 @@ export function NewCatBar() {
 
     return (
         <>
-            <header className="">
-                <div className="max-w-7xl flex items-center justify-evenly w-full mx-auto px-4 sm:px-6 xl:px-8">
+            <header className="bg-black">
+                <div className="max-w-7xl flex items-center justify-between w-full mx-auto px-4 sm:px-6 xl:px-8">
                     <button
                         type="button"
                         onClick={openModal}
                         onMouseEnter={e => {
                             setTimeout(() => { setIsOpen(true) }, 200)
                         }}
-                        className='text-black font-semibold text-md py-2'
+                        className='text-white font-normal text-md py-2'
                     >
                         Products
                     </button>
                     <button
                         type="button"
                         onClick={() => router.push('/about')}
-                        className='text-black text-md p-2 font-semibold'
+                        className='text-white text-md p-2'
                     >
                         About us
                     </button>
                     <button
                         type="button"
                         onClick={() => router.push('https://goo.gl/maps/7nBfZRWCmJXRNqdX8')}
-                        className='text-black text-md p-2 font-semibold'
+                        className='text-white text-md p-2'
                     >
                         Find us
                     </button>
                     <button
                         type="button"
                         onClick={() => router.push('tel:+8801911444466')}
-                        className='text-black text-md p-2 font-semibold'
+                        className='text-white text-md p-2'
                     >
                         Contact us
                     </button>

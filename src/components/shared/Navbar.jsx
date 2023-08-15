@@ -79,21 +79,20 @@ export function Navbar({ setSearchTerm, setOpen }) {
 
     return (
         <div className="min-h-full">
-            <Disclosure as="nav" className="bg-gray-200">
+            <Disclosure as="nav" className="bg-white">
                 {({ open }) => (
                     <>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center justify-between h-16">
-                                <div className="flex items-center h-full">
-                                    <Link href='/'>
-                                        <a>
-                                            <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={80} height={40} />
-                                        </a>
-                                    </Link>
+                                <div className="flex relative items-center w-20 h-16">
+                                    <button onClick={() => router.push('/')} className='absolute w-full h-full py-2'>
+
+                                        <Image src="/logo.png" srcSet="/logo.svg" alt="Home" layout="fixed" width={100} height={60} />
+                                    </button>
                                 </div>
 
                                 {/* Search Bar  */}
-                                <div className='hidden md:block w-full lg:w-1/3 justify-center'>
+                                <div className='hidden md:block w-full lg:w-1/3 rounded-full bg-black bg-opacity-10 justify-center'>
                                     <Search setSearchTerm={setSearchTerm} />
                                 </div>
                                 <div className="hidden md:block">
@@ -103,20 +102,20 @@ export function Navbar({ setSearchTerm, setOpen }) {
                                         <button
                                             type='button'
                                             onClick={() => Router.push('/cart')}
-                                            className="text-red-600 bg-red-600 bg-opacity-10 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-0"
+                                            className="text-black bg-gray-600 bg-opacity-10 flex p-[8px] rounded-full relative hover:text-gray-600 focus:ring-0"
                                         >
-                                            <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
+                                            <ShoppingCartIcon strokeWidth={1.5} stroke="currentColor" className="relative z-10 h-6 w-6" aria-hidden="true" />
 
-                                            <span className="flex absolute h-5 w-5 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-50 justify-center">
-                                                <span className="animate-ping absolute inline-flex h-5 w-5 rounded-full bg-red-400 opacity-75"></span>
-                                                <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
+                                            <span className="flex absolute h-4 w-4 -right-1 -top-1 rounded-full bg-red-600 bg-opacity-100 justify-center">
+                                                <span className="animate-ping absolute inline-flex h-4 w-4 rounded-full bg-red-400 opacity-75"></span>
+                                                <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems <= 9 ? totalUniqueItems : `${totalUniqueItems}+`}</p>
                                             </span>
                                         </button>
 
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="ml-3 relative">
                                             <div>
-                                                <Menu.Button className="text-red-600 bg-red-600 bg-opacity-10 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-0">
+                                                <Menu.Button className="text-black bg-gray-600 bg-opacity-10 flex p-[8px] rounded-full relative hover:text-gray-600 focus:ring-0">
                                                     <span className="sr-only">Open user menu</span>
                                                     <svg className="h-6 w-6 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />

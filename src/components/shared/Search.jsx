@@ -27,18 +27,18 @@ export function Search({ setSearchTerm, searchButton }) {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <div className="mx-2 flex items-baseline">
+                <div className="flex items-baseline">
                     <label htmlFor="search" className="mb-2 text-sm font-medium sr-only">Search</label>
                     <div className="relative w-full">
                         <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                            <SearchIcon className='w-5 h-5 text-gray-200 text-opacity-70' />
+                            <SearchIcon className='w-5 h-5 text-gray-500 text-opacity-70' />
                         </div>
                         <input
                             type="search"
                             id="search"
                             name="search"
                             onChange={handleSearch}
-                            className="block p-3 pl-10 w-full placeholder-gray-200 placeholder-opacity-70 outline-none focus:border-0 focus:ring-0 !focus:outline-none border-0 ring-0 bg-gray-600 focus:bg-opacity-20 hover:bg-opacity-20 rounded-full bg-opacity-40 text-red-600 shadow-sm sm:text-sm"
+                            className="block p-3 pl-10 w-full bg-transparent placeholder-gray-500 placeholder-opacity-70 outline-none focus:border-0 focus:ring-0 !focus:outline-none border-0 ring-0 focus:bg-opacity-20 hover:bg-opacity-20 rounded-full text-black shadow-sm sm:text-sm"
                             placeholder="Find here..."
                             required
                         />
