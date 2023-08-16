@@ -5,38 +5,38 @@ import axiosRoot from "@seventech/utils/axios-root";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
-import { categorya } from "src/mock/mock-data";
+// import { categorya } from "src/mock/mock-data";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-const topbarItems = [
-    {
-        id: 0,
-        name: 'Mouse',
-        link: '/category/mouse',
-        logo: <svg className="h-16 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path fill="var(--ci-primary-color, currentColor)" d="M448,80a24.027,24.027,0,0,0,24-24V16H440V48H264a24.027,24.027,0,0,0-24,24v40H208.625A88.725,88.725,0,0,0,120,200.625V360.571C120,435.247,180.753,496,255.429,496h1.142C331.247,496,392,435.247,392,360.571V200.625A88.725,88.725,0,0,0,303.375,112H272V80ZM152,200.625A56.689,56.689,0,0,1,208.625,144H240v88H152ZM360,360.571A103.545,103.545,0,0,1,256.571,464h-1.142A103.545,103.545,0,0,1,152,360.571V264H360ZM303.375,144A56.689,56.689,0,0,1,360,200.625V232H272V144Z" className="h-8 w-10" />
-        </svg>
-    },
-    {
-        id: 1,
-        name: 'Keyboard',
-        link: '/category/keyboard',
-        logo: <svg className="h-16 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path fill="var(--ci-primary-color, currentColor)" d="M448,80a24.027,24.027,0,0,0,24-24V16H440V48H264a24.027,24.027,0,0,0-24,24v40H208.625A88.725,88.725,0,0,0,120,200.625V360.571C120,435.247,180.753,496,255.429,496h1.142C331.247,496,392,435.247,392,360.571V200.625A88.725,88.725,0,0,0,303.375,112H272V80ZM152,200.625A56.689,56.689,0,0,1,208.625,144H240v88H152ZM360,360.571A103.545,103.545,0,0,1,256.571,464h-1.142A103.545,103.545,0,0,1,152,360.571V264H360ZM303.375,144A56.689,56.689,0,0,1,360,200.625V232H272V144Z" className="h-8 w-10" />
-        </svg>
-    },
-    {
-        id: 2,
-        name: 'Headset',
-        link: '/category/headset',
-        logo: <svg className="h-16 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path fill="var(--ci-primary-color, currentColor)" d="M448,80a24.027,24.027,0,0,0,24-24V16H440V48H264a24.027,24.027,0,0,0-24,24v40H208.625A88.725,88.725,0,0,0,120,200.625V360.571C120,435.247,180.753,496,255.429,496h1.142C331.247,496,392,435.247,392,360.571V200.625A88.725,88.725,0,0,0,303.375,112H272V80ZM152,200.625A56.689,56.689,0,0,1,208.625,144H240v88H152ZM360,360.571A103.545,103.545,0,0,1,256.571,464h-1.142A103.545,103.545,0,0,1,152,360.571V264H360ZM303.375,144A56.689,56.689,0,0,1,360,200.625V232H272V144Z" className="h-8 w-10" />
-        </svg>
-    },
-]
+// const topbarItems = [
+//     {
+//         id: 0,
+//         name: 'Mouse',
+//         link: '/category/mouse',
+//         logo: <svg className="h-16 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+//             <path fill="var(--ci-primary-color, currentColor)" d="M448,80a24.027,24.027,0,0,0,24-24V16H440V48H264a24.027,24.027,0,0,0-24,24v40H208.625A88.725,88.725,0,0,0,120,200.625V360.571C120,435.247,180.753,496,255.429,496h1.142C331.247,496,392,435.247,392,360.571V200.625A88.725,88.725,0,0,0,303.375,112H272V80ZM152,200.625A56.689,56.689,0,0,1,208.625,144H240v88H152ZM360,360.571A103.545,103.545,0,0,1,256.571,464h-1.142A103.545,103.545,0,0,1,152,360.571V264H360ZM303.375,144A56.689,56.689,0,0,1,360,200.625V232H272V144Z" className="h-8 w-10" />
+//         </svg>
+//     },
+//     {
+//         id: 1,
+//         name: 'Keyboard',
+//         link: '/category/keyboard',
+//         logo: <svg className="h-16 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+//             <path fill="var(--ci-primary-color, currentColor)" d="M448,80a24.027,24.027,0,0,0,24-24V16H440V48H264a24.027,24.027,0,0,0-24,24v40H208.625A88.725,88.725,0,0,0,120,200.625V360.571C120,435.247,180.753,496,255.429,496h1.142C331.247,496,392,435.247,392,360.571V200.625A88.725,88.725,0,0,0,303.375,112H272V80ZM152,200.625A56.689,56.689,0,0,1,208.625,144H240v88H152ZM360,360.571A103.545,103.545,0,0,1,256.571,464h-1.142A103.545,103.545,0,0,1,152,360.571V264H360ZM303.375,144A56.689,56.689,0,0,1,360,200.625V232H272V144Z" className="h-8 w-10" />
+//         </svg>
+//     },
+//     {
+//         id: 2,
+//         name: 'Headset',
+//         link: '/category/headset',
+//         logo: <svg className="h-16 w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+//             <path fill="var(--ci-primary-color, currentColor)" d="M448,80a24.027,24.027,0,0,0,24-24V16H440V48H264a24.027,24.027,0,0,0-24,24v40H208.625A88.725,88.725,0,0,0,120,200.625V360.571C120,435.247,180.753,496,255.429,496h1.142C331.247,496,392,435.247,392,360.571V200.625A88.725,88.725,0,0,0,303.375,112H272V80ZM152,200.625A56.689,56.689,0,0,1,208.625,144H240v88H152ZM360,360.571A103.545,103.545,0,0,1,256.571,464h-1.142A103.545,103.545,0,0,1,152,360.571V264H360ZM303.375,144A56.689,56.689,0,0,1,360,200.625V232H272V144Z" className="h-8 w-10" />
+//         </svg>
+//     },
+// ]
 
 export function CategoryBar({ open, setOpen }) {
 
@@ -44,13 +44,13 @@ export function CategoryBar({ open, setOpen }) {
     const [categories, setCategories] = useState([])
 
     //Get Data
-    React.useEffect(() => {
-        async function getCategory() {
-            const res = await axiosRoot.get('/categories');
-            setCategories(res.data.categories)
-        }
-        getCategory()
-    }, [router, open]);
+    // React.useEffect(() => {
+    //     async function getCategory() {
+    //         const res = await axiosRoot.get('/categories');
+    //         setCategories(res.data.categories)
+    //     }
+    //     getCategory()
+    // }, [router, open]);
 
     return (
 
@@ -245,17 +245,21 @@ export function CategoryBar({ open, setOpen }) {
 export function NewCatBar() {
 
     let [isOpen, setIsOpen] = useState(false)
-    const [categories, setCategories] = useState(categorya)
+    const [categories, setCategories] = useState([])
     const router = useRouter()
 
-    //Get Data
-    // React.useEffect(() => {
-    //     async function getCategory() {
-    //         const res = await axiosRoot.get('/categories');
-    //         setCategories(res.data.categories)
-    //     }
-    //     getCategory()
-    // }, [router]);
+    //get Data
+    React.useEffect(() => {
+        async function getCategory() {
+            try {
+                const res = await axiosRoot.get('/categories');
+                setCategories(res.data.categories)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getCategory()
+    }, [router]);
 
     function closeModal() {
         setIsOpen(false)
@@ -340,7 +344,7 @@ export function NewCatBar() {
 
                                         {sortedCategories.map((item, index) => (
                                             <button className="hover:bg-black hover:text-white px-4 py-1 text-left border-none outline-none ring-0" type='button' key={index} onClick={() => router.push(`/category/${item.name}`)}>
-                                            • {item.name}
+                                                • {item.name}
                                             </button>
                                         ))}
                                     </div>

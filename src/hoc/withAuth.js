@@ -7,22 +7,22 @@ export const withAuth = (Component, pageProps) => {
 
     const AuthComponent = () => {
         const [isLoggedIn, setIsLoggedIn] = useState(false);
-        // useEffect(() => {
-        //     if (!isLoggedIn) {
+        useEffect(() => {
+            if (!isLoggedIn) {
 
-        //         axiosAPI
-        //             .get('/auth/get-me')
-        //             .then(res => {
-        //                 setIsLoggedIn(!!res.data.isAdmin);
-        //             })
-        //             .catch(error => {
-        //                 console.log(error),
-        //                     Router.push('/login')
-        //             });
-        //     }
-        // }, [isLoggedIn]);
+                axiosAPI
+                    .get('/auth/get-me')
+                    .then(res => {
+                        setIsLoggedIn(!!res.data.isAdmin);
+                    })
+                    .catch(error => {
+                        console.log(error),
+                            Router.push('/login')
+                    });
+            }
+        }, [isLoggedIn]);
 
-        return !isLoggedIn ? (<Component {...pageProps} />) : (<Loading />)
+        return isLoggedIn ? (<Component {...pageProps} />) : (<Loading />)
     }
 
     return AuthComponent;
@@ -33,22 +33,22 @@ export const withMeAuth = (Component, pageProps) => {
     const AuthMeComponent = () => {
 
         const [isLoggedIn, setIsLoggedIn] = useState(false);
-        // useEffect(() => {
-        //     if (!isLoggedIn) {
+        useEffect(() => {
+            if (!isLoggedIn) {
 
-        //         axiosAPI
-        //             .get('/auth/get-me')
-        //             .then(res => {
-        //                 setIsLoggedIn(!!res.data.email);
-        //             })
-        //             .catch(error => {
-        //                 console.log(error);
-        //                 Router.push('/login')
-        //             });
-        //     }
-        // }, [isLoggedIn]);
+                axiosAPI
+                    .get('/auth/get-me')
+                    .then(res => {
+                        setIsLoggedIn(!!res.data.email);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        Router.push('/login')
+                    });
+            }
+        }, [isLoggedIn]);
 
-        return !isLoggedIn ? <Component {...pageProps} /> : <Loading2 />
+        return isLoggedIn ? <Component {...pageProps} /> : <Loading2 />
     }
 
     return AuthMeComponent;

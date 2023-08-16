@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { ChevronDownIcon, ChevronUpIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon, ChevronUpIcon, FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid'
 
 import { useRouter } from 'next/router'
 import { useDebounce } from 'use-debounce'
@@ -9,7 +9,7 @@ import axiosRoot from '@seventech/utils/axios-root'
 import { Loading, NextPage } from '@seventech/shared'
 import { RangeSlider } from './RangeSlider'
 import { ProductCards } from '../products'
-import { categorya, productt } from 'src/mock/mock-data'
+// import { categorya, productt } from 'src/mock/mock-data'
 
 const sortOptions = [
   { name: 'Price: High to Low', bol: true, current: false },
@@ -57,8 +57,8 @@ export function Category({ term }) {
   let slug = router.query.id
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-  const [items, setItems] = useState(productt.products)
-  const [categories, setCategories] = useState(categorya.categories)
+  const [items, setItems] = useState([])
+  const [categories, setCategories] = useState([])
   const [cats, setCats] = useState('')
   const [searchSubCats, setSearchSubCats] = useState('')
   const [total, setTotal] = React.useState(0)
@@ -82,24 +82,32 @@ export function Category({ term }) {
     slugify()
   }, [slug]);
 
-  //Get Data
-  // React.useEffect(() => {
-  //   async function getCategory() {
-  //     const res = await axiosRoot.get('/categories');
-  //     setCategories(res.data.categories)
-  //   }
-  //   getCategory()
-  // }, [slug, term]);
+  //get Data
+  React.useEffect(() => {
+    async function getCategory() {
+      try {
+        const res = await axiosRoot.get('/categories');
+        setCategories(res.data.categories)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getCategory()
+  }, [slug, term]);
 
-  //getProduct
-  // React.useEffect(() => {
-  //   async function getProducts() {
-  //     const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&highFirst=${priceHL}&searchQuery=${searchedNamed || searchedName}`);
-  //     setItems(res.data.products)
-  //     setTotal(res.data.count)
-  //   }
-  //   getProducts()
-  // }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName, searchedNamed, page, pageSize])
+  // getProduct
+  React.useEffect(() => {
+    async function getProducts() {
+      try {
+        const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&highFirst=${priceHL}&searchQuery=${searchedNamed || searchedName}`);
+        setItems(res.data.products)
+        setTotal(res.data.count)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getProducts()
+  }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName, searchedNamed, page, pageSize])
 
 
   function handleCategoryFilter(nam) {
@@ -127,7 +135,6 @@ export function Category({ term }) {
   }
 
   const sortedCategories = categories.slice().sort((a, b) => a.name.localeCompare(b.name));
-
 
   return (
     <div>

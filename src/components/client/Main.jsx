@@ -3,22 +3,25 @@ import { Banner } from './Home'
 import { Shop } from './Shop'
 import axiosRoot from '../utils/axios-root'
 import { Layout } from '@seventech/layout'
-import { featured } from 'src/mock/mock-data'
-// import { Loading } from '..'
+// import { featured } from 'src/mock/mock-data'
 
 export function Main() {
 
     const [searchTerm, setSearchTerm] = React.useState('')
-    const [home, setHome] = React.useState(featured);
+    const [home, setHome] = React.useState([]);
 
     // get featured products data
-    // React.useEffect(() => {
-    //     async function getProducts() {
-    //         const res = await axiosRoot.get('/products/featured-on-home');
-    //         setHome(res.data)
-    //     }
-    //     getProducts()
-    // }, []);
+    React.useEffect(() => {
+        async function getProducts() {
+            try {
+                const res = await axiosRoot.get('/products/featured-on-home');
+                setHome(res.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getProducts()
+    }, []);
 
     // const mapArrayByIndex = home?.sort((a, b) => a.index - b.index).map(item => item.name);
 
@@ -39,7 +42,7 @@ export function Main() {
     )
 }
 
-// This App is made by Ahnaf and Tanvir 
+// This App is made by Ahnaf and Tanvir
 
 
 // const home = [

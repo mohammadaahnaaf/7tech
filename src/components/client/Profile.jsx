@@ -34,7 +34,6 @@ export function Setting() {
             try {
                 const res = await axiosAPI.get('/auth/get-me');
                 setMe(res.data);
-            
             } catch (err) {
                 console.log(err);
             }
