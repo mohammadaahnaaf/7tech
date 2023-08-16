@@ -5,6 +5,7 @@ import axiosRoot from "@seventech/utils/axios-root";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
+import { categorya } from "src/mock/mock-data";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -244,17 +245,17 @@ export function CategoryBar({ open, setOpen }) {
 export function NewCatBar() {
 
     let [isOpen, setIsOpen] = useState(false)
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState(categorya)
     const router = useRouter()
 
     //Get Data
-    React.useEffect(() => {
-        async function getCategory() {
-            const res = await axiosRoot.get('/categories');
-            setCategories(res.data.categories)
-        }
-        getCategory()
-    }, [router]);
+    // React.useEffect(() => {
+    //     async function getCategory() {
+    //         const res = await axiosRoot.get('/categories');
+    //         setCategories(res.data.categories)
+    //     }
+    //     getCategory()
+    // }, [router]);
 
     function closeModal() {
         setIsOpen(false)
@@ -263,6 +264,8 @@ export function NewCatBar() {
     function openModal() {
         setIsOpen(true)
     }
+
+    const sortedCategories = categories.categories.slice().sort((a, b) => a.name.localeCompare(b.name));
 
     return (
         <>
@@ -316,7 +319,7 @@ export function NewCatBar() {
                         <div className="fixed inset-0 bg-black bg-opacity-25" />
                     </Transition.Child>
 
-                    <div className="fixed top-24 w-full overflow-y-auto">
+                    <div className="fixed left-32 top-26 w-full max-w-lg overflow-y-auto">
                         <div className="flex min-h-full items-start w-full text-center">
                             <Transition.Child
                                 as={Fragment}
@@ -335,7 +338,7 @@ export function NewCatBar() {
                                 >
                                     <div className="grid gap-2 items-start max-w-7xl w-full mx-auto px-4 sm:px-6 xl:px-8">
 
-                                        {categories.map((item, index) => (
+                                        {sortedCategories.map((item, index) => (
                                             <button className="hover:bg-black hover:text-white px-4 py-1 text-left border-none outline-none ring-0" type='button' key={index} onClick={() => router.push(`/category/${item.name}`)}>
                                             • {item.name}
                                             </button>

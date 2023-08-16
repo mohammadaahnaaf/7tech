@@ -9,14 +9,13 @@ import axiosRoot from '@seventech/utils/axios-root'
 import { Loading, NextPage } from '@seventech/shared'
 import { RangeSlider } from './RangeSlider'
 import { ProductCards } from '../products'
+import { categorya, productt } from 'src/mock/mock-data'
 
 const sortOptions = [
-  // { name: 'Most Popular', bol: null, current: true },
-  // { name: 'Best Rating', bol: null, current: false },
-  // { name: 'Newest', bol: null, current: false },
   { name: 'Price: High to Low', bol: true, current: false },
   { name: 'Price: Low to High', bol: false, current: false }
 ]
+
 const filters = [
   {
     id: 'price',
@@ -51,14 +50,15 @@ function classNames(...classes) {
 const brands = [
   'ReDragon', 'Asus', 'Dell', 'HP', 'Gigabyte', 'LG', 'Samsung', 'Pixel', 'Oppo'
 ]
+
 export function Category({ term }) {
 
   const router = useRouter()
   let slug = router.query.id
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-  const [items, setItems] = useState([])
-  const [categories, setCategories] = useState([])
+  const [items, setItems] = useState(productt.products)
+  const [categories, setCategories] = useState(categorya.categories)
   const [cats, setCats] = useState('')
   const [searchSubCats, setSearchSubCats] = useState('')
   const [total, setTotal] = React.useState(0)
@@ -79,30 +79,27 @@ export function Category({ term }) {
     function slugify() {
       setTimeout(() => { setName(slug) }, 500)
     }
-    // function termia() {
-    //   setTimeout(() => { setName(term) }, 500)
-    // }
     slugify()
   }, [slug]);
 
   //Get Data
-  React.useEffect(() => {
-    async function getCategory() {
-      const res = await axiosRoot.get('/categories');
-      setCategories(res.data.categories)
-    }
-    getCategory()
-  }, [slug, term]);
+  // React.useEffect(() => {
+  //   async function getCategory() {
+  //     const res = await axiosRoot.get('/categories');
+  //     setCategories(res.data.categories)
+  //   }
+  //   getCategory()
+  // }, [slug, term]);
 
   //getProduct
-  React.useEffect(() => {
-    async function getProducts() {
-      const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&highFirst=${priceHL}&searchQuery=${searchedNamed || searchedName}`);
-      setItems(res.data.products)
-      setTotal(res.data.count)
-    }
-    getProducts()
-  }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName, searchedNamed, page, pageSize])
+  // React.useEffect(() => {
+  //   async function getProducts() {
+  //     const res = await axiosRoot.get(`/products?page=${page + 1}&size=${pageSize}&category=${cats}&subCategory=${searchSubCats}&lowerPrice=${minPrice}&higherPrice=${maxPrice}&highFirst=${priceHL}&searchQuery=${searchedNamed || searchedName}`);
+  //     setItems(res.data.products)
+  //     setTotal(res.data.count)
+  //   }
+  //   getProducts()
+  // }, [searchSubCats, maxPrice, priceHL, minPrice, cats, searchedName, searchedNamed, page, pageSize])
 
 
   function handleCategoryFilter(nam) {
@@ -128,6 +125,9 @@ export function Category({ term }) {
     setMobileFiltersOpen(false)
     // setTimeout(() => { setMobileFiltersOpen(false) }, 500)
   }
+
+  const sortedCategories = categories.slice().sort((a, b) => a.name.localeCompare(b.name));
+
 
   return (
     <div>
@@ -173,7 +173,7 @@ export function Category({ term }) {
                 <div className="border-t-2 border-red-600">
                   <h3 className="sr-only">Categories</h3>
                   <ul role="list" className="px-4 text-md grid gap-2 py-3 font-semibold text-red-600">
-                    {categories.map((category, index) => (
+                    {sortedCategories.map((category, index) => (
                       <li key={category.name}>
                         <button type='button' onClick={() => handleTo(category.name)}>
                           {`${index + 1}. `}{category.name}
