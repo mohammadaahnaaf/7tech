@@ -269,7 +269,7 @@ export function NewCatBar() {
         setIsOpen(true)
     }
 
-    const sortedCategories = categories.categories.slice().sort((a, b) => a.name.localeCompare(b.name));
+    const sortedCategories = categories.slice().sort((a, b) => a.name.localeCompare(b.name));
 
     return (
         <>
