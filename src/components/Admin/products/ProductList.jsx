@@ -165,12 +165,12 @@ function ProductsLists() {
       {isOpen && modal}
       <SuccessText success={success} />
       <ErrorText error={error} />
-      <div className='flex justify-center w-full py-1 bg-black'>
-        <div className='md:w-1/3'>
+      <div className='flex justify-center w-full py-1 bg-red-600'>
+        <div className='md:w-1/3 bg-white bg-opacity-50 rounded-full'>
           <Search searchButton={true} setSearchTerm={setSearchTerm} />
         </div>
         <Link href='/admin/products/add'>
-          <a className='bg-black ml-4 text-sm font-medium text-red-600 ring-1 ring-red-600 hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Product</a>
+          <a className='hover:bg-white ml-4 text-sm font-medium hover:text-red-600 ring-1 ring-white bg-red-600 text-white flex items-center my-1 px-3 rounded-full'>Add Product</a>
         </Link>
       </div>
       <table className="w-full text-sm text-left text-gray-500">

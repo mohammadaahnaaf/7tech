@@ -51,31 +51,6 @@ const Detail = () => {
 
     }, [router, success]);
 
-    // get all products
-    // useEffect(() => {
-    //     async function getProduct() {
-    //         const res = await axiosAPI.get(`/products?page=${1}&size=${20}`);
-
-    //         function test(item) {
-    //             const newProducts = order?.products.map(i => {
-    //                 if (i.productId === item._id) {
-    //                     i.productId = item._id
-    //                     i.name = item.name
-    //                     // i.quantity = i.quantity
-    //                     i.onlinePrice = item.onlinePrice
-    //                 }
-    //                 return i;
-    //             })
-    //             setProducts(newProducts);
-    //             // console.log("NewProducts" + newProducts)
-    //         }
-    //         res.data.products.map(x => test(x))
-    //     }
-    //     order && getProduct()
-
-    // }, [order]);
-
-    // Details 
     const handleChange = (id, event) => {
         const newInputFields = formValues.map(i => {
             if (id === i.id) {
@@ -100,8 +75,8 @@ const Detail = () => {
     //     setFormValues(values);
     // }
 
-    // submit edited data
     async function handleSubmit(event) {
+        // submit edited data
         try {
             event.preventDefault()
             // const data = new FormData(event.currentTarget);
@@ -121,6 +96,45 @@ const Detail = () => {
             setTimeout(() => { setError('') }, 6000)
         }
     }
+
+    const statusOpsn = [
+        {
+            name: 'Pending',
+            value: 'pending'
+        },
+        {
+            name: 'Confirmed',
+            value: 'confirmed'
+        },
+        {
+            name: 'Unreachable',
+            value: 'unreachable'
+        },
+        {
+            name: 'On Hold',
+            value: 'hold'
+        },
+        {
+            name: 'Paid',
+            value: 'paid'
+        },
+        {
+            name: 'Processing',
+            value: 'processing'
+        },
+        {
+            name: 'Shipped',
+            value: 'shiped'
+        },
+        {
+            name: 'Refunded',
+            value: 'refunded'
+        },
+        {
+            name: 'Canceled',
+            value: 'canceled'
+        },
+    ]
 
     return (
 
@@ -149,10 +163,6 @@ const Detail = () => {
                             <label htmlFor="zone" className="block mb-2 text-sm font-medium text-gray-900 ">Zone</label>
                             <input value={order.zone || ''} type="text" id="zone" name='zone' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Zone" />
                         </div>
-                        {/* <div>
-                        <label htmlFor="area" className="block mb-2 text-sm font-medium text-gray-900">Area</label>
-                        <input type="text" id="area" name='area' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder=""   />
-                    </div> */}
                         <div className='col-span-2'>
                             <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">Address</label>
                             <input value={order.address || ''} type="text" id="address" name='address' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder="Address" />
@@ -173,18 +183,18 @@ const Detail = () => {
                         <div>
                             <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900">Status</label>
                             <select id="status" name='status' value={status || ''} onChange={(e) => setStatus(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ">
-                                <option value="pending">Pending</option>
+                                {statusOpsn.map((x, index) => (
+                                    <option key={index} value={x.value}>{x.name}</option>
+                                ))}
                                 <option value="delivered">Delivered</option>
                                 <option value="cancelled">Cancel</option>
-                                {/* <option value='paid'>Paid</option> 
-                                 <option value="shipped">Shipped</option> */}
                             </select>
                         </div>
                         <div>
                             <label htmlFor="payment" className="block mb-2 text-sm font-medium text-gray-900">Payment</label>
                             <select value={payment || ''} onChange={(e) => setPayment(e.target.value)} id="payment" name='payment' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
                                 <option value='online'>BKash</option>
-                                <option value="cash-on-delivery">Cash on delevary</option>
+                                <option value="cash-on-delivery">Cash on Delivery</option>
                             </select>
                         </div>
                     </div>

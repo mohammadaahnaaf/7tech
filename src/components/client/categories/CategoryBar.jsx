@@ -266,7 +266,7 @@ export function NewCatBar() {
 
     return (
         <>
-            <header className="bg-black">
+            <header className="bg-[#005DAB]">
                 <div className="max-w-7xl flex items-center justify-between w-full mx-auto px-4 sm:px-6 xl:px-8">
                     <button
                         type="button"

@@ -58,7 +58,7 @@ export function ProductCards({ product }) {
                     <Link href={`/product/${product?._id}`}>
                         <a className="w-full font-normal text-sm text-black">
                             <span aria-hidden="true" className="absolute inset-0" />
-                            {product?.name?.substring(0, 60)}
+                            {product?.name}
                         </a>
                     </Link>
                     <p className="mt-1 w-full flex justify-end items-center text-end text-sm gap-2 text-green-800">

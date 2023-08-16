@@ -281,8 +281,8 @@ function Subscriber() {
         <>
             <SuccessText success={success} />
             <div className="mx-3 mt-3 bg-red-100 overflow-x-auto relative shadow-md sm:rounded-lg">
-                <div className='flex justify-center w-full py-1 bg-black'>
-                    <div className='md:w-1/3'>
+                <div className='flex justify-center w-full py-1 bg-red-600'>
+                    <div className='md:w-1/3 bg-white bg-opacity-50 rounded-full'>
                         <Search searchButton={true} setSearchTerm={setSearchTerm} />
                     </div>
                 </div>

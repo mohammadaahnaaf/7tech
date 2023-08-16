@@ -31,9 +31,13 @@ export function Setting() {
     // get me
     React.useEffect(() => {
         async function getProfile() {
-            const res = await axiosAPI.get('/auth/get-me');
-
-            setMe(res.data);
+            try {
+                const res = await axiosAPI.get('/auth/get-me');
+                setMe(res.data);
+            
+            } catch (err) {
+                console.log(err);
+            }
         }
         getProfile()
     }, [success]);
@@ -119,14 +123,14 @@ export function Setting() {
                                 <div className="flex items-center justify-end gap-4 mt-4">
                                     <button
                                         type="button"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                                         onClick={closeModal}
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         type="button"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black hover:bg-black focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
                                         onClick={handleDelete}
                                     >
                                         Delete
@@ -141,24 +145,24 @@ export function Setting() {
     )
 
     return (
-        <div className="py-6 bg-black sm:px-6 lg:px-8">
+        <div className="py-6 sm:px-6 lg:px-8">
             <SuccessText success={success} />
-            <div className="max-w-5xl mx-auto ring-red-600 ring-2 md:grid md:grid-cols-1 md:gap-6">
+            <div className="max-w-5xl mx-auto bg-gray-100 rounded-lg md:grid md:grid-cols-1 md:gap-6">
                 {sureDelete}
                 <form onSubmit={e => handleSubmit(e)}>
-                    <div className="shadow overflow-hidden">
-                        <div className="px-4 py-5 ring-2 ring-red-600 sm:p-6">
+                    <div className="shadow overflow-hidden rounded-b-lg">
+                        <div className="px-4 py-5 sm:p-6 border-b border-black">
                             <div className="grid grid-cols-6 gap-6">
 
                                 <div className="col-span-6 mx-auto rounded-full justify-center block">
-                                    <label className="block text-md font-medium text-center text-red-700" />
+                                    <label className="block text-md font-medium text-center text-black" />
                                     <div className="mt-1 grid gap-2 justify-items-center items-center">
-                                        <div className="inline-block ring-2 ring-white h-24 w-24 overflow-hidden">
+                                        <div className="inline-block ring-2 ring-black h-24 w-24 overflow-hidden">
 
                                             <button
                                                 disabled
                                                 type="button">
-                                                <svg className="h-full cursor-not-allowed w-full text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                                <svg className="h-full cursor-not-allowed w-full text-black" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                                                 </svg>
                                             </button>
@@ -168,7 +172,7 @@ export function Setting() {
                                 </div>
 
                                 <div className="col-span-6">
-                                    <label htmlFor="fullName" className="block text-sm font-medium text-red-700">
+                                    <label htmlFor="fullName" className="block text-sm font-medium text-black">
                                         Your name
                                     </label>
                                     <input
@@ -177,12 +181,12 @@ export function Setting() {
                                         id="fullName"
                                         value={me.fullName || ''}
                                         onChange={(event) => handleChange(event)}
-                                        className="mt-1 focus:ring-red-600 bg-red-600 bg-opacity-20 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
+                                        className="mt-1 focus:ring-black bg-white text-black ring-white border-white focus:border-black block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
 
                                 <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="email" className="block text-sm font-medium text-red-700">
+                                    <label htmlFor="email" className="block text-sm font-medium text-black">
                                         Email address
                                     </label>
                                     <input
@@ -191,25 +195,25 @@ export function Setting() {
                                         id="email"
                                         value={me.email || ''}
                                         onChange={(event) => handleChange(event)}
-                                        className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
+                                        className="mt-1 bg-white focus:ring-black text-black ring-white border-white focus:border-black block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
                                 <div className="col-span-6 sm:col-span-3">
-                                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-red-700">
+                                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-black">
                                         Phone number
                                     </label>
                                     <input
-                                        type="tel"
+                                        type="number"
                                         name="phoneNumber"
                                         id="phoneNumber"
                                         value={me.phoneNumber || ''}
                                         onChange={(event) => handleChange(event)}
-                                        className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
+                                        className="mt-1 bg-white focus:ring-black text-black ring-white border-white focus:border-black block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
 
                                 <div className="col-span-6 sm:col-span-6 lg:col-span-3">
-                                    <label htmlFor="city" className="block text-sm font-medium text-red-700">
+                                    <label htmlFor="city" className="block text-sm font-medium text-black">
                                         City
                                     </label>
                                     <input
@@ -218,12 +222,12 @@ export function Setting() {
                                         id="city"
                                         value={me.city || ''}
                                         onChange={(event) => handleChange(event)}
-                                        className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
+                                        className="mt-1 bg-white focus:ring-black text-black ring-white border-white focus:border-black block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
 
                                 <div className="col-span-6 sm:col-span-6 lg:col-span-3">
-                                    <label htmlFor="zone" className="block text-sm font-medium text-red-700">
+                                    <label htmlFor="zone" className="block text-sm font-medium text-black">
                                         Zone
                                     </label>
                                     <input
@@ -232,12 +236,12 @@ export function Setting() {
                                         id="zone"
                                         value={me.zone || ''}
                                         onChange={(event) => handleChange(event)}
-                                        className="mt-1 bg-red-600 bg-opacity-20 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
+                                        className="mt-1 bg-white focus:ring-black text-black ring-white border-white focus:border-black block w-full shadow-sm sm:text-sm"
                                     />
                                 </div>
 
                                 <div className="col-span-6">
-                                    <label htmlFor="about" className="block text-sm font-medium text-red-700">
+                                    <label htmlFor="about" className="block text-sm font-medium text-black">
                                         Address
                                     </label>
                                     <div className="mt-1">
@@ -248,23 +252,24 @@ export function Setting() {
                                             placeholder="Write details of your address"
                                             value={me.address || ''}
                                             onChange={(event) => handleChange(event)}
-                                            className="mt-1 bg-red-600 bg-opacity-20 placeholder-red-400 focus:ring-red-600 text-red-600 ring-white border-white focus:border-red-600 block w-full shadow-sm sm:text-sm"
+                                            className="mt-1 bg-white placeholder-gray-400 focus:ring-black text-black ring-white border-white focus:border-black block w-full shadow-sm sm:text-sm"
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="p-4 flex gap-4 justify-end items-center bg-red-600 bg-opacity-10 text-right">
+
+                        <div className="p-4 flex gap-4 justify-end items-center rounded-b-lg text-right">
                             <button
                                 type="button"
                                 onClick={openModal}
-                                className="inline-flex bg-red-600 justify-center py-1 px-4 border border-transparent shadow-sm text-sm font-medium text-white hover:bg-black hover:ring-red-100 focus:outline-none ring-2 ring-red-600"
+                                className="inline-flex bg-red-600 justify-center py-1 px-4 border border-transparent shadow-sm text-sm font-medium text-white hover:bg-white hover:text-red-600 hover:ring-red-600 focus:outline-none ring-2 ring-red-600"
                             >
                                 Delete Profile
                             </button>
                             <button
                                 type="submit"
-                                className="inline-flex bg-black justify-center py-1 px-4 border border-transparent shadow-sm text-sm font-medium hover:text-red-600 text-red-100 ring-red-100 focus:outline-none ring-2 hover:ring-red-600"
+                                className="inline-flex bg-black justify-center py-1 px-4 border border-transparent shadow-sm text-sm font-medium hover:text-black text-white hover:bg-white ring-black focus:outline-none ring-2 hover:ring-black"
                             >
                                 Save
                             </button>

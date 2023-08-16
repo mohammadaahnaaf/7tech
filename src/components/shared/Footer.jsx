@@ -10,8 +10,8 @@ export function Footer() {
         <h1 className='text-red-600'>
           Copyright © SevenTech 2022.
         </h1>
-        {/* <a className='text-gray-800 hover:text-white' href='https://www.ahnafyaes.tech/'>@Ahnaf</a>{' '} & {' '} */}
-        {/* <a className='text-gray-800 hover:text-white' href='https://www.facebook.com/tanvir.stmz'>@Tanvir.</a> */}
+        {/* <a className='text-gray-800 hover:text-black' href='https://www.ahnafyaes.tech/'>@Ahnaf</a>{' '} & {' '} */}
+        {/* <a className='text-gray-800 hover:text-black' href='https://www.facebook.com/tanvir.stmz'>@Tanvir.</a> */}
       </div>
     </footer>
   )
@@ -21,14 +21,14 @@ export function Footer() {
 export function Footers() {
   return (
 
-    <footer className="bg-black font-normal bg-center bg-cover">
-      <div className='bg-black bg-opacity-0 p-6'>
+    <footer className="bg-gray-100 font-normal bg-center bg-cover">
+      <div className='p-6'>
         <div className="md:flex md:justify-between">
           <div className="md:hidden block mb-6">
             <Link href="/">
               <a className="grid gap-2 items-center justify-items-center">
                 <Image height={45} width={100} src="/logo.png" className="w-auto h-8" alt="Logo" />
-                <span className="self-center text-lg font-medium whitespace-nowrap text-white hover:text-red-600">SevenTech Engineering LTD.</span>
+                <span className="self-center text-lg font-medium whitespace-nowrap text-black hover:text-red-600">SevenTech Engineering LTD.</span>
               </a>
             </Link>
           </div>
@@ -36,15 +36,15 @@ export function Footers() {
             <Link href="/">
               <a className="grid gap-2 items-center justify-items-center">
                 <Image height={60} width={120} src="/logo.png" className="hidden md:block w-auto h-8" alt="Logo" />
-                <span className="self-center text-lg font-medium whitespace-nowrap text-blue-600 hover:text-red-600">SevenTech Engineering Ltd.</span>
+                <span className="self-center text-lg font-medium whitespace-nowrap text-[#005DAB] hover:text-red-600">SevenTech Engineering Ltd.</span>
               </a>
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
 
-              <h2 className="mb-3 text-sm font-semibold uppercase text-white">Call Us</h2>
-              <ul className="text-white">
+              <h2 className="mb-3 text-sm font-semibold uppercase text-black">Call Us</h2>
+              <ul className="text-black">
                 <li className="mb-2 hover:text-red-600 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -71,8 +71,8 @@ export function Footers() {
 
 
             <div>
-              <h2 className="mb-3 text-sm font-semibold uppercase text-white">About</h2>
-              <ul className="text-white">
+              <h2 className="mb-3 text-sm font-semibold uppercase text-black">About</h2>
+              <ul className="text-black">
                 <li className="mb-2">
                   <Link href="/about">
                     <a className="hover:text-red-600">About us</a>
@@ -91,8 +91,8 @@ export function Footers() {
               </ul>
             </div>
             <div>
-              <h2 className="mb-3 text-sm font-semibold uppercase text-white">Contact</h2>
-              <ul className="text-white">
+              <h2 className="mb-3 text-sm font-semibold uppercase text-black">Contact</h2>
+              <ul className="text-black">
                 <li className="mb-2">
                   <Link href="https://www.facebook.com/rdragonbd/">
                     <a className="flex items-center hover:text-red-600">
@@ -144,8 +144,8 @@ export function Footers() {
               </ul>
             </div>
             <div>
-              <h2 className="mb-3 text-sm font-semibold text-white uppercase">Find us</h2>
-              <ul className="text-white">
+              <h2 className="mb-3 text-sm font-semibold text-black uppercase">Find us</h2>
+              <ul className="text-black">
                 <li className="mb-2">
                   <Link href='https://goo.gl/maps/7nBfZRWCmJXRNqdX8'>
                     <a className='cursor-pointer hover:text-red-600'>
@@ -166,9 +166,9 @@ export function Footers() {
             </div>
           </div>
         </div>
-        <hr className="my-3 border-gray-700 sm:mx-auto lg:my-6" />
+        <hr className="my-2 border-white sm:mx-auto lg:my-6" />
         <div className="sm:flex sm:items-center sm:justify-center">
-          <span className="text-sm text-blue-600 text-center">© 2023{' '}
+          <span className="text-sm text-[#005DAB] text-center">© 2023{' '}
             <Link href="https://www.seventech.com.bd">
               <a className="hover:text-red-600">
                 SevenTech™{' '}

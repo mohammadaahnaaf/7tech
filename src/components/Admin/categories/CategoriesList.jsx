@@ -158,16 +158,16 @@ function Categories() {
     // }
 
     return (
-        <div className="mx-3 mt-3 relative overflow-x-auto bg-red-100 shadow-md sm:rounded-lg">
+        <div className="mx-3 mt-3 relative overflow-x-auto bg-gray-100 shadow-md sm:rounded-lg">
             {modal}
             <SuccessText success={success} />
             {/* <ErrorText error={error} /> */}
-            <div className='flex justify-center w-full py-1 bg-black'>
-                <div className='md:w-1/3'>
+            <div className='flex justify-center w-full py-1 bg-red-600'>
+                <div className='md:w-1/3 bg-white bg-opacity-50 rounded-full'>
                     <Search searchButton={true} setSearchTerm={setSearchTerm} />
                 </div>
                 <Link href='/admin/category/add'>
-                    <a className='bg-black ml-4 text-sm font-medium text-red-600 ring-1 ring-red-600 hover:bg-red-600 hover:text-white flex items-center my-1 px-3 rounded-full'>Add Category</a>
+                    <a className='hover:bg-white ml-4 text-sm font-medium hover:text-red-600 ring-1 ring-white hover:ring-1 hover:ring-red-600 bg-red-600 text-white flex items-center my-1 px-3 rounded-full'>Add Category</a>
                 </Link>
             </div>
             <table className="w-full text-sm text-left text-red-600">
