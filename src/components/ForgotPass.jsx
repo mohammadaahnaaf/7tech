@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { BasicNavbar, ErrorText, Footer } from './shared';
 import axiosAPI from './utils/axios-api';
 
-export function Logins() {
+export function ForgotPass() {
 
     const [error, setError] = useState("")
     const [success, setSuccess] = useState("")
@@ -68,7 +68,7 @@ export function Logins() {
                         src="/logo.png"
                         alt="seventech logo"
                     />
-                    <h2 className="mt-6 text-center text-2xl md:text-3xl font-extrabold text-black">Login Here</h2>
+                    <h2 className="mt-6 text-center text-2xl md:text-3xl font-extrabold text-black">Forget Password</h2>
                     <p className="mt-2 text-center text-sm text-black">
                         Don't have an account?{' '}
                         <a href="signin" className="font-medium text-gray-500 hover:text-black">
@@ -96,72 +96,19 @@ export function Logins() {
                                 placeholder="Email address"
                             />
                         </div>
-                        <div className='relative'>
-                            <label htmlFor="password" className="sr-only">
-                                Password
-                            </label>
-                            <input
-                                id="password"
-                                name="password"
-                                type={showPass}
-                                autoComplete="current-password"
-                                required
-                                className="appearance-none bg-black rounded-none relative block w-full px-3 py-2 border border-red-300 placeholder-black text-red-900 rounded-b-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
-                                placeholder="Password"
-                            />
-                            <span className="absolute px-2 right-0 inset-y-0 flex items-center pl-3">
-                                <button type='button' onClick={handleShowPass} className=''>
-                                    {showPass === 'password' ? (
-                                        <EyeIcon className="h-5 w-5 text-red-700 hover:text-black" aria-hidden="true" />
-                                    ) : (
-                                        <EyeOffIcon className="h-5 w-5 text-red-700 hover:text-black" aria-hidden="true" />
-                                    )}
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className='grid gap-1'>
-                        <div className="text-sm text-center py-2 md:text-right">
-                            <Link href='/forgotpassword'>
-                                <a className="font-medium text-gray-500 hover:text-black">
-                                    Forgot your password?
-                                </a>
-                            </Link>
-                        </div>
-                        {/* <div className="flex items-center w-full">
-                        <input
-                            id="remember-me"
-                            name="remember-me"
-                            type="checkbox"
-                            className="h-4 w-4 text-gray-500 focus:ring-black border-gray-300 rounded"
-                        />
-                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                            I agree to the terms and conditions.
-                        </label>
-                    </div> */}
+             
                     </div>
                     <div>
                         <button
                             type="submit"
                             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-black focus:bg-black focus:outline-none"
                         >
-                            Login
+                            Sent E-mail
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-    )
-}
-
-export function Login() {
-    return (
-        <>
-            <BasicNavbar />
-            <Logins />
-            <Footer />
-        </>
     )
 }
 

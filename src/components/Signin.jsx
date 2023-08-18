@@ -53,7 +53,7 @@ export function Signin() {
     return (
         <>
             <BasicNavbar />
-            <div className="min-h-screen bg-[url('/spinner.png')] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8 bg-black bg-opacity-20 rounded-lg p-3">
                     <div>
                         <img
@@ -61,10 +61,10 @@ export function Signin() {
                             src="/logo.png"
                             alt="seven tech"
                         />
-                        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-200">Sign Up Here</h2>
-                        <p className="mt-2 text-center text-sm text-blue-500">
+                        <h2 className="mt-6 text-center text-3xl font-extrabold text-black">Sign Up Here</h2>
+                        <p className="mt-2 text-center text-sm text-black">
                             Already have an account?{' '}
-                            <a href="login" className="font-medium text-red-500 hover:text-white">
+                            <a href="login" className="font-medium text-gray-500 hover:text-black">
                                 Login
                             </a>
                         </p>
@@ -85,7 +85,7 @@ export function Signin() {
                                     type="text"
                                     // autoComplete="fullName"
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                                     placeholder="Full name"
                                 />
                             </div>
@@ -99,7 +99,7 @@ export function Signin() {
                                     type="tel"
                                     // autoComplete="phone"
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                                     placeholder="Phone number"
                                 />
                             </div>
@@ -113,7 +113,7 @@ export function Signin() {
                                     type="email"
                                     // autoComplete="email"
                                     required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
+                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                                     placeholder="Email address"
                                 />
                             </div>
@@ -133,9 +133,9 @@ export function Signin() {
                                 <span className="absolute px-2 right-0 inset-y-0 flex items-center pl-3">
                                     <button type='button' onClick={handleShowPass} className=''>
                                         {showPass === 'password' ? (
-                                            <EyeIcon className="h-5 w-5 text-gray-700 hover:text-red-500" aria-hidden="true" />
+                                            <EyeIcon className="h-5 w-5 text-gray-700 hover:text-black" aria-hidden="true" />
                                         ) : (
-                                            <EyeOffIcon className="h-5 w-5 text-gray-700 hover:text-red-500" aria-hidden="true" />
+                                            <EyeOffIcon className="h-5 w-5 text-gray-700 hover:text-black" aria-hidden="true" />
                                         )}
                                     </button>
                                 </span>
@@ -156,9 +156,9 @@ export function Signin() {
                                 <span className="absolute px-2 right-0 inset-y-0 flex items-center pl-3">
                                     <button type='button' onClick={handleShowPass} className=''>
                                         {showPass === 'password' ? (
-                                            <EyeIcon className="h-5 w-5 text-gray-700 hover:text-red-500" aria-hidden="true" />
+                                            <EyeIcon className="h-5 w-5 text-gray-700 hover:text-black" aria-hidden="true" />
                                         ) : (
-                                            <EyeOffIcon className="h-5 w-5 text-gray-700 hover:text-red-500" aria-hidden="true" />
+                                            <EyeOffIcon className="h-5 w-5 text-gray-700 hover:text-black" aria-hidden="true" />
                                         )}
                                     </button>
                                 </span>
@@ -188,7 +188,7 @@ export function Signin() {
                         <div>
                             <button
                                 type="submit"
-                                className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-black focus:bg-red-500 focus:outline-none"
+                                className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-black focus:bg-black focus:outline-none"
                             >
                                 Signup
                             </button>

@@ -320,7 +320,7 @@ export function BasicNavbar() {
                                     <div className="ml-4 flex items-center md:ml-6">
 
                                         {/* Cart  */}
-                                        <Link href='/cart'>
+                                        {/* <Link href='/cart'>
                                             <a className="text-red-600 bg-red-600 bg-opacity-30 flex p-[8px] rounded-full relative hover:text-gray-200 focus:ring-2 focus:ring-red-800">
 
                                                 <ShoppingCartIcon className="relative z-10 h-6 w-6" aria-hidden="true" />
@@ -329,15 +329,15 @@ export function BasicNavbar() {
                                                     <p className=" inline-flex items-center text-white text-xs">{totalUniqueItems}</p>
                                                 </span>
                                             </a>
-                                        </Link>
+                                        </Link> */}
 
                                         {/* Login and Signup Button shall show when user != isLoggedIn */}
                                         <div className='flex justify-between gap-2 mx-3'>
                                             <Link href='/signin'>
-                                                <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Signup</a>
+                                                <a className='bg-black text-sm hover:bg-white hover:text-black ring-white text-white ring-2 py-1 px-3'>Signup</a>
                                             </Link>
                                             <Link href='/login'>
-                                                <a className='bg-black text-sm hover:bg-red-600 text-red-600 hover:ring-white hover:text-white ring-2 ring-red-600 py-1 px-3'>Login</a>
+                                                <a className='bg-black hover:bg-white hover:text-black text-sm ring-white text-white ring-2 py-1 px-3'>Login</a>
                                             </Link>
                                         </div>
 
@@ -378,8 +378,10 @@ export function BasicNavbar() {
                                                 </Menu.Items>
                                             </Transition>
                                         </Menu>
+
                                     </div>
                                 </div>
+                                
                                 <div className="-mr-2 flex md:hidden">
 
                                     {/* Mobile menu button */}
@@ -394,6 +396,7 @@ export function BasicNavbar() {
 
 
                                 </div>
+
                             </div>
                         </div>
 
