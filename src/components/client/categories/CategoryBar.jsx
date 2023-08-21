@@ -5,7 +5,7 @@ import axiosRoot from "@seventech/utils/axios-root";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
-// import { categorya } from "src/mock/mock-data";
+import { categorya } from "src/mock/mock-data";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -245,7 +245,7 @@ export function CategoryBar({ open, setOpen }) {
 export function NewCatBar() {
 
     const [isOpen, setIsOpen] = React.useState(false)
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState(categorya)
     const router = useRouter()
 
     //get Data

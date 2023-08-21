@@ -2,23 +2,14 @@ import '../styles/tag.css'
 import '../styles/globals.css'
 import { CartProvider } from 'react-use-cart';
 
-
-const CartContextProvider = ({ children }) => {
-  return (
-    <CartProvider>
-      {children}
-    </CartProvider>
-  );
-};
-
 function MyApp({ Component, pageProps }) {
 
   return (
-    <CartContextProvider>   
+    <CartProvider>   
         <Component {...pageProps} />
-    </CartContextProvider>
+    </CartProvider>
   );
 
 }
 
-export default MyApp
+export default MyApp;
