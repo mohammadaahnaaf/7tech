@@ -245,7 +245,9 @@ export function CategoryBar({ open, setOpen }) {
 export function NewCatBar() {
 
     const [isOpen, setIsOpen] = React.useState(false)
-    const [categories, setCategories] = useState(categorya)
+    const [subOpen, setSubOpen] = React.useState(false)
+    const [categories, setCategories] = useState(categorya.categories)
+    const [subCategories, setSubCategories] = useState([])
     const router = useRouter()
 
     //get Data
@@ -270,10 +272,16 @@ export function NewCatBar() {
             setIsOpen(true) : setIsOpen(false)
     }
 
-    const sortedCategories = categories.slice().sort((a, b) => a.name.localeCompare(b.name));
+    function handleCategory(item) {
+        setSubCategories(item)
+        setTimeout(() => { setSubOpen(true) })
+    }
+
+    const sortedCategories = categories?.slice().sort((a, b) => a.name.localeCompare(b.name));
+    const sortedSubCategories = subCategories?.slice().sort((a, b) => a.name.localeCompare(b.name));
 
     return (
-        <>
+        <div className="relative grid">
             <header className="bg-[#005DAB]">
                 <div className="max-w-7xl flex items-center justify-between w-full mx-auto px-4 sm:px-6 xl:px-8">
                     <button
@@ -310,19 +318,45 @@ export function NewCatBar() {
                 </div>
             </header>
 
-            {isOpen && (
-                <div className="grid gap-2 text-white items-start bg-black z-50 max-w-lg h-52 w-full px-4 sm:px-6 xl:px-8"
-                    onMouseLeave={(e) => {
-                        setIsOpen(false)
-                    }}>
 
-                    {sortedCategories?.map((item, index) => (
-                        <button className="hover:bg-black hover:text-white px-4 py-1 text-left border-none outline-none ring-0" type='button' key={index} onClick={() => router.push(`/category/${item.name}`)}>
-                            • {item.name}
-                        </button>
-                    ))}
-                </div>
-            )}
+            <div className="flex fixed top-0 mt-28 w-full"
+                onMouseLeave={(e) => {
+                    setIsOpen(false)
+                    setSubOpen(false)
+                }}>
+                
+                {isOpen && (
+                    <div className="grid  gap-1 py-2 text-white items-start bg-[#005DAB] z-50  w-full px-4 sm:px-6 xl:px-8">
+                        {sortedCategories?.map((item, index) => (
+                            <button className="hover:bg-black hover:text-white px-4 py-1 text-left border-none outline-none ring-0" type='button' key={index}
+                                onClick={() => router.push(`/category/${item.name}`)}
+                                onMouseEnter={e => {
+                                    setTimeout(() => { handleCategory(item.subCategories) }, 200)
+                                }}>
+                                • {item.name}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
+                {subOpen ? (
+                    <div className="grid gap-1 py-2 text-white items-start bg-[#005DAB] z-50  w-full px-4 sm:px-6 xl:px-8"
+                        onMouseLeave={(e) => {
+                            setSubOpen(false)
+                        }}>
+
+                        {sortedSubCategories?.map((item, index) => (
+                            <button className="hover:bg-black hover:text-white px-4 py-1 text-left border-none outline-none ring-0" type='button'
+                                key={index} onClick={() => router.push(`/category/${item.name}`)}>
+                                • {item.name}
+                            </button>
+                        ))}
+                    </div>
+                ) :
+                    <div className="grid text-white items-start bg-[#005DAB] z-50 w-full px-4 sm:px-6 xl:px-8" />
+                }
+            </div>
+
 
             {/* <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
@@ -370,7 +404,7 @@ export function NewCatBar() {
                     </div>
                 </Dialog>
             </Transition> */}
-        </>
+        </div>
     )
 }
 
