@@ -244,7 +244,7 @@ export function CategoryBar({ open, setOpen }) {
 
 export function NewCatBar() {
 
-    let [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = React.useState(false)
     const [categories, setCategories] = useState([])
     const router = useRouter()
 
@@ -266,7 +266,8 @@ export function NewCatBar() {
     }
 
     function openModal() {
-        setIsOpen(true)
+        isOpen === false ?
+            setIsOpen(true) : setIsOpen(false)
     }
 
     const sortedCategories = categories.slice().sort((a, b) => a.name.localeCompare(b.name));
@@ -309,8 +310,22 @@ export function NewCatBar() {
                 </div>
             </header>
 
-            <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            {isOpen && (
+                <div className="grid gap-2 text-white items-start bg-black z-50 max-w-lg h-52 w-full px-4 sm:px-6 xl:px-8"
+                    onMouseLeave={(e) => {
+                        setIsOpen(false)
+                    }}>
+
+                    {sortedCategories?.map((item, index) => (
+                        <button className="hover:bg-black hover:text-white px-4 py-1 text-left border-none outline-none ring-0" type='button' key={index} onClick={() => router.push(`/category/${item.name}`)}>
+                            • {item.name}
+                        </button>
+                    ))}
+                </div>
+            )}
+
+            {/* <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-200"
@@ -335,14 +350,14 @@ export function NewCatBar() {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel
-                                    onMouseLeave={e => {
+                                    onMouseLeave={(e) => {
                                         setIsOpen(false)
                                     }}
                                     className="w-full py-5 border-t-2 border-black px-5 transform overflow-hidden bg-white shadow-xl transition-all"
                                 >
                                     <div className="grid gap-2 items-start max-w-7xl w-full mx-auto px-4 sm:px-6 xl:px-8">
-
-                                        {sortedCategories.map((item, index) => (
+                                       
+                                        {sortedCategories?.map((item, index) => (
                                             <button className="hover:bg-black hover:text-white px-4 py-1 text-left border-none outline-none ring-0" type='button' key={index} onClick={() => router.push(`/category/${item.name}`)}>
                                                 • {item.name}
                                             </button>
@@ -354,7 +369,7 @@ export function NewCatBar() {
                         </div>
                     </div>
                 </Dialog>
-            </Transition>
+            </Transition> */}
         </>
     )
 }
