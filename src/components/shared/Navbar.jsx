@@ -40,7 +40,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export function Navbar({ setSearchTerm, setOpen }) {
+export function Navbaro({ setSearchTerm, setOpen }) {
 
     const [useri, setUseri] = useState(false);
     const [amAdmin, setAmAdmin] = useState(false);
@@ -294,6 +294,12 @@ export function Navbar({ setSearchTerm, setOpen }) {
     )
 }
 
+export function Navbar({ setSearchTerm, setOpen }) {
+    return (
+        <header>NavBar</header>
+    )
+}
+
 export function BasicNavbar() {
 
 
@@ -381,7 +387,7 @@ export function BasicNavbar() {
 
                                     </div>
                                 </div>
-                                
+
                                 <div className="-mr-2 flex md:hidden">
 
                                     {/* Mobile menu button */}
