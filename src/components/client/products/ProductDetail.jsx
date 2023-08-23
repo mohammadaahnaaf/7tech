@@ -164,14 +164,14 @@ export function Details() {
                                 <div className="mt-2 flex justify-between ">
                                     <button
                                         type="button"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#005DAB] focus-visible:ring-offset-2"
                                         onClick={prevImage}
                                     >
                                         Back
                                     </button>
                                     <button
                                         type="button"
-                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#005DAB] focus-visible:ring-offset-2"
                                         onClick={nextImage}
                                     >
                                         Next
@@ -206,7 +206,7 @@ export function Details() {
                                         className="mx-auto w-full h-full rounded-md"
                                     />
                                     <div className='absolute backdrop-blur-sm inset-0 z-10 opacity-0 hover:opacity-100 duration-300 flex justify-center items-center'>
-                                        <button onClick={() => handleViewImage(item)} className="text-white bg-red-600 p-1 hover:bg-black text-lg font-semibold">
+                                        <button onClick={() => handleViewImage(item)} className="text-white bg-[#005DAB] p-1 hover:bg-black text-lg font-semibold">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
@@ -293,7 +293,7 @@ export function Details() {
                                                     <StarIcon
                                                         key={rating}
                                                         className={classNames(
-                                                            product.averageRating > rating ? 'text-red-600' : 'text-gray-200',
+                                                            product.averageRating > rating ? 'text-[#005DAB]' : 'text-gray-200',
                                                             'h-5 w-5 flex-shrink-0'
                                                         )}
                                                         aria-hidden="true"
@@ -302,7 +302,7 @@ export function Details() {
                                                 <span className='px-2 hidden lg:block'> {product.reviewCount}
                                                     {product.reviewCount === 1 ? " Review" : " Reviews"}
                                                 </span>
-                                                <button type='button' className='hidden hover:text-red-600 lg:block' onClick={handleScroll}>
+                                                <button type='button' className='hidden hover:text-[#005DAB] lg:block' onClick={handleScroll}>
                                                     | Write A Review
                                                 </button>
                                             </td>
@@ -324,11 +324,11 @@ export function Details() {
                                     <div>
                                         <h4 className="text-sm font-medium text-gray-900">Qty</h4>
                                         <div className="relative flex flex-row w-full h-12 mt-1 bg-transparent bg-black">
-                                            <button disabled={qty === 1} type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full hover:text-white bg-black hover:bg-red-600 text-white cursor-pointer ">
+                                            <button disabled={qty === 1} type='button' onClick={() => setQty(count => count - 1)} data-action="decrement" className="w-20 h-full hover:text-white bg-black hover:bg-[#005DAB] text-white cursor-pointer ">
                                                 <span className="m-auto text-2xl font-semibold">−</span>
                                             </button>
-                                            <p className="flex items-center justify-center w-full font-semibold text-center hover:bg-red-600 bg-black text-white border-white border-x-2 text-md">{qty}</p>
-                                            <button disabled={qty === cartProduct.stock} type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full bg-black text-white hover:bg-red-600 cursor-pointer">
+                                            <p className="flex items-center justify-center w-full font-semibold text-center hover:bg-[#005DAB] bg-black text-white border-white border-x-2 text-md">{qty}</p>
+                                            <button disabled={qty === cartProduct.stock} type='button' onClick={() => setQty(count => count + 1)} data-action="increment" className="w-20 h-full bg-black text-white hover:bg-[#005DAB] cursor-pointer">
                                                 <span className="m-auto text-2xl font-semibold">+</span>
                                             </button>
                                         </div>
@@ -342,7 +342,7 @@ export function Details() {
                                             onClick={() => addItem(cartProduct, qty)}
                                             className={classNames(
                                                 !product.inStock ? "cursor-not-allowed" : "",
-                                                "flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-red-600 hover:bg-black text-white")}
+                                                "flex items-center justify-center w-full px-8 py-3 mt-6 text-base font-medium bg-[#005DAB] hover:bg-black text-white")}
                                         >
                                             Add to Cart
                                         </button>
@@ -360,7 +360,7 @@ export function Details() {
                         <>
                             <div className="sm:hidden">
                                 <label htmlFor="tabs" className="sr-only">More Information</label>
-                                <select value={show || ''} onChange={(e) => setShow(e.target.value)} id="tabs" className="bg-red-50 border border-red-300 text-gray-700 sm:text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full">
+                                <select value={show || ''} onChange={(e) => setShow(e.target.value)} id="tabs" className="bg-blue-50 border border-blue-300 text-gray-700 sm:text-sm rounded-lg focus:ring-[#005DAB] focus:border-[#005DAB] block w-full">
                                     <option value='details'>
                                         Specifications
                                     </option>
@@ -372,14 +372,14 @@ export function Details() {
                                     </option>
                                 </select>
                             </div>
-                            <ul className="hidden text-sm font-medium text-center text-gray-700 divide-x-2 divide-red-600 border-b-red-600 border-b-2 focus:divide-red-600 shadow sm:flex ">
+                            <ul className="hidden text-sm font-medium text-center text-gray-700 divide-x-2 divide-[#005DAB] border-b-[#005DAB] border-b-2 focus:divide-[#005DAB] shadow sm:flex ">
                                 <li className="w-full">
                                     <button
                                         onClick={() => setShow('details')}
                                         type='button'
-                                        className={classNames(show === 'details' ? "!bg-red-600 text-white" : "text-gray-900",
+                                        className={classNames(show === 'details' ? "!bg-[#005DAB] text-white" : "text-gray-900",
                                             "inline-block w-full py-2 bg-white active focus:outline-none text-gray-900",
-                                            show === 'info' ? 'bg-gradient-to-l from-red-600 to-white' : ''
+                                            show === 'info' ? 'bg-gradient-to-l from-[#005DAB] to-white' : ''
 
                                         )}
                                     >
@@ -390,10 +390,10 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('info')}
                                         type='button'
-                                        className={classNames(show === 'info' ? "!bg-red-600 text-white" : "text-gray-900",
+                                        className={classNames(show === 'info' ? "!bg-[#005DAB] text-white" : "text-gray-900",
                                             "inline-block w-full py-2 text-gray-900 bg-white active focus:outline-none",
-                                            show === 'reviews' ? 'bg-gradient-to-l from-red-600 to-white' : '',
-                                            show === 'details' ? 'bg-gradient-to-r from-red-600 to-white' : '',
+                                            show === 'reviews' ? 'bg-gradient-to-l from-[#005DAB] to-white' : '',
+                                            show === 'details' ? 'bg-gradient-to-r from-[#005DAB] to-white' : '',
 
                                         )}
                                     >
@@ -404,9 +404,9 @@ export function Details() {
                                     <button
                                         onClick={() => setShow('reviews')}
                                         type='button'
-                                        className={classNames(show === 'reviews' ? "!bg-red-600 text-white" : "text-gray-900",
+                                        className={classNames(show === 'reviews' ? "!bg-[#005DAB] text-white" : "text-gray-900",
                                             "inline-block w-full py-2 bg-white text-gray-900 active focus:outline-none",
-                                            show === 'info' ? 'bg-gradient-to-r from-red-600 to-white' : ''
+                                            show === 'info' ? 'bg-gradient-to-r from-[#005DAB] to-white' : ''
                                         )}
                                     >
                                         Reviews
@@ -466,7 +466,7 @@ export function Details() {
                                                     <StarIcon
                                                         key={rating}
                                                         className={classNames(
-                                                            product.averageRating > rating ? 'text-red-500' : 'text-gray-300',
+                                                            product.averageRating > rating ? 'text-[#005DAB]' : 'text-gray-300',
                                                             'h-8 w-8 flex-shrink-0'
                                                         )}
                                                         aria-hidden="true"
@@ -491,7 +491,7 @@ export function Details() {
                                                             <StarIcon
                                                                 key={rating}
                                                                 className={classNames(
-                                                                    review.rating > rating ? 'text-red-400' : 'text-gray-300',
+                                                                    review.rating > rating ? 'text-blue-400' : 'text-gray-300',
                                                                     'h-6 w-6 flex-shrink-0'
                                                                 )}
                                                                 aria-hidden="true"
@@ -519,27 +519,27 @@ export function Details() {
                                                     name="comment"
                                                     type='text'
                                                     rows={3}
-                                                    className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-red-600 focus:border-red-600 sm:text-sm"
+                                                    className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#005DAB] focus:border-[#005DAB] sm:text-sm"
                                                     placeholder="Write your review"
                                                     defaultValue={''}
                                                 />
                                             </div>
-                                            <div className="flex text-gray-800 hover:text-red-800 items-center p-3 mt-3 hover:bg-red-100 bg-gray-200 rounded-md">
+                                            <div className="flex text-gray-800 hover:text-blue-800 items-center p-3 mt-3 hover:bg-blue-100 bg-gray-200 rounded-md">
                                                 <p className='mr-3'>Do You Like It?</p>
                                                 {[0, 1, 2, 3, 4].map((rating, index) => (
                                                     <button type='button' onClick={() => setStar(index + 1)}>
                                                         <StarIcon
                                                             key={index}
                                                             className={classNames(
-                                                                star > rating ? 'text-red-600' : 'text-red-200',
-                                                                'h-6 w-6 flex-shrink-0 ring-2 hover:text-red-600 ring-red-200 rounded bg-white mx-1'
+                                                                star > rating ? 'text-[#005DAB]' : 'text-blue-200',
+                                                                'h-6 w-6 flex-shrink-0 ring-2 hover:text-[#005DAB] ring-blue-200 rounded bg-white mx-1'
                                                             )}
                                                             aria-hidden="true"
                                                         />
                                                     </button>
                                                 ))}
                                             </div>
-                                            <button type='submit' className="flex items-center justify-center px-4 py-1 mt-3 text-base font-medium text-white bg-red-600 border border-transparent rounded-md min-w-15 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600">
+                                            <button type='submit' className="flex items-center justify-center px-4 py-1 mt-3 text-base font-medium text-white bg-[#005DAB] border border-transparent rounded-md min-w-15 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#005DAB]">
                                                 Comment
                                             </button>
                                         </div>

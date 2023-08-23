@@ -24,14 +24,14 @@ export function ProductCards({ product }) {
 
     return (
         <div className="group ring-black ring-2 hover:scale-90 duration-300 bg-white relative">
-            <div className="absolute z-40 grid items-center justify-items-center top-0 right-0 p-1 text-white hover:bg-red-600 bg-black">
+            <div className="absolute z-40 grid items-center justify-items-center top-0 right-0 p-1 text-white hover:bg-[#005DAB] bg-black">
                 <button
                     type='button'
                     disabled={!product.inStock || product.quantity === 0}
                     onClick={() => addItem(cartProduct)}
                     className={classNames(
                         !product.inStock ? "cursor-not-allowed" : "",
-                        "hover:text-red-600"
+                        "hover:text-[#005DAB]"
                     )}
                 >
                     <ShoppingCartIcon className='lg:h-7 lg:w-7 h-5 w-5' />
@@ -62,7 +62,7 @@ export function ProductCards({ product }) {
                         </a>
                     </Link>
                     <p className="mt-1 w-full flex justify-end items-center text-end text-sm gap-2 text-green-800">
-                        <span className='text-red-600 line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}
+                        <span className='text-[#005DAB] line-through'> ৳ {product.regularPrice}</span> ৳ {product.onlinePrice}
                     </p>
                 </div>
                 <div className='h-10 grid md:hidden content-between'>
@@ -79,13 +79,13 @@ export function ProductCards({ product }) {
                             onClick={() => addItem(cartProduct)}
                             className={classNames(
                                 !product.inStock ? "cursor-not-allowed" : "",
-                                "hover:text-red-600 text-black block 2xl:hidden"
+                                "hover:text-[#005DAB] text-black block 2xl:hidden"
                             )}
                         >
                             <ShoppingCartIcon className='h-5 w-5' />
                         </button>
                         <p className="mt-1 w-full flex justify-end items-center text-end text-sm font-semibold gap-2 text-green-500">
-                            <span className='text-red-500 line-through'> ৳ {product.regularPrice}</span> ৳ {product.offerPrice || product.onlinePrice}
+                            <span className='text-[#005DAB] line-through'> ৳ {product.regularPrice}</span> ৳ {product.offerPrice || product.onlinePrice}
                         </p>
                     </div>
                 </div>

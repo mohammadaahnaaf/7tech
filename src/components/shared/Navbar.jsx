@@ -40,7 +40,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export function Navbaro({ setSearchTerm, setOpen }) {
+export function Navbar({ setSearchTerm, setOpen }) {
 
     const [useri, setUseri] = useState(false);
     const [amAdmin, setAmAdmin] = useState(false);
@@ -294,7 +294,7 @@ export function Navbaro({ setSearchTerm, setOpen }) {
     )
 }
 
-export function Navbar({ setSearchTerm, setOpen }) {
+export function Navbaro({ setSearchTerm, setOpen }) {
     return (
         <header>NavBar</header>
     )

@@ -265,6 +265,7 @@ export function NewCatBar() {
 
     function closeModal() {
         setIsOpen(false)
+        setSubOpen(false)
     }
 
     function openModal() {
@@ -281,7 +282,7 @@ export function NewCatBar() {
     const sortedSubCategories = subCategories?.slice().sort((a, b) => a.name.localeCompare(b.name));
 
     return (
-        <div className="relative grid">
+        <div className="relative grid z-50">
             <header className="bg-[#005DAB]">
                 <div className="max-w-7xl flex items-center justify-between w-full mx-auto px-4 sm:px-6 xl:px-8">
                     <button
@@ -290,28 +291,28 @@ export function NewCatBar() {
                         onMouseEnter={e => {
                             setTimeout(() => { setIsOpen(true) }, 200)
                         }}
-                        className='text-white font-normal text-md py-2'
+                        className='text-white font-normal text-md py-2 hover:text-black'
                     >
                         Products
                     </button>
                     <button
                         type="button"
                         onClick={() => router.push('/about')}
-                        className='text-white text-md p-2'
+                        className='text-white text-md p-2 hover:text-black'
                     >
                         About us
                     </button>
                     <button
                         type="button"
                         onClick={() => router.push('https://goo.gl/maps/7nBfZRWCmJXRNqdX8')}
-                        className='text-white text-md p-2'
+                        className='text-white text-md p-2 hover:text-black'
                     >
                         Find us
                     </button>
                     <button
                         type="button"
                         onClick={() => router.push('tel:+8801911444466')}
-                        className='text-white text-md p-2'
+                        className='text-white text-md p-2 hover:text-black'
                     >
                         Contact us
                     </button>
@@ -321,12 +322,12 @@ export function NewCatBar() {
 
             <div className="flex fixed top-0 mt-28 w-full"
                 onMouseLeave={(e) => {
-                    setIsOpen(false)
                     setSubOpen(false)
+                    setIsOpen(false)
                 }}>
-                
+
                 {isOpen && (
-                    <div className="grid  gap-1 py-2 text-white items-start bg-[#005DAB] z-50  w-full px-4 sm:px-6 xl:px-8">
+                    <div className="grid gap-1 py-2 text-white items-start bg-[#005DAB] z-50 w-full px-4 sm:px-6 xl:px-8">
                         {sortedCategories?.map((item, index) => (
                             <button className="hover:bg-black hover:text-white px-4 py-1 text-left border-none outline-none ring-0" type='button' key={index}
                                 onClick={() => router.push(`/category/${item.name}`)}
