@@ -3,13 +3,18 @@ import '../styles/globals.css'
 import { CartProvider } from 'react-use-cart';
 
 function MyApp({ Component, pageProps }) {
+  
+  const [view, setView] = React.useState(false)
+  
+  React.useEffect(() => {
+    setView(true)
+  }, [])
 
-  return (
-    <CartProvider>   
-        <Component {...pageProps} />
+  return view ? (
+    <CartProvider>
+      <Component {...pageProps} />
     </CartProvider>
-  );
-
+  ) : null;
 }
 
 export default MyApp;
