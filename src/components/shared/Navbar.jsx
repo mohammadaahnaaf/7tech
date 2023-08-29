@@ -8,6 +8,7 @@ import { useCart } from 'react-use-cart'
 import axiosAPI from '../utils/axios-api'
 import Link from 'next/link'
 import { HomeIcon, ShieldCheckIcon, UserCircleIcon, UserIcon } from '@heroicons/react/solid'
+import { isServer } from '@seventech/utils/isServer'
 
 
 const navigation = [
@@ -43,6 +44,7 @@ function classNames(...classes) {
 export function Navbar({ setSearchTerm, setOpen }) {
 
     const [useri, setUseri] = useState(false);
+    const [view, setView] = useState(false);
     const [amAdmin, setAmAdmin] = useState(false);
     const { pathname } = useRouter();
     const { totalUniqueItems } = useCart()
@@ -77,7 +79,14 @@ export function Navbar({ setSearchTerm, setOpen }) {
         Router.push('/login')
     }
 
-    return (
+    React.useEffect(() => {
+        setView(true)
+    }, [])
+
+    if (isServer()) {
+        return null
+    }
+    return view ? (
         <div className="min-h-full">
             <Disclosure as="nav" className="bg-white">
                 {({ open }) => (
@@ -291,7 +300,7 @@ export function Navbar({ setSearchTerm, setOpen }) {
                 )}
             </Disclosure>
         </div>
-    )
+    ): null
 }
 
 export function Navbaro({ setSearchTerm, setOpen }) {

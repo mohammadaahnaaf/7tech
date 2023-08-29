@@ -2,6 +2,7 @@ import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { ChevronDoubleRightIcon } from "@heroicons/react/solid";
 import axiosRoot from "@seventech/utils/axios-root";
+import { isServer } from "@seventech/utils/isServer";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
@@ -42,6 +43,7 @@ export function CategoryBar({ open, setOpen }) {
 
     const router = useRouter()
     const [categories, setCategories] = useState([])
+    const [view, setView] = useState(false)
 
     //Get Data
     // React.useEffect(() => {
@@ -52,7 +54,14 @@ export function CategoryBar({ open, setOpen }) {
     //     getCategory()
     // }, [router, open]);
 
-    return (
+    React.useEffect(() => {
+        setView(true)
+    }, [])
+
+    if (isServer()) {
+        return null
+    }
+    return view ? (
 
         <div className="bg-gradient-to-t from-pink-800 to-black">
             {/* Mobile menu */}
@@ -239,12 +248,13 @@ export function CategoryBar({ open, setOpen }) {
                 </div>
             </header>
         </div>
-    )
+    ) : null
 }
 
 export function NewCatBar() {
 
     const [isOpen, setIsOpen] = React.useState(false)
+    const [view, setView] = React.useState(false)
     const [subOpen, setSubOpen] = React.useState(false)
     const [categories, setCategories] = useState(categorya.categories)
     const [subCategories, setSubCategories] = useState([])
@@ -281,7 +291,14 @@ export function NewCatBar() {
     const sortedCategories = categories?.slice().sort((a, b) => a.name.localeCompare(b.name));
     const sortedSubCategories = subCategories?.slice().sort((a, b) => a.name.localeCompare(b.name));
 
-    return (
+    React.useEffect(() => {
+        setView(true)
+    }, [])
+
+    if (isServer()) {
+        return null
+    }
+    return view ? (
         <div className="relative grid z-50">
             <header className="bg-[#005DAB]">
                 <div className="max-w-7xl flex items-center justify-between w-full mx-auto px-4 sm:px-6 xl:px-8">
@@ -406,6 +423,6 @@ export function NewCatBar() {
                 </Dialog>
             </Transition> */}
         </div>
-    )
+    ) : null
 }
 

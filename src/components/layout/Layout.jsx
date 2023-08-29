@@ -1,12 +1,21 @@
 import React from 'react'
 import { Footers, Navbar } from '@seventech/shared'
 import { NewCatBar } from '@seventech/client'
+import { isServer } from '@seventech/utils/isServer'
 
 export function Layout({ children, setSearchTerm }) {
 
     const [open, setOpen] = React.useState(false)
+    const [view, setView] = React.useState(false)
 
-    return (
+    React.useEffect(() => {
+        setView(true)
+    }, [])
+
+    if (isServer()) {
+        return null
+    }
+    return view ? (
         <>
             <Navbar setOpen={setOpen} setSearchTerm={setSearchTerm} />
             {/* <CategoryBar open={open} setOpen={setOpen} /> */}
@@ -16,5 +25,5 @@ export function Layout({ children, setSearchTerm }) {
             </div>
             <Footers />
         </>
-    )
+    ) : null
 }

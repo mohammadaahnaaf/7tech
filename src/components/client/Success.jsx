@@ -14,8 +14,7 @@ export function Success({ order }) {
         if (pathname === '/checkout') {
             Router.push('/')
         }
-
-        emptyCart(true)
+        emptyCart()
     }
 
     return (
